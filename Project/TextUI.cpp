@@ -35,16 +35,17 @@ void TextUI::handleChoice()
 
 void TextUI::printMenu()
 {
-    printf("%s\n", MENU_DESCRIPTION);
-    printf("%s\n", MENU_CHOICE_1_DESCRIPTION);
-    printf("%s\n", MENU_CHOICE_2_DESCRIPTION);
-    printf("%s\n", MENU_CHOICE_3_DESCRIPTION);
-    printf("%s\n", MENU_CHOICE_4_DESCRIPTION);
-    printf("%s\n", MENU_CHOICE_5_DESCRIPTION);
+    cout << MENU_DESCRIPTION << endl;
+    cout << MENU_CHOICE_1_DESCRIPTION << endl;
+    cout << MENU_CHOICE_2_DESCRIPTION << endl;
+    cout << MENU_CHOICE_3_DESCRIPTION << endl;
+    cout << MENU_CHOICE_4_DESCRIPTION << endl;
+    cout << MENU_CHOICE_5_DESCRIPTION << endl;
 }
 
 void TextUI::createNewMindMap()
 {
+    //cout <<
     //_model->createMinMap();
 }
 
