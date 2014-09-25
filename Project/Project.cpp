@@ -2,11 +2,15 @@
 //
 
 #include "stdafx.h"
+#include "MindMapModel.h"
+#include "TextUI.h"
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	
-	return 0;
+    MindMapModel* model = new MindMapModel();
+    TextUI* textUI = new TextUI(model);
+    textUI->run();
+    return 0;
 }
 
