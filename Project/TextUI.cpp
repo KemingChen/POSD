@@ -5,6 +5,11 @@
 TextUI::TextUI(MindMapModel* model)
 {
     _model = model;
+    _choiceMap[CREATE_NEW_MIND_MAP] = &TextUI::createNewMindMap;
+    _choiceMap[INSERT_NEW_NODE] = &TextUI::insertNewNode;
+    _choiceMap[DISPLAY_MIND_MAP] = &TextUI::displayMindMap;
+    _choiceMap[SAVE_MIND_MAP] = &TextUI::saveMindMap;
+    _choiceMap[EXIT] = &TextUI::exit;
 }
 
 void TextUI::run()
@@ -19,24 +24,10 @@ void TextUI::run()
 void TextUI::handleChoice()
 {
     int choice;
-    scanf_s("%d", &choice);
-    switch (choice)
+    cin >> choice;
+    if (_choiceMap[choice])
     {
-        case CREATE_NEW_MIND_MAP:
-            createNewMindMap();
-            break;
-        case INSERT_NEW_NODE:
-            insertNewNode();
-            break;
-        case DISPLAY_MIND_MAP:
-            displayMindMap();
-            break;
-        case SAVE_MIND_MAP:
-            saveMindMap();
-            break;
-        case EXIT:
-            exit();
-            break;
+        (this->*_choiceMap[choice])();
     }
 }
 
