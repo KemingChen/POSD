@@ -24,7 +24,9 @@ void TextUI::run()
 void TextUI::handleChoice()
 {
     int choice;
+    cout << INPUT_START;
     cin >> choice;
+    cout << INPUT_END;
     if (_choiceMap[choice])
     {
         (this->*_choiceMap[choice])();
@@ -39,11 +41,11 @@ void TextUI::printMenu()
     printf("%s\n", MENU_CHOICE_3_DESCRIPTION);
     printf("%s\n", MENU_CHOICE_4_DESCRIPTION);
     printf("%s\n", MENU_CHOICE_5_DESCRIPTION);
-    printf("%s", MENU_END);
 }
 
 void TextUI::createNewMindMap()
 {
+    //_model->createMinMap();
 }
 
 void TextUI::insertNewNode()
