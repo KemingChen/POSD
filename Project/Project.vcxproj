@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="Composite.h" />
+    <ClInclude Include="ConstVariables.h" />
     <ClInclude Include="MindMapModel.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Root.h" />
