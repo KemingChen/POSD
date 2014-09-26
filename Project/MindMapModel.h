@@ -1,10 +1,16 @@
 #pragma once
-#include <string>
-using namespace std;
+#include "Component.h"
+#include "Root.h"
+#include "Node.h"
 
 class MindMapModel
 {
+    private:
+        // Private Variable
+        Component* _root;
+
     public:
+        // Public Method
         MindMapModel();
         void createMinMap(string description);
         void insertNode();

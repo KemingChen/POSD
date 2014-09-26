@@ -4,6 +4,7 @@
 
 Node::Node()
 {
+    _type = TYPE_NODE_NAME;
 }
 
 

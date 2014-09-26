@@ -43,10 +43,21 @@ void TextUI::printMenu()
     cout << MENU_CHOICE_5_DESCRIPTION << endl;
 }
 
+void TextUI::printMindMap()
+{
+    cout << Print_Mind_Map_DESCRIPTION << endl;
+    cout << endl;
+}
+
 void TextUI::createNewMindMap()
 {
-    //cout <<
-    //_model->createMinMap();
+    string description;
+    cout << CREATE_NEW_MIND_MAP_DESCRIPTION << endl;
+    cout << INPUT_START;
+    cin >> description;
+    cout << INPUT_END;
+    _model->createMinMap(description);
+    printMindMap();
 }
 
 void TextUI::insertNewNode()

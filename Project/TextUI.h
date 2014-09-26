@@ -3,7 +3,6 @@
 #include "ConstVariables.h"
 #include <iostream>
 #include <map>
-using namespace std;
 
 class TextUI
 {
@@ -19,6 +18,7 @@ class TextUI
         // Private Method
         void printMenu();
         void handleChoice();
+        void printMindMap();
         void createNewMindMap();
         void insertNewNode();
         void displayMindMap();

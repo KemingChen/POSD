@@ -1,3 +1,7 @@
+// Node Type Name
+#define TYPE_NODE_NAME "Node"
+#define TYPE_ROOT_NAME "Root"
+
 // Normal
 #define INPUT_START ">"
 #define INPUT_END "\n";
@@ -19,3 +23,6 @@
 
 // Create New Mind Map
 #define CREATE_NEW_MIND_MAP_DESCRIPTION "Please enter the topic:"
+
+// Print MindMap
+#define Print_Mind_Map_DESCRIPTION "The mind map Computer is displayed as follows:"

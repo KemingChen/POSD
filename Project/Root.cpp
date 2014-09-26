@@ -4,6 +4,7 @@
 
 Root::Root()
 {
+    _type = TYPE_ROOT_NAME;
 }
 
 
