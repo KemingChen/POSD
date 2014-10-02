@@ -1,7 +1,4 @@
 #pragma once
-#include "Component.h"
-#include "Root.h"
-#include "Node.h"
 
 class MindMapModel
 {
@@ -19,4 +16,3 @@ class MindMapModel
 
         ~MindMapModel();
 };
-

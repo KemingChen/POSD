@@ -1,10 +1,9 @@
-// Node Type Name
-#define TYPE_NODE_NAME "Node"
-#define TYPE_ROOT_NAME "Root"
-
+#pragma once
 // Normal
 #define INPUT_START ">"
 #define INPUT_END "\n";
+#define TYPE_NODE_NAME "Node"
+#define TYPE_ROOT_NAME "Root"
 
 //Menu Description
 #define MENU_DESCRIPTION "Please enter your choice:"

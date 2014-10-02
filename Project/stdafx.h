@@ -2,7 +2,6 @@
 // 或是經常使用卻很少變更的
 // 專案專用 Include 檔案
 //
-
 #pragma once
 
 #include "targetver.h"
@@ -10,8 +9,13 @@
 #include <stdio.h>
 #include <tchar.h>
 
-
-
 // TODO:  在此參考您的程式所需要的其他標頭
 #include <string>
-using namespace std;
+#include <list>
+#include "NodeMap.h"
+#include "Component.h"
+#include "Composite.h"
+#include "Node.h"
+#include "Root.h"
+
+typedef list<Component*> NodeList;

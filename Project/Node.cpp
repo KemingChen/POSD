@@ -4,9 +4,16 @@
 
 Node::Node()
 {
-    _type = TYPE_NODE_NAME;
+    //_type = TYPE_NAME;
 }
 
+void Node::addParent(Component* node)
+{
+}
+
+void Node::addSibling(Component* node)
+{
+}
 
 Node::~Node()
 {

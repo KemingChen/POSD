@@ -1,13 +1,12 @@
 #pragma once
-#include "Composite.h"
-#include "ConstVariables.h"
+using namespace std;
 
-class Node :
-    public Composite
+class Node : public Composite
 {
     public:
         // Public Method
         Node();
+        void addParent(Component* node);
+        void addSibling(Component* node);
         ~Node();
 };
-
