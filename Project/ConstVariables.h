@@ -6,6 +6,7 @@
 #define OUTPUT_DOUBLE_QUOTES "\""
 #define TYPE_NODE_NAME "Node"
 #define TYPE_ROOT_NAME "Root"
+#define DB_FILE "node.db"
 #define PRINT_ACTION_END "---------------------------------------------------------"
 
 //Menu Description

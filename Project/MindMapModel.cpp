@@ -111,7 +111,7 @@ void MindMapModel::saveMindMap()
     string* list = new string[nodeCount];
     navigateMindMap(_root, list);
     ofstream myfile;
-    myfile.open("node.db");
+    myfile.open(DB_FILE);
     for (int i = 0; i < nodeCount; i++)
     {
         myfile << list[i] << endl;
