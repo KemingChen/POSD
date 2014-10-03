@@ -11,7 +11,7 @@ class Composite :
     public:
         // Public Method
         Composite(int id);
-        int* getMap();
+        list<int>* getMap();
         void addChild(Component* node);
         void removeChild(Component* node);
         void addParent(Component* node) = 0;

@@ -38,6 +38,9 @@
 #define INSERT_CHILD_NODE "b"
 #define INSERT_SIBLING_NODE "c"
 
+// Save
+#define SAVE_SUCCESS "Save MindMap Success"
+
 // Print MindMap
 #define PRINT_MIND_MAP_DESCRIPTION "The mind map %s is displayed as follows:"
 #define PRINT_MIND_MAP_DESCRIPTION_START "The mind map "

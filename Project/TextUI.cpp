@@ -141,18 +141,12 @@ void TextUI::displayMindMap()
     cout << PRINT_ACTION_END << endl << endl;
 }
 
-void TextUI::navigateMindMap(Component* node, string* list)
-{
-    int id = atoi(node->getId().c_str());
-    string output = "";
-    output += id + OUTPUT_BLANK;
-    output += OUTPUT_DOUBLE_QUOTES + node->getDescription() + OUTPUT_DOUBLE_QUOTES;
-}
-
 void TextUI::saveMindMap()
 {
-    int nodeCount = _model->getNodeCount();
-    string* nodeDataList = new string[nodeCount];
+    printMindMap();
+    _model->saveMindMap();
+    cout << SAVE_SUCCESS << endl;
+    cout << PRINT_ACTION_END << endl << endl;
 }
 
 void TextUI::exit()

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "MindMapModel.h"
 #include "ConstVariables.h"
+#include <iostream>
+#include <fstream>
 
 MindMapModel::MindMapModel()
 {
@@ -77,9 +79,44 @@ Component* MindMapModel::insertNode(string id, string action)
     return newNode;
 }
 
-int MindMapModel::getNodeCount()
+string MindMapModel::convertIntArrayToString(list<int>* intList)
 {
-    return _createId;
+    string returnstring = "";
+    for (list<int>::iterator it = intList->begin(); it != intList->end(); it++)
+    {
+        returnstring += OUTPUT_BLANK;
+        returnstring += to_string(*it);
+    }
+    return returnstring;
+}
+
+void MindMapModel::navigateMindMap(Component* node, string* list)
+{
+    int id = atoi(node->getId().c_str());
+    string output = "";
+    NodeList* nodeList = node->getNodeList();
+    output += node->getId() + OUTPUT_BLANK;
+    output += OUTPUT_DOUBLE_QUOTES + node->getDescription() + OUTPUT_DOUBLE_QUOTES;
+    output += convertIntArrayToString(node->getMap());
+    list[id] = output;
+    for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
+    {
+        navigateMindMap(*it, list);
+    }
+}
+
+void MindMapModel::saveMindMap()
+{
+    int nodeCount = _createId;
+    string* list = new string[nodeCount];
+    navigateMindMap(_root, list);
+    ofstream myfile;
+    myfile.open("node.db");
+    for (int i = 0; i < nodeCount; i++)
+    {
+        myfile << list[i] << endl;
+    }
+    myfile.close();
 }
 
 MindMapModel::~MindMapModel()

@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+using namespace std;
 
 class MindMapModel
 {
@@ -16,6 +17,8 @@ class MindMapModel
         void insertParentNode(Component* parent, Component* node);
         void insertChildNode(Component* parent, Component* node);
         void insertSiblingNode(Component* parent, Component* node);
+        void navigateMindMap(Component* node, string* list);
+        string convertIntArrayToString(list<int>* intList);
 
     public:
         // Public Method
@@ -25,6 +28,5 @@ class MindMapModel
         void saveMindMap();
         void createNode();
         Component* getRootNode();
-        int getNodeCount();
         ~MindMapModel();
 };
