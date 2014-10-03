@@ -28,6 +28,11 @@ void Component::setDescription(string description)
     _node->setDescription(description);
 }
 
+void Component::setParent(Component* node)
+{
+    _parentNode = node;
+}
+
 Component::~Component()
 {
 }

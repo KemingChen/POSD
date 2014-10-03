@@ -12,6 +12,7 @@ class Composite :
         // Public Method
         Composite();
         void addChild(Component* node);
+        void removeChild(Component* node);
         void addParent(Component* node) = 0;
         void addSibling(Component* node) = 0;
         NodeList* getNodeList();

@@ -8,7 +8,13 @@ Composite::Composite()
 
 void Composite::addChild(Component* node)
 {
+    node->setParent(node);
     _nodeList->push_back(node);
+}
+
+void Composite::removeChild(Component* node)
+{
+    _nodeList->remove(node);
 }
 
 NodeList* Composite::getNodeList()

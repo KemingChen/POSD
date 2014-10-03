@@ -25,3 +25,7 @@
 
 // Print MindMap
 #define Print_Mind_Map_DESCRIPTION "The mind map Computer is displayed as follows:"
+
+// Error Message
+#define ROOT_CANNOT_INSERT_PARENT "Root can¡¦t insert parent node"
+#define ROOT_CANNOT_INSERT_SIBLING "Root can¡¦t insert sibling node"

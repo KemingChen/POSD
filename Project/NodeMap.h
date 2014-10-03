@@ -4,9 +4,9 @@ using namespace std;
 class NodeMap
 {
     private:
+        int _id;
         string _description;
         string _nodeName;
-        int _id;
 
     public:
         NodeMap(int id);
