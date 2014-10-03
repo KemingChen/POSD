@@ -44,8 +44,32 @@ void TextUI::printMenu()
 
 void TextUI::printMindMap()
 {
-    cout << Print_Mind_Map_DESCRIPTION << endl;
+    Component* root = _model->getRootNode();
+    cout << PRINT_MIND_MAP_DESCRIPTION_START;
+    cout << root->getDescription();
+    cout << PRINT_MIND_MAP_DESCRIPTION_END;
     cout << endl;
+    printChildNode(root, 0);
+    cout << endl << PRINT_MIND_MAP_END << endl << endl;
+}
+
+void TextUI::printChildNode(Component* node, int level)
+{
+    string output;
+    NodeMap* nodeMap = node->getMap();
+    NodeList* nodeList = node->getNodeList();
+    for (int i = 0; i < level; i++)
+    {
+        output += PRINT_MAP_BLANK;
+    }
+    output += PRINT_NODE_START + nodeMap->getDescription();
+    output += PRINT_NODE_LEFT + nodeMap->getNodeName();
+    output += PRINT_NODE_ID_START + nodeMap->getId() + PRINT_NODE_RIGHT;
+    cout << output << endl;
+    for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
+    {
+        printChildNode(*it, level + 1);
+    }
 }
 
 void TextUI::createNewMindMap()

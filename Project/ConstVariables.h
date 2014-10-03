@@ -24,7 +24,16 @@
 #define CREATE_NEW_MIND_MAP_DESCRIPTION "Please enter the topic:"
 
 // Print MindMap
-#define Print_Mind_Map_DESCRIPTION "The mind map Computer is displayed as follows:"
+#define PRINT_MIND_MAP_DESCRIPTION "The mind map %s is displayed as follows:"
+#define PRINT_MIND_MAP_DESCRIPTION_START "The mind map "
+#define PRINT_MIND_MAP_DESCRIPTION_END " is desplayed as follows:"
+#define PRINT_MAP_BLANK "¡@¡@"
+#define PRINT_NODE_START "¡Ï¡Ð "
+#define PRINT_NODE_LEFT " ("
+#define PRINT_NODE_ID_START ", ID: "
+#define PRINT_NODE_RIGHT ")"
+#define PRINT_NODE "¡Ï¡Ð %s (%s, ID: %d)"
+#define PRINT_MIND_MAP_END "---------------------------------------------------------"
 
 // Error Message
 #define ROOT_CANNOT_INSERT_PARENT "Root can¡¦t insert parent node"

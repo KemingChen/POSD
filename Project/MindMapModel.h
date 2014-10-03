@@ -13,6 +13,6 @@ class MindMapModel
         void insertNode();
         void saveMindMap();
         void createNode();
-
+        Component* getRootNode();
         ~MindMapModel();
 };

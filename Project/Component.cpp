@@ -8,7 +8,7 @@ Component::Component()
     _node = new NodeMap(createdId);
 }
 
-int Component::getId()
+string Component::getId()
 {
     return _node->getId();
 }

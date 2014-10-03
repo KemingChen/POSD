@@ -13,7 +13,7 @@ class Component
 
         // Public Method
         Component();
-        int getId();
+        string getId();
         NodeMap* getMap();
         string getDescription();
         void setDescription(string description);

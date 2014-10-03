@@ -19,6 +19,7 @@ class TextUI
         void printMenu();
         void handleChoice();
         void printMindMap();
+        void printChildNode(Component* node, int level);
         void createNewMindMap();
         void insertNewNode();
         void displayMindMap();

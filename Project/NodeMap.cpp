@@ -3,10 +3,10 @@
 
 NodeMap::NodeMap(int id)
 {
-    _id = id;
+    _id = to_string(id);
 }
 
-int NodeMap::getId()
+string NodeMap::getId()
 {
     return _id;
 }

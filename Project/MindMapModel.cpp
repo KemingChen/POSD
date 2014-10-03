@@ -11,6 +11,11 @@ void MindMapModel::createMinMap(string description)
     _root->setDescription(description);
 }
 
+Component* MindMapModel::getRootNode()
+{
+    return _root;
+}
+
 MindMapModel::~MindMapModel()
 {
 }
