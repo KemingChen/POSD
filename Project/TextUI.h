@@ -26,6 +26,7 @@ class TextUI
         void printInsertMenu();
         void insertNewNode();
         void displayMindMap();
+        void navigateMindMap(Component* node, string* list);
         void saveMindMap();
         void exit();
 

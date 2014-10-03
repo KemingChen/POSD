@@ -14,10 +14,11 @@ class Component
         // Public Method
         Component(int id);
         string getId();
-        NodeMap* getMap();
+        string getTypeName();
         string getDescription();
         void setDescription(string description);
         void setParent(Component* node);
+        virtual int* getMap() = 0;
         virtual void addChild(Component* node) = 0;
         virtual void removeChild(Component* node) = 0;
         virtual void addParent(Component* node) = 0;

@@ -4,7 +4,7 @@
 
 Root::Root(int id) : Composite(id)
 {
-    _node->setNodeName(TYPE_ROOT_NAME);
+    _node->setTypeName(TYPE_ROOT_NAME);
     _parentNode = NULL;
 }
 

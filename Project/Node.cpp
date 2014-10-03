@@ -1,11 +1,10 @@
 #include "stdafx.h"
 #include "Node.h"
 #include "ConstVariables.h"
-#include <iostream>
 
 Node::Node(int id) : Composite(id)
 {
-    _node->setNodeName(TYPE_NODE_NAME);
+    _node->setTypeName(TYPE_NODE_NAME);
 }
 
 void Node::addParent(Component* node)

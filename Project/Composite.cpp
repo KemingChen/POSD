@@ -22,6 +22,11 @@ NodeList* Composite::getNodeList()
     return _nodeList;
 }
 
+int* Composite::getMap()
+{
+    return new int[] {1, 2, 3};
+}
+
 Composite::~Composite()
 {
 }

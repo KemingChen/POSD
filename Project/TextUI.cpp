@@ -51,18 +51,20 @@ void TextUI::printMenu()
 void TextUI::printMindMap()
 {
     Component* root = _model->getRootNode();
-    cout << PRINT_MIND_MAP_DESCRIPTION_START;
-    cout << root->getDescription();
-    cout << PRINT_MIND_MAP_DESCRIPTION_END;
-    cout << endl;
-    printChildNode(root, "", false);
-    cout << endl;
+    if (root != NULL)
+    {
+        cout << PRINT_MIND_MAP_DESCRIPTION_START;
+        cout << root->getDescription();
+        cout << PRINT_MIND_MAP_DESCRIPTION_END;
+        cout << endl;
+        printChildNode(root, "", false);
+        cout << endl;
+    }
 }
 
 void TextUI::printChildNode(Component* node, string prefix, bool isParentAreLastNode)
 {
     string output;
-    NodeMap* nodeMap = node->getMap();
     NodeList* nodeList = node->getNodeList();
     if (node != _model->getRootNode())
     {
@@ -76,9 +78,9 @@ void TextUI::printChildNode(Component* node, string prefix, bool isParentAreLast
         }
     }
     output += prefix;
-    output += PRINT_NODE_START + nodeMap->getDescription();
-    output += PRINT_NODE_LEFT + nodeMap->getNodeName();
-    output += PRINT_NODE_ID_START + nodeMap->getId() + PRINT_NODE_RIGHT;
+    output += PRINT_NODE_START + node->getDescription();
+    output += PRINT_NODE_LEFT + node->getTypeName();
+    output += PRINT_NODE_ID_START + node->getId() + PRINT_NODE_RIGHT;
     cout << output << endl;
     for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
     {
@@ -135,10 +137,22 @@ void TextUI::insertNewNode()
 
 void TextUI::displayMindMap()
 {
+    printMindMap();
+    cout << PRINT_ACTION_END << endl << endl;
+}
+
+void TextUI::navigateMindMap(Component* node, string* list)
+{
+    int id = atoi(node->getId().c_str());
+    string output = "";
+    output += id + OUTPUT_BLANK;
+    output += OUTPUT_DOUBLE_QUOTES + node->getDescription() + OUTPUT_DOUBLE_QUOTES;
 }
 
 void TextUI::saveMindMap()
 {
+    int nodeCount = _model->getNodeCount();
+    string* nodeDataList = new string[nodeCount];
 }
 
 void TextUI::exit()

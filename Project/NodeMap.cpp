@@ -21,14 +21,14 @@ void NodeMap::setDescription(string description)
     _description = description;
 }
 
-string NodeMap::getNodeName()
+string NodeMap::getTypeName()
 {
     return _nodeName;
 }
 
-void NodeMap::setNodeName(string nodeName)
+void NodeMap::setTypeName(string name)
 {
-    _nodeName = nodeName;
+    _nodeName = name;
 }
 
 NodeMap::~NodeMap()

@@ -11,9 +11,9 @@ string Component::getId()
     return _node->getId();
 }
 
-NodeMap* Component::getMap()
+string Component::getTypeName()
 {
-    return _node;
+    return _node->getTypeName();
 }
 
 string Component::getDescription()

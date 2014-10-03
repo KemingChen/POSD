@@ -13,7 +13,7 @@ class NodeMap
         string getId();
         string getDescription();
         void setDescription(string description);
-        string getNodeName();
-        void setNodeName(string nodeName);
+        string getTypeName();
+        void setTypeName(string name);
         ~NodeMap();
 };

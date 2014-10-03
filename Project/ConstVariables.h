@@ -2,6 +2,8 @@
 // Normal
 #define INPUT_START ">"
 #define INPUT_END "\n";
+#define OUTPUT_BLANK " ";
+#define OUTPUT_DOUBLE_QUOTES "\""
 #define TYPE_NODE_NAME "Node"
 #define TYPE_ROOT_NAME "Root"
 #define PRINT_ACTION_END "---------------------------------------------------------"

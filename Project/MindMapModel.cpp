@@ -77,6 +77,11 @@ Component* MindMapModel::insertNode(string id, string action)
     return newNode;
 }
 
+int MindMapModel::getNodeCount()
+{
+    return _createId;
+}
+
 MindMapModel::~MindMapModel()
 {
 }

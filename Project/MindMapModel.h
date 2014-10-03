@@ -25,5 +25,6 @@ class MindMapModel
         void saveMindMap();
         void createNode();
         Component* getRootNode();
+        int getNodeCount();
         ~MindMapModel();
 };
