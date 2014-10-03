@@ -11,6 +11,7 @@ MindMapModel::MindMapModel()
 
 void MindMapModel::createMinMap(string description)
 {
+    _createId = 0;
     _root = new Root(_createId);
     _createId++;
     _root->setDescription(description);
@@ -68,6 +69,10 @@ Component* MindMapModel::insertNode(string id, string action)
     {
         (this->*_insertActionMap[action])(node, newNode);
         _createId++;
+    }
+    else
+    {
+        throw string("Unknown Action: " + action);
     }
     return newNode;
 }

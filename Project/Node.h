@@ -8,5 +8,6 @@ class Node : public Composite
         Node(int id);
         void addParent(Component* node);
         void addSibling(Component* node);
+        bool isSelfAreParentLastNode();
         ~Node();
 };

@@ -41,6 +41,7 @@
 #define PRINT_MIND_MAP_DESCRIPTION_START "The mind map "
 #define PRINT_MIND_MAP_DESCRIPTION_END " is desplayed as follows:"
 #define PRINT_MAP_BLANK "¡@¡@"
+#define PRINT_MAP_LINE "¡U¡@"
 #define PRINT_NODE_START "¡Ï¡Ð "
 #define PRINT_NODE_LEFT " ("
 #define PRINT_NODE_ID_START ", ID: "

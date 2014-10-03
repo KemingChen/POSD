@@ -22,6 +22,7 @@ class Component
         virtual void removeChild(Component* node) = 0;
         virtual void addParent(Component* node) = 0;
         virtual void addSibling(Component* node) = 0;
+        virtual bool isSelfAreParentLastNode() = 0;
         virtual NodeList* getNodeList() = 0;
         virtual ~Component();
 };

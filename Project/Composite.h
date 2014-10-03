@@ -15,6 +15,7 @@ class Composite :
         void removeChild(Component* node);
         void addParent(Component* node) = 0;
         void addSibling(Component* node) = 0;
+        bool isSelfAreParentLastNode() = 0;
         NodeList* getNodeList();
         ~Composite();
 };

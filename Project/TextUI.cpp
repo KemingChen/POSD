@@ -55,26 +55,34 @@ void TextUI::printMindMap()
     cout << root->getDescription();
     cout << PRINT_MIND_MAP_DESCRIPTION_END;
     cout << endl;
-    printChildNode(root, 0);
+    printChildNode(root, "", false);
     cout << endl;
 }
 
-void TextUI::printChildNode(Component* node, int level)
+void TextUI::printChildNode(Component* node, string prefix, bool isParentAreLastNode)
 {
     string output;
     NodeMap* nodeMap = node->getMap();
     NodeList* nodeList = node->getNodeList();
-    for (int i = 0; i < level; i++)
+    if (node != _model->getRootNode())
     {
-        output += PRINT_MAP_BLANK;
+        if (isParentAreLastNode)
+        {
+            prefix += PRINT_MAP_BLANK;
+        }
+        else
+        {
+            prefix += PRINT_MAP_LINE;
+        }
     }
+    output += prefix;
     output += PRINT_NODE_START + nodeMap->getDescription();
     output += PRINT_NODE_LEFT + nodeMap->getNodeName();
     output += PRINT_NODE_ID_START + nodeMap->getId() + PRINT_NODE_RIGHT;
     cout << output << endl;
     for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
     {
-        printChildNode(*it, level + 1);
+        printChildNode(*it, prefix, node->isSelfAreParentLastNode());
     }
 }
 

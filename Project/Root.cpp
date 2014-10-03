@@ -18,6 +18,11 @@ void Root::addSibling(Component* node)
     throw string(ROOT_CANNOT_INSERT_SIBLING);
 }
 
+bool Root::isSelfAreParentLastNode()
+{
+    return true;
+}
+
 Root::~Root()
 {
 }
