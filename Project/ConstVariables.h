@@ -4,6 +4,7 @@
 #define INPUT_END "\n";
 #define TYPE_NODE_NAME "Node"
 #define TYPE_ROOT_NAME "Root"
+#define PRINT_ACTION_END "---------------------------------------------------------"
 
 //Menu Description
 #define MENU_DESCRIPTION "Please enter your choice:"
@@ -14,14 +15,26 @@
 #define MENU_CHOICE_5_DESCRIPTION "5. Exit"
 
 // Menu Choice
-#define	CREATE_NEW_MIND_MAP 1
-#define INSERT_NEW_NODE 2
-#define DISPLAY_MIND_MAP 3
-#define SAVE_MIND_MAP 4
-#define EXIT 5
+#define	CREATE_NEW_MIND_MAP "1"
+#define INSERT_NEW_NODE "2"
+#define DISPLAY_MIND_MAP "3"
+#define SAVE_MIND_MAP "4"
+#define EXIT "5"
 
 // Create New Mind Map
 #define CREATE_NEW_MIND_MAP_DESCRIPTION "Please enter the topic:"
+
+// Insert Menu Description
+#define ENTER_NODE_ID "Enter the node ID:"
+#define INSERT_MENU_CHOICE_1_DESCRIPTION "a. Insert a parent node"
+#define INSERT_MENU_CHOICE_2_DESCRIPTION "b. Insert a child node"
+#define INSERT_MENU_CHOICE_3_DESCRIPTION "c. Insert a sibling node"
+#define ENTER_NODE_NAME "Enter the node name:"
+
+// Insert Menu Choice
+#define INSERT_PARENT_NODE "a"
+#define INSERT_CHILD_NODE "b"
+#define INSERT_SIBLING_NODE "c"
 
 // Print MindMap
 #define PRINT_MIND_MAP_DESCRIPTION "The mind map %s is displayed as follows:"
@@ -33,8 +46,7 @@
 #define PRINT_NODE_ID_START ", ID: "
 #define PRINT_NODE_RIGHT ")"
 #define PRINT_NODE "¡Ï¡Ð %s (%s, ID: %d)"
-#define PRINT_MIND_MAP_END "---------------------------------------------------------"
 
 // Error Message
-#define ROOT_CANNOT_INSERT_PARENT "Root can¡¦t insert parent node"
-#define ROOT_CANNOT_INSERT_SIBLING "Root can¡¦t insert sibling node"
+#define ROOT_CANNOT_INSERT_PARENT "Root can't insert parent node"
+#define ROOT_CANNOT_INSERT_SIBLING "Root can't insert sibling node"

@@ -12,7 +12,7 @@ class Component
         typedef list<Component*> NodeList;
 
         // Public Method
-        Component();
+        Component(int id);
         string getId();
         NodeMap* getMap();
         string getDescription();

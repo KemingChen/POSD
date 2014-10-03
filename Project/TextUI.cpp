@@ -16,16 +16,22 @@ void TextUI::run()
     while (_isRun)
     {
         printMenu();
-        handleChoice();
+        handleMenuChoice();
     }
 }
 
-void TextUI::handleChoice()
+string TextUI::handleInput()
 {
-    int choice;
+    string input;
     cout << INPUT_START;
-    cin >> choice;
-    cout << INPUT_END;
+    cin >> input;
+    return input;
+}
+
+void TextUI::handleMenuChoice()
+{
+    string choice = handleInput();
+    cout << endl;
     if (_choiceMap[choice])
     {
         (this->*_choiceMap[choice])();
@@ -50,7 +56,7 @@ void TextUI::printMindMap()
     cout << PRINT_MIND_MAP_DESCRIPTION_END;
     cout << endl;
     printChildNode(root, 0);
-    cout << endl << PRINT_MIND_MAP_END << endl << endl;
+    cout << endl;
 }
 
 void TextUI::printChildNode(Component* node, int level)
@@ -76,15 +82,47 @@ void TextUI::createNewMindMap()
 {
     string description;
     cout << CREATE_NEW_MIND_MAP_DESCRIPTION << endl;
-    cout << INPUT_START;
-    cin >> description;
-    cout << INPUT_END;
+    description = handleInput();
     _model->createMinMap(description);
     printMindMap();
+    cout << PRINT_ACTION_END << endl << endl;
+}
+
+void TextUI::printInsertMenu()
+{
+    cout << INSERT_MENU_CHOICE_1_DESCRIPTION << endl;
+    cout << INSERT_MENU_CHOICE_2_DESCRIPTION << endl;
+    cout << INSERT_MENU_CHOICE_3_DESCRIPTION << endl;
 }
 
 void TextUI::insertNewNode()
 {
+    string id;
+    string choice;
+    string description;
+    Component* newNode;
+    printMindMap();
+    cout << ENTER_NODE_ID << endl;
+    id = handleInput();
+    while (true)
+    {
+        try
+        {
+            printInsertMenu();
+            choice = handleInput();
+            newNode = _model->insertNode(id, choice);
+            break;
+        }
+        catch (string error)
+        {
+            cout << error << endl << endl;
+        }
+    }
+    cout << endl << ENTER_NODE_NAME << endl;
+    description = handleInput();
+    newNode->setDescription(description);
+    printMindMap();
+    cout << PRINT_ACTION_END << endl << endl;
 }
 
 void TextUI::displayMindMap()

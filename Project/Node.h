@@ -5,7 +5,7 @@ class Node : public Composite
 {
     public:
         // Public Method
-        Node(Component* node);
+        Node(int id);
         void addParent(Component* node);
         void addSibling(Component* node);
         ~Node();

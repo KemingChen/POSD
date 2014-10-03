@@ -1,14 +1,14 @@
 #include "stdafx.h"
 #include "Composite.h"
 
-Composite::Composite()
+Composite::Composite(int id) : Component(id)
 {
     _nodeList = new NodeList();
 }
 
 void Composite::addChild(Component* node)
 {
-    node->setParent(node);
+    node->setParent(this);
     _nodeList->push_back(node);
 }
 

@@ -8,7 +8,7 @@ class TextUI
 {
     private:
         // Type Define
-        typedef map<int, void (TextUI::*)(void)> ChoiceMap;
+        typedef map<string, void (TextUI::*)(void)> ChoiceMap;
 
         // Variable
         ChoiceMap _choiceMap;
@@ -17,10 +17,12 @@ class TextUI
 
         // Private Method
         void printMenu();
-        void handleChoice();
+        string handleInput();
+        void handleMenuChoice();
         void printMindMap();
         void printChildNode(Component* node, int level);
         void createNewMindMap();
+        void printInsertMenu();
         void insertNewNode();
         void displayMindMap();
         void saveMindMap();

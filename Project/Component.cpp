@@ -1,11 +1,9 @@
 #include "stdafx.h"
 #include "Component.h"
 
-Component::Component()
+Component::Component(int id)
 {
-    static int createdId = 0;
-    createdId += 1;
-    _node = new NodeMap(createdId);
+    _node = new NodeMap(id);
 }
 
 string Component::getId()

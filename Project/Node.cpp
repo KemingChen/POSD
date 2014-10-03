@@ -2,10 +2,9 @@
 #include "Node.h"
 #include "ConstVariables.h"
 
-Node::Node(Component* node)
+Node::Node(int id) : Composite(id)
 {
     _node->setNodeName(TYPE_NODE_NAME);
-    _parentNode = node;
 }
 
 void Node::addParent(Component* node)

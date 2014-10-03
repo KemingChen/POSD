@@ -10,7 +10,7 @@ class Composite :
 
     public:
         // Public Method
-        Composite();
+        Composite(int id);
         void addChild(Component* node);
         void removeChild(Component* node);
         void addParent(Component* node) = 0;
