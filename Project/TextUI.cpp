@@ -34,7 +34,6 @@ void TextUI::createNewMindMap()
 
 void TextUI::insertNewNode()
 {
-    Component* newNode;
     _presentModel->printRootMap();
     _presentModel->insertNode();
     _presentModel->printRootMap();
