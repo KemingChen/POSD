@@ -31,6 +31,14 @@ void NodeMap::setTypeName(string name)
     _nodeName = name;
 }
 
+string NodeMap::toString()
+{
+    string output;
+    output += "¡Ï¡Ð " + _description;
+    output += " (" + _nodeName + ", ID: " + _id + ")";
+    return output;
+}
+
 NodeMap::~NodeMap()
 {
 }

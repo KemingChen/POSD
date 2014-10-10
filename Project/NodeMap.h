@@ -15,5 +15,6 @@ class NodeMap
         void setDescription(string description);
         string getTypeName();
         void setTypeName(string name);
+        string toString();
         ~NodeMap();
 };

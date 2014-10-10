@@ -25,6 +25,12 @@
     <Filter Include="標頭檔\View">
       <UniqueIdentifier>{2216ff2b-96b7-421c-901a-81c8e06b8014}</UniqueIdentifier>
     </Filter>
+    <Filter Include="原始程式檔\Model\Composite">
+      <UniqueIdentifier>{bdcf2a94-d261-40ed-a1dc-91d8547d7c49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="標頭檔\Model\Composite">
+      <UniqueIdentifier>{d441d51a-851f-4367-b43c-2802b7966cf7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -36,26 +42,29 @@
     <ClInclude Include="targetver.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>標頭檔\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Composite.h">
-      <Filter>標頭檔\Model</Filter>
-    </ClInclude>
     <ClInclude Include="MindMapModel.h">
-      <Filter>標頭檔\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>標頭檔\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="NodeMap.h">
-      <Filter>標頭檔\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Root.h">
       <Filter>標頭檔\Model</Filter>
     </ClInclude>
     <ClInclude Include="TextUI.h">
       <Filter>標頭檔\View</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>標頭檔\Model\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="Composite.h">
+      <Filter>標頭檔\Model\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>標頭檔\Model\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeMap.h">
+      <Filter>標頭檔\Model\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="Root.h">
+      <Filter>標頭檔\Model\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUIPresentModel.h">
+      <Filter>標頭檔\Model</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -65,25 +74,28 @@
     <ClCompile Include="Project.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>原始程式檔\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Composite.cpp">
-      <Filter>原始程式檔\Model</Filter>
-    </ClCompile>
     <ClCompile Include="MindMapModel.cpp">
-      <Filter>原始程式檔\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>原始程式檔\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeMap.cpp">
       <Filter>原始程式檔\Model</Filter>
     </ClCompile>
     <ClCompile Include="TextUI.cpp">
       <Filter>原始程式檔\View</Filter>
     </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="Composite.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
+    </ClCompile>
     <ClCompile Include="Root.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeMap.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="TextUIPresentModel.cpp">
       <Filter>原始程式檔\Model</Filter>
     </ClCompile>
   </ItemGroup>

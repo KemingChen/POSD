@@ -31,6 +31,11 @@ void Component::setParent(Component* node)
     _parentNode = node;
 }
 
+string Component::toString()
+{
+    return _node->toString();
+}
+
 Component::~Component()
 {
 }
