@@ -1,21 +1,20 @@
 #include "stdafx.h"
 #include "Root.h"
-#include "ConstVariables.h"
 
 Root::Root(int id) : Composite(id)
 {
-    _node->setTypeName(TYPE_ROOT_NAME);
+    _node->setTypeName("Root");
     _parentNode = NULL;
 }
 
 void Root::addParent(Component* node)
 {
-    throw string(ROOT_CANNOT_INSERT_PARENT);
+    throw string("Root can't insert parent node");
 }
 
 void Root::addSibling(Component* node)
 {
-    throw string(ROOT_CANNOT_INSERT_SIBLING);
+    throw string("Root can't insert sibling node");
 }
 
 bool Root::isSelfAreParentLastNode()

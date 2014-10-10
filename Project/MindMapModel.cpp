@@ -1,14 +1,15 @@
 #include "stdafx.h"
 #include "MindMapModel.h"
-#include "ConstVariables.h"
 #include <iostream>
 #include <fstream>
 
+#define DB_FILE "node.db"
+
 MindMapModel::MindMapModel()
 {
-    _insertActionMap[INSERT_PARENT_NODE] = &MindMapModel::insertParentNode;
-    _insertActionMap[INSERT_CHILD_NODE] = &MindMapModel::insertChildNode;
-    _insertActionMap[INSERT_SIBLING_NODE] = &MindMapModel::insertSiblingNode;
+    _insertActionMap["a"] = &MindMapModel::insertParentNode;
+    _insertActionMap["b"] = &MindMapModel::insertChildNode;
+    _insertActionMap["c"] = &MindMapModel::insertSiblingNode;
 }
 
 void MindMapModel::createMinMap(string description)
@@ -84,8 +85,7 @@ string MindMapModel::convertIntArrayToString(list<int>* intList)
     string returnstring = "";
     for (list<int>::iterator it = intList->begin(); it != intList->end(); it++)
     {
-        returnstring += OUTPUT_BLANK;
-        returnstring += to_string(*it);
+        returnstring += " " + to_string(*it);
     }
     return returnstring;
 }
@@ -95,8 +95,8 @@ void MindMapModel::navigateMindMap(Component* node, string* list)
     int id = atoi(node->getId().c_str());
     string output = "";
     NodeList* nodeList = node->getNodeList();
-    output += node->getId() + OUTPUT_BLANK;
-    output += OUTPUT_DOUBLE_QUOTES + node->getDescription() + OUTPUT_DOUBLE_QUOTES;
+    output += node->getId() + " ";
+    output += "\"" + node->getDescription() + "\"";
     output += convertIntArrayToString(node->getMap());
     list[id] = output;
     for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)

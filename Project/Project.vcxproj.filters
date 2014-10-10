@@ -25,9 +25,6 @@
     <Filter Include="標頭檔\View">
       <UniqueIdentifier>{2216ff2b-96b7-421c-901a-81c8e06b8014}</UniqueIdentifier>
     </Filter>
-    <Filter Include="標頭檔\Const">
-      <UniqueIdentifier>{669da81d-96b1-4c5a-9dea-9c99caeaa103}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -59,9 +56,6 @@
     </ClInclude>
     <ClInclude Include="TextUI.h">
       <Filter>標頭檔\View</Filter>
-    </ClInclude>
-    <ClInclude Include="ConstVariables.h">
-      <Filter>標頭檔\Const</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

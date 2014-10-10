@@ -1,6 +1,5 @@
 #pragma once
 #include "MindMapModel.h"
-#include "ConstVariables.h"
 #include <iostream>
 #include <map>
 
@@ -28,6 +27,7 @@ class TextUI
         void displayMindMap();
         void navigateMindMap(Component* node, string* list);
         void saveMindMap();
+        void printActionEnd();
         void exit();
 
     public:

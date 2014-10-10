@@ -4,11 +4,11 @@
 TextUI::TextUI(MindMapModel* model)
 {
     _model = model;
-    _choiceMap[CREATE_NEW_MIND_MAP] = &TextUI::createNewMindMap;
-    _choiceMap[INSERT_NEW_NODE] = &TextUI::insertNewNode;
-    _choiceMap[DISPLAY_MIND_MAP] = &TextUI::displayMindMap;
-    _choiceMap[SAVE_MIND_MAP] = &TextUI::saveMindMap;
-    _choiceMap[EXIT] = &TextUI::exit;
+    _choiceMap["1"] = &TextUI::createNewMindMap;
+    _choiceMap["2"] = &TextUI::insertNewNode;
+    _choiceMap["3"] = &TextUI::displayMindMap;
+    _choiceMap["4"] = &TextUI::saveMindMap;
+    _choiceMap["5"] = &TextUI::exit;
 }
 
 void TextUI::run()
@@ -23,7 +23,7 @@ void TextUI::run()
 string TextUI::handleInput()
 {
     string input;
-    cout << INPUT_START;
+    cout << ">";
     cin >> input;
     return input;
 }
@@ -40,12 +40,12 @@ void TextUI::handleMenuChoice()
 
 void TextUI::printMenu()
 {
-    cout << MENU_DESCRIPTION << endl;
-    cout << MENU_CHOICE_1_DESCRIPTION << endl;
-    cout << MENU_CHOICE_2_DESCRIPTION << endl;
-    cout << MENU_CHOICE_3_DESCRIPTION << endl;
-    cout << MENU_CHOICE_4_DESCRIPTION << endl;
-    cout << MENU_CHOICE_5_DESCRIPTION << endl;
+    cout << "Please enter your choice:" << endl;
+    cout << "1. Create a new mind map" << endl;
+    cout << "2. Insert a new node" << endl;
+    cout << "3. Display mind map" << endl;
+    cout << "4. Save mind map" << endl;
+    cout << "5. Exit" << endl;
 }
 
 void TextUI::printMindMap()
@@ -53,10 +53,7 @@ void TextUI::printMindMap()
     Component* root = _model->getRootNode();
     if (root != NULL)
     {
-        cout << PRINT_MIND_MAP_DESCRIPTION_START;
-        cout << root->getDescription();
-        cout << PRINT_MIND_MAP_DESCRIPTION_END;
-        cout << endl;
+        cout << "The mind map " << root->getDescription() << " is desplayed as follows:" << endl;
         printChildNode(root, "", false);
         cout << endl;
     }
@@ -70,17 +67,16 @@ void TextUI::printChildNode(Component* node, string prefix, bool isParentAreLast
     {
         if (isParentAreLastNode)
         {
-            prefix += PRINT_MAP_BLANK;
+            prefix += "¡@¡@";
         }
         else
         {
-            prefix += PRINT_MAP_LINE;
+            prefix += "¡U¡@";
         }
     }
     output += prefix;
-    output += PRINT_NODE_START + node->getDescription();
-    output += PRINT_NODE_LEFT + node->getTypeName();
-    output += PRINT_NODE_ID_START + node->getId() + PRINT_NODE_RIGHT;
+    output += "¡Ï¡Ð " + node->getDescription();
+    output += " (" + node->getTypeName() + ", ID: " + node->getId() + ")";
     cout << output << endl;
     for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
     {
@@ -91,18 +87,18 @@ void TextUI::printChildNode(Component* node, string prefix, bool isParentAreLast
 void TextUI::createNewMindMap()
 {
     string description;
-    cout << CREATE_NEW_MIND_MAP_DESCRIPTION << endl;
+    cout << "Please enter the topic:" << endl;
     description = handleInput();
     _model->createMinMap(description);
     printMindMap();
-    cout << PRINT_ACTION_END << endl << endl;
+    printActionEnd();
 }
 
 void TextUI::printInsertMenu()
 {
-    cout << INSERT_MENU_CHOICE_1_DESCRIPTION << endl;
-    cout << INSERT_MENU_CHOICE_2_DESCRIPTION << endl;
-    cout << INSERT_MENU_CHOICE_3_DESCRIPTION << endl;
+    cout << "a. Insert a parent node" << endl;
+    cout << "b. Insert a child node" << endl;
+    cout << "c. Insert a sibling node" << endl;
 }
 
 void TextUI::insertNewNode()
@@ -112,7 +108,7 @@ void TextUI::insertNewNode()
     string description;
     Component* newNode;
     printMindMap();
-    cout << ENTER_NODE_ID << endl;
+    cout << "Enter the node ID:" << endl;
     id = handleInput();
     while (true)
     {
@@ -128,25 +124,30 @@ void TextUI::insertNewNode()
             cout << error << endl << endl;
         }
     }
-    cout << endl << ENTER_NODE_NAME << endl;
+    cout << endl << "Enter the node name:" << endl;
     description = handleInput();
     newNode->setDescription(description);
     printMindMap();
-    cout << PRINT_ACTION_END << endl << endl;
+    printActionEnd();
 }
 
 void TextUI::displayMindMap()
 {
     printMindMap();
-    cout << PRINT_ACTION_END << endl << endl;
+    printActionEnd();
 }
 
 void TextUI::saveMindMap()
 {
     printMindMap();
     _model->saveMindMap();
-    cout << SAVE_SUCCESS << endl;
-    cout << PRINT_ACTION_END << endl << endl;
+    cout << "Save MindMap Success" << endl;
+    printActionEnd();
+}
+
+void TextUI::printActionEnd()
+{
+    cout << "---------------------------------------------------------" << endl << endl;
 }
 
 void TextUI::exit()
