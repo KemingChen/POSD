@@ -6,9 +6,9 @@
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-    MindMapModel* model = new MindMapModel();
-    TextUIPresentModel* presentModel = new TextUIPresentModel(model);
-    TextUI* textUI = new TextUI(presentModel);
-    textUI->run();
+    MindMapModel model;
+    TextUIPresentModel presentModel(&model);
+    TextUI textUI(&presentModel);
+    textUI.run();
     return 0;
 }

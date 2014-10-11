@@ -6,7 +6,7 @@ class Composite :
 {
     protected:
         // Protected Variable
-        NodeList* _nodeList;
+        NodeList _nodeList;
 
     public:
         // Public Method
