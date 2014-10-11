@@ -6,9 +6,13 @@ TextUI::TextUI(TextUIPresentModel* presentModel)
     _presentModel = presentModel;
     _choiceMap["1"] = &TextUI::createNewMindMap;
     _choiceMap["2"] = &TextUI::insertNewNode;
-    _choiceMap["3"] = &TextUI::displayMindMap;
-    _choiceMap["4"] = &TextUI::saveMindMap;
-    _choiceMap["5"] = &TextUI::exit;
+    _choiceMap["3"] = &TextUI::editNode;
+    _choiceMap["4"] = &TextUI::displayMindMap;
+    _choiceMap["5"] = &TextUI::saveMindMap;
+    _choiceMap["6"] = &TextUI::loadMindMap;
+    _choiceMap["7"] = &TextUI::redo;
+    _choiceMap["8"] = &TextUI::undo;
+    _choiceMap["9"] = &TextUI::exit;
 }
 
 void TextUI::run()
@@ -40,6 +44,10 @@ void TextUI::insertNewNode()
     _presentModel->printActionEnd();
 }
 
+void TextUI::editNode()
+{
+}
+
 void TextUI::displayMindMap()
 {
     _presentModel->printRootMap();
@@ -50,6 +58,18 @@ void TextUI::saveMindMap()
 {
     _presentModel->printRootMap();
     _presentModel->saveMindMap();
+}
+
+void TextUI::loadMindMap()
+{
+}
+
+void TextUI::redo()
+{
+}
+
+void TextUI::undo()
+{
 }
 
 void TextUI::exit()

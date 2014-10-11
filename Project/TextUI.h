@@ -15,11 +15,14 @@ class TextUI
         bool _isRun = true;
 
         // Private Method
-        //string handleInput();
         void createNewMindMap();
         void insertNewNode();
+        void editNode();
         void displayMindMap();
         void saveMindMap();
+        void loadMindMap();
+        void redo();
+        void undo();
         void exit();
 
     public:
