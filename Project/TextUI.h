@@ -16,15 +16,13 @@ class TextUI
 
         // Control
         string handleInput();
+        string handleInput(string description);
 
         // View
         void printActionMenu();
         void printInsertMenu();
         void printActionEnd();
-
-        // ?
-        void printNodeMap(Component* node, string prefix, bool isParentAreLastNode);
-        void printRootMap();
+        void printMindMap();
 
         // Action Method
         void createNewMindMap();

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "TextUI.h"
-#define DB_FILE "MindMap.db"
 
 TextUI::TextUI(PresentModel* presentModel)
 {
@@ -38,6 +37,14 @@ string TextUI::handleInput()
     return input;
 }
 
+string TextUI::handleInput(string description)
+{
+    string input;
+    cout << description << endl << ">";
+    cin >> input;
+    return input;
+}
+
 void TextUI::printActionMenu()
 {
     cout << "Please enter your choice:" << endl;
@@ -59,6 +66,13 @@ void TextUI::printInsertMenu()
     cout << "c. Insert a sibling node" << endl;
 }
 
+void TextUI::printMindMap()
+{
+    Component* root = _presentModel->getModel()->getRootNode();
+    cout << "The mind map " << root->getDescription() << " is desplayed as follows: " << endl;
+    cout << _presentModel->getMindMap(root) << endl;
+}
+
 void TextUI::printActionEnd()
 {
     cout << "---------------------------------------------------------" << endl << endl;
@@ -67,41 +81,34 @@ void TextUI::printActionEnd()
 void TextUI::createNewMindMap()
 {
     string description;
-    cout << "Please enter the topic:" << endl;
-    description = handleInput();
+    description = handleInput("Please enter the topic:");
     _presentModel->getModel()->createMinMap(description);
-    printRootMap();
+    printMindMap();
     printActionEnd();
 }
 
 void TextUI::insertNewNode()
 {
-    printRootMap();
+    Component* newNode = NULL;
+    string choice;
     string id;
-    Component* newNode;
-    cout << "Enter the node ID:" << endl;
-    id = handleInput();
-    bool success = false;
-    while (!success)
+    printMindMap();
+    id = handleInput("Enter the node ID:");
+    while (newNode == NULL)
     {
         try
         {
             printInsertMenu();
-            string choice;
             choice = handleInput();
             newNode = _presentModel->getModel()->insertNode(id, choice);
-            string description;
-            cout << endl << "Enter the node name:" << endl;
-            description = handleInput();
-            newNode->setDescription(description);
-            success = true;
+            newNode->setDescription(handleInput("Enter the node name:"));
         }
         catch (string error)
         {
             cout << error << endl << endl;
         }
     }
-    printRootMap();
+    printMindMap();
     printActionEnd();
 }
 
@@ -109,40 +116,16 @@ void TextUI::editNode()
 {
 }
 
-void TextUI::printRootMap()
-{
-    Component* root = _presentModel->getModel()->getRootNode();
-    cout << "The mind map " << root->getDescription() << " is desplayed as follows: " << endl;
-    cout << root->toString() << endl;
-    NodeList* nodeList = root->getNodeList();
-    for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
-    {
-        printNodeMap(*it, "", true);
-    }
-    cout << endl;
-}
-
-void TextUI::printNodeMap(Component* node, string prefix, bool isParentAreLastNode)
-{
-    prefix += isParentAreLastNode ? "¡@¡@" : "¡U¡@";
-    cout << prefix + node->toString() << endl;
-    NodeList* nodeList = node->getNodeList();
-    for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
-    {
-        printNodeMap(*it, prefix, node->isSelfAreParentLastNode());
-    }
-}
-
 void TextUI::displayMindMap()
 {
-    printRootMap();
+    printMindMap();
     printActionEnd();
 }
 
 void TextUI::saveMindMap()
 {
-    printRootMap();
-    _presentModel->getModel()->saveMindMap(DB_FILE);
+    printMindMap();
+    _presentModel->saveMindMap();
     cout << "Save MindMap Success" << endl;
     printActionEnd();
 }
@@ -150,8 +133,7 @@ void TextUI::saveMindMap()
 void TextUI::loadMindMap()
 {
     string path;
-    cout << "Please input a file path:" << endl;
-    path = handleInput();
+    path = handleInput("Please input a file path:");
     _presentModel->getModel()->loadMindMap(path);
 }
 
