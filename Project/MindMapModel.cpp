@@ -1,20 +1,16 @@
 #include "stdafx.h"
 #include "MindMapModel.h"
+#include "ComponentFactory.h"
 #include <iostream>
 #include <fstream>
 
 MindMapModel::MindMapModel()
 {
-    _insertActionMap["a"] = &MindMapModel::insertParentNode;
-    _insertActionMap["b"] = &MindMapModel::insertChildNode;
-    _insertActionMap["c"] = &MindMapModel::insertSiblingNode;
 }
 
 void MindMapModel::createMinMap(string description)
 {
-    _createId = 0;
-    _root = new Root(_createId);
-    _createId++;
+    _root = ComponentFactory::getInstance()->createComponent(ROOT);
     _root->setDescription(description);
 }
 
@@ -23,19 +19,24 @@ Component* MindMapModel::getRootNode()
     return _root;
 }
 
-void MindMapModel::insertParentNode(Component* node, Component* newNode)
+void MindMapModel::insertParentNode(Component* choseNode, Component* newNode)
 {
-    node->addParent(newNode);
+    choseNode->addParent(newNode);
 }
 
-void MindMapModel::insertChildNode(Component* node, Component* newNode)
+void MindMapModel::insertChildNode(Component* choseNode, Component* newNode)
 {
-    node->addChild(newNode);
+    choseNode->addChild(newNode);
 }
 
-void MindMapModel::insertSiblingNode(Component* node, Component* newNode)
+void MindMapModel::insertSiblingNode(Component* choseNode, Component* newNode)
 {
-    node->addSibling(newNode);
+    choseNode->addSibling(newNode);
+}
+
+Component* MindMapModel::findNode(string id)
+{
+    return findNode(_root, id);
 }
 
 Component* MindMapModel::findNode(Component* node, string id)
@@ -46,36 +47,19 @@ Component* MindMapModel::findNode(Component* node, string id)
     {
         return node;
     }
-    for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {
         if (foundNode != NULL)
         {
-            break;
+            return foundNode;
         }
         if (node->getId() == id)
         {
-            foundNode = *it;
-            break;
+            return *iNode;
         }
-        foundNode = findNode(*it, id);
+        foundNode = findNode(*iNode, id);
     }
     return foundNode;
-}
-
-Component* MindMapModel::insertNode(string id, string action)
-{
-    Component* node = findNode(_root, id);
-    Component* newNode = new Node(_createId);
-    if (_insertActionMap[action])
-    {
-        (this->*_insertActionMap[action])(node, newNode);
-        _createId++;
-    }
-    else
-    {
-        throw string("Unknown Action: " + action);
-    }
-    return newNode;
 }
 
 string MindMapModel::convertIntArrayToString(list<int>* intList)
@@ -105,7 +89,7 @@ void MindMapModel::navigateMindMap(Component* node, string* list)
 
 void MindMapModel::saveMindMap(string path)
 {
-    int nodeCount = _createId;
+    int nodeCount = ComponentFactory::getInstance()->getCreatedCount();
     string* list = new string[nodeCount];
     navigateMindMap(_root, list);
     ofstream myfile(path);

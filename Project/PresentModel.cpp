@@ -1,11 +1,14 @@
 #include "stdafx.h"
-#include <iostream>
 #include "PresentModel.h"
-#define DB_FILE "MindMap.db"
+#include "ComponentFactory.h"
+#define DB_FILE "file__exist.mm"
 
 PresentModel::PresentModel(MindMapModel* model)
 {
     _model = model;
+    _insertActionMap["a"] = &MindMapModel::insertParentNode;
+    _insertActionMap["b"] = &MindMapModel::insertChildNode;
+    _insertActionMap["c"] = &MindMapModel::insertSiblingNode;
 }
 
 MindMapModel* PresentModel::getModel()
@@ -42,6 +45,35 @@ string PresentModel::getNodeMap(Component* node, string prefix, bool isParentAre
 void PresentModel::saveMindMap()
 {
     _model->saveMindMap(DB_FILE);
+}
+
+Component* PresentModel::insertNode(Component* choseNode, string action)
+{
+    Component* newNode = ComponentFactory::getInstance()->createComponent(NODE);
+    try
+    {
+        if (!_insertActionMap[action])
+        {
+            throw string("Unknown Action: " + action);
+        }
+        (_model->*_insertActionMap[action])(choseNode, newNode);
+    }
+    catch (string error)
+    {
+        ComponentFactory::getInstance()->revertCreateId();
+        throw error;
+    }
+    return newNode;
+}
+
+Component* PresentModel::tryFindNode(string id)
+{
+    Component* node = _model->findNode(id);
+    if (node == NULL)
+    {
+        throw string("The node is not exist!!");
+    }
+    return node;
 }
 
 PresentModel::~PresentModel()

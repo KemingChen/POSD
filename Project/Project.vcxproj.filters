@@ -31,6 +31,9 @@
     <Filter Include="標頭檔\Model\Composite">
       <UniqueIdentifier>{d441d51a-851f-4367-b43c-2802b7966cf7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="標頭檔\Const">
+      <UniqueIdentifier>{cfa03abb-74b1-419d-b421-b7a80204d958}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -66,6 +69,12 @@
     <ClInclude Include="PresentModel.h">
       <Filter>標頭檔\Model</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentFactory.h">
+      <Filter>標頭檔\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeConst.h">
+      <Filter>標頭檔\Const</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -96,6 +105,9 @@
       <Filter>原始程式檔\Model\Composite</Filter>
     </ClCompile>
     <ClCompile Include="PresentModel.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentFactory.cpp">
       <Filter>原始程式檔\Model</Filter>
     </ClCompile>
   </ItemGroup>

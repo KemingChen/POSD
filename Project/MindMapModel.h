@@ -5,18 +5,10 @@ using namespace std;
 class MindMapModel
 {
     private:
-        typedef map<string, void (MindMapModel::*)(Component*, Component*)> InsertActionMap;
-
         // Private Variable
-        int _createId = 0;
         Component* _root;
-        InsertActionMap _insertActionMap;
 
         // Private Method
-        Component* findNode(Component* node, string id);
-        void insertParentNode(Component* parent, Component* node);
-        void insertChildNode(Component* parent, Component* node);
-        void insertSiblingNode(Component* parent, Component* node);
         void navigateMindMap(Component* node, string* list);
         string convertIntArrayToString(list<int>* intList);
 
@@ -24,10 +16,14 @@ class MindMapModel
         // Public Method
         MindMapModel();
         void createMinMap(string description);
-        Component* insertNode(string id, string action);
         void saveMindMap(string path);
         void loadMindMap(string path);
         void createNode();
+        void insertParentNode(Component* parent, Component* node);
+        void insertChildNode(Component* parent, Component* node);
+        void insertSiblingNode(Component* parent, Component* node);
         Component* getRootNode();
+        Component* findNode(Component* node, string id);
+        Component* findNode(string id);
         ~MindMapModel();
 };

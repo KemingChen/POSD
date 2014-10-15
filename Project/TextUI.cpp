@@ -90,17 +90,18 @@ void TextUI::createNewMindMap()
 void TextUI::insertNewNode()
 {
     Component* newNode = NULL;
-    string choice;
-    string id;
-    printMindMap();
-    id = handleInput("Enter the node ID:");
+    Component* choseNode = NULL;
     while (newNode == NULL)
     {
         try
         {
+            if (choseNode == NULL)
+            {
+                printMindMap();
+                choseNode = _presentModel->tryFindNode(handleInput("Enter the node ID:"));
+            }
             printInsertMenu();
-            choice = handleInput();
-            newNode = _presentModel->getModel()->insertNode(id, choice);
+            newNode = _presentModel->insertNode(choseNode, handleInput());
             newNode->setDescription(handleInput("Enter the node name:"));
         }
         catch (string error)
