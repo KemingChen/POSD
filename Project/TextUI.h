@@ -1,5 +1,5 @@
 #pragma once
-#include "TextUIPresentModel.h"
+#include "PresentModel.h"
 #include <iostream>
 #include <map>
 
@@ -11,10 +11,22 @@ class TextUI
 
         // Variable
         ChoiceMap _choiceMap;
-        TextUIPresentModel* _presentModel;
+        PresentModel* _presentModel;
         bool _isRun = true;
 
-        // Private Method
+        // Control
+        string handleInput();
+
+        // View
+        void printActionMenu();
+        void printInsertMenu();
+        void printActionEnd();
+
+        // ?
+        void printNodeMap(Component* node, string prefix, bool isParentAreLastNode);
+        void printRootMap();
+
+        // Action Method
         void createNewMindMap();
         void insertNewNode();
         void editNode();
@@ -27,8 +39,7 @@ class TextUI
 
     public:
         // Public Method
-        TextUI(TextUIPresentModel* presentModel);
+        TextUI(PresentModel* presentModel);
         void run();
         ~TextUI();
 };
-

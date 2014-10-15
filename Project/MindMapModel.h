@@ -25,7 +25,8 @@ class MindMapModel
         MindMapModel();
         void createMinMap(string description);
         Component* insertNode(string id, string action);
-        void saveMindMap();
+        void saveMindMap(string path);
+        void loadMindMap(string path);
         void createNode();
         Component* getRootNode();
         ~MindMapModel();

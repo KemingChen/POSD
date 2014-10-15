@@ -63,7 +63,7 @@
     <ClInclude Include="Root.h">
       <Filter>標頭檔\Model\Composite</Filter>
     </ClInclude>
-    <ClInclude Include="TextUIPresentModel.h">
+    <ClInclude Include="PresentModel.h">
       <Filter>標頭檔\Model</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,7 +95,7 @@
     <ClCompile Include="NodeMap.cpp">
       <Filter>原始程式檔\Model\Composite</Filter>
     </ClCompile>
-    <ClCompile Include="TextUIPresentModel.cpp">
+    <ClCompile Include="PresentModel.cpp">
       <Filter>原始程式檔\Model</Filter>
     </ClCompile>
   </ItemGroup>

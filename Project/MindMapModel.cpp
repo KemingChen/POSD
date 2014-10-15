@@ -3,8 +3,6 @@
 #include <iostream>
 #include <fstream>
 
-#define DB_FILE "node.db"
-
 MindMapModel::MindMapModel()
 {
     _insertActionMap["a"] = &MindMapModel::insertParentNode;
@@ -105,16 +103,26 @@ void MindMapModel::navigateMindMap(Component* node, string* list)
     }
 }
 
-void MindMapModel::saveMindMap()
+void MindMapModel::saveMindMap(string path)
 {
     int nodeCount = _createId;
     string* list = new string[nodeCount];
     navigateMindMap(_root, list);
-    ofstream myfile;
-    myfile.open(DB_FILE);
+    ofstream myfile(path);
     for (int i = 0; i < nodeCount; i++)
     {
         myfile << list[i] << endl;
+    }
+    myfile.close();
+}
+
+void MindMapModel::loadMindMap(string path)
+{
+    string line;
+    ifstream myfile(path);
+    while (getline(myfile, line))
+    {
+        cout << line << endl;
     }
     myfile.close();
 }
