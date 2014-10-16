@@ -2,7 +2,6 @@
 #include "MindMapModel.h"
 #include "ComponentFactory.h"
 #include <iostream>
-#include <fstream>
 
 MindMapModel::MindMapModel()
 {
@@ -36,6 +35,10 @@ void MindMapModel::insertSiblingNode(Component* choseNode, Component* newNode)
 
 Component* MindMapModel::findNode(string id)
 {
+    if (_root == NULL)
+    {
+        throw string("The Root is Empty!!!");
+    }
     return findNode(_root, id);
 }
 
@@ -87,30 +90,52 @@ void MindMapModel::navigateMindMap(Component* node, string* list)
     }
 }
 
-void MindMapModel::saveMindMap(string path)
+void MindMapModel::saveMindMap(ofstream* file)
 {
     int nodeCount = ComponentFactory::getInstance()->getCreatedCount();
     string* list = new string[nodeCount];
+    if (_root == NULL)
+    {
+        return;
+    }
     navigateMindMap(_root, list);
-    ofstream myfile(path);
     for (int i = 0; i < nodeCount; i++)
     {
-        myfile << list[i] << endl;
+        (*file) << list[i] << endl;
     }
-    myfile.close();
 }
 
-void MindMapModel::loadMindMap(string path)
+// 將從 Database 讀到的一行，分解成 id, description, childrenIds 的 string array
+void MindMapModel::splitMindMapLine(string line)
+{
+    //string* array = new string[] {"123", "234", "345"};
+    cout << line << endl;
+    string quot = "\"";
+    int startQuot = line.find_first_of(quot);
+    int endQuot = line.find_last_of(quot);
+    string id = "";
+    string description = "";
+    string childrenIds = "";
+    //string id = true ? "" : line.substr(0, startQuot);
+    //string description = true ? "" : line.substr(startQuot + 1, endQuot - startQuot);
+    //string childrenIds = "";
+    //if (endQuot /*+ 1 != line.size())
+    //{
+    //    line.substr(endQuot + 2, line.size() - endQuot - 2);
+    //}*/
+    cout << id << description << childrenIds << endl;
+}
+void MindMapModel::loadMindMap(ifstream* file)
 {
     string line;
-    ifstream myfile(path);
-    while (getline(myfile, line))
+    while (getline(*file, line))
     {
-        cout << line << endl;
+        cout << "size: " << line.size() << endl;
+        splitMindMapLine(line);
+        //cout << data[0] << ", " << data[1] << ", " << data[2] << endl;
     }
-    myfile.close();
+    file->close();
 }
-
 MindMapModel::~MindMapModel()
 {
 }

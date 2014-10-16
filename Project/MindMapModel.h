@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <fstream>
 using namespace std;
 
 class MindMapModel
@@ -11,13 +12,14 @@ class MindMapModel
         // Private Method
         void navigateMindMap(Component* node, string* list);
         string convertIntArrayToString(list<int>* intList);
+        void splitMindMapLine(string line);
 
     public:
         // Public Method
         MindMapModel();
         void createMinMap(string description);
-        void saveMindMap(string path);
-        void loadMindMap(string path);
+        void saveMindMap(ofstream* file);
+        void loadMindMap(ifstream* file);
         void createNode();
         void insertParentNode(Component* parent, Component* node);
         void insertChildNode(Component* parent, Component* node);

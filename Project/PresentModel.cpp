@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PresentModel.h"
 #include "ComponentFactory.h"
+#include <fstream>
 #define DB_FILE "file__exist.mm"
 
 PresentModel::PresentModel(MindMapModel* model)
@@ -16,9 +17,15 @@ MindMapModel* PresentModel::getModel()
     return _model;
 }
 
-string PresentModel::getMindMap(Component* root)
+string PresentModel::getMindMap()
 {
+    Component* root = _model->getRootNode();
     string output = "";
+    if (root == NULL)
+    {
+        return "The mind map is Empty!!!";
+    }
+    output += "The mind map " + root->getDescription() + " is desplayed as follows: \n";
     output += root->toString() + "\n";
     NodeList* nodeList = root->getNodeList();
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
@@ -44,7 +51,20 @@ string PresentModel::getNodeMap(Component* node, string prefix, bool isParentAre
 
 void PresentModel::saveMindMap()
 {
-    _model->saveMindMap(DB_FILE);
+    ofstream file(DB_FILE);
+    _model->saveMindMap(&file);
+    file.close();
+}
+
+void PresentModel::loadMindMap(string path)
+{
+    ifstream file(path);
+    if (!file.good())
+    {
+        throw string("File not found!!");
+    }
+    _model->loadMindMap(&file);
+    file.close();
 }
 
 Component* PresentModel::insertNode(Component* choseNode, string action)
@@ -74,6 +94,14 @@ Component* PresentModel::tryFindNode(string id)
         throw string("The node is not exist!!");
     }
     return node;
+}
+
+void PresentModel::comfirmMindMapExist()
+{
+    if (_model->getRootNode() == NULL)
+    {
+        throw string("The Root Should be Created First!!!");
+    }
 }
 
 PresentModel::~PresentModel()

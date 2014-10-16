@@ -24,7 +24,15 @@ void TextUI::run()
         cout << endl;
         if (_choiceMap[choice])
         {
-            (this->*_choiceMap[choice])();
+            try
+            {
+                (this->*_choiceMap[choice])();
+            }
+            catch (string error)
+            {
+                cout << error << endl;
+            }
+            printActionEnd();
         }
     }
 }
@@ -68,9 +76,7 @@ void TextUI::printInsertMenu()
 
 void TextUI::printMindMap()
 {
-    Component* root = _presentModel->getModel()->getRootNode();
-    cout << "The mind map " << root->getDescription() << " is desplayed as follows: " << endl;
-    cout << _presentModel->getMindMap(root) << endl;
+    cout << _presentModel->getMindMap() << endl;
 }
 
 void TextUI::printActionEnd()
@@ -84,13 +90,13 @@ void TextUI::createNewMindMap()
     description = handleInput("Please enter the topic:");
     _presentModel->getModel()->createMinMap(description);
     printMindMap();
-    printActionEnd();
 }
 
 void TextUI::insertNewNode()
 {
     Component* newNode = NULL;
     Component* choseNode = NULL;
+    _presentModel->comfirmMindMapExist();
     while (newNode == NULL)
     {
         try
@@ -110,7 +116,6 @@ void TextUI::insertNewNode()
         }
     }
     printMindMap();
-    printActionEnd();
 }
 
 void TextUI::editNode()
@@ -120,7 +125,6 @@ void TextUI::editNode()
 void TextUI::displayMindMap()
 {
     printMindMap();
-    printActionEnd();
 }
 
 void TextUI::saveMindMap()
@@ -128,14 +132,19 @@ void TextUI::saveMindMap()
     printMindMap();
     _presentModel->saveMindMap();
     cout << "Save MindMap Success" << endl;
-    printActionEnd();
 }
 
 void TextUI::loadMindMap()
 {
-    string path;
-    path = handleInput("Please input a file path:");
-    _presentModel->getModel()->loadMindMap(path);
+    try
+    {
+        //_presentModel->loadMindMap(handleInput("Please input a file path:"));
+        _presentModel->loadMindMap("file__exist.mm");
+    }
+    catch (string error)
+    {
+        cout << error << endl;
+    }
 }
 
 void TextUI::redo()

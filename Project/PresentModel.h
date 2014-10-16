@@ -17,8 +17,10 @@ class PresentModel
         // public method
         PresentModel(MindMapModel* model);
         MindMapModel* getModel();
-        string getMindMap(Component* root);
+        string getMindMap();
         void saveMindMap();
+        void loadMindMap(string path);
+        void comfirmMindMapExist();
         Component* insertNode(Component* choseNode, string action);
         Component* tryFindNode(string id);
         ~PresentModel();
