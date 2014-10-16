@@ -4,15 +4,18 @@
 TextUI::TextUI(PresentModel* presentModel)
 {
     _presentModel = presentModel;
-    _choiceMap["1"] = &TextUI::createNewMindMap;
-    _choiceMap["2"] = &TextUI::insertNewNode;
-    _choiceMap["3"] = &TextUI::editNode;
-    _choiceMap["4"] = &TextUI::displayMindMap;
-    _choiceMap["5"] = &TextUI::saveMindMap;
-    _choiceMap["6"] = &TextUI::loadMindMap;
-    _choiceMap["7"] = &TextUI::redo;
-    _choiceMap["8"] = &TextUI::undo;
-    _choiceMap["9"] = &TextUI::exit;
+    _mainMenuMap["1"] = &TextUI::createNewMindMap;
+    _mainMenuMap["2"] = &TextUI::insertNewNode;
+    _mainMenuMap["3"] = &TextUI::editNode;
+    _mainMenuMap["4"] = &TextUI::displayMindMap;
+    _mainMenuMap["5"] = &TextUI::saveMindMap;
+    _mainMenuMap["6"] = &TextUI::loadMindMap;
+    _mainMenuMap["7"] = &TextUI::redo;
+    _mainMenuMap["8"] = &TextUI::undo;
+    _mainMenuMap["9"] = &TextUI::exit;
+    _editMenuMap["a"] = &TextUI::editNodeDescription;
+    _editMenuMap["b"] = &TextUI::changeNodeParent;
+    _editMenuMap["c"] = &TextUI::deleteNode;
 }
 
 void TextUI::run()
@@ -22,11 +25,11 @@ void TextUI::run()
         printActionMenu();
         string choice = handleInput();
         cout << endl;
-        if (_choiceMap[choice])
+        if (_mainMenuMap[choice])
         {
             try
             {
-                (this->*_choiceMap[choice])();
+                (this->*_mainMenuMap[choice])();
             }
             catch (string error)
             {
@@ -74,6 +77,13 @@ void TextUI::printInsertMenu()
     cout << "c. Insert a sibling node" << endl;
 }
 
+void TextUI::printEditMenu()
+{
+    cout << "a.Edit the description of a node" << endl;
+    cout << "b.Change the parent of a node" << endl;
+    cout << "c.Delete a node" << endl;
+}
+
 void TextUI::printMindMap()
 {
     cout << _presentModel->getMindMap() << endl;
@@ -96,7 +106,7 @@ void TextUI::insertNewNode()
 {
     Component* newNode = NULL;
     Component* choseNode = NULL;
-    _presentModel->comfirmMindMapExist();
+    _presentModel->confirmMindMapExist();
     while (newNode == NULL)
     {
         try
@@ -118,8 +128,67 @@ void TextUI::insertNewNode()
     printMindMap();
 }
 
+void TextUI::editNodeDescription(Component* choseNode)
+{
+    _presentModel->getModel()->editNodeDescription(choseNode, handleInput("Enter the description: "));
+}
+
+void TextUI::changeNodeParent(Component* choseNode)
+{
+    Component* choseNewParentNode;
+    _presentModel->confirmChangeNodeNotRoot(choseNode);
+    while (true)
+    {
+        try
+        {
+            choseNewParentNode = _presentModel->tryFindNode(handleInput("Enter the parent ID: "));
+            _presentModel->changeParentNode(choseNode, choseNewParentNode);
+            break;
+        }
+        catch (string error)
+        {
+            cout << error << endl << endl;
+        }
+    }
+}
+
+void TextUI::deleteNode(Component* choseNode)
+{
+    throw string("No Imprement");
+}
+
 void TextUI::editNode()
 {
+    string choice;
+    Component* choseNode = NULL;
+    _presentModel->confirmMindMapExist();
+    while (true)
+    {
+        try
+        {
+            if (choseNode == NULL)
+            {
+                printMindMap();
+                choseNode = _presentModel->tryFindNode(handleInput("Enter the edit node ID:"));
+            }
+            printEditMenu();
+            choice = handleInput();
+            if (_editMenuMap[choice])
+            {
+                (this->*_editMenuMap[choice])(choseNode);
+                printMindMap();
+                break;
+            }
+            else
+            {
+                throw string("The command is not found!!");
+            }
+        }
+        catch (string error)
+        {
+            cout << error << endl << endl;
+        }
+    }
 }
 
 void TextUI::displayMindMap()
@@ -136,15 +205,8 @@ void TextUI::saveMindMap()
 
 void TextUI::loadMindMap()
 {
-    try
-    {
-        //_presentModel->loadMindMap(handleInput("Please input a file path:"));
-        _presentModel->loadMindMap("file__exist.mm");
-    }
-    catch (string error)
-    {
-        cout << error << endl;
-    }
+    //_presentModel->loadMindMap(handleInput("Please input a file path:"));
+    _presentModel->loadMindMap("file__exist.mm");
 }
 
 void TextUI::redo()

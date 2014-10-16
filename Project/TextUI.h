@@ -7,10 +7,12 @@ class TextUI
 {
     private:
         // Type Define
-        typedef map<string, void (TextUI::*)(void)> ChoiceMap;
+        typedef map<string, void (TextUI::*)(void)> MainMenuMap;
+        typedef map<string, void (TextUI::*)(Component*)> EditMenuMap;
 
         // Variable
-        ChoiceMap _choiceMap;
+        MainMenuMap _mainMenuMap;
+        EditMenuMap _editMenuMap;
         PresentModel* _presentModel;
         bool _isRun = true;
 
@@ -21,10 +23,16 @@ class TextUI
         // View
         void printActionMenu();
         void printInsertMenu();
+        void printEditMenu();
         void printActionEnd();
         void printMindMap();
 
-        // Action Method
+        // EditAction Method
+        void editNodeDescription(Component* choseNode);
+        void changeNodeParent(Component* choseNode);
+        void deleteNode(Component* choseNode);
+
+        // MainAction Method
         void createNewMindMap();
         void insertNewNode();
         void editNode();

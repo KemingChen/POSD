@@ -16,6 +16,11 @@ void Composite::removeChild(Component* node)
     _nodeList.remove(node);
 }
 
+void Composite::removeAllChild()
+{
+    _nodeList.clear();
+}
+
 NodeList* Composite::getNodeList()
 {
     return &_nodeList;

@@ -14,6 +14,7 @@ class Composite :
         list<int>* getMap();
         void addChild(Component* node);
         void removeChild(Component* node);
+        void removeAllChild();
         void addParent(Component* node) = 0;
         void addSibling(Component* node) = 0;
         bool isSelfAreParentLastNode() = 0;

@@ -125,6 +125,7 @@ void MindMapModel::splitMindMapLine(string line)
     //}*/
     cout << id << description << childrenIds << endl;
 }
+
 void MindMapModel::loadMindMap(ifstream* file)
 {
     string line;
@@ -134,8 +135,13 @@ void MindMapModel::loadMindMap(ifstream* file)
         splitMindMapLine(line);
         //cout << data[0] << ", " << data[1] << ", " << data[2] << endl;
     }
-    file->close();
 }
+
+void MindMapModel::editNodeDescription(Component* node, string description)
+{
+    node->setDescription(description);
+}
+
 MindMapModel::~MindMapModel()
 {
 }

@@ -18,10 +18,12 @@ class Component
         string getDescription();
         void setDescription(string description);
         void setParent(Component* node);
+        Component* getParent();
         string toString();
         virtual list<int>* getMap() = 0;
         virtual void addChild(Component* node) = 0;
         virtual void removeChild(Component* node) = 0;
+        virtual void removeAllChild() = 0;
         virtual void addParent(Component* node) = 0;
         virtual void addSibling(Component* node) = 0;
         virtual bool isSelfAreParentLastNode() = 0;
