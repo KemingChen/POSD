@@ -109,7 +109,8 @@ void PresentModel::changeNodeParent(Component* node, Component* newParentNode)
     {
         throw string("You can¡¦t select itself!!");
     }
-    _model->changeNodeParent(node, newParentNode);
+    Command* command = new ChangeParentCommand(_model, node, newParentNode);
+    _commandManager.execute(command);
 }
 
 void PresentModel::deleteNode(Component* node)

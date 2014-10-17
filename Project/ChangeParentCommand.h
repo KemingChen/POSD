@@ -7,10 +7,13 @@ class ChangeParentCommand : public Command
     private:
         Component* _node;
         Component* _newParentNode;
-        //NodeList _nodeList;
+        Component* _oldParentNode;
+        MindMapModel* _model;
+        NodeList _oldNodeList;
+        bool _revertOldNodeList;
 
     public:
-        ChangeParentCommand(Component* node, Component* newParentNode);
+        ChangeParentCommand(MindMapModel* model, Component* node, Component* newParentNode);
         void execute();
         void unexecute();
         ~ChangeParentCommand();
