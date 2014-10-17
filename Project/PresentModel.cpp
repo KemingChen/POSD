@@ -118,7 +118,8 @@ void PresentModel::deleteNode(Component* node)
     {
         throw string("You can't delete the root.");
     }
-    _model->deleteNode(node);
+    Command* command = new DeleteComponentCommand(_model, node);
+    _commandManager.execute(command);
 }
 
 void PresentModel::confirmMindMapExist()

@@ -157,6 +157,7 @@ void TextUI::changeNodeParent(Component* choseNode)
 
 void TextUI::deleteNode(Component* choseNode)
 {
+    cout << choseNode->getDescription() << endl;
     _presentModel->deleteNode(choseNode);
 }
 

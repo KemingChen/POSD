@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "ChangeParentCommand.h"
 
-ChangeParentCommand::ChangeParentCommand(Component* node, Component* changeParentNode) : Command(_model)
+ChangeParentCommand::ChangeParentCommand(Component* node, Component* changeParentNode) : Command()
 {
 }
 

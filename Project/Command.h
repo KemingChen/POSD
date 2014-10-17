@@ -1,13 +1,9 @@
 #pragma once
-#include "MindMapModel.h"
 
 class Command
 {
-    protected:
-        MindMapModel* _model;
-
     public:
-        Command(MindMapModel* model);
+        Command();
         virtual void execute() = 0;
         virtual void unexecute() = 0;
         ~Command();

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "EditComponentCommand.h"
 
-EditComponentCommand::EditComponentCommand(MindMapModel* model, Component* node, string description) : Command(_model)
+EditComponentCommand::EditComponentCommand(MindMapModel* model, Component* node, string description) : Command()
 {
     _model = model;
     _node = node;

@@ -1,10 +1,15 @@
 #pragma once
 #include "Command.h"
+#include "MindMapModel.h"
 
 class DeleteComponentCommand : public Command
 {
+    private:
+        MindMapModel* _model;
+        Component* _node;
+
     public:
-        DeleteComponentCommand();
+        DeleteComponentCommand(MindMapModel* model, Component* node);
         void execute();
         void unexecute();
         ~DeleteComponentCommand();

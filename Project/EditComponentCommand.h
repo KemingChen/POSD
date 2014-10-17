@@ -1,5 +1,6 @@
 #pragma once
 #include "Command.h"
+#include "MindMapModel.h"
 using namespace std;
 
 class EditComponentCommand : public Command
@@ -8,6 +9,7 @@ class EditComponentCommand : public Command
         string _oldDescription;
         string _newDescription;
         Component* _node;
+        MindMapModel* _model;
 
     public:
         //EditComponentCommand();
