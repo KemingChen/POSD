@@ -42,18 +42,16 @@ void TextUI::run()
 
 string TextUI::handleInput()
 {
-    string input;
+    char input[100];
     cout << ">";
-    cin >> input;
+    cin.getline(input, 100);
     return input;
 }
 
 string TextUI::handleInput(string description)
 {
-    string input;
-    cout << description << endl << ">";
-    cin >> input;
-    return input;
+    cout << description << endl;
+    return handleInput();
 }
 
 void TextUI::printActionMenu()
