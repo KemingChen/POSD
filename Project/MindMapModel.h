@@ -22,7 +22,8 @@ class MindMapModel
         void loadMindMap(ifstream* file);
         void createNode();
         void editNodeDescription(Component* node, string description);
-        void changeParentNode(Component* node, Component* changeNode);
+        void changeNodeParent(Component* node, Component* changeNode);
+        void deleteNode(Component* node);
         void insertParentNode(Component* parent, Component* node);
         void insertChildNode(Component* parent, Component* node);
         void insertSiblingNode(Component* parent, Component* node);

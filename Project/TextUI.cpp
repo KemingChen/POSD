@@ -134,7 +134,7 @@ void TextUI::editNodeDescription(Component* choseNode)
 void TextUI::changeNodeParent(Component* choseNode)
 {
     Component* choseNewParentNode;
-    _presentModel->confirmChangeNodeNotRoot(choseNode);
+    _presentModel->confirmChangeNodeLegal(choseNode);
     while (true)
     {
         try
@@ -152,7 +152,7 @@ void TextUI::changeNodeParent(Component* choseNode)
 
 void TextUI::deleteNode(Component* choseNode)
 {
-    throw string("No Imprement");
+    _presentModel->deleteNode(choseNode);
 }
 
 void TextUI::editNode()

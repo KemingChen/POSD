@@ -21,8 +21,9 @@ class PresentModel
         void saveMindMap();
         void loadMindMap(string path);
         void changeParentNode(Component* node, Component* newParentNode);
+        void deleteNode(Component* node);
         void confirmMindMapExist();
-        void confirmChangeNodeNotRoot(Component* node);
+        void confirmChangeNodeLegal(Component* node);
         Component* insertNode(Component* choseNode, string action);
         Component* tryFindNode(string id);
         ~PresentModel();

@@ -142,6 +142,17 @@ void MindMapModel::editNodeDescription(Component* node, string description)
     node->setDescription(description);
 }
 
+void MindMapModel::deleteNode(Component* node)
+{
+    Component* parentNode = node->getParent();
+    NodeList* nodeList = node->getNodeList();
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        parentNode->addChild(*iNode);
+    }
+    parentNode->removeChild(node);
+}
+
 MindMapModel::~MindMapModel()
 {
 }

@@ -124,6 +124,15 @@ void PresentModel::changeParentNode(Component* node, Component* newParentNode)
     }
 }
 
+void PresentModel::deleteNode(Component* node)
+{
+    if (_model->getRootNode() == node)
+    {
+        throw string("You can't delete the root.");
+    }
+    _model->deleteNode(node);
+}
+
 void PresentModel::confirmMindMapExist()
 {
     if (_model->getRootNode() == NULL)
@@ -132,9 +141,9 @@ void PresentModel::confirmMindMapExist()
     }
 }
 
-void PresentModel::confirmChangeNodeNotRoot(Component* changeNode)
+void PresentModel::confirmChangeNodeLegal(Component* node)
 {
-    if (_model->getRootNode() == changeNode)
+    if (_model->getRootNode() == node)
     {
         throw string("Root can't be changed the parent.");
     }
