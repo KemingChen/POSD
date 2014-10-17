@@ -34,6 +34,12 @@
     <Filter Include="標頭檔\Const">
       <UniqueIdentifier>{cfa03abb-74b1-419d-b421-b7a80204d958}</UniqueIdentifier>
     </Filter>
+    <Filter Include="標頭檔\Model\Command">
+      <UniqueIdentifier>{82244a1e-fa16-4e1b-a552-169e270e51f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="原始程式檔\Model\Command">
+      <UniqueIdentifier>{3819b5fe-e92c-45dc-af9e-46053f07da36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -72,6 +78,21 @@
     <ClInclude Include="TypeConst.h">
       <Filter>標頭檔\Const</Filter>
     </ClInclude>
+    <ClInclude Include="CommandManager.h">
+      <Filter>標頭檔\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>標頭檔\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeParentCommand.h">
+      <Filter>標頭檔\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteComponentCommand.h">
+      <Filter>標頭檔\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="EditComponentCommand.h">
+      <Filter>標頭檔\Model\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -103,6 +124,21 @@
     </ClCompile>
     <ClCompile Include="ComponentFactory.cpp">
       <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeParentCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandManager.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteComponentCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="EditComponentCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

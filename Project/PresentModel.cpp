@@ -96,32 +96,14 @@ Component* PresentModel::tryFindNode(string id)
     return node;
 }
 
-void PresentModel::changeParentNode(Component* node, Component* newParentNode)
+void PresentModel::changeNodeParent(Component* node, Component* newParentNode)
 {
     // Node == New Parent Node
     if (node == newParentNode)
     {
         throw string("You can¡¦t select itself!!");
     }
-    // Node's Children Not Contain New Parent Node
-    if (_model->findNode(node, newParentNode->getId()) == NULL)
-    {
-        node->getParent()->removeChild(node);
-        newParentNode->addChild(node);
-    }
-    // Node's Children Contain New Parent Node
-    else
-    {
-        Component* oldParent = node->getParent();
-        NodeList* nodeList = node->getNodeList();
-        for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
-        {
-            oldParent->addChild(*iNode);
-        }
-        oldParent->removeChild(node);
-        node->removeAllChild();
-        newParentNode->addChild(node);
-    }
+    _model->changeNodeParent(node, newParentNode);
 }
 
 void PresentModel::deleteNode(Component* node)

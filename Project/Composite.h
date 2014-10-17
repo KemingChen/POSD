@@ -1,8 +1,7 @@
 #pragma once
 using namespace std;
 
-class Composite :
-    public Component
+class Composite : public Component
 {
     protected:
         // Protected Variable

@@ -145,7 +145,7 @@ void TextUI::changeNodeParent(Component* choseNode)
         try
         {
             choseNewParentNode = _presentModel->tryFindNode(handleInput("Enter the parent ID: "));
-            _presentModel->changeParentNode(choseNode, choseNewParentNode);
+            _presentModel->changeNodeParent(choseNode, choseNewParentNode);
             break;
         }
         catch (string error)

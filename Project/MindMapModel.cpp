@@ -142,6 +142,29 @@ void MindMapModel::editNodeDescription(Component* node, string description)
     node->setDescription(description);
 }
 
+void MindMapModel::changeNodeParent(Component* node, Component* newParentNode)
+{
+    // Node's Children Not Contain New Parent Node
+    if (findNode(node, newParentNode->getId()) == NULL)
+    {
+        node->getParent()->removeChild(node);
+        newParentNode->addChild(node);
+    }
+    // Node's Children Contain New Parent Node
+    else
+    {
+        Component* oldParent = node->getParent();
+        NodeList* nodeList = node->getNodeList();
+        for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+        {
+            oldParent->addChild(*iNode);
+        }
+        oldParent->removeChild(node);
+        node->removeAllChild();
+        newParentNode->addChild(node);
+    }
+}
+
 void MindMapModel::deleteNode(Component* node)
 {
     Component* parentNode = node->getParent();

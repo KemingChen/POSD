@@ -79,9 +79,14 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ChangeParentCommand.h" />
+    <ClInclude Include="Command.h" />
+    <ClInclude Include="CommandManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentFactory.h" />
     <ClInclude Include="Composite.h" />
+    <ClInclude Include="DeleteComponentCommand.h" />
+    <ClInclude Include="EditComponentCommand.h" />
     <ClInclude Include="MindMapModel.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Root.h" />
@@ -92,9 +97,14 @@
     <ClInclude Include="TypeConst.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ChangeParentCommand.cpp" />
+    <ClCompile Include="Command.cpp" />
+    <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Composite.cpp" />
+    <ClCompile Include="DeleteComponentCommand.cpp" />
+    <ClCompile Include="EditComponentCommand.cpp" />
     <ClCompile Include="MindMapModel.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Project.cpp" />
