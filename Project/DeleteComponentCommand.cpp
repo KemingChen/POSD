@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "DeleteComponentCommand.h"
 
-DeleteComponentCommand::DeleteComponentCommand()
+DeleteComponentCommand::DeleteComponentCommand() : Command(_model)
 {
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "MindMapModel.h"
+#include "CommandManager.h"
 
 class PresentModel
 {
@@ -8,6 +9,7 @@ class PresentModel
 
         // private variable
         MindMapModel* _model;
+        CommandManager _commandManager;
         InsertActionMap _insertActionMap;
 
         // private method
@@ -21,6 +23,7 @@ class PresentModel
         void saveMindMap();
         void loadMindMap(string path);
         void changeNodeParent(Component* node, Component* newParentNode);
+        void editNodeDescription(Component* node, string description);
         void deleteNode(Component* node);
         void confirmMindMapExist();
         void confirmChangeNodeLegal(Component* node);

@@ -4,12 +4,12 @@
 class ChangeParentCommand : public Command
 {
     private:
-        Component* node;
-        Component* changeParentNode;
-        NodeList nodeList;
+        Component* _node;
+        Component* _newParentNode;
+        //NodeList _nodeList;
 
     public:
-        ChangeParentCommand(Component* node, Component* changeParentNode);
+        ChangeParentCommand(Component* node, Component* newParentNode);
         void execute();
         void unexecute();
         ~ChangeParentCommand();

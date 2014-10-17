@@ -96,6 +96,12 @@ Component* PresentModel::tryFindNode(string id)
     return node;
 }
 
+void PresentModel::editNodeDescription(Component* node, string description)
+{
+    Command* command = new EditComponentCommand(_model, node, description);
+    _commandManager.execute(command);
+}
+
 void PresentModel::changeNodeParent(Component* node, Component* newParentNode)
 {
     // Node == New Parent Node

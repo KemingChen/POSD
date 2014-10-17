@@ -133,7 +133,7 @@ void TextUI::insertNewNode()
 
 void TextUI::editNodeDescription(Component* choseNode)
 {
-    _presentModel->getModel()->editNodeDescription(choseNode, handleInput("Enter the description: "));
+    _presentModel->editNodeDescription(choseNode, handleInput("Enter the description: "));
 }
 
 void TextUI::changeNodeParent(Component* choseNode)
