@@ -42,9 +42,14 @@ void TextUI::run()
 
 string TextUI::handleInput()
 {
-    char input[100];
+    const int maxSize = 100;
+    char input[maxSize];
     cout << ">";
-    cin.getline(input, 100);
+    do
+    {
+        cin.getline(input, maxSize);
+    }
+    while (input[0] == 0);
     return input;
 }
 
