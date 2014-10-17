@@ -60,6 +60,7 @@ void PresentModel::saveMindMap()
     ofstream file(DB_FILE);
     _model->saveMindMap(&file);
     file.close();
+    _commandManager.clear();
 }
 
 void PresentModel::loadMindMap(string path)
