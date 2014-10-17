@@ -16,6 +16,7 @@ class Component
         // Public Method
         Component(int id);
         string getId();
+        void setId(int id);
         string getTypeName();
         string getDescription();
         void setDescription(string description);

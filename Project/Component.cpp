@@ -3,13 +3,18 @@
 
 Component::Component(int id)
 {
-    _id = to_string(id);
+    setId(id);
     _parentNode = NULL;
 }
 
 string Component::getId()
 {
     return _id;
+}
+
+void Component::setId(int id)
+{
+    _id = to_string(id);
 }
 
 string Component::getTypeName()

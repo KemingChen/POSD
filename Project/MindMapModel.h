@@ -10,7 +10,7 @@ class MindMapModel
         Component* _root;
 
         // Private Method
-        void navigateMindMap(Component* node, string* list);
+        void navigateMindMap(Component* node, NodeList* list);
         string convertIntArrayToString(list<int>* intList);
         void splitMindMapLine(string line);
 

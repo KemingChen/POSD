@@ -18,3 +18,11 @@
 #include "Root.h"
 
 typedef list<Component*> NodeList;
+
+struct CompareComponent
+{
+    bool operator()(Component* first, Component* second)
+    {
+        return atoi(first->getId().c_str()) < atoi(second->getId().c_str());
+    }
+};

@@ -77,15 +77,16 @@ string MindMapModel::convertIntArrayToString(list<int>* intList)
     return returnstring;
 }
 
-void MindMapModel::navigateMindMap(Component* node, string* list)
+void MindMapModel::navigateMindMap(Component* node, NodeList* list)
 {
-    int id = atoi(node->getId().c_str());
-    string output = "";
+    list->push_back(node);
+    //int id = atoi(node->getId().c_str());
+    //string output = "";
     NodeList* nodeList = node->getNodeList();
-    output += node->getId() + " ";
-    output += "\"" + node->getDescription() + "\"";
-    output += convertIntArrayToString(node->getMap());
-    list[id] = output;
+    //output += node->getId() + " ";
+    //output += "\"" + node->getDescription() + "\"";
+    //output += convertIntArrayToString(node->getMap());
+    //list[id] = output;
     for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
     {
         navigateMindMap(*it, list);
@@ -94,16 +95,28 @@ void MindMapModel::navigateMindMap(Component* node, string* list)
 
 void MindMapModel::saveMindMap(ofstream* file)
 {
-    int nodeCount = ComponentFactory::getInstance()->getCreatedCount();
-    string* list = new string[nodeCount];
+    NodeList nodeList;
     if (_root == NULL)
     {
         return;
     }
-    navigateMindMap(_root, list);
-    for (int i = 0; i < nodeCount; i++)
+    navigateMindMap(_root, &nodeList);
+    nodeList.sort(CompareComponent());
+    int newId = 0;
+    Component* node;
+    for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
     {
-        (*file) << list[i] << endl;
+        (*iNode)->setId(newId);
+        newId++;
+    }
+    for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
+    {
+        node = *iNode;
+        string output = "";
+        (*file) << node->getId() << " ";
+        (*file) << "\"" << node->getDescription() << "\"";
+        (*file) << convertIntArrayToString(node->getMap()) << endl;
+        newId++;
     }
 }
 
