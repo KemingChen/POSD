@@ -9,6 +9,7 @@ void Composite::addChild(Component* node)
 {
     node->setParent(this);
     _nodeList.push_back(node);
+    _nodeList.sort();
 }
 
 void Composite::removeChild(Component* node)
