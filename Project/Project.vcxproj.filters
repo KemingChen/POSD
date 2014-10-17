@@ -60,9 +60,6 @@
     <ClInclude Include="Node.h">
       <Filter>標頭檔\Model\Composite</Filter>
     </ClInclude>
-    <ClInclude Include="NodeMap.h">
-      <Filter>標頭檔\Model\Composite</Filter>
-    </ClInclude>
     <ClInclude Include="Root.h">
       <Filter>標頭檔\Model\Composite</Filter>
     </ClInclude>
@@ -99,9 +96,6 @@
       <Filter>原始程式檔\Model\Composite</Filter>
     </ClCompile>
     <ClCompile Include="Root.cpp">
-      <Filter>原始程式檔\Model\Composite</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeMap.cpp">
       <Filter>原始程式檔\Model\Composite</Filter>
     </ClCompile>
     <ClCompile Include="PresentModel.cpp">

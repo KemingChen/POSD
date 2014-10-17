@@ -84,7 +84,6 @@
     <ClInclude Include="Composite.h" />
     <ClInclude Include="MindMapModel.h" />
     <ClInclude Include="Node.h" />
-    <ClInclude Include="NodeMap.h" />
     <ClInclude Include="Root.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -98,7 +97,6 @@
     <ClCompile Include="Composite.cpp" />
     <ClCompile Include="MindMapModel.cpp" />
     <ClCompile Include="Node.cpp" />
-    <ClCompile Include="NodeMap.cpp" />
     <ClCompile Include="Project.cpp" />
     <ClCompile Include="Root.cpp" />
     <ClCompile Include="stdafx.cpp">

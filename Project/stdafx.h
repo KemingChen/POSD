@@ -12,7 +12,6 @@
 // TODO:  在此參考您的程式所需要的其他標頭
 #include <string>
 #include <list>
-#include "NodeMap.h"
 #include "Component.h"
 #include "Composite.h"
 #include "Node.h"

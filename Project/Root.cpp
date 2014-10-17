@@ -3,8 +3,7 @@
 
 Root::Root(int id) : Composite(id)
 {
-    _node->setTypeName("Root");
-    _parentNode = NULL;
+    _typeName = "Root";
 }
 
 void Root::addParent(Component* node)

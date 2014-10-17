@@ -3,27 +3,28 @@
 
 Component::Component(int id)
 {
-    _node = new NodeMap(id);
+    _id = to_string(id);
+    _parentNode = NULL;
 }
 
 string Component::getId()
 {
-    return _node->getId();
+    return _id;
 }
 
 string Component::getTypeName()
 {
-    return _node->getTypeName();
+    return _typeName;
 }
 
 string Component::getDescription()
 {
-    return _node->getDescription();
+    return _description;
 }
 
 void Component::setDescription(string description)
 {
-    _node->setDescription(description);
+    _description = description;
 }
 
 void Component::setParent(Component* node)
@@ -38,7 +39,10 @@ Component* Component::getParent()
 
 string Component::toString()
 {
-    return _node->toString();
+    string output;
+    output += "¡Ï¡Ð " + _description;
+    output += " (" + _typeName + ", ID: " + _id + ")";
+    return output;
 }
 
 Component::~Component()

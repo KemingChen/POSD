@@ -3,7 +3,7 @@
 
 Node::Node(int id) : Composite(id)
 {
-    _node->setTypeName("Node");
+    _typeName = "Node";
 }
 
 void Node::addParent(Component* node)

@@ -5,7 +5,9 @@ class Component
 {
     protected:
         // Protected Variable
-        NodeMap* _node;
+        string _id;
+        string _description;
+        string _typeName;
         Component* _parentNode;
 
     public:
