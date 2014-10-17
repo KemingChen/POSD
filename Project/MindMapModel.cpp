@@ -2,6 +2,8 @@
 #include "MindMapModel.h"
 #include "ComponentFactory.h"
 #include <iostream>
+#include <sstream>
+#include <vector>
 
 MindMapModel::MindMapModel()
 {
@@ -105,36 +107,34 @@ void MindMapModel::saveMindMap(ofstream* file)
     }
 }
 
-// 將從 Database 讀到的一行，分解成 id, description, childrenIds 的 string array
-void MindMapModel::splitMindMapLine(string line)
-{
-    //string* array = new string[] {"123", "234", "345"};
-    cout << line << endl;
-    string quot = "\"";
-    int startQuot = line.find_first_of(quot);
-    int endQuot = line.find_last_of(quot);
-    string id = "";
-    string description = "";
-    string childrenIds = "";
-    //string id = true ? "" : line.substr(0, startQuot);
-    //string description = true ? "" : line.substr(startQuot + 1, endQuot - startQuot);
-    //string childrenIds = "";
-    //if (endQuot /*+ 1 != line.size())
-    //{
-    //    line.substr(endQuot + 2, line.size() - endQuot - 2);
-    //}*/
-    cout << id << description << childrenIds << endl;
-}
-
 void MindMapModel::loadMindMap(ifstream* file)
 {
+    ComponentFactory* componentFactory = ComponentFactory::getInstance();
     string line;
+    vector<Component*> componentList;
+    vector<string> nodeIdsList;
     while (getline(*file, line))
     {
-        cout << "size: " << line.size() << endl;
-        splitMindMapLine(line);
-        //cout << data[0] << ", " << data[1] << ", " << data[2] << endl;
+        int firstQuot = line.find_first_of("\"");
+        int secondQuot = line.find_last_of("\"");
+        string description = line.substr(firstQuot + 1, secondQuot - firstQuot - 1);
+        string nodeIds = line.substr(secondQuot + 1, line.size());
+        Component* node = componentFactory->createComponent(componentList.size() == 0 ? ROOT : NODE);
+        node->setDescription(description);
+        componentList.push_back(node);
+        nodeIdsList.push_back(nodeIds);
     }
+    for (int i = 0; i < componentList.size(); i++)
+    {
+        Component* node = componentList[i];
+        stringstream ssin(nodeIdsList[i]);
+        int id;
+        while (ssin >> id)
+        {
+            node->addChild(componentList[id]);
+        }
+    }
+    _root = componentList[0];
 }
 
 void MindMapModel::editNodeDescription(Component* node, string description)

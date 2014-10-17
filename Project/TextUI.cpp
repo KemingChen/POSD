@@ -208,8 +208,8 @@ void TextUI::saveMindMap()
 
 void TextUI::loadMindMap()
 {
-    //_presentModel->loadMindMap(handleInput("Please input a file path:"));
-    _presentModel->loadMindMap("file__exist.mm");
+    _presentModel->loadMindMap(handleInput("Please input a file path:"));
+    displayMindMap();
 }
 
 void TextUI::redo()
