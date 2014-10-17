@@ -20,6 +20,7 @@ class PresentModel
         PresentModel(MindMapModel* model);
         MindMapModel* getModel();
         string getMindMap();
+        void createMindMap(string description);
         void saveMindMap();
         void loadMindMap(string path);
         void changeNodeParent(Component* node, Component* newParentNode);

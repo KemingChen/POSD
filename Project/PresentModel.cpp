@@ -49,6 +49,12 @@ string PresentModel::getNodeMap(Component* node, string prefix, bool isParentAre
     return output;
 }
 
+void PresentModel::createMindMap(string description)
+{
+    _model->createMinMap(description);
+    _commandManager.clear();
+}
+
 void PresentModel::saveMindMap()
 {
     ofstream file(DB_FILE);
@@ -65,6 +71,7 @@ void PresentModel::loadMindMap(string path)
     }
     _model->loadMindMap(&file);
     file.close();
+    _commandManager.clear();
 }
 
 Component* PresentModel::insertNode(Component* choseNode, string action)
@@ -83,6 +90,7 @@ Component* PresentModel::insertNode(Component* choseNode, string action)
         ComponentFactory::getInstance()->revertCreateId();
         throw error;
     }
+    _commandManager.clear();
     return newNode;
 }
 

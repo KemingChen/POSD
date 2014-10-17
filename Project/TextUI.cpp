@@ -101,7 +101,7 @@ void TextUI::createNewMindMap()
 {
     string description;
     description = handleInput("Please enter the topic:");
-    _presentModel->getModel()->createMinMap(description);
+    _presentModel->createMindMap(description);
     printMindMap();
 }
 
