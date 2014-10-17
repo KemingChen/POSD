@@ -17,7 +17,7 @@ Command* CommandManager::getCommand(CommandStack* stack, string errorMessage)
 {
     if (stack->empty())
     {
-        throw string("Can't Redo!");
+        throw string(errorMessage);
     }
     Command* command = stack->top();
     stack->pop();

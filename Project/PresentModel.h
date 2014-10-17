@@ -27,6 +27,8 @@ class PresentModel
         void deleteNode(Component* node);
         void confirmMindMapExist();
         void confirmChangeNodeLegal(Component* node);
+        void redo();
+        void undo();
         Component* insertNode(Component* choseNode, string action);
         Component* tryFindNode(string id);
         ~PresentModel();

@@ -214,10 +214,14 @@ void TextUI::loadMindMap()
 
 void TextUI::redo()
 {
+    _presentModel->redo();
+    displayMindMap();
 }
 
 void TextUI::undo()
 {
+    _presentModel->undo();
+    displayMindMap();
 }
 
 void TextUI::exit()

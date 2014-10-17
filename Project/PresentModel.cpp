@@ -137,6 +137,16 @@ void PresentModel::confirmChangeNodeLegal(Component* node)
     }
 }
 
+void PresentModel::redo()
+{
+    _commandManager.redo();
+}
+
+void PresentModel::undo()
+{
+    _commandManager.undo();
+}
+
 PresentModel::~PresentModel()
 {
 }
