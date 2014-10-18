@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "TextUI.h"
 #define ENTER_NODE_NAME "Enter the node name:"
+#define ERROR_COMMAND "The command is not found!!"
 
 TextUI::TextUI(PresentModel* presentModel)
 {
@@ -151,7 +152,7 @@ void TextUI::insertNewNode()
             }
             else
             {
-                throw string("The command is not found!!");
+                throw string(ERROR_COMMAND);
             }
         }
         catch (string error)
@@ -215,7 +216,7 @@ void TextUI::editNode()
             }
             else
             {
-                throw string("The command is not found!!");
+                throw string(ERROR_COMMAND);
             }
         }
         catch (string error)

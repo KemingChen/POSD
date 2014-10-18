@@ -79,13 +79,7 @@ string MindMapModel::convertIntArrayToString(list<int>* intList)
 void MindMapModel::navigateMindMap(Component* node, NodeList* list)
 {
     list->push_back(node);
-    //int id = atoi(node->getId().c_str());
-    //string output = "";
     NodeList* nodeList = node->getNodeList();
-    //output += node->getId() + " ";
-    //output += "\"" + node->getDescription() + "\"";
-    //output += convertIntArrayToString(node->getMap());
-    //list[id] = output;
     for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
     {
         navigateMindMap(*it, list);
