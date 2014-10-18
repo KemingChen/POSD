@@ -4,6 +4,9 @@
 #include "EditComponentCommand.h"
 #include "ChangeParentCommand.h"
 #include "DeleteComponentCommand.h"
+#include "InsertChildNodeCommand.h"
+#include "InsertParentNodeCommand.h"
+#include "InsertSiblingNodeCommand.h"
 using namespace std;
 
 class CommandManager

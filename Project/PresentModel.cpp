@@ -76,18 +76,21 @@ void PresentModel::insertParentNode(Component* choseNode, string description)
 {
     Component* newNode = ComponentFactory::getInstance()->createComponent(NODE, description);
     _model->insertParentNode(choseNode, newNode);
+    _commandManager.clear();
 }
 
 void PresentModel::insertChildNode(Component* choseNode, string description)
 {
     Component* newNode = ComponentFactory::getInstance()->createComponent(NODE, description);
-    _model->insertChildNode(choseNode, newNode);
+    Command* command = new InsertChildNodeCommand(_model, choseNode, newNode);
+    _commandManager.execute(command);
 }
 
 void PresentModel::insertSiblingNode(Component* choseNode, string description)
 {
     Component* newNode = ComponentFactory::getInstance()->createComponent(NODE, description);
     _model->insertSiblingNode(choseNode, newNode);
+    _commandManager.clear();
 }
 
 Component* PresentModel::tryFindNode(string id)
