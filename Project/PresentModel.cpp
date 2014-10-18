@@ -67,34 +67,27 @@ void PresentModel::loadMindMap(string path)
     _commandManager.clear();
 }
 
-Component* PresentModel::tryInsertNode(Component* choseNode, InsertMethod insertMethod)
+void PresentModel::confirmInsertNodeLegal(Component* node, InsertMethod insertMethod)
 {
-    Component* newNode = ComponentFactory::getInstance()->createComponent(NODE);
-    try
-    {
-        (_model->*insertMethod)(choseNode, newNode);
-    }
-    catch (string error)
-    {
-        ComponentFactory::getInstance()->revertCreateId();
-        throw error;
-    }
-    return newNode;
+    (_model->*insertMethod)(node, NULL);
 }
 
-Component* PresentModel::insertParentNode(Component* choseNode)
+void PresentModel::insertParentNode(Component* choseNode, string description)
 {
-    return tryInsertNode(choseNode, &MindMapModel::insertParentNode);
+    Component* newNode = ComponentFactory::getInstance()->createComponent(NODE, description);
+    _model->insertParentNode(choseNode, newNode);
 }
 
-Component* PresentModel::insertChildNode(Component* choseNode)
+void PresentModel::insertChildNode(Component* choseNode, string description)
 {
-    return tryInsertNode(choseNode, &MindMapModel::insertChildNode);
+    Component* newNode = ComponentFactory::getInstance()->createComponent(NODE, description);
+    _model->insertChildNode(choseNode, newNode);
 }
 
-Component* PresentModel::insertSiblingNode(Component* choseNode)
+void PresentModel::insertSiblingNode(Component* choseNode, string description)
 {
-    return tryInsertNode(choseNode, &MindMapModel::insertSiblingNode);
+    Component* newNode = ComponentFactory::getInstance()->createComponent(NODE, description);
+    _model->insertSiblingNode(choseNode, newNode);
 }
 
 Component* PresentModel::tryFindNode(string id)

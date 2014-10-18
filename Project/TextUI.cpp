@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TextUI.h"
+#define ENTER_NODE_NAME "Enter the node name:"
 
 TextUI::TextUI(PresentModel* presentModel)
 {
@@ -108,24 +109,26 @@ void TextUI::createNewMindMap()
     printMindMap();
 }
 
-Component* TextUI::insertChildNode(Component* choseNode)
+void TextUI::insertParentNode(Component* choseNode)
 {
-    return _presentModel->insertChildNode(choseNode);
+    _presentModel->confirmInsertNodeLegal(choseNode, &MindMapModel::insertParentNode);
+    _presentModel->insertParentNode(choseNode, handleInput(ENTER_NODE_NAME));
 }
 
-Component* TextUI::insertParentNode(Component* choseNode)
+void TextUI::insertChildNode(Component* choseNode)
 {
-    return _presentModel->insertParentNode(choseNode);
+    _presentModel->confirmInsertNodeLegal(choseNode, &MindMapModel::insertChildNode);
+    _presentModel->insertChildNode(choseNode, handleInput(ENTER_NODE_NAME));
 }
 
-Component* TextUI::insertSiblingNode(Component* choseNode)
+void TextUI::insertSiblingNode(Component* choseNode)
 {
-    return _presentModel->insertSiblingNode(choseNode);
+    _presentModel->confirmInsertNodeLegal(choseNode, &MindMapModel::insertSiblingNode);
+    _presentModel->insertSiblingNode(choseNode, handleInput(ENTER_NODE_NAME));
 }
 
 void TextUI::insertNewNode()
 {
-    string choice;
     Component* newNode = NULL;
     Component* choseNode = NULL;
     _presentModel->confirmMindMapExist();
@@ -139,11 +142,10 @@ void TextUI::insertNewNode()
                 choseNode = _presentModel->tryFindNode(handleInput("Enter the node ID:"));
             }
             printInsertMenu();
-            choice = handleInput();
+            string choice = handleInput();
             if (_insertMenuMap[choice])
             {
-                newNode = (this->*_insertMenuMap[choice])(choseNode);
-                newNode->setDescription(handleInput("Enter the node name:"));
+                (this->*_insertMenuMap[choice])(choseNode);
                 printMindMap();
                 break;
             }

@@ -11,8 +11,7 @@ MindMapModel::MindMapModel()
 
 void MindMapModel::createMinMap(string description)
 {
-    _root = ComponentFactory::getInstance()->createComponent(ROOT);
-    _root->setDescription(description);
+    _root = ComponentFactory::getInstance()->createComponent(ROOT, description);
 }
 
 Component* MindMapModel::getRootNode()
@@ -132,8 +131,7 @@ void MindMapModel::loadMindMap(ifstream* file)
         int secondQuot = line.find_last_of("\"");
         string description = line.substr(firstQuot + 1, secondQuot - firstQuot - 1);
         string nodeIds = line.substr(secondQuot + 1, line.size());
-        Component* node = componentFactory->createComponent(componentList.size() == 0 ? ROOT : NODE);
-        node->setDescription(description);
+        Component* node = componentFactory->createComponent(componentList.size() == 0 ? ROOT : NODE, description);
         componentList.push_back(node);
         nodeIdsList.push_back(nodeIds);
     }

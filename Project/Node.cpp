@@ -1,23 +1,30 @@
 #include "stdafx.h"
 #include "Node.h"
 
-Node::Node(int id) : Composite(id)
+Node::Node(int id, string description) : Composite(id)
 {
     _typeName = "Node";
+    _description = description;
 }
 
 void Node::addParent(Component* node)
 {
-    Component* parent = this->_parentNode;
-    parent->removeChild(this);
-    parent->addChild(node);
-    node->addChild(this);
+    if (node != NULL)
+    {
+        Component* parent = this->_parentNode;
+        parent->removeChild(this);
+        parent->addChild(node);
+        node->addChild(this);
+    }
 }
 
 void Node::addSibling(Component* node)
 {
-    Component* parent = this->_parentNode;
-    parent->addChild(node);
+    if (node != NULL)
+    {
+        Component* parent = this->_parentNode;
+        parent->addChild(node);
+    }
 }
 
 bool Node::isSelfAreParentLastNode()

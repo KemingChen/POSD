@@ -5,7 +5,7 @@ class Root : public Composite
 {
     public:
         // Public Method
-        Root(int id);
+        Root(int id, string description);
         void addParent(Component* node);
         void addSibling(Component* node);
         bool isSelfAreParentLastNode();

@@ -8,7 +8,7 @@ class TextUI
     private:
         // Variable
         map<string, void (TextUI::*)(void)> _mainMenuMap;
-        map<string, Component* (TextUI::*)(Component*)> _insertMenuMap;
+        map<string, void (TextUI::*)(Component*)> _insertMenuMap;
         map<string, void (TextUI::*)(Component*)> _editMenuMap;
         PresentModel* _presentModel;
         bool _isRun = true;
@@ -25,9 +25,9 @@ class TextUI
         void printMindMap();
 
         // InsertAction Method
-        Component* insertParentNode(Component* choseNode);
-        Component* insertChildNode(Component* choseNode);
-        Component* insertSiblingNode(Component* choseNode);
+        void insertParentNode(Component* choseNode);
+        void insertChildNode(Component* choseNode);
+        void insertSiblingNode(Component* choseNode);
 
         // EditAction Method
         void editNodeDescription(Component* choseNode);

@@ -7,9 +7,12 @@ Composite::Composite(int id) : Component(id)
 
 void Composite::addChild(Component* node)
 {
-    node->setParent(this);
-    _nodeList.push_back(node);
-    _nodeList.sort(CompareComponent());
+    if (node != NULL)
+    {
+        node->setParent(this);
+        _nodeList.push_back(node);
+        _nodeList.sort(CompareComponent());
+    }
 }
 
 void Composite::removeChild(Component* node)

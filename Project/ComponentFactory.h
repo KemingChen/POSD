@@ -10,7 +10,7 @@ class ComponentFactory
 
     public:
         static ComponentFactory* getInstance();
-        Component* createComponent(int type);
+        Component* createComponent(int type, string description);
         void revertCreateId();
         int getCreatedCount();
         ~ComponentFactory();
