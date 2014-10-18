@@ -93,6 +93,15 @@
     <ClInclude Include="EditComponentCommand.h">
       <Filter>標頭檔\Model\Command</Filter>
     </ClInclude>
+    <ClInclude Include="InsertChildNodeCommand.h">
+      <Filter>標頭檔\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="InsertParentNodeCommand.h">
+      <Filter>標頭檔\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="InsertSiblingNodeCommand.h">
+      <Filter>標頭檔\Model\Command</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -138,6 +147,15 @@
       <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
     <ClCompile Include="EditComponentCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertChildNodeCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertParentNodeCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertSiblingNodeCommand.cpp">
       <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
   </ItemGroup>

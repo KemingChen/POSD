@@ -7,14 +7,6 @@
 PresentModel::PresentModel(MindMapModel* model)
 {
     _model = model;
-    _insertActionMap["a"] = &MindMapModel::insertParentNode;
-    _insertActionMap["b"] = &MindMapModel::insertChildNode;
-    _insertActionMap["c"] = &MindMapModel::insertSiblingNode;
-}
-
-MindMapModel* PresentModel::getModel()
-{
-    return _model;
 }
 
 string PresentModel::getMindMap()
@@ -75,24 +67,34 @@ void PresentModel::loadMindMap(string path)
     _commandManager.clear();
 }
 
-Component* PresentModel::insertNode(Component* choseNode, string action)
+Component* PresentModel::tryInsertNode(Component* choseNode, InsertMethod insertMethod)
 {
     Component* newNode = ComponentFactory::getInstance()->createComponent(NODE);
     try
     {
-        if (!_insertActionMap[action])
-        {
-            throw string("Unknown Action: " + action);
-        }
-        (_model->*_insertActionMap[action])(choseNode, newNode);
+        (_model->*insertMethod)(choseNode, newNode);
     }
     catch (string error)
     {
         ComponentFactory::getInstance()->revertCreateId();
         throw error;
     }
-    _commandManager.clear();
     return newNode;
+}
+
+Component* PresentModel::insertParentNode(Component* choseNode)
+{
+    return tryInsertNode(choseNode, &MindMapModel::insertParentNode);
+}
+
+Component* PresentModel::insertChildNode(Component* choseNode)
+{
+    return tryInsertNode(choseNode, &MindMapModel::insertChildNode);
+}
+
+Component* PresentModel::insertSiblingNode(Component* choseNode)
+{
+    return tryInsertNode(choseNode, &MindMapModel::insertSiblingNode);
 }
 
 Component* PresentModel::tryFindNode(string id)

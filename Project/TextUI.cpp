@@ -16,6 +16,9 @@ TextUI::TextUI(PresentModel* presentModel)
     _editMenuMap["a"] = &TextUI::editNodeDescription;
     _editMenuMap["b"] = &TextUI::changeNodeParent;
     _editMenuMap["c"] = &TextUI::deleteNode;
+    _insertMenuMap["a"] = &TextUI::insertParentNode;
+    _insertMenuMap["b"] = &TextUI::insertChildNode;
+    _insertMenuMap["c"] = &TextUI::insertSiblingNode;
 }
 
 void TextUI::run()
@@ -105,8 +108,24 @@ void TextUI::createNewMindMap()
     printMindMap();
 }
 
+Component* TextUI::insertChildNode(Component* choseNode)
+{
+    return _presentModel->insertChildNode(choseNode);
+}
+
+Component* TextUI::insertParentNode(Component* choseNode)
+{
+    return _presentModel->insertParentNode(choseNode);
+}
+
+Component* TextUI::insertSiblingNode(Component* choseNode)
+{
+    return _presentModel->insertSiblingNode(choseNode);
+}
+
 void TextUI::insertNewNode()
 {
+    string choice;
     Component* newNode = NULL;
     Component* choseNode = NULL;
     _presentModel->confirmMindMapExist();
@@ -120,8 +139,18 @@ void TextUI::insertNewNode()
                 choseNode = _presentModel->tryFindNode(handleInput("Enter the node ID:"));
             }
             printInsertMenu();
-            newNode = _presentModel->insertNode(choseNode, handleInput());
-            newNode->setDescription(handleInput("Enter the node name:"));
+            choice = handleInput();
+            if (_insertMenuMap[choice])
+            {
+                newNode = (this->*_insertMenuMap[choice])(choseNode);
+                newNode->setDescription(handleInput("Enter the node name:"));
+                printMindMap();
+                break;
+            }
+            else
+            {
+                throw string("The command is not found!!");
+            }
         }
         catch (string error)
         {
@@ -157,7 +186,6 @@ void TextUI::changeNodeParent(Component* choseNode)
 
 void TextUI::deleteNode(Component* choseNode)
 {
-    cout << choseNode->getDescription() << endl;
     _presentModel->deleteNode(choseNode);
 }
 

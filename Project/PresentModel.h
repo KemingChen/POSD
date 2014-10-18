@@ -5,32 +5,37 @@
 class PresentModel
 {
     private:
-        typedef map<string, void (MindMapModel::*)(Component*, Component*)> InsertActionMap;
+        typedef void(MindMapModel::*InsertMethod)(Component*, Component*);
 
         // private variable
         MindMapModel* _model;
         CommandManager _commandManager;
-        InsertActionMap _insertActionMap;
 
         // private method
         string getNodeMap(Component* node, string prefix, bool isParentAreLastNode);
+        Component* tryInsertNode(Component* choseNode, InsertMethod insertMethod);
 
     public:
         // public method
         PresentModel(MindMapModel* model);
-        MindMapModel* getModel();
-        string getMindMap();
+        Component* tryFindNode(string id);
+
+        // Comfirm Method
+        void confirmMindMapExist();
+        void confirmChangeNodeLegal(Component* node);
+
+        // Action Method
         void createMindMap(string description);
-        void saveMindMap();
-        void loadMindMap(string path);
+        Component* insertParentNode(Component* choseNode);
+        Component* insertChildNode(Component* choseNode);
+        Component* insertSiblingNode(Component* choseNode);
         void changeNodeParent(Component* node, Component* newParentNode);
         void editNodeDescription(Component* node, string description);
         void deleteNode(Component* node);
-        void confirmMindMapExist();
-        void confirmChangeNodeLegal(Component* node);
+        string getMindMap();
+        void saveMindMap();
+        void loadMindMap(string path);
         void redo();
         void undo();
-        Component* insertNode(Component* choseNode, string action);
-        Component* tryFindNode(string id);
         ~PresentModel();
 };
