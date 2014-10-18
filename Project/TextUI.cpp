@@ -233,8 +233,8 @@ void TextUI::displayMindMap()
 
 void TextUI::saveMindMap()
 {
-    printMindMap();
     _presentModel->saveMindMap();
+    printMindMap();
     cout << "Save MindMap Success" << endl;
 }
 

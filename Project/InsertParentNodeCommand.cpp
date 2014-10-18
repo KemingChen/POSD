@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "InsertParentNodeCommand.h"
-
-
 InsertParentNodeCommand::InsertParentNodeCommand(MindMapModel* model, Component* node, Component* newNode)
 {
     _model = model;

@@ -89,8 +89,8 @@ void PresentModel::insertChildNode(Component* choseNode, string description)
 void PresentModel::insertSiblingNode(Component* choseNode, string description)
 {
     Component* newNode = ComponentFactory::getInstance()->createComponent(NODE, description);
-    _model->insertSiblingNode(choseNode, newNode);
-    _commandManager.clear();
+    Command* command = new InsertSiblingNodeCommand(_model, choseNode, newNode);
+    _commandManager.execute(command);
 }
 
 Component* PresentModel::tryFindNode(string id)
