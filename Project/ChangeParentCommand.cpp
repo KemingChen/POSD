@@ -8,10 +8,13 @@ ChangeParentCommand::ChangeParentCommand(MindMapModel* model, Component* node, C
     _newParentNode = newParentNode;
     _oldParentNode = node->getParent();
     _revertOldNodeList = model->findNode(node, newParentNode->getId()) != NULL;
-    NodeList* nodeList = node->getNodeList();
-    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    if (_revertOldNodeList)
     {
-        _oldNodeList.push_back(*iNode);
+        NodeList* nodeList = node->getNodeList();
+        for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+        {
+            _oldNodeList.push_back(*iNode);
+        }
     }
 }
 
@@ -22,15 +25,7 @@ void ChangeParentCommand::execute()
 
 void ChangeParentCommand::unexecute()
 {
-    _model->changeNodeParent(_node, _oldParentNode);
-    if (_revertOldNodeList)
-    {
-        for (NodeList::iterator iNode = _oldNodeList.begin(); iNode != _oldNodeList.end(); iNode++)
-        {
-            _oldParentNode->removeChild(*iNode);
-            _node->addChild(*iNode);
-        }
-    }
+    _model->revertChangeNodeParent(_node, _oldParentNode, &_oldNodeList);
 }
 
 ChangeParentCommand::~ChangeParentCommand()

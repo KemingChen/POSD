@@ -24,6 +24,13 @@ void MindMapModel::insertParentNode(Component* choseNode, Component* newNode)
     choseNode->addParent(newNode);
 }
 
+void MindMapModel::revertInsertParentNode(Component* choseNode, Component* newNode, Component* oldParentNode)
+{
+    newNode->removeChild(choseNode);
+    oldParentNode->removeChild(newNode);
+    oldParentNode->addChild(choseNode);
+}
+
 void MindMapModel::insertChildNode(Component* choseNode, Component* newNode)
 {
     choseNode->addChild(newNode);
@@ -43,13 +50,13 @@ Component* MindMapModel::findNode(string id)
     return findNode(_root, id);
 }
 
-Component* MindMapModel::findNode(Component* node, string id)
+Component* MindMapModel::findNode(Component* fromNode, string id)
 {
     Component* foundNode = NULL;
-    NodeList* nodeList = node->getNodeList();
-    if (node->getId() == id)
+    NodeList* nodeList = fromNode->getNodeList();
+    if (fromNode->getId() == id)
     {
-        return node;
+        return fromNode;
     }
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {
@@ -57,7 +64,7 @@ Component* MindMapModel::findNode(Component* node, string id)
         {
             return foundNode;
         }
-        if (node->getId() == id)
+        if (fromNode->getId() == id)
         {
             return *iNode;
         }
@@ -142,43 +149,64 @@ void MindMapModel::loadMindMap(ifstream* file)
     _root = componentList[0];
 }
 
-void MindMapModel::editNodeDescription(Component* node, string description)
+void MindMapModel::editNodeDescription(Component* choseNode, string description)
 {
-    node->setDescription(description);
+    choseNode->setDescription(description);
 }
 
-void MindMapModel::changeNodeParent(Component* node, Component* newParentNode)
+void MindMapModel::changeNodeParent(Component* choseNode, Component* newParentNode)
 {
     // Node's Children Not Contain New Parent Node
-    if (findNode(node, newParentNode->getId()) == NULL)
+    if (findNode(choseNode, newParentNode->getId()) == NULL)
     {
-        node->getParent()->removeChild(node);
-        newParentNode->addChild(node);
+        choseNode->getParent()->removeChild(choseNode);
+        newParentNode->addChild(choseNode);
     }
     // Node's Children Contain New Parent Node
     else
     {
-        Component* oldParent = node->getParent();
-        NodeList* nodeList = node->getNodeList();
+        Component* oldParent = choseNode->getParent();
+        NodeList* nodeList = choseNode->getNodeList();
         for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
         {
             oldParent->addChild(*iNode);
         }
-        oldParent->removeChild(node);
-        node->removeAllChild();
-        newParentNode->addChild(node);
+        oldParent->removeChild(choseNode);
+        choseNode->removeAllChild();
+        newParentNode->addChild(choseNode);
     }
 }
 
-void MindMapModel::deleteNode(Component* node)
+void MindMapModel::revertChangeNodeParent(Component* choseNode, Component* oldParentNode, NodeList* oldNodeList)
 {
-    Component* parentNode = node->getParent();
-    NodeList* nodeList = node->getNodeList();
+    changeNodeParent(choseNode, oldParentNode);
+    for (NodeList::iterator iNode = oldNodeList->begin(); iNode != oldNodeList->end(); iNode++)
+    {
+        oldParentNode->removeChild(*iNode);
+        choseNode->addChild(*iNode);
+    }
+}
+
+void MindMapModel::deleteNode(Component* choseNode)
+{
+    Component* parentNode = choseNode->getParent();
+    NodeList* nodeList = choseNode->getNodeList();
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {
         parentNode->addChild(*iNode);
     }
-    parentNode->removeChild(node);
+    parentNode->removeChild(choseNode);
+}
+
+void MindMapModel::revertDeleteNode(Component* choseNode)
+{
+    NodeList* nodeList = choseNode->getNodeList();
+    Component* parentNode = choseNode->getParent();
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        parentNode->removeChild(*iNode);
+    }
+    parentNode->addChild(choseNode);
 }
 
 MindMapModel::~MindMapModel()

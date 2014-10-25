@@ -15,9 +15,7 @@ void InsertParentNodeCommand::execute()
 
 void InsertParentNodeCommand::unexecute()
 {
-    _newNode->removeChild(_node);
-    _oldParentNode->removeChild(_newNode);
-    _oldParentNode->addChild(_node);
+    _model->revertInsertParentNode(_node, _newNode, _oldParentNode);
 }
 
 InsertParentNodeCommand::~InsertParentNodeCommand()
