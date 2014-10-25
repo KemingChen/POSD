@@ -136,15 +136,16 @@ void MindMapModel::loadMindMap(ifstream* file)
         componentList.push_back(node);
         nodeIdsList.push_back(nodeIds);
     }
-    for (int i = 0; i < componentList.size(); i++)
+    vector<string>::iterator iNodeIds = nodeIdsList.begin();
+    for (vector<Component*>::iterator iNode = componentList.begin(); iNode != componentList.end(); iNode++)
     {
-        Component* node = componentList[i];
-        stringstream ssin(nodeIdsList[i]);
+        stringstream ssin(*iNodeIds);
         int id;
         while (ssin >> id)
         {
-            node->addChild(componentList[id]);
+            (*iNode)->addChild(componentList[id]);
         }
+        iNodeIds++;
     }
     _root = componentList[0];
 }
