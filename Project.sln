@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Project", "Project\Project.vcxproj", "{BA971579-8425-4929-B27A-21E6071216F6}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MindMap", "Project\Project.vcxproj", "{BA971579-8425-4929-B27A-21E6071216F6}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestMindMap", "TestMindMap\TestMindMap.vcxproj", "{9922B3F2-7F97-4752-B2A1-6B172F91CA3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BA971579-8425-4929-B27A-21E6071216F6}.Debug|Win32.Build.0 = Debug|Win32
 		{BA971579-8425-4929-B27A-21E6071216F6}.Release|Win32.ActiveCfg = Release|Win32
 		{BA971579-8425-4929-B27A-21E6071216F6}.Release|Win32.Build.0 = Release|Win32
+		{9922B3F2-7F97-4752-B2A1-6B172F91CA3B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9922B3F2-7F97-4752-B2A1-6B172F91CA3B}.Debug|Win32.Build.0 = Debug|Win32
+		{9922B3F2-7F97-4752-B2A1-6B172F91CA3B}.Release|Win32.ActiveCfg = Release|Win32
+		{9922B3F2-7F97-4752-B2A1-6B172F91CA3B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,10 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{BA971579-8425-4929-B27A-21E6071216F6}</ProjectGuid>
+    <ProjectGuid>{9922B3F2-7F97-4752-B2A1-6B172F91CA3B}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Project</RootNamespace>
-    <ProjectName>MindMap</ProjectName>
+    <RootNamespace>TestMindMap</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -63,8 +62,7 @@
       <AdditionalDependencies>C:\gtest\lib\gtestd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>"$(TargetDir)$(TargetFileName)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,48 +86,15 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ChangeParentCommand.h" />
-    <ClInclude Include="Command.h" />
-    <ClInclude Include="CommandManager.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="ComponentFactory.h" />
-    <ClInclude Include="Composite.h" />
-    <ClInclude Include="DeleteComponentCommand.h" />
-    <ClInclude Include="EditComponentCommand.h" />
-    <ClInclude Include="InsertChildNodeCommand.h" />
-    <ClInclude Include="InsertParentNodeCommand.h" />
-    <ClInclude Include="InsertSiblingNodeCommand.h" />
-    <ClInclude Include="MindMapModel.h" />
-    <ClInclude Include="Node.h" />
-    <ClInclude Include="Root.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="TextUI.h" />
-    <ClInclude Include="PresentModel.h" />
-    <ClInclude Include="TypeConst.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ChangeParentCommand.cpp" />
-    <ClCompile Include="Command.cpp" />
-    <ClCompile Include="CommandManager.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="ComponentFactory.cpp" />
-    <ClCompile Include="Composite.cpp" />
-    <ClCompile Include="DeleteComponentCommand.cpp" />
-    <ClCompile Include="EditComponentCommand.cpp" />
-    <ClCompile Include="InsertChildNodeCommand.cpp" />
-    <ClCompile Include="InsertParentNodeCommand.cpp" />
-    <ClCompile Include="InsertSiblingNodeCommand.cpp" />
-    <ClCompile Include="MindMapModel.cpp" />
-    <ClCompile Include="Node.cpp" />
-    <ClCompile Include="Project.cpp" />
-    <ClCompile Include="Root.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TextUI.cpp" />
-    <ClCompile Include="PresentModel.cpp" />
+    <ClCompile Include="TestMindMap.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
