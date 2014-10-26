@@ -113,5 +113,32 @@
     <ClCompile Include="ComponentFactoryTest.cpp">
       <Filter>UnitTest</Filter>
     </ClCompile>
+    <ClCompile Include="ChangeParentCommandTest.cpp">
+      <Filter>UnitTest\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteComponentCommandTest.cpp">
+      <Filter>UnitTest\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="EditComponentCommandTest.cpp">
+      <Filter>UnitTest\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertChildNodeCommandTest.cpp">
+      <Filter>UnitTest\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertParentNodeCommandTest.cpp">
+      <Filter>UnitTest\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertSiblingNodeCommandTest.cpp">
+      <Filter>UnitTest\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="CommnadManagerTest.cpp">
+      <Filter>UnitTest\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="MindMapModelTest.cpp">
+      <Filter>UnitTest\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="PresentModelTest.cpp">
+      <Filter>UnitTest\Model</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -105,8 +105,17 @@
     <ClCompile Include="..\Project\Node.cpp" />
     <ClCompile Include="..\Project\PresentModel.cpp" />
     <ClCompile Include="..\Project\Root.cpp" />
+    <ClCompile Include="ChangeParentCommandTest.cpp" />
+    <ClCompile Include="CommnadManagerTest.cpp" />
     <ClCompile Include="ComponentFactoryTest.cpp" />
+    <ClCompile Include="DeleteComponentCommandTest.cpp" />
+    <ClCompile Include="EditComponentCommandTest.cpp" />
+    <ClCompile Include="InsertChildNodeCommandTest.cpp" />
+    <ClCompile Include="InsertParentNodeCommandTest.cpp" />
+    <ClCompile Include="InsertSiblingNodeCommandTest.cpp" />
+    <ClCompile Include="MindMapModelTest.cpp" />
     <ClCompile Include="NodeTest.cpp" />
+    <ClCompile Include="PresentModelTest.cpp" />
     <ClCompile Include="RootTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
