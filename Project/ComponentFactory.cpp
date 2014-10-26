@@ -28,16 +28,6 @@ Component* ComponentFactory::createComponent(int type, string description)
     return component;
 }
 
-void ComponentFactory::revertCreateId()
-{
-    _createId--;
-}
-
-int ComponentFactory::getCreatedCount()
-{
-    return _createId;
-}
-
 ComponentFactory::~ComponentFactory()
 {
 }
