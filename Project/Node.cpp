@@ -1,10 +1,20 @@
 #include "stdafx.h"
 #include "Node.h"
 
-Node::Node(int id, string description) : Composite(id)
+Node::Node(int id, string description) : Composite(id, description)
 {
     _typeName = "Node";
-    _description = description;
+    setParent(NULL);
+}
+
+Component* Node::getParent()
+{
+    return _parentNode;
+}
+
+void Node::setParent(Component* node)
+{
+    _parentNode = node;
 }
 
 void Node::addParent(Component* node)

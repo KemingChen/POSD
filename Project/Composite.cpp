@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Composite.h"
 
-Composite::Composite(int id) : Component(id)
+Composite::Composite(int id, string description) : Component(id, description)
 {
 }
 

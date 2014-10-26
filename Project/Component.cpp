@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "Component.h"
 
-Component::Component(int id)
+Component::Component(int id, string description)
 {
     setId(id);
-    _parentNode = NULL;
+    setDescription(description);
 }
 
 string Component::getId()
@@ -30,16 +30,6 @@ string Component::getDescription()
 void Component::setDescription(string description)
 {
     _description = description;
-}
-
-void Component::setParent(Component* node)
-{
-    _parentNode = node;
-}
-
-Component* Component::getParent()
-{
-    return _parentNode;
 }
 
 string Component::toString()

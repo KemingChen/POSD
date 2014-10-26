@@ -1,10 +1,19 @@
 #include "stdafx.h"
 #include "Root.h"
 
-Root::Root(int id, string description) : Composite(id)
+Root::Root(int id, string description) : Composite(id, description)
 {
     _typeName = "Root";
-    _description = description;
+}
+
+Component* Root::getParent()
+{
+    return NULL;
+}
+
+void Root::setParent(Component* node)
+{
+    throw string("Root can't set parent node");
 }
 
 void Root::addParent(Component* node)
