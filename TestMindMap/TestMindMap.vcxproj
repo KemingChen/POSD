@@ -105,6 +105,7 @@
     <ClCompile Include="..\Project\Node.cpp" />
     <ClCompile Include="..\Project\PresentModel.cpp" />
     <ClCompile Include="..\Project\Root.cpp" />
+    <ClCompile Include="ComponentFactoryTest.cpp" />
     <ClCompile Include="NodeTest.cpp" />
     <ClCompile Include="RootTest.cpp" />
     <ClCompile Include="stdafx.cpp">

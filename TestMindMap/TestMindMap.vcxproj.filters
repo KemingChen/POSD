@@ -110,5 +110,8 @@
     <ClCompile Include="RootTest.cpp">
       <Filter>UnitTest\Model\Composite</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentFactoryTest.cpp">
+      <Filter>UnitTest</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
