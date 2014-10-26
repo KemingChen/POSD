@@ -3,13 +3,6 @@ using namespace std;
 
 class Component
 {
-        friend class NodeTest;
-        FRIEND_TEST(NodeTest, setId);
-        FRIEND_TEST(NodeTest, setDescription);
-        FRIEND_TEST(NodeTest, getParent);
-        FRIEND_TEST(NodeTest, setParent);
-        FRIEND_TEST(NodeTest, toString);
-
     protected:
         // Protected Variable
         string _id;
@@ -27,6 +20,7 @@ class Component
         string getTypeName();
         string getDescription();
         void setDescription(string description);
+        void setParent(Component* node);
         Component* getParent();
         string toString();
         virtual string getMap() = 0;

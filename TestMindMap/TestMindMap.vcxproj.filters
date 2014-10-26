@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Unit Test">
-      <UniqueIdentifier>{d6f78e61-f55c-40cd-8774-8a5200a2b7f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="原始程式檔\Model">
       <UniqueIdentifier>{5719de83-577a-453a-8278-96532f34e700}</UniqueIdentifier>
     </Filter>
@@ -27,6 +24,21 @@
     </Filter>
     <Filter Include="原始程式檔\Model\Command\Actions">
       <UniqueIdentifier>{026fd8bc-ff34-411d-b9f0-8a471fc29d67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest">
+      <UniqueIdentifier>{e624c1bb-5e2b-4009-83f0-362d92c06bc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest\Model">
+      <UniqueIdentifier>{f37d31b4-9e82-4371-bd81-9c389b38e9ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest\Model\Command">
+      <UniqueIdentifier>{7f9c7ec4-f546-4b7a-a243-2fe00f1bab85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest\Model\Composite">
+      <UniqueIdentifier>{a6150224-5615-40a0-b05c-bbdd030edb11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest\Model\Command\Actions">
+      <UniqueIdentifier>{2886282c-9325-434a-86c2-9c325cae3020}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -46,9 +58,6 @@
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="NodeTest.cpp">
-      <Filter>Unit Test</Filter>
     </ClCompile>
     <ClCompile Include="..\Project\DeleteComponentCommand.cpp">
       <Filter>原始程式檔\Model\Command\Actions</Filter>
@@ -94,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="..\Project\ChangeParentCommand.cpp">
       <Filter>原始程式檔\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeTest.cpp">
+      <Filter>UnitTest\Model\Composite</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
