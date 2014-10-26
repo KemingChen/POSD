@@ -73,16 +73,6 @@ Component* MindMapModel::findNode(Component* fromNode, string id)
     return foundNode;
 }
 
-string MindMapModel::convertIntArrayToString(list<int>* intList)
-{
-    string returnstring = "";
-    for (list<int>::iterator it = intList->begin(); it != intList->end(); it++)
-    {
-        returnstring += " " + to_string(*it);
-    }
-    return returnstring;
-}
-
 void MindMapModel::navigateMindMap(Component* node, NodeList* list)
 {
     list->push_back(node);
@@ -115,7 +105,7 @@ void MindMapModel::saveMindMap(ofstream* file)
         string output = "";
         (*file) << node->getId() << " ";
         (*file) << "\"" << node->getDescription() << "\"";
-        (*file) << convertIntArrayToString(node->getMap()) << endl;
+        (*file) << node->getMap() << endl;
         newId++;
     }
 }

@@ -30,14 +30,14 @@ NodeList* Composite::getNodeList()
     return &_nodeList;
 }
 
-list<int>* Composite::getMap()
+string Composite::getMap()
 {
-    list<int>* intList = new list<int>();
+    string idsMap = "";
     for (NodeList::iterator it = _nodeList.begin(); it != _nodeList.end(); it++)
     {
-        intList->push_back(atoi((*it)->getId().c_str()));
+        idsMap += " " + (*it)->getId();
     }
-    return intList;
+    return idsMap;
 }
 
 Composite::~Composite()

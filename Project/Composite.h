@@ -10,7 +10,7 @@ class Composite : public Component
     public:
         // Public Method
         Composite(int id);
-        list<int>* getMap();
+        string getMap();
         void addChild(Component* node);
         void removeChild(Component* node);
         void removeAllChild();

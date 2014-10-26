@@ -11,7 +11,6 @@ class MindMapModel
 
         // Private Method
         void navigateMindMap(Component* node, NodeList* list);
-        string convertIntArrayToString(list<int>* intList);
         void splitMindMapLine(string line);
 
     public:

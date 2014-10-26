@@ -6,6 +6,9 @@ class Component
         friend class NodeTest;
         FRIEND_TEST(NodeTest, setId);
         FRIEND_TEST(NodeTest, setDescription);
+        FRIEND_TEST(NodeTest, getParent);
+        FRIEND_TEST(NodeTest, setParent);
+        FRIEND_TEST(NodeTest, toString);
 
     protected:
         // Protected Variable
@@ -27,7 +30,7 @@ class Component
         void setParent(Component* node);
         Component* getParent();
         string toString();
-        virtual list<int>* getMap() = 0;
+        virtual string getMap() = 0;
         virtual void addChild(Component* node) = 0;
         virtual void removeChild(Component* node) = 0;
         virtual void removeAllChild() = 0;
