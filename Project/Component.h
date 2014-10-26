@@ -27,7 +27,6 @@ class Component
         string getTypeName();
         string getDescription();
         void setDescription(string description);
-        void setParent(Component* node);
         Component* getParent();
         string toString();
         virtual string getMap() = 0;

@@ -9,7 +9,7 @@ void Composite::addChild(Component* node)
 {
     if (node != NULL)
     {
-        node->setParent(this);
+        node->addParent(this);
         _nodeList.push_back(node);
         _nodeList.sort(CompareComponent());
     }
