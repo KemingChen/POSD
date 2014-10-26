@@ -13,15 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Unit Test">
+      <UniqueIdentifier>{d6f78e61-f55c-40cd-8774-8a5200a2b7f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="原始程式檔\Model">
+      <UniqueIdentifier>{5719de83-577a-453a-8278-96532f34e700}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="原始程式檔\Model\Command">
+      <UniqueIdentifier>{4c2861d0-52f9-475f-94df-f9e9327076c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="原始程式檔\Model\Composite">
+      <UniqueIdentifier>{4e3b30d8-beda-4de3-ba86-7522f20e40cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="原始程式檔\Model\Command\Actions">
+      <UniqueIdentifier>{026fd8bc-ff34-411d-b9f0-8a471fc29d67}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="targetver.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
+    <ClInclude Include="..\Project\stdafx.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
   </ItemGroup>
@@ -29,8 +44,56 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
-    <ClCompile Include="TestMindMap.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>原始程式檔</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeTest.cpp">
+      <Filter>Unit Test</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\DeleteComponentCommand.cpp">
+      <Filter>原始程式檔\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\EditComponentCommand.cpp">
+      <Filter>原始程式檔\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\InsertChildNodeCommand.cpp">
+      <Filter>原始程式檔\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\InsertParentNodeCommand.cpp">
+      <Filter>原始程式檔\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\InsertSiblingNodeCommand.cpp">
+      <Filter>原始程式檔\Model\Command\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Command.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\CommandManager.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Node.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Root.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Composite.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\Component.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\ComponentFactory.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\MindMapModel.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\PresentModel.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Project\ChangeParentCommand.cpp">
+      <Filter>原始程式檔\Model\Command\Actions</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

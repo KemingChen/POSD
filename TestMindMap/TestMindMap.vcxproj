@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\gtest\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\gtest\include;..\Project;$(IncludePath)</IncludePath>
     <LibraryPath>C:\gtest\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -86,15 +86,31 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="..\Project\stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Project\ChangeParentCommand.cpp" />
+    <ClCompile Include="..\Project\Command.cpp" />
+    <ClCompile Include="..\Project\CommandManager.cpp" />
+    <ClCompile Include="..\Project\Component.cpp" />
+    <ClCompile Include="..\Project\ComponentFactory.cpp" />
+    <ClCompile Include="..\Project\Composite.cpp" />
+    <ClCompile Include="..\Project\DeleteComponentCommand.cpp" />
+    <ClCompile Include="..\Project\EditComponentCommand.cpp" />
+    <ClCompile Include="..\Project\InsertChildNodeCommand.cpp" />
+    <ClCompile Include="..\Project\InsertParentNodeCommand.cpp" />
+    <ClCompile Include="..\Project\InsertSiblingNodeCommand.cpp" />
+    <ClCompile Include="..\Project\MindMapModel.cpp" />
+    <ClCompile Include="..\Project\Node.cpp" />
+    <ClCompile Include="..\Project\PresentModel.cpp" />
+    <ClCompile Include="..\Project\Root.cpp" />
+    <ClCompile Include="NodeTest.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="TestMindMap.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -3,6 +3,10 @@ using namespace std;
 
 class Component
 {
+        friend class NodeTest;
+        FRIEND_TEST(NodeTest, setId);
+        FRIEND_TEST(NodeTest, setDescription);
+
     protected:
         // Protected Variable
         string _id;
