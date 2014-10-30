@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Project\stdafx.h" />
+    <ClInclude Include="MockCommand.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +115,7 @@
     <ClCompile Include="InsertParentNodeCommandTest.cpp" />
     <ClCompile Include="InsertSiblingNodeCommandTest.cpp" />
     <ClCompile Include="MindMapModelTest.cpp" />
+    <ClCompile Include="MockCommand.cpp" />
     <ClCompile Include="NodeTest.cpp" />
     <ClCompile Include="PresentModelTest.cpp" />
     <ClCompile Include="RootTest.cpp" />

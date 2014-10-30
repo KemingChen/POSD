@@ -51,6 +51,9 @@
     <ClInclude Include="..\Project\stdafx.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="MockCommand.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -139,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="PresentModelTest.cpp">
       <Filter>UnitTest\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MockCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
