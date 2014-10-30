@@ -22,58 +22,58 @@ class CommandManagerTest : public ::testing::Test
             }
         }
 
-        CommandManager commandManager;
+        CommandManager _commandManager;
 };
 
 TEST_F(CommandManagerTest, execute)
 {
-    ASSERT_EQ(0, commandManager._undoCommands.size());
-    ASSERT_EQ(0, commandManager._redoCommands.size());
-    commandManager.execute(new MockCommand());
-    ASSERT_EQ(1, commandManager._undoCommands.size());
-    ASSERT_NE(1, commandManager._redoCommands.size());
-    commandManager._redoCommands.push(new MockCommand());
-    ASSERT_EQ(1, commandManager._redoCommands.size());
-    commandManager.execute(new MockCommand());
-    ASSERT_EQ(2, commandManager._undoCommands.size());
-    ASSERT_EQ(0, commandManager._redoCommands.size());
+    ASSERT_EQ(0, _commandManager._undoCommands.size());
+    ASSERT_EQ(0, _commandManager._redoCommands.size());
+    _commandManager.execute(new MockCommand());
+    ASSERT_EQ(1, _commandManager._undoCommands.size());
+    ASSERT_NE(1, _commandManager._redoCommands.size());
+    _commandManager._redoCommands.push(new MockCommand());
+    ASSERT_EQ(1, _commandManager._redoCommands.size());
+    _commandManager.execute(new MockCommand());
+    ASSERT_EQ(2, _commandManager._undoCommands.size());
+    ASSERT_EQ(0, _commandManager._redoCommands.size());
 }
 
 TEST_F(CommandManagerTest, clear)
 {
-    createMockCommands(5, &commandManager._redoCommands);
-    createMockCommands(1, &commandManager._undoCommands);
-    ASSERT_EQ(5, commandManager._redoCommands.size());
-    ASSERT_EQ(1, commandManager._undoCommands.size());
-    commandManager.clear();
-    ASSERT_EQ(0, commandManager._redoCommands.size());
-    ASSERT_EQ(0, commandManager._undoCommands.size());
+    createMockCommands(5, &_commandManager._redoCommands);
+    createMockCommands(1, &_commandManager._undoCommands);
+    ASSERT_EQ(5, _commandManager._redoCommands.size());
+    ASSERT_EQ(1, _commandManager._undoCommands.size());
+    _commandManager.clear();
+    ASSERT_EQ(0, _commandManager._redoCommands.size());
+    ASSERT_EQ(0, _commandManager._undoCommands.size());
 }
 
 TEST_F(CommandManagerTest, redo)
 {
-    createMockCommands(2, &commandManager._redoCommands);
-    ASSERT_EQ(2, commandManager._redoCommands.size());
-    ASSERT_EQ(0, commandManager._undoCommands.size());
-    commandManager.redo();
-    ASSERT_EQ(1, commandManager._redoCommands.size());
-    ASSERT_EQ(1, commandManager._undoCommands.size());
-    commandManager.redo();
-    ASSERT_EQ(0, commandManager._redoCommands.size());
-    ASSERT_EQ(2, commandManager._undoCommands.size());
-    ASSERT_THROW(commandManager.redo(), string);
+    createMockCommands(2, &_commandManager._redoCommands);
+    ASSERT_EQ(2, _commandManager._redoCommands.size());
+    ASSERT_EQ(0, _commandManager._undoCommands.size());
+    _commandManager.redo();
+    ASSERT_EQ(1, _commandManager._redoCommands.size());
+    ASSERT_EQ(1, _commandManager._undoCommands.size());
+    _commandManager.redo();
+    ASSERT_EQ(0, _commandManager._redoCommands.size());
+    ASSERT_EQ(2, _commandManager._undoCommands.size());
+    ASSERT_THROW(_commandManager.redo(), string);
 }
 
 TEST_F(CommandManagerTest, undo)
 {
-    createMockCommands(2, &commandManager._undoCommands);
-    ASSERT_EQ(2, commandManager._undoCommands.size());
-    ASSERT_EQ(0, commandManager._redoCommands.size());
-    commandManager.undo();
-    ASSERT_EQ(1, commandManager._undoCommands.size());
-    ASSERT_EQ(1, commandManager._redoCommands.size());
-    commandManager.undo();
-    ASSERT_EQ(0, commandManager._undoCommands.size());
-    ASSERT_EQ(2, commandManager._redoCommands.size());
-    ASSERT_THROW(commandManager.undo(), string);
+    createMockCommands(2, &_commandManager._undoCommands);
+    ASSERT_EQ(2, _commandManager._undoCommands.size());
+    ASSERT_EQ(0, _commandManager._redoCommands.size());
+    _commandManager.undo();
+    ASSERT_EQ(1, _commandManager._undoCommands.size());
+    ASSERT_EQ(1, _commandManager._redoCommands.size());
+    _commandManager.undo();
+    ASSERT_EQ(0, _commandManager._undoCommands.size());
+    ASSERT_EQ(2, _commandManager._redoCommands.size());
+    ASSERT_THROW(_commandManager.undo(), string);
 }

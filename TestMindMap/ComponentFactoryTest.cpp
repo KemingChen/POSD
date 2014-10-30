@@ -7,23 +7,23 @@ class ComponentFactoryTest : public ::testing::Test
     protected:
         virtual void SetUp()
         {
-            factory = ComponentFactory::getInstance();
+            _factory = ComponentFactory::getInstance();
         }
 
         virtual void TearDown()
         {
         }
 
-        ComponentFactory* factory;
+        ComponentFactory* _factory;
 };
 
 TEST_F(ComponentFactoryTest, createComponent)
 {
     for (int i = 0; i < 2; i++)
     {
-        Component* root = factory->createComponent(ROOT, "Computer");
-        Component* nodeOS = factory->createComponent(NODE, "OS");
-        Component* nodeWindows = factory->createComponent(NODE, "Windows");
+        Component* root = _factory->createComponent(ROOT, "Computer");
+        Component* nodeOS = _factory->createComponent(NODE, "OS");
+        Component* nodeWindows = _factory->createComponent(NODE, "Windows");
         ASSERT_EQ("Root", root->getTypeName());
         ASSERT_EQ("0", root->getId());
         ASSERT_EQ("Computer", root->getDescription());
