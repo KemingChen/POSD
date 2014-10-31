@@ -8,8 +8,8 @@ class PresentModelTest : public ::testing::Test
     protected:
         virtual void SetUp()
         {
-            MindMapModel model;
-            _presentModel = new PresentModel(&model);
+            _model = new MindMapModel();
+            _presentModel = new PresentModel(_model);
             // init some Commands for CommnadManager
             pushCommandManagerUndoStack();
             pushCommandManagerUndoStack();
@@ -42,6 +42,7 @@ class PresentModelTest : public ::testing::Test
             ASSERT_EQ(expectAmount, _presentModel->_commandManager._redoCommands.size());
         }
 
+        MindMapModel* _model;
         PresentModel* _presentModel;
 };
 
@@ -106,6 +107,7 @@ TEST_F(PresentModelTest, tryFindNode)
 
 TEST_F(PresentModelTest, confirmInsertNodeLegal)
 {
+    ASSERT_THROW(_presentModel->confirmMindMapExist(), string);
     _presentModel->createMindMap("Test");
     ASSERT_NO_THROW(_presentModel->confirmMindMapExist());
     Component* root = _presentModel->_model->getRootNode();
@@ -128,7 +130,16 @@ TEST_F(PresentModelTest, loadMindMap)
 TEST_F(PresentModelTest, getMindMap)
 {
     ASSERT_EQ("The mind map is Empty!!!", _presentModel->getMindMap());
-    _presentModel->createMindMap("Test");
-    _presentModel->insertChildNode(_presentModel->_model->getRootNode(), "Hello");
-    ASSERT_EQ("The mind map Test is desplayed as follows: \n\xA1\xCF\xA1\xD0 Test (Root, ID: 0)\n\xA1@\xA1@\xA1\xCF\xA1\xD0 Hello (Node, ID: 1)\n", _presentModel->getMindMap());
+    _presentModel->createMindMap("Computer");
+    _presentModel->insertChildNode(_presentModel->_model->getRootNode(), "OS");
+    _presentModel->insertChildNode(_presentModel->_model->getRootNode(), "Network");
+    Component* osNode = _presentModel->tryFindNode("1");
+    _presentModel->insertChildNode(osNode, "Windows");
+    string output = "";
+    output += "The mind map Computer is desplayed as follows: \n";
+    output += "¡Ï¡Ğ Computer (Root, ID: 0)\n";
+    output += "¡@¡@¡Ï¡Ğ OS (Node, ID: 1)\n";
+    output += "¡@¡@¡U¡@¡Ï¡Ğ Windows (Node, ID: 3)\n";
+    output += "¡@¡@¡Ï¡Ğ Network (Node, ID: 2)\n";
+    ASSERT_EQ(output, _presentModel->getMindMap());
 }
