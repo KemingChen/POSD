@@ -146,5 +146,8 @@
     <ClCompile Include="MockCommand.cpp">
       <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
+    <ClCompile Include="IntegrationTest.cpp">
+      <Filter>UnitTest</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -114,6 +114,7 @@
     <ClCompile Include="InsertChildNodeCommandTest.cpp" />
     <ClCompile Include="InsertParentNodeCommandTest.cpp" />
     <ClCompile Include="InsertSiblingNodeCommandTest.cpp" />
+    <ClCompile Include="IntegrationTest.cpp" />
     <ClCompile Include="MindMapModelTest.cpp" />
     <ClCompile Include="MockCommand.cpp" />
     <ClCompile Include="NodeTest.cpp" />

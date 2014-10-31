@@ -6,6 +6,7 @@ using namespace std;
 class MindMapModel
 {
         friend class MindMapModelTest;
+        friend class IntegrationTest;
 
     private:
         // Private Variable
