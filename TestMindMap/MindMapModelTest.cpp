@@ -147,8 +147,9 @@ TEST_F(MindMapModelTest, changeNodeParent)
 
 TEST_F(MindMapModelTest, revertChangeNodeParent)
 {
+    testChangeParentUnderTheNode();
+    testChangeParentNotUnderNode();
 }
-//void revertChangeNodeParent(Component* choseNode, Component* oldParentNode, NodeList* oldNodeList);
 
 TEST_F(MindMapModelTest, deleteNode)
 {
@@ -189,4 +190,13 @@ TEST_F(MindMapModelTest, saveAndLoadMindMap)
     _model.loadMindMap(&readStream);
     assertTestMindMap();
     readStream.close();
+}
+
+TEST_F(MindMapModelTest, findNode)
+{
+    ASSERT_THROW(_model.findNode("0"), string);
+    ASSERT_THROW(_model.findNode("1"), string);
+    createTestMindMap();
+    ASSERT_EQ("Computer", _model.findNode("0")->getDescription());
+    ASSERT_EQ("windows", _model.findNode("1")->getDescription());
 }
