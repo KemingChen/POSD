@@ -143,10 +143,6 @@ TEST_F(MindMapModelTest, editNodeDescription)
 
 TEST_F(MindMapModelTest, changeNodeParent)
 {
-}
-
-TEST_F(MindMapModelTest, revertChangeNodeParent)
-{
     testChangeParentUnderTheNode();
     testChangeParentNotUnderNode();
 }

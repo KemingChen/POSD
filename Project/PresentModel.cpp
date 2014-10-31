@@ -67,11 +67,6 @@ void PresentModel::loadMindMap(string path)
     _commandManager.clear();
 }
 
-void PresentModel::confirmInsertNodeLegal(Component* node, InsertMethod insertMethod)
-{
-    (_model->*insertMethod)(node, NULL);
-}
-
 void PresentModel::insertParentNode(Component* choseNode, string description)
 {
     Component* newNode = ComponentFactory::getInstance()->createComponent(NODE, description);
@@ -144,6 +139,11 @@ void PresentModel::confirmChangeNodeLegal(Component* node)
     {
         throw string("Root can't be changed the parent.");
     }
+}
+
+void PresentModel::confirmInsertNodeLegal(Component* node, InsertMethod insertMethod)
+{
+    (_model->*insertMethod)(node, NULL);
 }
 
 void PresentModel::redo()

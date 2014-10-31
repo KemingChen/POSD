@@ -4,6 +4,11 @@
 
 class PresentModel
 {
+        friend class PresentModelTest;
+        FRIEND_TEST(PresentModelTest, deleteNode);
+        FRIEND_TEST(PresentModelTest, confirmInsertNodeLegal);
+        FRIEND_TEST(PresentModelTest, getMindMap);
+
     private:
         typedef void(MindMapModel::*InsertMethod)(Component*, Component*);
 

@@ -7,6 +7,7 @@
 
 MindMapModel::MindMapModel()
 {
+    _root = NULL;
 }
 
 void MindMapModel::createMinMap(string description)

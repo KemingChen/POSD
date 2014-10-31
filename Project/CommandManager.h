@@ -11,6 +11,7 @@ using namespace std;
 
 class CommandManager
 {
+        friend class PresentModelTest;
         friend class CommandManagerTest;
         FRIEND_TEST(CommandManagerTest, execute);
         FRIEND_TEST(CommandManagerTest, clear);
