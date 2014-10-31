@@ -14,6 +14,7 @@
 [Dd]ebugPublic/
 [Rr]elease/
 [Rr]eleases/
+CppCoverageReport-ProductionCode/
 x64/
 x86/
 build/
