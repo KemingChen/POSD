@@ -5,6 +5,8 @@ using namespace std;
 
 class MindMapModel
 {
+        friend class MindMapModelTest;
+
     private:
         // Private Variable
         Component* _root;
