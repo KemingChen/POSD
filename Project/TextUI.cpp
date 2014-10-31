@@ -160,7 +160,6 @@ void TextUI::insertNewNode()
             cout << error << endl << endl;
         }
     }
-    printMindMap();
 }
 
 void TextUI::editNodeDescription(Component* choseNode)
