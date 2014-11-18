@@ -50,21 +50,21 @@ void MindMapGUI::setupMenus(QMainWindow* window)
 void MindMapGUI::setupActions(QMainWindow* window)
 {
     // File
-    actionNew = new QAction(QStringLiteral("actionNew"), window);
-    actionSave = new QAction(QStringLiteral("actionSave"), window);
-    actionLoad = new QAction(QStringLiteral("actionLoad"), window);
-    actionExit = new QAction(QStringLiteral("actionExit"), window);
+    actionNew = new QAction(QIcon("resource/new_icon.png"), QStringLiteral("actionNew"), window);
+    actionSave = new QAction(QIcon("resource/save_icon.png"), QStringLiteral("actionSave"), window);
+    actionLoad = new QAction(QIcon("resource/open_icon.png"), QStringLiteral("actionLoad"), window);
+    actionExit = new QAction(QIcon("resource/exit_icon.png"), QStringLiteral("actionExit"), window);
     actionNew->setText(QApplication::translate("this", "New", 0));
     actionSave->setText(QApplication::translate("this", "Save", 0));
     actionLoad->setText(QApplication::translate("this", "Load", 0));
     actionExit->setText(QApplication::translate("this", "Exit", 0));
 
     // Edit
-    actionEdit = new QAction(QStringLiteral("actionEdit"), window);
-    actionDelete = new QAction(QStringLiteral("actionDelete"), window);
-    actionInsert_A_Child = new QAction(QStringLiteral("actionInsert_A_Child"), window);
-    actionInsert_a_sibling = new QAction(QStringLiteral("actionInsert_a_sibling"), window);
-    actionInsert_a_parent = new QAction(QStringLiteral("actionInsert_a_parent"), window);
+    actionEdit = new QAction(QIcon("resource/edit_icon.png"), QStringLiteral("actionEdit"), window);
+    actionDelete = new QAction(QIcon("resource/delete_icon.png"), QStringLiteral("actionDelete"), window);
+    actionInsert_A_Child = new QAction(QIcon("resource/insert_child_icon.png"), QStringLiteral("actionInsert_A_Child"), window);
+    actionInsert_a_sibling = new QAction(QIcon("resource/insert_sibling_icon.png"), QStringLiteral("actionInsert_a_sibling"), window);
+    actionInsert_a_parent = new QAction(QIcon("resource/insert_parent_icon.png"), QStringLiteral("actionInsert_a_parent"), window);
     actionEdit->setText(QApplication::translate("this", "Edit", 0));
     actionDelete->setText(QApplication::translate("this", "Delete", 0));
     actionInsert_A_Child->setText(QApplication::translate("this", "Insert a child", 0));
@@ -72,7 +72,7 @@ void MindMapGUI::setupActions(QMainWindow* window)
     actionInsert_a_parent->setText(QApplication::translate("this", "Insert a parent", 0));
 
     // Abort
-    actionAbort = new QAction(QStringLiteral("actionAbort"), window);
+    actionAbort = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("actionAbort"), window);
     actionAbort->setText(QApplication::translate("this", "Abort", 0));
 }
 

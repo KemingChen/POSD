@@ -27,6 +27,8 @@ TextUI::TextUI(PresentModel* presentModel)
 
 void TextUI::run()
 {
+    _guiWindow->show();
+    return;
     while (_isRun)
     {
         printActionMenu();
