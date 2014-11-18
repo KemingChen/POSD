@@ -22,26 +22,27 @@ class MindMapGUI : public QMainWindow
         ~MindMapGUI();
 
     private:
-        QAction* actionAbort;
-        QAction* actionNew;
-        QAction* actionSave;
-        QAction* actionLoad;
-        QAction* actionExit;
-        QAction* actionEdit;
-        QAction* actionDelete;
-        QAction* actionInsert_A_Child;
-        QAction* actionInsert_a_sibling;
-        QAction* actionInsert_a_parent;
-        QWidget* centralWidget;
-        QMenuBar* menuBar;
-        QMenu* menuFile;
-        QMenu* menuEdit;
-        QMenu* menuHelp;
-        QToolBar* mainToolBar;
-        QStatusBar* statusBar;
+        QAction* _actionAbort;
+        QAction* _actionNew;
+        QAction* _actionSave;
+        QAction* _actionLoad;
+        QAction* _actionExit;
+        QAction* _actionEdit;
+        QAction* _actionDelete;
+        QAction* _actionInsertChild;
+        QAction* _actionInsertSibling;
+        QAction* _actionInsertParent;
+        QWidget* _centralWidget;
+        QMenuBar* _menuBar;
+        QMenu* _menuFile;
+        QMenu* _menuEdit;
+        QMenu* _menuHelp;
+        QToolBar* _mainToolBar;
+        QStatusBar* _statusBar;
 
         void setupActions(QMainWindow* window);
         void setupMenus(QMainWindow* window);
+        void setupToolBar(QMainWindow* window);
 };
 
 #endif // MINDMAPGUI_H
