@@ -6,6 +6,7 @@
 TextUI::TextUI(PresentModel* presentModel)
 {
     _presentModel = presentModel;
+    _guiWindow = new MindMapGUI(presentModel);
     _mainMenuMap["1"] = &TextUI::createNewMindMap;
     _mainMenuMap["2"] = &TextUI::insertNewNode;
     _mainMenuMap["3"] = &TextUI::editNode;
@@ -14,7 +15,8 @@ TextUI::TextUI(PresentModel* presentModel)
     _mainMenuMap["6"] = &TextUI::loadMindMap;
     _mainMenuMap["7"] = &TextUI::redo;
     _mainMenuMap["8"] = &TextUI::undo;
-    _mainMenuMap["9"] = &TextUI::exit;
+    _mainMenuMap["9"] = &TextUI::openGUI;
+    _mainMenuMap["10"] = &TextUI::exit;
     _editMenuMap["a"] = &TextUI::editNodeDescription;
     _editMenuMap["b"] = &TextUI::changeNodeParent;
     _editMenuMap["c"] = &TextUI::deleteNode;
@@ -75,7 +77,8 @@ void TextUI::printActionMenu()
     cout << "6. Load a mind map" << endl;
     cout << "7. Redo" << endl;
     cout << "8. Undo" << endl;
-    cout << "9. Exit" << endl;
+    cout << "9. OpenGUI" << endl;
+    cout << "10. Exit" << endl;
 }
 
 void TextUI::printInsertMenu()
@@ -253,6 +256,12 @@ void TextUI::undo()
 {
     _presentModel->undo();
     displayMindMap();
+}
+
+void TextUI::openGUI()
+{
+    _guiWindow->show();
+    _isRun = false;
 }
 
 void TextUI::exit()

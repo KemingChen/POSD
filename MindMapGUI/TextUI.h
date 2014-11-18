@@ -2,6 +2,7 @@
 #include "PresentModel.h"
 #include <iostream>
 #include <map>
+#include "mindmapgui.h"
 
 class TextUI
 {
@@ -12,6 +13,7 @@ class TextUI
         map<string, void (TextUI::*)(Component*)> _editMenuMap;
         PresentModel* _presentModel;
         bool _isRun = true;
+        MindMapGUI* _guiWindow;
 
         // Control
         string handleInput();
@@ -43,6 +45,7 @@ class TextUI
         void loadMindMap();
         void redo();
         void undo();
+        void openGUI();
         void exit();
 
     public:

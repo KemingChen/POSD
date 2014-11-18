@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Model">
+      <UniqueIdentifier>{4030301b-eb35-4149-9d3e-92088f7ea12f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\View">
+      <UniqueIdentifier>{bc482c4a-0554-4b1d-ace5-f8ce383f833d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model\Command">
+      <UniqueIdentifier>{ad31eba9-99eb-4620-bd4b-0f040ba07eb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model\Composite">
+      <UniqueIdentifier>{6e862240-83b9-429f-ae99-5db94fd992d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model">
+      <UniqueIdentifier>{ad5355f1-4502-43c4-9067-0c50dfdcb195}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\View">
+      <UniqueIdentifier>{17217279-9e58-48d8-80b1-024fbd332f5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model\Command">
+      <UniqueIdentifier>{573c3b6f-5ef7-41dc-b301-28b2c83906ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model\Composite">
+      <UniqueIdentifier>{81d96bfe-9c44-4caf-93a8-41bed21f4c3c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextUI.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="mindmapgui.cpp">
+      <Filter>Source Files\View</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeParentCommand.cpp">
+      <Filter>Source Files\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Source Files\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteComponentCommand.cpp">
+      <Filter>Source Files\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertChildNodeCommand.cpp">
+      <Filter>Source Files\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="EditComponentCommand.cpp">
+      <Filter>Source Files\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertParentNodeCommand.cpp">
+      <Filter>Source Files\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertSiblingNodeCommand.cpp">
+      <Filter>Source Files\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="Composite.cpp">
+      <Filter>Source Files\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="Node.cpp">
+      <Filter>Source Files\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="Root.cpp">
+      <Filter>Source Files\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandManager.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentFactory.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MindMapModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="PresentModel.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MindMapGUI.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeConst.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUI.h">
+      <Filter>Header Files\View</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentFactory.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="MindMapModel.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="PresentModel.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="ChangeParentCommand.h">
+      <Filter>Header Files\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteComponentCommand.h">
+      <Filter>Header Files\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="EditComponentCommand.h">
+      <Filter>Header Files\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="InsertChildNodeCommand.h">
+      <Filter>Header Files\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="InsertSiblingNodeCommand.h">
+      <Filter>Header Files\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="InsertParentNodeCommand.h">
+      <Filter>Header Files\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Model\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="Composite.h">
+      <Filter>Header Files\Model\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="Node.h">
+      <Filter>Header Files\Model\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="Root.h">
+      <Filter>Header Files\Model\Composite</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Header Files\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandManager.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="mindmapgui.h">
+      <Filter>Header Files\View</Filter>
+    </CustomBuild>
+  </ItemGroup>
+</Project>

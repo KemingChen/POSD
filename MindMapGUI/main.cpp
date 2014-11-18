@@ -1,14 +1,15 @@
-// Project.cpp : 定義主控台應用程式的進入點。
 #include "stdafx.h"
 #include "MindMapModel.h"
 #include "PresentModel.h"
 #include "TextUI.h"
+#include <QtWidgets/QApplication>
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 {
+    QApplication app(argc, argv);
     MindMapModel model;
     PresentModel presentModel(&model);
     TextUI textUI(&presentModel);
     textUI.run();
-    return 0;
+    return app.exec();
 }
