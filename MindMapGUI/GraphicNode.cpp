@@ -1,7 +1,10 @@
 #include "GraphicNode.h"
+#include <iostream>
+#include "INotifyGraphics.h"
 
-GraphicNode::GraphicNode(int levelX, int levelY, Component* node, QPoint* parentConnectPoint)
+GraphicNode::GraphicNode(int levelX, int levelY, Component* node, INotifyGraphics* notify, QPoint* parentConnectPoint)
 {
+    _notify = notify;
     _parentConnectPoint = parentConnectPoint;
     _levelX = levelX;
     _levelY = levelY;
@@ -9,11 +12,12 @@ GraphicNode::GraphicNode(int levelX, int levelY, Component* node, QPoint* parent
     _x = _levelX * BOUNDING_WIDTH;
     _y = _levelY * BOUNDING_HEIGHT;
     _isSelected = false;
+    setFlags(QGraphicsItem::ItemIsSelectable);
 }
 
 QRectF GraphicNode::boundingRect() const
 {
-    return QRectF(0, 0, BOUNDING_WIDTH * (_levelX + 1), BOUNDING_HEIGHT * (_levelY + 1));
+    return  QRectF(BOUNDING_WIDTH * _levelX, BOUNDING_HEIGHT * _levelY, RECT_WIDTH, RECT_HEIGHT);
 }
 
 QPoint* GraphicNode::getConnectPoint()
@@ -31,7 +35,7 @@ void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* optio
     const QRectF nodeRect(_x, _y, RECT_WIDTH, RECT_HEIGHT);
     const QRectF textRect(_x + PADDING, _y + PADDING, RECT_WIDTH - 2 * PADDING, RECT_HEIGHT - 2 * PADDING);
     painter->drawRect(nodeRect);
-    painter->drawText(textRect, Qt::AlignCenter | Qt::TextWordWrap, "Title");
+    painter->drawText(textRect, Qt::AlignCenter | Qt::TextWordWrap, QString::fromStdString(_node->getDescription()));
     if (_parentConnectPoint)
         painter->drawLine(QPoint(_x, _y + RECT_HEIGHT / 2), *_parentConnectPoint);
     if (_isSelected)
@@ -39,6 +43,25 @@ void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* optio
         painter->setPen(Qt::red);
         painter->drawRect(nodeRect);
     }
+}
+
+void GraphicNode::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsItem::mouseDoubleClickEvent(event);
+    cout << "Double Click: " << _node->getDescription() << endl;
+    _notify->doubleClickGraphicNode(this);
+}
+
+void GraphicNode::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsItem::mousePressEvent(event);
+    cout << "Click: " << _node->getDescription() << endl;
+    _notify->clickGraphicNode(this);
+}
+
+Component* GraphicNode::getComponent()
+{
+    return _node;
 }
 
 GraphicNode::~GraphicNode()

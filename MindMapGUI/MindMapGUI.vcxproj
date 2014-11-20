@@ -150,8 +150,9 @@
     <ClCompile Include="InsertParentNodeCommand.cpp" />
     <ClCompile Include="InsertSiblingNodeCommand.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="mindmapgui.cpp" />
+    <ClCompile Include="MindMapGUI.cpp" />
     <ClCompile Include="MindMapModel.cpp" />
+    <ClCompile Include="MindMapScene.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="PresentModel.cpp" />
     <ClCompile Include="Root.cpp" />
@@ -164,7 +165,7 @@
     <ClCompile Include="TextUI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="mindmapgui.h">
+    <CustomBuild Include="MindMapGUI.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -204,10 +205,12 @@
     <ClInclude Include="DeleteComponentCommand.h" />
     <ClInclude Include="EditComponentCommand.h" />
     <ClInclude Include="GraphicNode.h" />
+    <ClInclude Include="INotifyGraphics.h" />
     <ClInclude Include="InsertChildNodeCommand.h" />
     <ClInclude Include="InsertParentNodeCommand.h" />
     <ClInclude Include="InsertSiblingNodeCommand.h" />
     <ClInclude Include="MindMapModel.h" />
+    <ClInclude Include="MindMapScene.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="PresentModel.h" />
     <ClInclude Include="Root.h" />

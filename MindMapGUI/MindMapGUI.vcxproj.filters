@@ -33,6 +33,12 @@
     <Filter Include="Source Files\Model\Composite">
       <UniqueIdentifier>{81d96bfe-9c44-4caf-93a8-41bed21f4c3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\View\GUI">
+      <UniqueIdentifier>{b85e5a55-d2ac-48ab-a803-92cdcb9e74a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\View\GUI">
+      <UniqueIdentifier>{7278c64e-aecc-4a7c-8098-2c79a6f40bce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,9 +48,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextUI.cpp">
-      <Filter>Source Files\View</Filter>
-    </ClCompile>
-    <ClCompile Include="mindmapgui.cpp">
       <Filter>Source Files\View</Filter>
     </ClCompile>
     <ClCompile Include="ChangeParentCommand.cpp">
@@ -93,6 +96,12 @@
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="GraphicNode.cpp">
+      <Filter>Source Files\View\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MindMapGUI.cpp">
+      <Filter>Source Files\View\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="MindMapScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -158,12 +167,18 @@
       <Filter>Header Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="GraphicNode.h">
-      <Filter>Header Files\View</Filter>
+      <Filter>Header Files\View\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="INotifyGraphics.h">
+      <Filter>Header Files\View\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="MindMapScene.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="mindmapgui.h">
-      <Filter>Header Files\View</Filter>
+    <CustomBuild Include="MindMapGUI.h">
+      <Filter>Header Files\View\GUI</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

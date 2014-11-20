@@ -3,6 +3,7 @@
 #include <QGraphicsItem>
 #include <QPainter>
 
+class INotifyGraphics;
 class GraphicNode : public QGraphicsItem
 {
     private:
@@ -18,12 +19,19 @@ class GraphicNode : public QGraphicsItem
         bool _isSelected;
         Component* _node;
         QPoint* _parentConnectPoint;
+        INotifyGraphics* _notify;
 
     public:
-        GraphicNode(int levelX, int levelY, Component* node, QPoint* parentConnectPoint = NULL);
+        GraphicNode(int levelX, int levelY, Component* node, INotifyGraphics* notify, QPoint* parentConnectPoint = NULL);
         QRectF boundingRect() const;
         QPoint* getConnectPoint();
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
         void setSelected(bool isSelected);
+        void click();
+        Component* getComponent();
         ~GraphicNode();
+
+    protected:
+        void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
+        void mousePressEvent(QGraphicsSceneMouseEvent* event);
 };

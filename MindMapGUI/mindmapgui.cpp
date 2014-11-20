@@ -1,8 +1,11 @@
 #include "stdafx.h"
-#include "mindmapgui.h"
+#include "MindMapGUI.h"
+#include <iostream>
 
-MindMapGUI::MindMapGUI(PresentModel* presentModel, QWidget* parent) : QMainWindow(parent)
+MindMapGUI::MindMapGUI(PresentModel* presentModel) : QMainWindow()
 {
+    _selectedNode = NULL;
+
     if (this->objectName().isEmpty())
         this->setObjectName(QStringLiteral("MindMapGUIClass"));
     this->resize(600, 400);
@@ -99,15 +102,15 @@ void MindMapGUI::bindingActions()
 
 void MindMapGUI::setupNodes()
 {
-    _scene = new QGraphicsScene();
+    _scene = new MindMapScene(this);
     _view = new QGraphicsView(_scene);
-    GraphicNode* a = new GraphicNode(0, 0, NULL);
-    GraphicNode* b = new GraphicNode(1, 0, NULL, a->getConnectPoint());
-    GraphicNode* c = new GraphicNode(1, 1, NULL, a->getConnectPoint());
-    GraphicNode* d = new GraphicNode(1, 2, NULL, a->getConnectPoint());
-    GraphicNode* e = new GraphicNode(1, 3, NULL, a->getConnectPoint());
-    GraphicNode* f = new GraphicNode(2, 0, NULL, b->getConnectPoint());
-    GraphicNode* g = new GraphicNode(2, 1, NULL, d->getConnectPoint());
+    GraphicNode* a = new GraphicNode(0, 0, new Node(0, "a"), this);
+    GraphicNode* b = new GraphicNode(1, 0, new Node(1, "b"), this, a->getConnectPoint());
+    GraphicNode* c = new GraphicNode(1, 1, new Node(2, "c"), this, a->getConnectPoint());
+    GraphicNode* d = new GraphicNode(1, 2, new Node(3, "d"), this, a->getConnectPoint());
+    GraphicNode* e = new GraphicNode(1, 3, new Node(4, "e"), this, a->getConnectPoint());
+    GraphicNode* f = new GraphicNode(2, 0, new Node(5, "f"), this, b->getConnectPoint());
+    GraphicNode* g = new GraphicNode(2, 1, new Node(6, "g"), this, d->getConnectPoint());
     _scene->addItem(a);
     _scene->addItem(b);
     _scene->addItem(c);
@@ -115,8 +118,47 @@ void MindMapGUI::setupNodes()
     _scene->addItem(e);
     _scene->addItem(f);
     _scene->addItem(g);
-    b->setSelected(true);
     this->setCentralWidget(_view);
+}
+
+void MindMapGUI::clickGraphicNode(GraphicNode* node)
+{
+    static bool lockClickEvent = false;
+    if (!lockClickEvent && _selectedNode)
+    {
+        _selectedNode->setSelected(false);
+        _selectedNode = NULL;
+    }
+    if (!lockClickEvent && node)
+    {
+        lockClickEvent = true;
+        node->setSelected(true);
+        _selectedNode = node;
+        return;
+    }
+    lockClickEvent = false;
+}
+
+void MindMapGUI::doubleClickGraphicNode(GraphicNode* node)
+{
+    showEditDialog();
+}
+
+void MindMapGUI::showEditDialog()
+{
+    cout << "showEditDialog" << endl;
+    if (_selectedNode)
+    {
+        QString title = tr("Input Dialog");
+        QString label = tr("Please input your description");
+        QString description = QString::fromStdString(_selectedNode->getComponent()->getDescription());
+        bool ok;
+        QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, description, &ok);
+        if (ok && !text.isEmpty())
+        {
+            _selectedNode->getComponent()->setDescription(text.toStdString());
+        }
+    }
 }
 
 MindMapGUI::~MindMapGUI()
