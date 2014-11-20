@@ -14,6 +14,9 @@
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include "GraphicNode.h"
 
 class MindMapGUI : public QMainWindow
 {
@@ -40,9 +43,15 @@ class MindMapGUI : public QMainWindow
         QToolBar* _mainToolBar;
         QStatusBar* _statusBar;
 
-        void setupActions(QMainWindow* window);
-        void setupMenus(QMainWindow* window);
-        void setupToolBar(QMainWindow* window);
+        // Painter
+        QGraphicsScene* _scene;
+        QGraphicsView* _view;
+
+        void setupActions();
+        void setupMenus();
+        void setupToolBar();
+        void bindingActions();
+        void setupNodes();
 };
 
 #endif // MINDMAPGUI_H

@@ -7,17 +7,19 @@ MindMapGUI::MindMapGUI(PresentModel* presentModel, QWidget* parent) : QMainWindo
         this->setObjectName(QStringLiteral("MindMapGUIClass"));
     this->resize(600, 400);
 
-    setupActions(this);
-    setupMenus(this);
-    setupToolBar(this);
+    setupActions();
+    setupMenus();
+    setupToolBar();
+    bindingActions();
+    setupNodes();
 }
 
-void MindMapGUI::setupMenus(QMainWindow* window)
+void MindMapGUI::setupMenus()
 {
-    _menuBar = new QMenuBar(window);
+    _menuBar = new QMenuBar(this);
     _menuBar->setObjectName(QStringLiteral("menuBar"));
     _menuBar->setGeometry(QRect(0, 0, 600, 22));
-    window->setMenuBar(_menuBar);
+    this->setMenuBar(_menuBar);
     this->setWindowTitle(QApplication::translate("this", "MindMapGUI", 0));
 
     _menuFile = new QMenu(QStringLiteral("menuFile"), _menuBar);
@@ -44,24 +46,24 @@ void MindMapGUI::setupMenus(QMainWindow* window)
     _menuBar->addAction(_menuHelp->menuAction());
 }
 
-void MindMapGUI::setupActions(QMainWindow* window)
+void MindMapGUI::setupActions()
 {
     // File
-    _actionNew = new QAction(QIcon("resource/new_icon.png"), QStringLiteral("actionNew"), window);
-    _actionSave = new QAction(QIcon("resource/save_icon.png"), QStringLiteral("actionSave"), window);
-    _actionLoad = new QAction(QIcon("resource/open_icon.png"), QStringLiteral("actionLoad"), window);
-    _actionExit = new QAction(QIcon("resource/exit_icon.png"), QStringLiteral("actionExit"), window);
+    _actionNew = new QAction(QIcon("resource/new_icon.png"), QStringLiteral("actionNew"), this);
+    _actionSave = new QAction(QIcon("resource/save_icon.png"), QStringLiteral("actionSave"), this);
+    _actionLoad = new QAction(QIcon("resource/open_icon.png"), QStringLiteral("actionLoad"), this);
+    _actionExit = new QAction(QIcon("resource/exit_icon.png"), QStringLiteral("actionExit"), this);
     _actionNew->setText(QApplication::translate("this", "New", 0));
     _actionSave->setText(QApplication::translate("this", "Save", 0));
     _actionLoad->setText(QApplication::translate("this", "Load", 0));
     _actionExit->setText(QApplication::translate("this", "Exit", 0));
 
     // Edit
-    _actionEdit = new QAction(QIcon("resource/edit_icon.png"), QStringLiteral("actionEdit"), window);
-    _actionDelete = new QAction(QIcon("resource/delete_icon.png"), QStringLiteral("actionDelete"), window);
-    _actionInsertChild = new QAction(QIcon("resource/insert_child_icon.png"), QStringLiteral("actionInsert_A_Child"), window);
-    _actionInsertSibling = new QAction(QIcon("resource/insert_sibling_icon.png"), QStringLiteral("actionInsert_a_sibling"), window);
-    _actionInsertParent = new QAction(QIcon("resource/insert_parent_icon.png"), QStringLiteral("actionInsert_a_parent"), window);
+    _actionEdit = new QAction(QIcon("resource/edit_icon.png"), QStringLiteral("actionEdit"), this);
+    _actionDelete = new QAction(QIcon("resource/delete_icon.png"), QStringLiteral("actionDelete"), this);
+    _actionInsertChild = new QAction(QIcon("resource/insert_child_icon.png"), QStringLiteral("actionInsert_A_Child"), this);
+    _actionInsertSibling = new QAction(QIcon("resource/insert_sibling_icon.png"), QStringLiteral("actionInsert_a_sibling"), this);
+    _actionInsertParent = new QAction(QIcon("resource/insert_parent_icon.png"), QStringLiteral("actionInsert_a_parent"), this);
     _actionEdit->setText(QApplication::translate("this", "Edit", 0));
     _actionDelete->setText(QApplication::translate("this", "Delete", 0));
     _actionInsertChild->setText(QApplication::translate("this", "Insert a child", 0));
@@ -69,17 +71,15 @@ void MindMapGUI::setupActions(QMainWindow* window)
     _actionInsertParent->setText(QApplication::translate("this", "Insert a parent", 0));
 
     // Abort
-    _actionAbort = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("actionAbort"), window);
+    _actionAbort = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("actionAbort"), this);
     _actionAbort->setText(QApplication::translate("this", "Abort", 0));
 }
 
-void MindMapGUI::setupToolBar(QMainWindow* window)
+void MindMapGUI::setupToolBar()
 {
     _mainToolBar = new QToolBar(this);
     _mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
     this->addToolBar(Qt::TopToolBarArea, _mainToolBar);
-
-    _actionNew->setEnabled(false);
 
     _mainToolBar->addAction(_actionNew);
     _mainToolBar->addAction(_actionLoad);
@@ -91,6 +91,32 @@ void MindMapGUI::setupToolBar(QMainWindow* window)
     _mainToolBar->addAction(_actionInsertSibling);
     _mainToolBar->addAction(_actionInsertParent);
     _mainToolBar->addSeparator();
+}
+
+void MindMapGUI::bindingActions()
+{
+}
+
+void MindMapGUI::setupNodes()
+{
+    _scene = new QGraphicsScene();
+    _view = new QGraphicsView(_scene);
+    GraphicNode* a = new GraphicNode(0, 0, NULL);
+    GraphicNode* b = new GraphicNode(1, 0, NULL, a->getConnectPoint());
+    GraphicNode* c = new GraphicNode(1, 1, NULL, a->getConnectPoint());
+    GraphicNode* d = new GraphicNode(1, 2, NULL, a->getConnectPoint());
+    GraphicNode* e = new GraphicNode(1, 3, NULL, a->getConnectPoint());
+    GraphicNode* f = new GraphicNode(2, 0, NULL, b->getConnectPoint());
+    GraphicNode* g = new GraphicNode(2, 1, NULL, d->getConnectPoint());
+    _scene->addItem(a);
+    _scene->addItem(b);
+    _scene->addItem(c);
+    _scene->addItem(d);
+    _scene->addItem(e);
+    _scene->addItem(f);
+    _scene->addItem(g);
+    b->setSelected(true);
+    this->setCentralWidget(_view);
 }
 
 MindMapGUI::~MindMapGUI()

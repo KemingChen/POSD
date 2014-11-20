@@ -145,6 +145,7 @@
     <ClCompile Include="Composite.cpp" />
     <ClCompile Include="DeleteComponentCommand.cpp" />
     <ClCompile Include="EditComponentCommand.cpp" />
+    <ClCompile Include="GraphicNode.cpp" />
     <ClCompile Include="InsertChildNodeCommand.cpp" />
     <ClCompile Include="InsertParentNodeCommand.cpp" />
     <ClCompile Include="InsertSiblingNodeCommand.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Composite.h" />
     <ClInclude Include="DeleteComponentCommand.h" />
     <ClInclude Include="EditComponentCommand.h" />
+    <ClInclude Include="GraphicNode.h" />
     <ClInclude Include="InsertChildNodeCommand.h" />
     <ClInclude Include="InsertParentNodeCommand.h" />
     <ClInclude Include="InsertSiblingNodeCommand.h" />

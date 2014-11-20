@@ -92,6 +92,9 @@
     <ClCompile Include="PresentModel.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MindMapGUI.rc" />
@@ -153,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="CommandManager.h">
       <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicNode.h">
+      <Filter>Header Files\View</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
