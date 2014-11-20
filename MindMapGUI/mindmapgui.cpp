@@ -5,6 +5,7 @@
 MindMapGUI::MindMapGUI(PresentModel* presentModel) : QMainWindow()
 {
     _selectedNode = NULL;
+    _lockClickEvent = false;
 
     if (this->objectName().isEmpty())
         this->setObjectName(QStringLiteral("MindMapGUIClass"));
@@ -98,6 +99,7 @@ void MindMapGUI::setupToolBar()
 
 void MindMapGUI::bindingActions()
 {
+    connect(_actionEdit, SIGNAL(triggered()), this, SLOT(showEditDialog()));
 }
 
 void MindMapGUI::setupNodes()
@@ -123,30 +125,29 @@ void MindMapGUI::setupNodes()
 
 void MindMapGUI::clickGraphicNode(GraphicNode* node)
 {
-    static bool lockClickEvent = false;
-    if (!lockClickEvent && _selectedNode)
+    if (!_lockClickEvent && _selectedNode)
     {
         _selectedNode->setSelected(false);
         _selectedNode = NULL;
     }
-    if (!lockClickEvent && node)
+    if (!_lockClickEvent && node)
     {
-        lockClickEvent = true;
+        _lockClickEvent = true;
         node->setSelected(true);
         _selectedNode = node;
         return;
     }
-    lockClickEvent = false;
+    _lockClickEvent = false;
 }
 
 void MindMapGUI::doubleClickGraphicNode(GraphicNode* node)
 {
+    _lockClickEvent = false;
     showEditDialog();
 }
 
 void MindMapGUI::showEditDialog()
 {
-    cout << "showEditDialog" << endl;
     if (_selectedNode)
     {
         QString title = tr("Input Dialog");
@@ -158,6 +159,8 @@ void MindMapGUI::showEditDialog()
         {
             _selectedNode->getComponent()->setDescription(text.toStdString());
         }
+        _scene->removeItem(_selectedNode);
+        _scene->addItem(_selectedNode);
     }
 }
 

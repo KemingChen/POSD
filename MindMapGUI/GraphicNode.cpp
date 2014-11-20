@@ -48,14 +48,12 @@ void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* optio
 void GraphicNode::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsItem::mouseDoubleClickEvent(event);
-    cout << "Double Click: " << _node->getDescription() << endl;
     _notify->doubleClickGraphicNode(this);
 }
 
 void GraphicNode::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsItem::mousePressEvent(event);
-    cout << "Click: " << _node->getDescription() << endl;
     _notify->clickGraphicNode(this);
 }
 

@@ -46,6 +46,7 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
 
         // Variable
         GraphicNode* _selectedNode;
+        bool _lockClickEvent;
 
         void setupActions();
         void setupMenus();
