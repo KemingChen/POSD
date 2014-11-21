@@ -2,7 +2,6 @@
 #include "PresentModel.h"
 #include "ComponentFactory.h"
 #include <fstream>
-#define DB_FILE "file__exist.mm"
 
 PresentModel::PresentModel(MindMapModel* model)
 {
@@ -47,9 +46,9 @@ void PresentModel::createMindMap(string description)
     _commandManager.clear();
 }
 
-void PresentModel::saveMindMap()
+void PresentModel::saveMindMap(string path)
 {
-    ofstream file(DB_FILE);
+    ofstream file(path);
     _model->saveMindMap(&file);
     file.close();
     _commandManager.clear();
@@ -96,6 +95,11 @@ Component* PresentModel::tryFindNode(string id)
         throw string("The node is not exist!!");
     }
     return node;
+}
+
+Component* PresentModel::getRoot()
+{
+    return _model->getRootNode();
 }
 
 void PresentModel::editNodeDescription(Component* node, string description)

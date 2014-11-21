@@ -2,21 +2,23 @@
 #include "MindMapGUI.h"
 #include <iostream>
 #include <QTextCodec>
+#define FILTER "MindMap Files (*.mm)"
 
 MindMapGUI::MindMapGUI(PresentModel* presentModel) : QMainWindow()
 {
-    _selectedNode = NULL;
-    _lockClickEvent = false;
-
     if (this->objectName().isEmpty())
         this->setObjectName(QStringLiteral("MindMapGUIClass"));
-    this->resize(600, 400);
+    this->resize(1024, 768);
 
     setupActions();
     setupMenus();
     setupToolBar();
     bindingActions();
-    setupNodes();
+    setupScene();
+
+    _presentModel = new GUIPresentModel(presentModel, this);
+    this->updateActions();
+    this->updateGraphics();
 }
 
 void MindMapGUI::setupMenus()
@@ -75,7 +77,7 @@ void MindMapGUI::setupActions()
     _actionInsertSibling->setText(QApplication::translate("this", "Insert a sibling", 0));
     _actionInsertParent->setText(QApplication::translate("this", "Insert a parent", 0));
 
-    // Abort
+    // Help
     _actionAbout = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("actionAbort"), this);
     _actionAbout->setText(QApplication::translate("this", "Abort", 0));
 }
@@ -100,89 +102,105 @@ void MindMapGUI::setupToolBar()
 
 void MindMapGUI::bindingActions()
 {
-    connect(_actionEdit, &QAction::triggered, this, &MindMapGUI::showEditDialog);
-    connect(_actionLoad, &QAction::triggered, this, &MindMapGUI::showLoadDialog);
-    connect(_actionSave, &QAction::triggered, this, &MindMapGUI::showSaveDialog);
+    // File
+    connect(_actionNew, &QAction::triggered, this, &MindMapGUI::createMindMap);
+    connect(_actionLoad, &QAction::triggered, this, &MindMapGUI::loadMindMap);
+    connect(_actionSave, &QAction::triggered, this, &MindMapGUI::saveMindMap);
     connect(_actionExit, &QAction::triggered, this, &MindMapGUI::exit);
+
+    // Edit
+    connect(_actionEdit, &QAction::triggered, this, &MindMapGUI::editNodeDescription);
+
+    // Help
     connect(_actionAbout, &QAction::triggered, this, &MindMapGUI::showAbout);
 }
 
-void MindMapGUI::setupNodes()
+void MindMapGUI::setupScene()
 {
     _scene = new MindMapScene(this);
     _view = new QGraphicsView(_scene);
-    GraphicNode* a = new GraphicNode(0, 0, new Node(0, "a"), this);
-    GraphicNode* b = new GraphicNode(1, 0, new Node(1, "b"), this, a->getConnectPoint());
-    GraphicNode* c = new GraphicNode(1, 1, new Node(2, "c"), this, a->getConnectPoint());
-    GraphicNode* d = new GraphicNode(1, 2, new Node(3, "d"), this, a->getConnectPoint());
-    GraphicNode* e = new GraphicNode(1, 3, new Node(4, "e"), this, a->getConnectPoint());
-    GraphicNode* f = new GraphicNode(2, 0, new Node(5, "f"), this, b->getConnectPoint());
-    GraphicNode* g = new GraphicNode(2, 1, new Node(6, "g"), this, d->getConnectPoint());
-    _scene->addItem(a);
-    _scene->addItem(b);
-    _scene->addItem(c);
-    _scene->addItem(d);
-    _scene->addItem(e);
-    _scene->addItem(f);
-    _scene->addItem(g);
     this->setCentralWidget(_view);
 }
 
 void MindMapGUI::clickGraphicNode(GraphicNode* node)
 {
-    if (!_lockClickEvent && _selectedNode)
-    {
-        _selectedNode->setSelected(false);
-        _selectedNode = NULL;
-    }
-    if (!_lockClickEvent && node)
-    {
-        _lockClickEvent = true;
-        node->setSelected(true);
-        _selectedNode = node;
-        return;
-    }
-    _lockClickEvent = false;
+    _presentModel->clickGraphicNode(node);
 }
 
 void MindMapGUI::doubleClickGraphicNode(GraphicNode* node)
 {
-    _lockClickEvent = false;
-    showEditDialog();
+    editNodeDescription();
 }
 
-void MindMapGUI::showEditDialog()
+void MindMapGUI::updateActions()
 {
-    if (_selectedNode)
+    // File
+    _actionSave->setEnabled(_presentModel->isMindMapCreated());
+
+    // Edit
+    _actionEdit->setEnabled(_presentModel->isSelectedNode());
+    _actionDelete->setEnabled(_presentModel->isSelectedNode());
+    _actionInsertChild->setEnabled(_presentModel->isSelectedNode());
+    _actionInsertSibling->setEnabled(_presentModel->isSelectedNode());
+    _actionInsertParent->setEnabled(_presentModel->isSelectedNode());
+}
+
+void MindMapGUI::updateGraphics()
+{
+    _scene->clear();
+    list<GraphicNode*>* graphicList = _presentModel->getGraphicsList();
+    for (list<GraphicNode*>::iterator iGraphic = graphicList->begin(); iGraphic != graphicList->end(); iGraphic++)
     {
-        QString title = tr("Input Dialog");
-        QString label = tr("Please input your description");
-        QString description = QString::fromStdString(_selectedNode->getComponent()->getDescription());
-        bool ok;
-        QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, description, &ok);
-        if (ok && !text.isEmpty())
-        {
-            _selectedNode->getComponent()->setDescription(text.toStdString());
-        }
-        _scene->removeItem(_selectedNode);
-        _scene->addItem(_selectedNode);
+        _scene->addItem(*iGraphic);
+        testNode = *iGraphic;
     }
 }
 
-void MindMapGUI::showLoadDialog()
+void MindMapGUI::notifyError(string description)
 {
-    QString title = tr("Load MindMap");
-    QString filter = tr("MindMap Files (*.mm)");
-    QString fileName = QFileDialog::getOpenFileName(this, title, "", filter);
-    cout << "Filename: " << fileName.toStdString() << endl;
+    QString title = tr("MindMap Error Message");
+    QString information = QString::fromStdString(description);
+    QMessageBox::critical(this, title, information);
 }
 
-void MindMapGUI::showSaveDialog()
+void MindMapGUI::createMindMap()
+{
+    bool ok;
+    QString title = tr("Create Dialog");
+    QString label = tr("Please input your description");
+    QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, "", &ok);
+    _presentModel->createMindMap(text.toStdString(), ok);
+}
+
+void MindMapGUI::editNodeDescription()
+{
+    bool ok;
+    GraphicNode* node = _presentModel->getSelectedNode();
+    QString title = tr("Edit Dialog");
+    QString label = tr("Please input your description");
+    QString description = QString::fromStdString(node->getComponent()->getDescription());
+    QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, description, &ok);
+    _presentModel->editDescription(text.toStdString(), ok);
+
+    // Fixed Click Error
+    _scene->removeItem(node);
+    _scene->addItem(node);
+}
+
+void MindMapGUI::loadMindMap()
+{
+    QString title = tr("Load MindMap");
+    QString filter = tr(FILTER);
+    QString fileName = QFileDialog::getOpenFileName(this, title, "", filter);
+    _presentModel->loadMindMap(fileName.toStdString());
+}
+
+void MindMapGUI::saveMindMap()
 {
     QString title = tr("Save MindMap");
-    QString filter = tr("MindMap Files (*.mm)");
+    QString filter = tr(FILTER);
     QString fileName = QFileDialog::getSaveFileName(this, title, "", filter);
-    cout << "Filename: " << fileName.toStdString() << endl;
+    _presentModel->saveMindMap(fileName.toStdString());
 }
 
 void MindMapGUI::showAbout()

@@ -1,6 +1,7 @@
 #pragma once
 #include "MindMapModel.h"
 #include "CommandManager.h"
+#define DB_FILE "file__exist.mm"
 
 class PresentModel
 {
@@ -23,6 +24,7 @@ class PresentModel
         // public method
         PresentModel(MindMapModel* model);
         Component* tryFindNode(string id);
+        Component* getRoot();
 
         // Comfirm Method
         void confirmMindMapExist();
@@ -38,7 +40,7 @@ class PresentModel
         void editNodeDescription(Component* node, string description);
         void deleteNode(Component* node);
         string getMindMap();
-        void saveMindMap();
+        void saveMindMap(string path = DB_FILE);
         void loadMindMap(string path);
         void redo();
         void undo();

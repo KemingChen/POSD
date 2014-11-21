@@ -54,6 +54,24 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Header Files\View\TextUI">
+      <UniqueIdentifier>{c9081d99-1aee-41b1-aea8-a41f7408933d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\View\TextUI">
+      <UniqueIdentifier>{edbaf446-4ec1-488b-aeee-74ea92b4d2f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model\PresentModel">
+      <UniqueIdentifier>{6206e8e2-5951-4ef7-9637-3ba199b7140e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model\Services">
+      <UniqueIdentifier>{66cdb19c-b6fe-471a-8861-8e9f9e04b197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model\Services">
+      <UniqueIdentifier>{8bb95840-03d0-4d28-8254-e5d5c2cb8313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model\PresentModel">
+      <UniqueIdentifier>{8a25dc78-3205-4769-9503-bbd4530d3283}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -61,9 +79,6 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextUI.cpp">
-      <Filter>Source Files\View</Filter>
     </ClCompile>
     <ClCompile Include="ChangeParentCommand.cpp">
       <Filter>Source Files\Model\Command</Filter>
@@ -98,16 +113,7 @@
     <ClCompile Include="Root.cpp">
       <Filter>Source Files\Model\Composite</Filter>
     </ClCompile>
-    <ClCompile Include="CommandManager.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="ComponentFactory.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
     <ClCompile Include="MindMapModel.cpp">
-      <Filter>Source Files\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="PresentModel.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
     <ClCompile Include="GraphicNode.cpp">
@@ -117,10 +123,22 @@
       <Filter>Source Files\View\GUI</Filter>
     </ClCompile>
     <ClCompile Include="MindMapScene.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\View\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TextUI.cpp">
+      <Filter>Source Files\View\TextUI</Filter>
     </ClCompile>
     <ClCompile Include="GUIPresentModel.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Model\PresentModel</Filter>
+    </ClCompile>
+    <ClCompile Include="PresentModel.cpp">
+      <Filter>Source Files\Model\PresentModel</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentFactory.cpp">
+      <Filter>Source Files\Model\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandManager.cpp">
+      <Filter>Source Files\Model\Services</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,16 +154,7 @@
     <ClInclude Include="TypeConst.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TextUI.h">
-      <Filter>Header Files\View</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentFactory.h">
-      <Filter>Header Files\Model</Filter>
-    </ClInclude>
     <ClInclude Include="MindMapModel.h">
-      <Filter>Header Files\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="PresentModel.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="ChangeParentCommand.h">
@@ -181,9 +190,6 @@
     <ClInclude Include="Command.h">
       <Filter>Header Files\Model\Command</Filter>
     </ClInclude>
-    <ClInclude Include="CommandManager.h">
-      <Filter>Header Files\Model</Filter>
-    </ClInclude>
     <ClInclude Include="GraphicNode.h">
       <Filter>Header Files\View\GUI</Filter>
     </ClInclude>
@@ -191,10 +197,22 @@
       <Filter>Header Files\View\GUI</Filter>
     </ClInclude>
     <ClInclude Include="MindMapScene.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\View\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TextUI.h">
+      <Filter>Header Files\View\TextUI</Filter>
     </ClInclude>
     <ClInclude Include="GUIPresentModel.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Model\PresentModel</Filter>
+    </ClInclude>
+    <ClInclude Include="PresentModel.h">
+      <Filter>Header Files\Model\PresentModel</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandManager.h">
+      <Filter>Header Files\Model\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentFactory.h">
+      <Filter>Header Files\Model\Services</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

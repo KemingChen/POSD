@@ -1,5 +1,6 @@
 #ifndef MINDMAPGUI_H
 #define MINDMAPGUI_H
+#include <list>
 #include "PresentModel.h"
 #include <QtWidgets/QMainWindow>
 #include <QtCore/QVariant>
@@ -21,6 +22,8 @@
 #include "GraphicNode.h"
 #include "MindMapScene.h"
 #include "GUIPresentModel.h"
+
+using namespace std;
 
 class MindMapGUI : public INotifyGraphics, public QMainWindow
 {
@@ -46,19 +49,17 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         // Painter
         MindMapScene* _scene;
         QGraphicsView* _view;
-        GUIPresentModel* _guiPresentModel;
+        GUIPresentModel* _presentModel;
 
-        // Variable
-        GraphicNode* _selectedNode;
-        bool _lockClickEvent;
-
+        // Setup
         void setupActions();
         void setupMenus();
         void setupToolBar();
         void bindingActions();
-        void setupNodes();
+        void setupScene();
 
-    public slots:
+        // Test
+        GraphicNode* testNode = NULL;
 
     public:
         MindMapGUI(PresentModel* presentModel);
@@ -67,11 +68,15 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         // Event
         void clickGraphicNode(GraphicNode* node);
         void doubleClickGraphicNode(GraphicNode* node);
+        void updateActions();
+        void updateGraphics();
+        void notifyError(string description);
 
         // Action
-        void showEditDialog();
-        void showLoadDialog();
-        void showSaveDialog();
+        void createMindMap();
+        void editNodeDescription();
+        void loadMindMap();
+        void saveMindMap();
         void showAbout();
         void exit();
 };
