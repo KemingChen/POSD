@@ -77,9 +77,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ChangeParentCommand.cpp">
       <Filter>Source Files\Model\Command</Filter>
     </ClCompile>
@@ -146,12 +143,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TypeConst.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MindMapModel.h">

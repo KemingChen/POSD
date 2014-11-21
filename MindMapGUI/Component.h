@@ -1,6 +1,9 @@
 #pragma once
 using namespace std;
 
+#define ROOT 0
+#define NODE 1
+
 class Component
 {
     private:
