@@ -31,10 +31,12 @@ void GUIPresentModel::clickGraphicNode(Component* node)
 {
     if (!isValidClick())
         return;
-
-    _selectedNode = node;
-    _notify->updateActions();
-    _notify->updateGraphics();
+    if (_selectedNode != node)
+    {
+        _selectedNode = node;
+        _notify->updateActions();
+        _notify->updateGraphics();
+    }
 }
 
 void GUIPresentModel::editDescription(string text, bool isValid)

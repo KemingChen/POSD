@@ -2,6 +2,8 @@
 #include <iostream>
 #include "INotifyGraphics.h"
 
+#define MIN_DOUBLE_CLICK_TIME 20
+
 GraphicNode::GraphicNode(int levelX, int levelY, Component* node, INotifyGraphics* notify, QPoint* parentConnectPoint)
 {
     _notify = notify;
@@ -13,6 +15,7 @@ GraphicNode::GraphicNode(int levelX, int levelY, Component* node, INotifyGraphic
     _y = _levelY * BOUNDING_HEIGHT;
     _isSelected = false;
     setFlags(QGraphicsItem::ItemIsSelectable);
+    _lastClickTime = clock();
 }
 
 QRectF GraphicNode::boundingRect() const
@@ -47,16 +50,14 @@ void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* optio
 
 void GraphicNode::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 {
-    cout << "GraphicNode dbClick" << endl;
     QGraphicsItem::mouseDoubleClickEvent(event);
-    _notify->doubleClickGraphicNode(this->getComponent());
+    _notify->doubleClickGraphicNode(_node);
 }
 
 void GraphicNode::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
-    cout << "Press" << endl;
     QGraphicsItem::mousePressEvent(event);
-    _notify->clickGraphicNode(this->getComponent());
+    _notify->clickGraphicNode(_node);
 }
 
 Component* GraphicNode::getComponent()

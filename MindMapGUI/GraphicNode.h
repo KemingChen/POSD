@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include <QGraphicsItem>
 #include <QPainter>
+#include <time.h>
 
 class INotifyGraphics;
 class GraphicNode : public QGraphicsItem
@@ -20,6 +21,7 @@ class GraphicNode : public QGraphicsItem
         Component* _node;
         QPoint* _parentConnectPoint;
         INotifyGraphics* _notify;
+        clock_t _lastClickTime;
 
     public:
         GraphicNode(int levelX, int levelY, Component* node, INotifyGraphics* notify, QPoint* parentConnectPoint = NULL);
