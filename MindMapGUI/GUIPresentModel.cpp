@@ -27,12 +27,12 @@ bool GUIPresentModel::isValidClick()
     }
 }
 
-void GUIPresentModel::clickGraphicNode(GraphicNode* node)
+void GUIPresentModel::clickGraphicNode(Component* node)
 {
     if (!isValidClick())
         return;
 
-    _selectedNode = node ? node->getComponent() : NULL;
+    _selectedNode = node;
     _notify->updateActions();
     _notify->updateGraphics();
 }
@@ -138,7 +138,7 @@ void GUIPresentModel::insertSiblingNode(string text, bool isValid)
 
 bool GUIPresentModel::isSaveEnable()
 {
-    return _presentModel->getRoot() != NULL;
+    return isCreatedMindMap();
 }
 
 bool GUIPresentModel::isSelected()
@@ -217,45 +217,19 @@ bool GUIPresentModel::isSelectedNode(Component* node)
     return _selectedNode == node;
 }
 
+bool GUIPresentModel::isCreatedMindMap()
+{
+    return _presentModel->getRoot() != NULL;
+}
+
 Component* GUIPresentModel::getSelectedNode()
 {
     return _selectedNode;
 }
 
-void GUIPresentModel::pushChildGraphics(list<GraphicNode*>* result, GraphicNode* parent, NodeList* nodeList, int levelX, map<int, int>* levelYMap)
+Component* GUIPresentModel::getRoot()
 {
-    if (!(*levelYMap)[levelX])
-        (*levelYMap)[levelX] = 0;
-
-    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
-    {
-        GraphicNode* graphicNode = new GraphicNode(levelX, (*levelYMap)[levelX], *iNode, _notify, parent->getConnectPoint());
-        graphicNode->setSelected(isSelectedNode(*iNode));
-        result->push_back(graphicNode);
-        (*levelYMap)[levelX] += 1;
-        pushChildGraphics(result, graphicNode, graphicNode->getComponent()->getNodeList(), levelX + 1, levelYMap);
-        if ((*levelYMap)[levelX + 1] > (*levelYMap)[levelX])
-        {
-            (*levelYMap)[levelX] = (*levelYMap)[levelX + 1];
-        }
-    }
-}
-
-list<GraphicNode*>* GUIPresentModel::getGraphicsList()
-{
-    list<GraphicNode*>* result = new list<GraphicNode*>();
-    Component* root = _presentModel->getRoot();
-    if (root != NULL)
-    {
-        int levelX = 0;
-        map<int, int> levelYMap;
-        levelYMap[levelX] = 0;
-        GraphicNode* graphicNode = new GraphicNode(levelX, levelYMap[levelX], root, _notify);
-        graphicNode->setSelected(isSelectedNode(root));
-        result->push_back(graphicNode);
-        pushChildGraphics(result, graphicNode, root->getNodeList(), levelX + 1 , &levelYMap);
-    }
-    return result;
+    return _presentModel->getRoot();
 }
 
 GUIPresentModel::~GUIPresentModel()

@@ -125,5 +125,8 @@
     <ClCompile Include="ChangeParentCommandTest.cpp">
       <Filter>UnitTest</Filter>
     </ClCompile>
+    <ClCompile Include="..\MindMapGUI\GUIPresentModel.cpp">
+      <Filter>原始程式檔</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

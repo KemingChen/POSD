@@ -1,7 +1,6 @@
 #pragma once
 #include "PresentModel.h"
 #include "INotifyGraphics.h"
-#include "GraphicNode.h"
 #include <time.h>
 
 using namespace std;
@@ -20,15 +19,13 @@ class GUIPresentModel
 
         // Method
         bool isValidClick();
-        bool isSelectedNode(Component* node);
-        void pushChildGraphics(list<GraphicNode*>* result, GraphicNode* parent, NodeList* nodeList, int levelX, map<int, int>* levelYMap);
 
     public:
         GUIPresentModel(PresentModel* presentModel, INotifyGraphics* notify);
         ~GUIPresentModel();
 
         // Action
-        void clickGraphicNode(GraphicNode* node);
+        void clickGraphicNode(Component* node);
         void editDescription(string text, bool isValid);
         void loadMindMap(string path);
         void saveMindMap(string path);
@@ -51,5 +48,7 @@ class GUIPresentModel
 
         // Method
         Component* getSelectedNode();
-        list<GraphicNode*>* getGraphicsList();
+        Component* getRoot();
+        bool isCreatedMindMap();
+        bool isSelectedNode(Component* node);
 };

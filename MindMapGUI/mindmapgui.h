@@ -58,13 +58,17 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         void bindingActions();
         void setupScene();
 
+        // Method
+        list<GraphicNode*>* getGraphicsList();
+        void pushChildGraphics(list<GraphicNode*>* result, GraphicNode* parent, NodeList* nodeList, int levelX, map<int, int>* levelYMap);
+
     public:
         MindMapGUI(PresentModel* presentModel);
         ~MindMapGUI();
 
         // Event
-        void clickGraphicNode(GraphicNode* node);
-        void doubleClickGraphicNode(GraphicNode* node);
+        void clickGraphicNode(Component* node);
+        void doubleClickGraphicNode(Component* node);
         void updateActions();
         void updateGraphics();
         void notifyError(string description);

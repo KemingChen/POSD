@@ -126,12 +126,12 @@ void MindMapGUI::setupScene()
     this->setCentralWidget(_view);
 }
 
-void MindMapGUI::clickGraphicNode(GraphicNode* node)
+void MindMapGUI::clickGraphicNode(Component* node)
 {
     _presentModel->clickGraphicNode(node);
 }
 
-void MindMapGUI::doubleClickGraphicNode(GraphicNode* node)
+void MindMapGUI::doubleClickGraphicNode(Component* node)
 {
     editNodeDescription();
 }
@@ -152,7 +152,7 @@ void MindMapGUI::updateActions()
 void MindMapGUI::updateGraphics()
 {
     _scene->clear();
-    list<GraphicNode*>* graphicList = _presentModel->getGraphicsList();
+    list<GraphicNode*>* graphicList = this->getGraphicsList();
     for (list<GraphicNode*>::iterator iGraphic = graphicList->begin(); iGraphic != graphicList->end(); iGraphic++)
     {
         _scene->addItem(*iGraphic);
@@ -249,6 +249,42 @@ void MindMapGUI::showAbout()
 void MindMapGUI::exit()
 {
     this->close();
+}
+
+void MindMapGUI::pushChildGraphics(list<GraphicNode*>* result, GraphicNode* parent, NodeList* nodeList, int levelX, map<int, int>* levelYMap)
+{
+    if (!(*levelYMap)[levelX])
+        (*levelYMap)[levelX] = 0;
+
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        GraphicNode* graphicNode = new GraphicNode(levelX, (*levelYMap)[levelX], *iNode, this, parent->getConnectPoint());
+        graphicNode->setSelected(_presentModel->isSelectedNode(*iNode));
+        result->push_back(graphicNode);
+        (*levelYMap)[levelX] += 1;
+        pushChildGraphics(result, graphicNode, graphicNode->getComponent()->getNodeList(), levelX + 1, levelYMap);
+        if ((*levelYMap)[levelX + 1] > (*levelYMap)[levelX])
+        {
+            (*levelYMap)[levelX] = (*levelYMap)[levelX + 1];
+        }
+    }
+}
+
+list<GraphicNode*>* MindMapGUI::getGraphicsList()
+{
+    list<GraphicNode*>* result = new list<GraphicNode*>();
+    Component* root = _presentModel->getRoot();
+    if (root != NULL)
+    {
+        int levelX = 0;
+        map<int, int> levelYMap;
+        levelYMap[levelX] = 0;
+        GraphicNode* graphicNode = new GraphicNode(levelX, levelYMap[levelX], root, this);
+        graphicNode->setSelected(_presentModel->isSelectedNode(root));
+        result->push_back(graphicNode);
+        pushChildGraphics(result, graphicNode, root->getNodeList(), levelX + 1, &levelYMap);
+    }
+    return result;
 }
 
 MindMapGUI::~MindMapGUI()
