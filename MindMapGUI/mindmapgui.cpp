@@ -110,6 +110,7 @@ void MindMapGUI::bindingActions()
 
     // Edit
     connect(_actionEdit, &QAction::triggered, this, &MindMapGUI::editNodeDescription);
+    connect(_actionDelete, &QAction::triggered, this, &MindMapGUI::deleteNode);
     connect(_actionInsertChild, &QAction::triggered, this, &MindMapGUI::insertChildNode);
     connect(_actionInsertParent, &QAction::triggered, this, &MindMapGUI::insertParentNode);
     connect(_actionInsertSibling, &QAction::triggered, this, &MindMapGUI::insertSiblingNode);
@@ -141,8 +142,8 @@ void MindMapGUI::updateActions()
     _actionSave->setEnabled(_presentModel->isSaveEnable());
 
     // Edit
-    _actionEdit->setEnabled(_presentModel->isSelected());
-    _actionDelete->setEnabled(_presentModel->isSelected());
+    _actionEdit->setEnabled(_presentModel->isEditNodeEnable());
+    _actionDelete->setEnabled(_presentModel->isDeleteNodeEnable());
     _actionInsertChild->setEnabled(_presentModel->isInsertChildNodeEnable());
     _actionInsertSibling->setEnabled(_presentModel->isInsertSiblingNodeEnable());
     _actionInsertParent->setEnabled(_presentModel->isInsertParentNodeEnable());
@@ -226,6 +227,12 @@ void MindMapGUI::saveMindMap()
     QString filter = tr(FILTER);
     QString fileName = QFileDialog::getSaveFileName(this, title, "", filter);
     _presentModel->saveMindMap(fileName.toStdString());
+}
+
+void MindMapGUI::deleteNode()
+{
+    _presentModel->deleteNode();
+    _scene->update();
 }
 
 void MindMapGUI::showAbout()

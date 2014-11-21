@@ -77,6 +77,7 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         void insertParentNode();
         void insertSiblingNode();
         void insertChildNode();
+        void deleteNode();
         void showAbout();
         void exit();
 };

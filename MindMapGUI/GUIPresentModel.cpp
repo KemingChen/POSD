@@ -146,6 +146,16 @@ bool GUIPresentModel::isSelected()
     return _selectedNode != NULL;
 }
 
+bool GUIPresentModel::isDeleteNodeEnable()
+{
+    return isSelected() && _presentModel->getRoot() != _selectedNode;
+}
+
+bool GUIPresentModel::isEditNodeEnable()
+{
+    return isSelected();
+}
+
 bool GUIPresentModel::isInsertParentNodeEnable()
 {
     if (isSelected())
@@ -192,6 +202,14 @@ bool GUIPresentModel::isInsertSiblingNodeEnable()
         }
     }
     return false;
+}
+
+void GUIPresentModel::deleteNode()
+{
+    _presentModel->deleteNode(_selectedNode);
+    _selectedNode = NULL;
+    _notify->updateActions();
+    _notify->updateGraphics();
 }
 
 bool GUIPresentModel::isSelectedNode(Component* node)

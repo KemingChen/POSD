@@ -36,12 +36,15 @@ class GUIPresentModel
         void insertParentNode(string text, bool isValid);
         void insertChildNode(string text, bool isValid);
         void insertSiblingNode(string text, bool isValid);
+        void deleteNode();
 
         // File Status
         bool isSaveEnable();
 
         // Edit Status
         bool isSelected();
+        bool isEditNodeEnable();
+        bool isDeleteNodeEnable();
         bool isInsertParentNodeEnable();
         bool isInsertChildNodeEnable();
         bool isInsertSiblingNodeEnable();
