@@ -232,8 +232,12 @@ void GUIPresentModel::pushChildGraphics(list<GraphicNode*>* result, GraphicNode*
         GraphicNode* graphicNode = new GraphicNode(levelX, (*levelYMap)[levelX], *iNode, _notify, parent->getConnectPoint());
         graphicNode->setSelected(isSelectedNode(*iNode));
         result->push_back(graphicNode);
-        (*levelYMap)[levelX]++;
+        (*levelYMap)[levelX] += 1;
         pushChildGraphics(result, graphicNode, graphicNode->getComponent()->getNodeList(), levelX + 1, levelYMap);
+        if ((*levelYMap)[levelX + 1] > (*levelYMap)[levelX])
+        {
+            (*levelYMap)[levelX] = (*levelYMap)[levelX + 1];
+        }
     }
 }
 
