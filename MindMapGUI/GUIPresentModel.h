@@ -32,6 +32,9 @@ class GUIPresentModel
         void loadMindMap(string path);
         void saveMindMap(string path);
         void createMindMap(string text, bool isValid);
+        void insertParentNode(string text, bool isValid);
+        void insertChildNode(string text, bool isValid);
+        void insertSiblingNode(string text, bool isValid);
 
         // Status
         bool isMindMapCreated();

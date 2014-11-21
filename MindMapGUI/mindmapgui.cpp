@@ -110,6 +110,9 @@ void MindMapGUI::bindingActions()
 
     // Edit
     connect(_actionEdit, &QAction::triggered, this, &MindMapGUI::editNodeDescription);
+    connect(_actionInsertChild, &QAction::triggered, this, &MindMapGUI::insertChildNode);
+    connect(_actionInsertParent, &QAction::triggered, this, &MindMapGUI::insertParentNode);
+    connect(_actionInsertSibling, &QAction::triggered, this, &MindMapGUI::insertSiblingNode);
 
     // Help
     connect(_actionAbout, &QAction::triggered, this, &MindMapGUI::showAbout);
@@ -152,7 +155,6 @@ void MindMapGUI::updateGraphics()
     for (list<GraphicNode*>::iterator iGraphic = graphicList->begin(); iGraphic != graphicList->end(); iGraphic++)
     {
         _scene->addItem(*iGraphic);
-        testNode = *iGraphic;
     }
 }
 
@@ -170,6 +172,33 @@ void MindMapGUI::createMindMap()
     QString label = tr("Please input your description");
     QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, "", &ok);
     _presentModel->createMindMap(text.toStdString(), ok);
+}
+
+void MindMapGUI::insertParentNode()
+{
+    bool ok;
+    QString title = tr("Insert Parent Dialog");
+    QString label = tr("Please input your description");
+    QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, "", &ok);
+    _presentModel->insertParentNode(text.toStdString(), ok);
+}
+
+void MindMapGUI::insertSiblingNode()
+{
+    bool ok;
+    QString title = tr("Insert Sibling Dialog");
+    QString label = tr("Please input your description");
+    QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, "", &ok);
+    _presentModel->insertSiblingNode(text.toStdString(), ok);
+}
+
+void MindMapGUI::insertChildNode()
+{
+    bool ok;
+    QString title = tr("Insert Child Dialog");
+    QString label = tr("Please input your description");
+    QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, "", &ok);
+    _presentModel->insertChildNode(text.toStdString(), ok);
 }
 
 void MindMapGUI::editNodeDescription()

@@ -58,9 +58,6 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         void bindingActions();
         void setupScene();
 
-        // Test
-        GraphicNode* testNode = NULL;
-
     public:
         MindMapGUI(PresentModel* presentModel);
         ~MindMapGUI();
@@ -77,6 +74,9 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         void editNodeDescription();
         void loadMindMap();
         void saveMindMap();
+        void insertParentNode();
+        void insertSiblingNode();
+        void insertChildNode();
         void showAbout();
         void exit();
 };

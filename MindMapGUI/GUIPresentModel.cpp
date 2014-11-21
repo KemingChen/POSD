@@ -1,4 +1,5 @@
 #include "GUIPresentModel.h"
+#include "ComponentFactory.h"
 
 #define MIN_DELTA_CLICK_TIME 20
 #define ERROR_DESCRIPTION_EMPTY "Description is Empty!!!"
@@ -83,6 +84,54 @@ void GUIPresentModel::createMindMap(string text, bool isValid)
         {
             _presentModel->createMindMap(text);
             _notify->updateActions();
+            _notify->updateGraphics();
+        }
+        else
+        {
+            _notify->notifyError(ERROR_DESCRIPTION_EMPTY);
+        }
+    }
+}
+
+void GUIPresentModel::insertParentNode(string text, bool isValid)
+{
+    if (isValid)
+    {
+        if (!text.empty())
+        {
+            _presentModel->insertParentNode(_selectedNode->getComponent(), text);
+            _notify->updateGraphics();
+        }
+        else
+        {
+            _notify->notifyError(ERROR_DESCRIPTION_EMPTY);
+        }
+    }
+}
+
+void GUIPresentModel::insertChildNode(string text, bool isValid)
+{
+    if (isValid)
+    {
+        if (!text.empty())
+        {
+            _presentModel->insertChildNode(_selectedNode->getComponent(), text);
+            _notify->updateGraphics();
+        }
+        else
+        {
+            _notify->notifyError(ERROR_DESCRIPTION_EMPTY);
+        }
+    }
+}
+
+void GUIPresentModel::insertSiblingNode(string text, bool isValid)
+{
+    if (isValid)
+    {
+        if (!text.empty())
+        {
+            _presentModel->insertSiblingNode(_selectedNode->getComponent(), text);
             _notify->updateGraphics();
         }
         else
