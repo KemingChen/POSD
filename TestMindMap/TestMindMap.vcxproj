@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A3363D96-3A55-43FB-8F32-24A2AE34EE64}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>TestMindMap</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>..\MindMapGUI;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\gtest\include</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>C:\gtest\lib\gtestd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\MindMapGUI\stdafx.h" />
+    <ClInclude Include="MockCommand.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\MindMapGUI\ChangeParentCommand.cpp" />
+    <ClCompile Include="..\MindMapGUI\Command.cpp" />
+    <ClCompile Include="..\MindMapGUI\CommandManager.cpp" />
+    <ClCompile Include="..\MindMapGUI\Component.cpp" />
+    <ClCompile Include="..\MindMapGUI\ComponentFactory.cpp" />
+    <ClCompile Include="..\MindMapGUI\Composite.cpp" />
+    <ClCompile Include="..\MindMapGUI\DeleteComponentCommand.cpp" />
+    <ClCompile Include="..\MindMapGUI\EditComponentCommand.cpp" />
+    <ClCompile Include="..\MindMapGUI\InsertChildNodeCommand.cpp" />
+    <ClCompile Include="..\MindMapGUI\InsertParentNodeCommand.cpp" />
+    <ClCompile Include="..\MindMapGUI\InsertSiblingNodeCommand.cpp" />
+    <ClCompile Include="..\MindMapGUI\MindMapModel.cpp" />
+    <ClCompile Include="..\MindMapGUI\Node.cpp" />
+    <ClCompile Include="..\MindMapGUI\PresentModel.cpp" />
+    <ClCompile Include="..\MindMapGUI\Root.cpp" />
+    <ClCompile Include="ChangeParentCommandTest.cpp" />
+    <ClCompile Include="CommnadManagerTest.cpp" />
+    <ClCompile Include="ComponentFactoryTest.cpp" />
+    <ClCompile Include="DeleteComponentCommandTest.cpp" />
+    <ClCompile Include="EditComponentCommandTest.cpp" />
+    <ClCompile Include="InsertChildNodeCommandTest.cpp" />
+    <ClCompile Include="InsertParentNodeCommandTest.cpp" />
+    <ClCompile Include="InsertSiblingNodeCommandTest.cpp" />
+    <ClCompile Include="IntegrationTest.cpp" />
+    <ClCompile Include="MindMapModelTest.cpp" />
+    <ClCompile Include="MockCommand.cpp" />
+    <ClCompile Include="NodeTest.cpp" />
+    <ClCompile Include="PresentModelTest.cpp" />
+    <ClCompile Include="RootTest.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="TestMindMap.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
