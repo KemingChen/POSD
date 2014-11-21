@@ -13,21 +13,6 @@ void MindMapScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
     _notify->clickGraphicNode(NULL);
 }
 
-void MindMapScene::addItem(QGraphicsItem* node)
-{
-    QGraphicsScene::addItem(node);
-    _list.append((GraphicNode*)node);
-}
-
-void MindMapScene::clear()
-{
-    for (int i = 0; i < _list.size(); ++i)
-    {
-        delete _list.at(i);
-    }
-    _list.clear();
-}
-
 MindMapScene::~MindMapScene()
 {
 }

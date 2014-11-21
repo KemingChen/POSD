@@ -1,5 +1,6 @@
 #include "GUIPresentModel.h"
 #include "ComponentFactory.h"
+#include <iostream>
 
 #define MIN_DELTA_CLICK_TIME 20
 #define ERROR_DESCRIPTION_EMPTY "Description is Empty!!!"
@@ -30,17 +31,10 @@ void GUIPresentModel::clickGraphicNode(GraphicNode* node)
 {
     if (!isValidClick())
         return;
-    if (_selectedNode)
-    {
-        _selectedNode->setSelected(false);
-        _selectedNode = NULL;
-    }
-    if (node)
-    {
-        node->setSelected(true);
-        _selectedNode = node;
-    }
+
+    _selectedNode = node ? node->getComponent() : NULL;
     _notify->updateActions();
+    _notify->updateGraphics();
 }
 
 void GUIPresentModel::editDescription(string text, bool isValid)
@@ -49,7 +43,8 @@ void GUIPresentModel::editDescription(string text, bool isValid)
     {
         if (!text.empty())
         {
-            _selectedNode->getComponent()->setDescription(text);
+            _selectedNode->setDescription(text);
+            _notify->updateGraphics();
         }
         else
         {
@@ -99,7 +94,7 @@ void GUIPresentModel::insertParentNode(string text, bool isValid)
     {
         if (!text.empty())
         {
-            _presentModel->insertParentNode(_selectedNode->getComponent(), text);
+            _presentModel->insertParentNode(_selectedNode, text);
             _notify->updateGraphics();
         }
         else
@@ -115,7 +110,7 @@ void GUIPresentModel::insertChildNode(string text, bool isValid)
     {
         if (!text.empty())
         {
-            _presentModel->insertChildNode(_selectedNode->getComponent(), text);
+            _presentModel->insertChildNode(_selectedNode, text);
             _notify->updateGraphics();
         }
         else
@@ -131,7 +126,7 @@ void GUIPresentModel::insertSiblingNode(string text, bool isValid)
     {
         if (!text.empty())
         {
-            _presentModel->insertSiblingNode(_selectedNode->getComponent(), text);
+            _presentModel->insertSiblingNode(_selectedNode, text);
             _notify->updateGraphics();
         }
         else
@@ -141,17 +136,70 @@ void GUIPresentModel::insertSiblingNode(string text, bool isValid)
     }
 }
 
-bool GUIPresentModel::isMindMapCreated()
+bool GUIPresentModel::isSaveEnable()
 {
     return _presentModel->getRoot() != NULL;
 }
 
-bool GUIPresentModel::isSelectedNode()
+bool GUIPresentModel::isSelected()
 {
     return _selectedNode != NULL;
 }
 
-GraphicNode* GUIPresentModel::getSelectedNode()
+bool GUIPresentModel::isInsertParentNodeEnable()
+{
+    if (isSelected())
+    {
+        try
+        {
+            _presentModel->confirmInsertNodeLegal(_selectedNode, &MindMapModel::insertParentNode);
+            return true;
+        }
+        catch (string error)
+        {
+        }
+    }
+    return false;
+}
+
+bool GUIPresentModel::isInsertChildNodeEnable()
+{
+    if (isSelected())
+    {
+        try
+        {
+            _presentModel->confirmInsertNodeLegal(_selectedNode, &MindMapModel::insertChildNode);
+            return true;
+        }
+        catch (string error)
+        {
+        }
+    }
+    return false;
+}
+
+bool GUIPresentModel::isInsertSiblingNodeEnable()
+{
+    if (isSelected())
+    {
+        try
+        {
+            _presentModel->confirmInsertNodeLegal(_selectedNode, &MindMapModel::insertSiblingNode);
+            return true;
+        }
+        catch (string error)
+        {
+        }
+    }
+    return false;
+}
+
+bool GUIPresentModel::isSelectedNode(Component* node)
+{
+    return _selectedNode == node;
+}
+
+Component* GUIPresentModel::getSelectedNode()
 {
     return _selectedNode;
 }
@@ -164,6 +212,7 @@ void GUIPresentModel::pushChildGraphics(list<GraphicNode*>* result, GraphicNode*
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {
         GraphicNode* graphicNode = new GraphicNode(levelX, (*levelYMap)[levelX], *iNode, _notify, parent->getConnectPoint());
+        graphicNode->setSelected(isSelectedNode(*iNode));
         result->push_back(graphicNode);
         (*levelYMap)[levelX]++;
         pushChildGraphics(result, graphicNode, graphicNode->getComponent()->getNodeList(), levelX + 1, levelYMap);
@@ -180,6 +229,7 @@ list<GraphicNode*>* GUIPresentModel::getGraphicsList()
         map<int, int> levelYMap;
         levelYMap[levelX] = 0;
         GraphicNode* graphicNode = new GraphicNode(levelX, levelYMap[levelX], root, _notify);
+        graphicNode->setSelected(isSelectedNode(root));
         result->push_back(graphicNode);
         pushChildGraphics(result, graphicNode, root->getNodeList(), levelX + 1 , &levelYMap);
     }

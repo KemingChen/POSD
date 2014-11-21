@@ -16,10 +16,11 @@ class GUIPresentModel
         clock_t _lastClickTime;
 
         // Property
-        GraphicNode* _selectedNode;
+        Component* _selectedNode;
 
         // Method
         bool isValidClick();
+        bool isSelectedNode(Component* node);
         void pushChildGraphics(list<GraphicNode*>* result, GraphicNode* parent, NodeList* nodeList, int levelX, map<int, int>* levelYMap);
 
     public:
@@ -36,9 +37,16 @@ class GUIPresentModel
         void insertChildNode(string text, bool isValid);
         void insertSiblingNode(string text, bool isValid);
 
-        // Status
-        bool isMindMapCreated();
-        bool isSelectedNode();
-        GraphicNode* getSelectedNode();
+        // File Status
+        bool isSaveEnable();
+
+        // Edit Status
+        bool isSelected();
+        bool isInsertParentNodeEnable();
+        bool isInsertChildNodeEnable();
+        bool isInsertSiblingNodeEnable();
+
+        // Method
+        Component* getSelectedNode();
         list<GraphicNode*>* getGraphicsList();
 };

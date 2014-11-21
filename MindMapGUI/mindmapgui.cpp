@@ -138,14 +138,14 @@ void MindMapGUI::doubleClickGraphicNode(GraphicNode* node)
 void MindMapGUI::updateActions()
 {
     // File
-    _actionSave->setEnabled(_presentModel->isMindMapCreated());
+    _actionSave->setEnabled(_presentModel->isSaveEnable());
 
     // Edit
-    _actionEdit->setEnabled(_presentModel->isSelectedNode());
-    _actionDelete->setEnabled(_presentModel->isSelectedNode());
-    _actionInsertChild->setEnabled(_presentModel->isSelectedNode());
-    _actionInsertSibling->setEnabled(_presentModel->isSelectedNode());
-    _actionInsertParent->setEnabled(_presentModel->isSelectedNode());
+    _actionEdit->setEnabled(_presentModel->isSelected());
+    _actionDelete->setEnabled(_presentModel->isSelected());
+    _actionInsertChild->setEnabled(_presentModel->isInsertChildNodeEnable());
+    _actionInsertSibling->setEnabled(_presentModel->isInsertSiblingNodeEnable());
+    _actionInsertParent->setEnabled(_presentModel->isInsertParentNodeEnable());
 }
 
 void MindMapGUI::updateGraphics()
@@ -204,16 +204,12 @@ void MindMapGUI::insertChildNode()
 void MindMapGUI::editNodeDescription()
 {
     bool ok;
-    GraphicNode* node = _presentModel->getSelectedNode();
+    Component* node = _presentModel->getSelectedNode();
     QString title = tr("Edit Dialog");
     QString label = tr("Please input your description");
-    QString description = QString::fromStdString(node->getComponent()->getDescription());
+    QString description = QString::fromStdString(node->getDescription());
     QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, description, &ok);
     _presentModel->editDescription(text.toStdString(), ok);
-
-    // Fixed Click Error
-    _scene->removeItem(node);
-    _scene->addItem(node);
 }
 
 void MindMapGUI::loadMindMap()
