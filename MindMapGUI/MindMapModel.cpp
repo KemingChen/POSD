@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "MindMapModel.h"
 #include "ComponentFactory.h"
 #include <iostream>

@@ -119,6 +119,9 @@
     <ClCompile Include="MindMapScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GUIPresentModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MindMapGUI.rc" />
@@ -188,6 +191,9 @@
       <Filter>Header Files\View\GUI</Filter>
     </ClInclude>
     <ClInclude Include="MindMapScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIPresentModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

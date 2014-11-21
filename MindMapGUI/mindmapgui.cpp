@@ -130,7 +130,6 @@ void MindMapGUI::setupNodes()
 
 void MindMapGUI::clickGraphicNode(GraphicNode* node)
 {
-    // cout << "Click " << ( node ? node->getComponent()->getDescription() : "NULL") << endl;
     if (!_lockClickEvent && _selectedNode)
     {
         _selectedNode->setSelected(false);

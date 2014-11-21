@@ -20,6 +20,7 @@
 #include "INotifyGraphics.h"
 #include "GraphicNode.h"
 #include "MindMapScene.h"
+#include "GUIPresentModel.h"
 
 class MindMapGUI : public INotifyGraphics, public QMainWindow
 {
@@ -45,6 +46,7 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         // Painter
         MindMapScene* _scene;
         QGraphicsView* _view;
+        GUIPresentModel* _guiPresentModel;
 
         // Variable
         GraphicNode* _selectedNode;
