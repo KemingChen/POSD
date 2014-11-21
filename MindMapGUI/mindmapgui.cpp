@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "MindMapGUI.h"
 #include <iostream>
+#include <QTextCodec>
 
 MindMapGUI::MindMapGUI(PresentModel* presentModel) : QMainWindow()
 {
@@ -43,7 +44,7 @@ void MindMapGUI::setupMenus()
 
     _menuHelp = new QMenu(QStringLiteral("menuHelp"), _menuBar);
     _menuHelp->setTitle(QApplication::translate("this", "Help", 0));
-    _menuHelp->addAction(_actionAbort);
+    _menuHelp->addAction(_actionAbout);
 
     _menuBar->addAction(_menuFile->menuAction());
     _menuBar->addAction(_menuEdit->menuAction());
@@ -75,8 +76,8 @@ void MindMapGUI::setupActions()
     _actionInsertParent->setText(QApplication::translate("this", "Insert a parent", 0));
 
     // Abort
-    _actionAbort = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("actionAbort"), this);
-    _actionAbort->setText(QApplication::translate("this", "Abort", 0));
+    _actionAbout = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("actionAbort"), this);
+    _actionAbout->setText(QApplication::translate("this", "Abort", 0));
 }
 
 void MindMapGUI::setupToolBar()
@@ -99,7 +100,11 @@ void MindMapGUI::setupToolBar()
 
 void MindMapGUI::bindingActions()
 {
-    connect(_actionEdit, SIGNAL(triggered()), this, SLOT(showEditDialog()));
+    connect(_actionEdit, &QAction::triggered, this, &MindMapGUI::showEditDialog);
+    connect(_actionLoad, &QAction::triggered, this, &MindMapGUI::showLoadDialog);
+    connect(_actionSave, &QAction::triggered, this, &MindMapGUI::showSaveDialog);
+    connect(_actionExit, &QAction::triggered, this, &MindMapGUI::exit);
+    connect(_actionAbout, &QAction::triggered, this, &MindMapGUI::showAbout);
 }
 
 void MindMapGUI::setupNodes()
@@ -125,6 +130,7 @@ void MindMapGUI::setupNodes()
 
 void MindMapGUI::clickGraphicNode(GraphicNode* node)
 {
+    // cout << "Click " << ( node ? node->getComponent()->getDescription() : "NULL") << endl;
     if (!_lockClickEvent && _selectedNode)
     {
         _selectedNode->setSelected(false);
@@ -162,6 +168,38 @@ void MindMapGUI::showEditDialog()
         _scene->removeItem(_selectedNode);
         _scene->addItem(_selectedNode);
     }
+}
+
+void MindMapGUI::showLoadDialog()
+{
+    QString title = tr("Load MindMap");
+    QString filter = tr("MindMap Files (*.mm)");
+    QString fileName = QFileDialog::getOpenFileName(this, title, "", filter);
+    cout << "Filename: " << fileName.toStdString() << endl;
+}
+
+void MindMapGUI::showSaveDialog()
+{
+    QString title = tr("Save MindMap");
+    QString filter = tr("MindMap Files (*.mm)");
+    QString fileName = QFileDialog::getSaveFileName(this, title, "", filter);
+    cout << "Filename: " << fileName.toStdString() << endl;
+}
+
+void MindMapGUI::showAbout()
+{
+    QString title = tr("About MindMap");
+    QString information = tr(
+                              "2014  -  POSD  -  Homework\n\n"
+                              "MindMapGUI   -   version 1.0\n\n"
+                              "By  Keming Chen   (103598011)"
+                          );
+    QMessageBox::about(this, title, information);
+}
+
+void MindMapGUI::exit()
+{
+    this->close();
 }
 
 MindMapGUI::~MindMapGUI()

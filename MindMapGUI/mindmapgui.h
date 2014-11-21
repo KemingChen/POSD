@@ -15,6 +15,8 @@
 #include <QtWidgets/QWidget>
 #include <QGraphicsView>
 #include <QInputDialog>
+#include <QFileDialog>
+#include <QMessageBox>
 #include "INotifyGraphics.h"
 #include "GraphicNode.h"
 #include "MindMapScene.h"
@@ -22,7 +24,7 @@
 class MindMapGUI : public INotifyGraphics, public QMainWindow
 {
     private:
-        QAction* _actionAbort;
+        QAction* _actionAbout;
         QAction* _actionNew;
         QAction* _actionSave;
         QAction* _actionLoad;
@@ -55,13 +57,21 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         void setupNodes();
 
     public slots:
-        void showEditDialog();
 
     public:
         MindMapGUI(PresentModel* presentModel);
+        ~MindMapGUI();
+
+        // Event
         void clickGraphicNode(GraphicNode* node);
         void doubleClickGraphicNode(GraphicNode* node);
-        ~MindMapGUI();
+
+        // Action
+        void showEditDialog();
+        void showLoadDialog();
+        void showSaveDialog();
+        void showAbout();
+        void exit();
 };
 
 #endif // MINDMAPGUI_H
