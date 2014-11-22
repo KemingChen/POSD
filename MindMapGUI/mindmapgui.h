@@ -64,6 +64,7 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
 
     public:
         MindMapGUI(PresentModel* presentModel);
+        void show();
         ~MindMapGUI();
 
         // Event

@@ -17,8 +17,6 @@ MindMapGUI::MindMapGUI(PresentModel* presentModel) : QMainWindow()
     setupScene();
 
     _presentModel = new GUIPresentModel(presentModel, this);
-    this->updateActions();
-    this->updateGraphics();
 }
 
 void MindMapGUI::setupMenus()
@@ -244,6 +242,13 @@ void MindMapGUI::showAbout()
                               "By  Keming Chen   (103598011)"
                           );
     QMessageBox::about(this, title, information);
+}
+
+void MindMapGUI::show()
+{
+    QMainWindow::show();
+    this->updateActions();
+    this->updateGraphics();
 }
 
 void MindMapGUI::exit()
