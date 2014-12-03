@@ -5,27 +5,32 @@ Composite::Composite(int id, string description) : Component(id, description)
 {
 }
 
-void Composite::addChild(Component* node)
+void Composite::addChild(Component* node, Component* backFromNode)
 {
     if (node != NULL)
     {
         node->setParent(this);
-        _nodeList.push_back(node);
-        //_nodeList.sort(CompareComponent());
+        _nodeList.insert(_nodeList.begin() + childIndexOf(backFromNode), node);
     }
 }
 
 void Composite::removeChild(Component* node)
 {
-    //_nodeList.remove(node);
+    _nodeList.erase(_nodeList.begin() + childIndexOf(node) - 1);
+}
+
+int Composite::childIndexOf(Component* node)
+{
+    if (node == NULL)
+        return _nodeList.size();
     for (int i = 0; i < _nodeList.size(); i++)
     {
         if (_nodeList.at(i) == node)
         {
-            _nodeList.erase(_nodeList.begin() + i);
-            break;
+            return i + 1;
         }
     }
+    return -1;
 }
 
 void Composite::removeAllChild()

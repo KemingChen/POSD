@@ -7,11 +7,14 @@ class Composite : public Component
         // Protected Variable
         NodeList _nodeList;
 
+        // Private Method
+        int childIndexOf(Component* node);
+
     public:
         // Public Method
         Composite(int id, string description);
         string getMap();
-        void addChild(Component* node);
+        void addChild(Component* node, Component* backFromNode = NULL);
         void removeChild(Component* node);
         void removeAllChild();
         Component* getParent() = 0;

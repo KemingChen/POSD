@@ -22,8 +22,8 @@ void Node::addParent(Component* node)
     if (node != NULL)
     {
         Component* parent = this->_parentNode;
+        parent->addChild(node, this);
         parent->removeChild(this);
-        parent->addChild(node);
         node->addChild(this);
     }
 }
@@ -33,7 +33,7 @@ void Node::addSibling(Component* node)
     if (node != NULL)
     {
         Component* parent = this->_parentNode;
-        parent->addChild(node);
+        parent->addChild(node, this);
     }
 }
 
