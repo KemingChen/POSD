@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include <algorithm>
 
 MindMapModel::MindMapModel()
 {
@@ -91,13 +92,14 @@ void MindMapModel::saveMindMap(ofstream* file)
         return;
     }
     navigateMindMap(_root, &nodeList);
-    nodeList.sort(CompareComponent());
+    std::sort(nodeList.begin(), nodeList.end(), CompareComponent());
     int newId = 0;
     Component* node;
     for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
     {
         (*iNode)->setId(newId);
         newId++;
+
     }
     for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
     {

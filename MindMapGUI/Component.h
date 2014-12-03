@@ -15,7 +15,7 @@ class Component
         string _typeName;
 
     public:
-        typedef list<Component*> NodeList;
+        typedef vector<Component*> NodeList;
 
         // Public Method
         Component(int id, string description);

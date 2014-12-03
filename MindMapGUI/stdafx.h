@@ -19,7 +19,7 @@
 #include "Node.h"
 #include "Root.h"
 
-typedef std::list<Component*> NodeList;
+typedef std::vector<Component*> NodeList;
 
 struct CompareComponent
 {

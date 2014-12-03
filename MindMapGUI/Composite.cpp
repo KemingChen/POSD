@@ -11,13 +11,21 @@ void Composite::addChild(Component* node)
     {
         node->setParent(this);
         _nodeList.push_back(node);
-        _nodeList.sort(CompareComponent());
+        //_nodeList.sort(CompareComponent());
     }
 }
 
 void Composite::removeChild(Component* node)
 {
-    _nodeList.remove(node);
+    //_nodeList.remove(node);
+    for (int i = 0; i < _nodeList.size(); i++)
+    {
+        if (_nodeList.at(i) == node)
+        {
+            _nodeList.erase(_nodeList.begin() + i);
+            break;
+        }
+    }
 }
 
 void Composite::removeAllChild()
