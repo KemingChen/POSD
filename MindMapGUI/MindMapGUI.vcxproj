@@ -188,9 +188,6 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="MindMapGUI.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="ChangeParentCommand.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandManager.h" />
