@@ -61,7 +61,7 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
 
         // Method
         void rebuildGraphics();
-        int rebuildChildGraphics(GraphicNode* parent, Component* node, int levelX, int nowY);
+        int rebuildChildGraphics(GraphicNode* parent, Component* node, int levelX, int& nowY);
 
     public:
         MindMapGUI(PresentModel* presentModel);

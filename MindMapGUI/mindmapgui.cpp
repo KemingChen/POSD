@@ -17,6 +17,7 @@ MindMapGUI::MindMapGUI(PresentModel* presentModel) : QMainWindow()
     setupScene();
 
     _presentModel = new GUIPresentModel(presentModel, this);
+    _graphicList = new list<GraphicNode*>();
 }
 
 void MindMapGUI::setupMenus()
@@ -150,7 +151,8 @@ void MindMapGUI::updateActions()
 void MindMapGUI::updateGraphics()
 {
     _scene->clear();
-    list<GraphicNode*>* graphicList = this->getGraphicsList();
+    rebuildGraphics();
+    list<GraphicNode*>* graphicList = _graphicList;
     for (list<GraphicNode*>::iterator iGraphic = graphicList->begin(); iGraphic != graphicList->end(); iGraphic++)
     {
         _scene->addItem(*iGraphic);
@@ -256,20 +258,38 @@ void MindMapGUI::exit()
     this->close();
 }
 
-int MindMapGUI::rebuildChildGraphics(GraphicNode* parent, Component* node, int levelX, int nowY)
+int MindMapGUI::rebuildChildGraphics(GraphicNode* parent, Component* node, int levelX, int& nowY)
 {
-    int count = 0;
-    int y;
-    GraphicNode* graphicNode = new GraphicNode(levelX, node, this);
+    GraphicNode* graphicNode = new GraphicNode(levelX, node, this, parent);
     NodeList* nodeList = node->getNodeList();
-    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    int totalY = 0;
+    int i = 0;
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++, i++)
     {
-        count++;
-        y += rebuildChildGraphics(graphicNode, *iNode, levelX + 1, 0);
+        int y = rebuildChildGraphics(graphicNode, *iNode, levelX + 1, nowY);
+        if (i == 0)
+        {
+            totalY += y;
+        }
+        if(i == nodeList->size() - 1)
+        {
+            totalY += y;
+        }
     }
-    graphicNode->setYPosition(count > 0 ? y / count : y);
+    int y;
+    if (totalY > 0)
+    {
+        y = totalY / 2;
+    }
+    else
+    {
+        y = nowY;
+        nowY += 80;
+    }
+    graphicNode->setYPosition(y);
     graphicNode->setSelected(_presentModel->isSelectedNode(node));
     _graphicList->push_back(graphicNode);
+    return y;
 }
 
 void MindMapGUI::rebuildGraphics()
@@ -278,7 +298,8 @@ void MindMapGUI::rebuildGraphics()
     Component* root = _presentModel->getRoot();
     if (root != NULL)
     {
-        rebuildChildGraphics(NULL, root, 0, 0);
+        int nowY = 0;
+        rebuildChildGraphics(NULL, root, 0, nowY);
     }
 }
 

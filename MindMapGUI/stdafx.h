@@ -13,12 +13,13 @@
 #include <gtest/gtest_prod.h>
 #include <string>
 #include <list>
+#include <vector>
 #include "Component.h"
 #include "Composite.h"
 #include "Node.h"
 #include "Root.h"
 
-typedef list<Component*> NodeList;
+typedef std::list<Component*> NodeList;
 
 struct CompareComponent
 {

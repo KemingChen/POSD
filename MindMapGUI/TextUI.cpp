@@ -27,6 +27,9 @@ TextUI::TextUI(PresentModel* presentModel)
 
 void TextUI::run()
 {
+    _presentModel->loadMindMap("file__exist.mm");
+    openGUI();
+    return;
     while (_isRun)
     {
         printActionMenu();
