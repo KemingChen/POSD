@@ -8,28 +8,30 @@ class INotifyGraphics;
 class GraphicNode : public QGraphicsItem
 {
     private:
+        // Basic
         int const PADDING = 5;
         int const RECT_WIDTH = 70;
         int const RECT_HEIGHT = 50;
         int const BOUNDING_WIDTH = 120;
         int const BOUNDING_HEIGHT = 80;
+
+        // Variable
         int _levelX;
-        int _levelY;
         int _x;
         int _y;
         bool _isSelected;
         Component* _node;
-        QPoint* _parentConnectPoint;
+        GraphicNode* _parent;
         INotifyGraphics* _notify;
         clock_t _lastClickTime;
 
     public:
-        GraphicNode(int levelX, int levelY, Component* node, INotifyGraphics* notify, QPoint* parentConnectPoint = NULL);
+        GraphicNode(int levelX, Component* node, INotifyGraphics* notify, GraphicNode* parent = NULL);
         QRectF boundingRect() const;
         QPoint* getConnectPoint();
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
         void setSelected(bool isSelected);
-        void click();
+        void setYPosition(int y);
         Component* getComponent();
         ~GraphicNode();
 

@@ -4,23 +4,21 @@
 
 #define MIN_DOUBLE_CLICK_TIME 20
 
-GraphicNode::GraphicNode(int levelX, int levelY, Component* node, INotifyGraphics* notify, QPoint* parentConnectPoint)
+GraphicNode::GraphicNode(int levelX, Component* node, INotifyGraphics* notify, GraphicNode* parent)
 {
     _notify = notify;
-    _parentConnectPoint = parentConnectPoint;
+    _parent = parent;
     _levelX = levelX;
-    _levelY = levelY;
     _node = node;
     _x = _levelX * BOUNDING_WIDTH;
-    _y = _levelY * BOUNDING_HEIGHT;
     _isSelected = false;
-    setFlags(QGraphicsItem::ItemIsSelectable);
+    // setFlags(QGraphicsItem::ItemIsSelectable); // why?
     _lastClickTime = clock();
 }
 
 QRectF GraphicNode::boundingRect() const
 {
-    return  QRectF(BOUNDING_WIDTH * _levelX, BOUNDING_HEIGHT * _levelY, RECT_WIDTH, RECT_HEIGHT);
+    return  QRectF(_x, _y, RECT_WIDTH, RECT_HEIGHT);
 }
 
 QPoint* GraphicNode::getConnectPoint()
@@ -33,14 +31,19 @@ void GraphicNode::setSelected(bool isSelected)
     _isSelected = isSelected;
 }
 
+void GraphicNode::setYPosition(int y)
+{
+    _y = y;
+}
+
 void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     const QRectF nodeRect(_x, _y, RECT_WIDTH, RECT_HEIGHT);
     const QRectF textRect(_x + PADDING, _y + PADDING, RECT_WIDTH - 2 * PADDING, RECT_HEIGHT - 2 * PADDING);
     painter->drawRect(nodeRect);
     painter->drawText(textRect, Qt::AlignCenter | Qt::TextWordWrap, QString::fromStdString(_node->getDescription()));
-    if (_parentConnectPoint)
-        painter->drawLine(QPoint(_x, _y + RECT_HEIGHT / 2), *_parentConnectPoint);
+    if (_parent)
+        painter->drawLine(QPoint(_x, _y + RECT_HEIGHT / 2), *(_parent->getConnectPoint()));
     if (_isSelected)
     {
         painter->setPen(Qt::red);

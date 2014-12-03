@@ -256,40 +256,30 @@ void MindMapGUI::exit()
     this->close();
 }
 
-void MindMapGUI::pushChildGraphics(list<GraphicNode*>* result, GraphicNode* parent, NodeList* nodeList, int levelX, map<int, int>* levelYMap)
+int MindMapGUI::rebuildChildGraphics(GraphicNode* parent, Component* node, int levelX, int nowY)
 {
-    if (!(*levelYMap)[levelX])
-        (*levelYMap)[levelX] = 0;
-
+    int count = 0;
+    int y;
+    GraphicNode* graphicNode = new GraphicNode(levelX, node, this);
+    NodeList* nodeList = node->getNodeList();
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {
-        GraphicNode* graphicNode = new GraphicNode(levelX, (*levelYMap)[levelX], *iNode, this, parent->getConnectPoint());
-        graphicNode->setSelected(_presentModel->isSelectedNode(*iNode));
-        result->push_back(graphicNode);
-        (*levelYMap)[levelX] += 1;
-        pushChildGraphics(result, graphicNode, graphicNode->getComponent()->getNodeList(), levelX + 1, levelYMap);
-        if ((*levelYMap)[levelX + 1] > (*levelYMap)[levelX])
-        {
-            (*levelYMap)[levelX] = (*levelYMap)[levelX + 1];
-        }
+        count++;
+        y += rebuildChildGraphics(graphicNode, *iNode, levelX + 1, 0);
     }
+    graphicNode->setYPosition(count > 0 ? y / count : y);
+    graphicNode->setSelected(_presentModel->isSelectedNode(node));
+    _graphicList->push_back(graphicNode);
 }
 
-list<GraphicNode*>* MindMapGUI::getGraphicsList()
+void MindMapGUI::rebuildGraphics()
 {
-    list<GraphicNode*>* result = new list<GraphicNode*>();
+    _graphicList->clear();
     Component* root = _presentModel->getRoot();
     if (root != NULL)
     {
-        int levelX = 0;
-        map<int, int> levelYMap;
-        levelYMap[levelX] = 0;
-        GraphicNode* graphicNode = new GraphicNode(levelX, levelYMap[levelX], root, this);
-        graphicNode->setSelected(_presentModel->isSelectedNode(root));
-        result->push_back(graphicNode);
-        pushChildGraphics(result, graphicNode, root->getNodeList(), levelX + 1, &levelYMap);
+        rebuildChildGraphics(NULL, root, 0, 0);
     }
-    return result;
 }
 
 MindMapGUI::~MindMapGUI()

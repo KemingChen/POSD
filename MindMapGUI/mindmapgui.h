@@ -49,6 +49,7 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         // Painter
         MindMapScene* _scene;
         QGraphicsView* _view;
+        list<GraphicNode*>* _graphicList;
         GUIPresentModel* _presentModel;
 
         // Setup
@@ -59,8 +60,8 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         void setupScene();
 
         // Method
-        list<GraphicNode*>* getGraphicsList();
-        void pushChildGraphics(list<GraphicNode*>* result, GraphicNode* parent, NodeList* nodeList, int levelX, map<int, int>* levelYMap);
+        void rebuildGraphics();
+        int rebuildChildGraphics(GraphicNode* parent, Component* node, int levelX, int nowY);
 
     public:
         MindMapGUI(PresentModel* presentModel);
