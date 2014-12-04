@@ -50,6 +50,7 @@ class GUIPresentModel
         bool isInsertChildNodeEnable();
         bool isInsertSiblingNodeEnable();
         bool isCutNodeEnable();
+        bool isCopyNodeEnable();
         bool isPasteNodeEnable();
 
         // Method

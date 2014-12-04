@@ -25,6 +25,7 @@ class TextUI
         void printEditMenu();
         void printActionEnd();
         void printMindMap();
+        string getNodeMap(Component* node, string prefix, bool isParentAreLastNode);
 
         // InsertAction Method
         void insertParentNode(Component* choseNode);

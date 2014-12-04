@@ -252,9 +252,14 @@ bool GUIPresentModel::isCutNodeEnable()
     return isSelected() && _presentModel->getRoot() != _selectedNode;
 }
 
+bool GUIPresentModel::isCopyNodeEnable()
+{
+    return isSelected() && this->isCreatedMindMap();
+}
+
 bool GUIPresentModel::isPasteNodeEnable()
 {
-    return _prepareCloneNode != NULL && this->isSelected();
+    return isSelected() && _prepareCloneNode != NULL;
 }
 
 Component* GUIPresentModel::getSelectedNode()

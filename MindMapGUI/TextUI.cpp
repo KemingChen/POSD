@@ -27,9 +27,6 @@ TextUI::TextUI(PresentModel* presentModel)
 
 void TextUI::run()
 {
-    _presentModel->loadMindMap("file__exist.mm");
-    openGUI();
-    return;
     while (_isRun)
     {
         printActionMenu();
@@ -100,7 +97,35 @@ void TextUI::printEditMenu()
 
 void TextUI::printMindMap()
 {
-    cout << _presentModel->getMindMap() << endl;
+    Component* root = _presentModel->getRoot();
+    string output = "";
+    if (root == NULL)
+    {
+        cout << "The mind map is Empty!!!" << endl;
+        return;
+    }
+    output += "The mind map " + root->getDescription() + " is desplayed as follows: \n";
+    output += root->toString() + "\n";
+    NodeList* nodeList = root->getNodeList();
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        output += getNodeMap(*iNode, "", true);
+    }
+
+    cout << output << endl;
+}
+
+string TextUI::getNodeMap(Component* node, string prefix, bool isParentAreLastNode)
+{
+    string output = "";
+    prefix += isParentAreLastNode ? "¡@¡@" : "¡U¡@";
+    output += prefix + node->toString() + "\n";
+    NodeList* nodeList = node->getNodeList();
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        output += getNodeMap(*iNode, prefix, node->isSelfAreParentLastNode());
+    }
+    return output;
 }
 
 void TextUI::printActionEnd()

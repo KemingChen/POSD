@@ -17,9 +17,6 @@ class PresentModel
         MindMapModel* _model;
         CommandManager _commandManager;
 
-        // private method
-        string getNodeMap(Component* node, string prefix, bool isParentAreLastNode);
-
     public:
         // public method
         PresentModel(MindMapModel* model);
@@ -41,7 +38,6 @@ class PresentModel
         void deleteNode(Component* node);
         void cutNode(Component* node);
         void pasteNode(Component* selectedNode, Component* cloneNode);
-        string getMindMap();
         void saveMindMap(string path = DB_FILE);
         void loadMindMap(string path);
         void redo();

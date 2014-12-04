@@ -42,6 +42,10 @@ void MindMapGUI::setupMenus()
     _menuEdit->addAction(_actionInsertChild);
     _menuEdit->addAction(_actionInsertSibling);
     _menuEdit->addAction(_actionInsertParent);
+    _menuEdit->addSeparator();
+    _menuEdit->addAction(_actionCut);
+    _menuEdit->addAction(_actionCopy);
+    _menuEdit->addAction(_actionPaste);
 
     _menuHelp = new QMenu(QStringLiteral("menuHelp"), _menuBar);
     _menuHelp->setTitle(QApplication::translate("this", "Help", 0));
@@ -160,6 +164,7 @@ void MindMapGUI::updateActions()
     _actionInsertSibling->setEnabled(_presentModel->isInsertSiblingNodeEnable());
     _actionInsertParent->setEnabled(_presentModel->isInsertParentNodeEnable());
     _actionCut->setEnabled(_presentModel->isCutNodeEnable());
+    _actionCopy->setEnabled(_presentModel->isCopyNodeEnable());
     _actionPaste->setEnabled(_presentModel->isPasteNodeEnable());
 }
 
