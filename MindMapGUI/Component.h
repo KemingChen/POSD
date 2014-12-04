@@ -12,6 +12,7 @@ class Component
 
     protected:
         // Protected Variable
+        int _type;
         string _typeName;
 
     public:

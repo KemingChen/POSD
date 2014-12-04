@@ -254,7 +254,7 @@ bool GUIPresentModel::isCutNodeEnable()
 
 bool GUIPresentModel::isCopyNodeEnable()
 {
-    return isSelected() && this->isCreatedMindMap();
+    return isCutNodeEnable();
 }
 
 bool GUIPresentModel::isPasteNodeEnable()

@@ -44,7 +44,7 @@ string Component::toString()
 Component* Component::clone()
 {
     ComponentFactory* componentFactory = ComponentFactory::getInstance();
-    Component* node = componentFactory->createComponent(NODE, _description);
+    Component* node = componentFactory->createComponent(_type, _description);
     NodeList* nodeList = this->getNodeList();
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {

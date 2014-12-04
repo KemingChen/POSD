@@ -3,6 +3,7 @@
 
 Root::Root(int id, string description) : Composite(id, description)
 {
+    _type = ROOT;
     _typeName = "Root";
 }
 

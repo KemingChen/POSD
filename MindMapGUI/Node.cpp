@@ -3,6 +3,7 @@
 
 Node::Node(int id, string description) : Composite(id, description)
 {
+    _type = NODE;
     _typeName = "Node";
     setParent(NULL);
 }
