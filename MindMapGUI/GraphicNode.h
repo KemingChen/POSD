@@ -12,11 +12,8 @@ class GraphicNode : public QGraphicsItem
         int const PADDING = 5;
         int const RECT_WIDTH = 70;
         int const RECT_HEIGHT = 50;
-        int const BOUNDING_WIDTH = 120;
-        int const BOUNDING_HEIGHT = 80;
 
         // Variable
-        int _levelX;
         int _x;
         int _y;
         bool _isSelected;
@@ -26,13 +23,13 @@ class GraphicNode : public QGraphicsItem
         clock_t _lastClickTime;
 
     public:
-        GraphicNode(int levelX, Component* node, INotifyGraphics* notify, GraphicNode* parent = NULL);
+        GraphicNode(Component* node, INotifyGraphics* notify, GraphicNode* parent = NULL);
         QRectF boundingRect() const;
         QLineF getConnectLine() const;
         QPoint* getConnectPoint();
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
         void setSelected(bool isSelected);
-        void setYPosition(int y);
+        void setPosition(int x, int y);
         Component* getComponent();
         ~GraphicNode();
 

@@ -81,6 +81,7 @@ void GUIPresentModel::createMindMap(string text, bool isValid)
         if (!text.empty())
         {
             _presentModel->createMindMap(text);
+            _notify->setupScene();
             _notify->updateActions();
             _notify->updateGraphics();
         }
@@ -220,7 +221,6 @@ void GUIPresentModel::cutNode()
     _presentModel->cutNode(_selectedNode);
     _prepareCloneNode = _selectedNode;
     _selectedNode = NULL;
-    _notify->setupScene();
     _notify->updateGraphics();
     _notify->updateActions();
 }

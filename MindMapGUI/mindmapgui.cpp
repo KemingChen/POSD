@@ -289,38 +289,31 @@ void MindMapGUI::exit()
     this->close();
 }
 
-int MindMapGUI::rebuildChildGraphics(GraphicNode* parent, Component* node, int levelX, int& nowY)
+int MindMapGUI::rebuildChildGraphics(GraphicNode* parent, Component* node, int nowX, int& nowY)
 {
-    GraphicNode* graphicNode = new GraphicNode(levelX, node, this, parent);
+    int const BOUNDING_WIDTH = 120;
+    int const BOUNDING_HEIGHT = 80;
+
+    GraphicNode* graphicNode = new GraphicNode(node, this, parent);
     NodeList* nodeList = node->getNodeList();
-    int totalY = 0;
-    int i = 0;
-    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++, i++)
+    int newY = 0;
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {
-        int y = rebuildChildGraphics(graphicNode, *iNode, levelX + 1, nowY);
-        if (i == 0)
+        int temp = rebuildChildGraphics(graphicNode, *iNode, nowX + BOUNDING_WIDTH, nowY);
+        if (iNode == nodeList->begin() || iNode == nodeList->end() - 1)
         {
-            totalY += y;
-        }
-        if(i == nodeList->size() - 1)
-        {
-            totalY += y;
+            newY += temp / (nodeList->size() == 1 ? 1 : 2);
         }
     }
-    int y;
-    if (nodeList->size() > 0)
+    if (nodeList->size() == 0)
     {
-        y = totalY / 2;
+        newY = nowY;
+        nowY += BOUNDING_HEIGHT;
     }
-    else
-    {
-        y = nowY;
-        nowY += 80;
-    }
-    graphicNode->setYPosition(y);
+    graphicNode->setPosition(nowX, newY);
     graphicNode->setSelected(_presentModel->isSelectedNode(node));
     _graphicList->push_back(graphicNode);
-    return y;
+    return newY;
 }
 
 void MindMapGUI::rebuildGraphics()

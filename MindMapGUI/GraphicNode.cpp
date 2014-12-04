@@ -4,13 +4,11 @@
 
 #define MIN_DOUBLE_CLICK_TIME 20
 
-GraphicNode::GraphicNode(int levelX, Component* node, INotifyGraphics* notify, GraphicNode* parent)
+GraphicNode::GraphicNode(Component* node, INotifyGraphics* notify, GraphicNode* parent)
 {
     _notify = notify;
     _parent = parent;
-    _levelX = levelX;
     _node = node;
-    _x = _levelX * BOUNDING_WIDTH;
     _isSelected = false;
     _lastClickTime = clock();
     setFlags(QGraphicsItem::ItemIsSelectable);
@@ -37,8 +35,9 @@ void GraphicNode::setSelected(bool isSelected)
     _isSelected = isSelected;
 }
 
-void GraphicNode::setYPosition(int y)
+void GraphicNode::setPosition(int x, int y)
 {
+    _x = x;
     _y = y;
 }
 
