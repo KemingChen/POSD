@@ -39,9 +39,7 @@ class PresentModel
         void changeNodeParent(Component* node, Component* newParentNode);
         void editNodeDescription(Component* node, string description);
         void deleteNode(Component* node);
-        void cutNode(Component* node);
-        void copyNode(Component* node);
-        void pasteNode(Component* selectedNode);
+        void pasteNode(Component* selectedNode, Component* cloneNode);
         string getMindMap();
         void saveMindMap(string path = DB_FILE);
         void loadMindMap(string path);

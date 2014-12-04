@@ -160,19 +160,9 @@ void PresentModel::undo()
     _commandManager.undo();
 }
 
-void PresentModel::cutNode(Component* node)
+void PresentModel::pasteNode(Component* selectedNode, Component* cloneNode)
 {
-    _model->cutNode(node);
-}
-
-void PresentModel::copyNode(Component* node)
-{
-    _model->copyNode(node);
-}
-
-void PresentModel::pasteNode(Component* selectedNode)
-{
-    _model->pasteNode(selectedNode);
+    _model->pasteNode(selectedNode, cloneNode);
 }
 
 PresentModel::~PresentModel()

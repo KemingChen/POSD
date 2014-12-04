@@ -7,6 +7,7 @@
 
 GUIPresentModel::GUIPresentModel(PresentModel* presentModel, INotifyGraphics* notify)
 {
+    _prepareCloneNode = NULL;
     _selectedNode = NULL;
     _lastClickTime = clock();
     _presentModel = presentModel;
@@ -216,18 +217,21 @@ void GUIPresentModel::deleteNode()
 
 void GUIPresentModel::cutNode()
 {
-    _presentModel->cutNode(_selectedNode);
+    _prepareCloneNode = _selectedNode;
+    _presentModel->deleteNode(_selectedNode);
     _notify->updateGraphics();
+    _notify->updateActions();
 }
 
 void GUIPresentModel::copyNode()
 {
-    _presentModel->copyNode(_selectedNode);
+    _prepareCloneNode = _selectedNode;
+    _notify->updateActions();
 }
 
 void GUIPresentModel::pasteNode()
 {
-    _presentModel->pasteNode(_selectedNode);
+    _presentModel->pasteNode(_selectedNode, _prepareCloneNode);
     _notify->updateGraphics();
 }
 
@@ -239,6 +243,16 @@ bool GUIPresentModel::isSelectedNode(Component* node)
 bool GUIPresentModel::isCreatedMindMap()
 {
     return _presentModel->getRoot() != NULL;
+}
+
+bool GUIPresentModel::isCutNodeEnable()
+{
+    return isSelected() && _presentModel->getRoot() != _selectedNode;
+}
+
+bool GUIPresentModel::isPasteNodeEnable()
+{
+    return _prepareCloneNode != NULL;
 }
 
 Component* GUIPresentModel::getSelectedNode()

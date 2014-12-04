@@ -12,7 +12,6 @@ class MindMapModel
     private:
         // Private Variable
         Component* _root;
-        Component* _prepareCloneNode;
 
         // Private Method
         void navigateMindMap(Component* node, NodeList* list);
@@ -33,9 +32,7 @@ class MindMapModel
         void revertInsertParentNode(Component* choseNode, Component* newNode, Component* oldParentNode);
         void insertChildNode(Component* choseNode, Component* newNode);
         void insertSiblingNode(Component* choseNode, Component* newNode);
-        void cutNode(Component* node);
-        void copyNode(Component* node);
-        void pasteNode(Component* selectedNode);
+        void pasteNode(Component* selectedNode, Component* cloneNode);
         Component* getRootNode();
         Component* findNode(Component* fromNode, string id);
         Component* findNode(string id);

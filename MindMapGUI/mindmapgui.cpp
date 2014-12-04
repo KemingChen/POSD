@@ -159,6 +159,8 @@ void MindMapGUI::updateActions()
     _actionInsertChild->setEnabled(_presentModel->isInsertChildNodeEnable());
     _actionInsertSibling->setEnabled(_presentModel->isInsertSiblingNodeEnable());
     _actionInsertParent->setEnabled(_presentModel->isInsertParentNodeEnable());
+    _actionCut->setEnabled(_presentModel->isCutNodeEnable());
+    _actionPaste->setEnabled(_presentModel->isPasteNodeEnable());
 }
 
 void MindMapGUI::updateGraphics()
@@ -169,6 +171,7 @@ void MindMapGUI::updateGraphics()
     for (list<GraphicNode*>::iterator iGraphic = graphicList->begin(); iGraphic != graphicList->end(); iGraphic++)
     {
         _scene->addItem(*iGraphic);
+        _scene->addLine((*iGraphic)->getConnectLine());
     }
     _scene->update();
 }

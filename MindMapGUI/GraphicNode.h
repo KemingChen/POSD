@@ -28,6 +28,7 @@ class GraphicNode : public QGraphicsItem
     public:
         GraphicNode(int levelX, Component* node, INotifyGraphics* notify, GraphicNode* parent = NULL);
         QRectF boundingRect() const;
+        QLineF getConnectLine() const;
         QPoint* getConnectPoint();
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
         void setSelected(bool isSelected);

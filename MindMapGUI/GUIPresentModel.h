@@ -16,6 +16,7 @@ class GUIPresentModel
 
         // Property
         Component* _selectedNode;
+        Component* _prepareCloneNode;
 
         // Method
         bool isValidClick();
@@ -48,6 +49,8 @@ class GUIPresentModel
         bool isInsertParentNodeEnable();
         bool isInsertChildNodeEnable();
         bool isInsertSiblingNodeEnable();
+        bool isCutNodeEnable();
+        bool isPasteNodeEnable();
 
         // Method
         Component* getSelectedNode();

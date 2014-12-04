@@ -8,7 +8,6 @@
 MindMapModel::MindMapModel()
 {
     _root = NULL;
-    _prepareCloneNode = NULL;
 }
 
 void MindMapModel::createMinMap(string description)
@@ -203,25 +202,11 @@ void MindMapModel::revertDeleteNode(Component* choseNode)
     parentNode->addChild(choseNode);
 }
 
-void MindMapModel::cutNode(Component* node)
+void MindMapModel::pasteNode(Component* selectedNode, Component* cloneNode)
 {
-    if (node != getRootNode())
+    if (cloneNode != NULL && selectedNode != NULL)
     {
-        this->copyNode(node);
-        node->getParent()->removeChild(node);
-    }
-}
-
-void MindMapModel::copyNode(Component* node)
-{
-    _prepareCloneNode = node;
-}
-
-void MindMapModel::pasteNode(Component* selectedNode)
-{
-    if (_prepareCloneNode != NULL && selectedNode != NULL)
-    {
-        selectedNode->addChild(_prepareCloneNode->clone());
+        selectedNode->addChild(cloneNode->clone());
     }
 }
 
