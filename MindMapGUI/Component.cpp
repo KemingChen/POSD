@@ -45,11 +45,12 @@ Component* Component::clone()
 {
     ComponentFactory* componentFactory = ComponentFactory::getInstance();
     Component* node = componentFactory->createComponent(NODE, _description);
-    NodeList* nodeList;
+    NodeList* nodeList = this->getNodeList();
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {
         node->addChild((*iNode)->clone());
     }
+    return node;
 }
 
 Component::~Component()

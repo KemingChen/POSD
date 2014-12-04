@@ -12,7 +12,6 @@ GraphicNode::GraphicNode(int levelX, Component* node, INotifyGraphics* notify, G
     _node = node;
     _x = _levelX * BOUNDING_WIDTH;
     _isSelected = false;
-    // setFlags(QGraphicsItem::ItemIsSelectable); // why?
     _lastClickTime = clock();
 }
 

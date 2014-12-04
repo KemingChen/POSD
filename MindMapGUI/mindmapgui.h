@@ -38,6 +38,9 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         QAction* _actionInsertChild;
         QAction* _actionInsertSibling;
         QAction* _actionInsertParent;
+        QAction* _actionCut;
+        QAction* _actionCopy;
+        QAction* _actionPaste;
         QWidget* _centralWidget;
         QMenuBar* _menuBar;
         QMenu* _menuFile;
@@ -85,6 +88,9 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         void insertChildNode();
         void deleteNode();
         void showAbout();
+        void cut();
+        void copy();
+        void paste();
         void exit();
 };
 

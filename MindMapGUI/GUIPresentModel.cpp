@@ -214,6 +214,23 @@ void GUIPresentModel::deleteNode()
     _notify->updateGraphics();
 }
 
+void GUIPresentModel::cutNode()
+{
+    _presentModel->cutNode(_selectedNode);
+    _notify->updateGraphics();
+}
+
+void GUIPresentModel::copyNode()
+{
+    _presentModel->copyNode(_selectedNode);
+}
+
+void GUIPresentModel::pasteNode()
+{
+    _presentModel->pasteNode(_selectedNode);
+    _notify->updateGraphics();
+}
+
 bool GUIPresentModel::isSelectedNode(Component* node)
 {
     return _selectedNode == node;

@@ -12,6 +12,7 @@ class MindMapModel
     private:
         // Private Variable
         Component* _root;
+        Component* _prepareCloneNode;
 
         // Private Method
         void navigateMindMap(Component* node, NodeList* list);

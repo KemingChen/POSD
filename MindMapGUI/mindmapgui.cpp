@@ -70,11 +70,17 @@ void MindMapGUI::setupActions()
     _actionInsertChild = new QAction(QIcon("resource/insert_child_icon.png"), QStringLiteral("actionInsert_A_Child"), this);
     _actionInsertSibling = new QAction(QIcon("resource/insert_sibling_icon.png"), QStringLiteral("actionInsert_a_sibling"), this);
     _actionInsertParent = new QAction(QIcon("resource/insert_parent_icon.png"), QStringLiteral("actionInsert_a_parent"), this);
+    _actionCut = new QAction(QIcon("resource/cut.png"), QStringLiteral("actionCut"), this);
+    _actionCopy = new QAction(QIcon("resource/copy.png"), QStringLiteral("actionCopy"), this);
+    _actionPaste = new QAction(QIcon("resource/paste.png"), QStringLiteral("actionPaste"), this);
     _actionEdit->setText(QApplication::translate("this", "Edit", 0));
     _actionDelete->setText(QApplication::translate("this", "Delete", 0));
     _actionInsertChild->setText(QApplication::translate("this", "Insert a child", 0));
     _actionInsertSibling->setText(QApplication::translate("this", "Insert a sibling", 0));
     _actionInsertParent->setText(QApplication::translate("this", "Insert a parent", 0));
+    _actionCut->setText(QApplication::translate("this", "Cut", 0));
+    _actionCopy->setText(QApplication::translate("this", "Copy", 0));
+    _actionPaste->setText(QApplication::translate("this", "Paste", 0));
 
     // Help
     _actionAbout = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("actionAbort"), this);
@@ -90,6 +96,10 @@ void MindMapGUI::setupToolBar()
     _mainToolBar->addAction(_actionNew);
     _mainToolBar->addAction(_actionLoad);
     _mainToolBar->addAction(_actionSave);
+    _mainToolBar->addSeparator();
+    _mainToolBar->addAction(_actionCut);
+    _mainToolBar->addAction(_actionCopy);
+    _mainToolBar->addAction(_actionPaste);
     _mainToolBar->addSeparator();
     _mainToolBar->addAction(_actionEdit);
     _mainToolBar->addAction(_actionDelete);
@@ -113,6 +123,9 @@ void MindMapGUI::bindingActions()
     connect(_actionInsertChild, &QAction::triggered, this, &MindMapGUI::insertChildNode);
     connect(_actionInsertParent, &QAction::triggered, this, &MindMapGUI::insertParentNode);
     connect(_actionInsertSibling, &QAction::triggered, this, &MindMapGUI::insertSiblingNode);
+    connect(_actionCut, &QAction::triggered, this, &MindMapGUI::cut);
+    connect(_actionCopy, &QAction::triggered, this, &MindMapGUI::copy);
+    connect(_actionPaste, &QAction::triggered, this, &MindMapGUI::paste);
 
     // Help
     connect(_actionAbout, &QAction::triggered, this, &MindMapGUI::showAbout);
@@ -157,6 +170,7 @@ void MindMapGUI::updateGraphics()
     {
         _scene->addItem(*iGraphic);
     }
+    _scene->update();
 }
 
 void MindMapGUI::notifyError(string description)
@@ -232,7 +246,6 @@ void MindMapGUI::saveMindMap()
 void MindMapGUI::deleteNode()
 {
     _presentModel->deleteNode();
-    _scene->update();
 }
 
 void MindMapGUI::showAbout()
@@ -251,6 +264,21 @@ void MindMapGUI::show()
     QMainWindow::show();
     this->updateActions();
     this->updateGraphics();
+}
+
+void MindMapGUI::cut()
+{
+    _presentModel->cutNode();
+}
+
+void MindMapGUI::copy()
+{
+    _presentModel->copyNode();
+}
+
+void MindMapGUI::paste()
+{
+    _presentModel->pasteNode();
 }
 
 void MindMapGUI::exit()
