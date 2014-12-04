@@ -8,6 +8,7 @@
 MindMapModel::MindMapModel()
 {
     _root = NULL;
+    _prepareCloneNode = NULL;
 }
 
 void MindMapModel::createMinMap(string description)

@@ -13,6 +13,7 @@ GraphicNode::GraphicNode(int levelX, Component* node, INotifyGraphics* notify, G
     _x = _levelX * BOUNDING_WIDTH;
     _isSelected = false;
     _lastClickTime = clock();
+    setFlags(QGraphicsItem::ItemIsSelectable);
 }
 
 QRectF GraphicNode::boundingRect() const

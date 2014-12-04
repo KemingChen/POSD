@@ -8,7 +8,7 @@ MindMapGUI::MindMapGUI(PresentModel* presentModel) : QMainWindow()
 {
     if (this->objectName().isEmpty())
         this->setObjectName(QStringLiteral("MindMapGUIClass"));
-    this->resize(1024, 768);
+    this->resize(800, 600);
 
     setupActions();
     setupMenus();
@@ -225,6 +225,7 @@ void MindMapGUI::editNodeDescription()
     QString description = QString::fromStdString(node->getDescription());
     QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, description, &ok);
     _presentModel->editDescription(text.toStdString(), ok);
+    this->updateGraphics();
 }
 
 void MindMapGUI::loadMindMap()
@@ -305,7 +306,7 @@ int MindMapGUI::rebuildChildGraphics(GraphicNode* parent, Component* node, int l
         }
     }
     int y;
-    if (totalY > 0)
+    if (nodeList->size() > 0)
     {
         y = totalY / 2;
     }
