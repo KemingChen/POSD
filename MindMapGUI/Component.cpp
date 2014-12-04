@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Component.h"
+#include "ComponentFactory.h"
 
 Component::Component(int id, string description)
 {
@@ -38,6 +39,17 @@ string Component::toString()
     output += "¡Ï¡Ð " + _description;
     output += " (" + _typeName + ", ID: " + _id + ")";
     return output;
+}
+
+Component* Component::clone()
+{
+    ComponentFactory* componentFactory = ComponentFactory::getInstance();
+    Component* node = componentFactory->createComponent(NODE, _description);
+    NodeList* nodeList;
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        node->addChild((*iNode)->clone());
+    }
 }
 
 Component::~Component()

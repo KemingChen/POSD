@@ -25,6 +25,7 @@ class Component
         string getDescription();
         void setDescription(string description);
         string toString();
+        Component* clone();
         virtual string getMap() = 0;
         virtual void addChild(Component* node, Component* backFromNode = NULL) = 0;
         virtual void removeChild(Component* node) = 0;
