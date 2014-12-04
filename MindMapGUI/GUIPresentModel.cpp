@@ -217,15 +217,17 @@ void GUIPresentModel::deleteNode()
 
 void GUIPresentModel::cutNode()
 {
+    _presentModel->cutNode(_selectedNode);
     _prepareCloneNode = _selectedNode;
-    _presentModel->deleteNode(_selectedNode);
+    _selectedNode = NULL;
+    _notify->setupScene();
     _notify->updateGraphics();
     _notify->updateActions();
 }
 
 void GUIPresentModel::copyNode()
 {
-    _prepareCloneNode = _selectedNode;
+    _prepareCloneNode = _selectedNode->clone();
     _notify->updateActions();
 }
 
@@ -252,7 +254,7 @@ bool GUIPresentModel::isCutNodeEnable()
 
 bool GUIPresentModel::isPasteNodeEnable()
 {
-    return _prepareCloneNode != NULL;
+    return _prepareCloneNode != NULL && this->isSelected();
 }
 
 Component* GUIPresentModel::getSelectedNode()

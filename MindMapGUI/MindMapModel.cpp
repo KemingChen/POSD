@@ -202,6 +202,14 @@ void MindMapModel::revertDeleteNode(Component* choseNode)
     parentNode->addChild(choseNode);
 }
 
+void MindMapModel::cutNode(Component* selectedNode)
+{
+    if (selectedNode != NULL)
+    {
+        selectedNode->getParent()->removeChild(selectedNode);
+    }
+}
+
 void MindMapModel::pasteNode(Component* selectedNode, Component* cloneNode)
 {
     if (cloneNode != NULL && selectedNode != NULL)

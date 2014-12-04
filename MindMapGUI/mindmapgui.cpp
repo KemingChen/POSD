@@ -173,7 +173,6 @@ void MindMapGUI::updateGraphics()
         _scene->addItem(*iGraphic);
         _scene->addLine((*iGraphic)->getConnectLine());
     }
-    _scene->update();
 }
 
 void MindMapGUI::notifyError(string description)

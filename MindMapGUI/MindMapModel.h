@@ -32,6 +32,7 @@ class MindMapModel
         void revertInsertParentNode(Component* choseNode, Component* newNode, Component* oldParentNode);
         void insertChildNode(Component* choseNode, Component* newNode);
         void insertSiblingNode(Component* choseNode, Component* newNode);
+        void cutNode(Component* selectedNode);
         void pasteNode(Component* selectedNode, Component* cloneNode);
         Component* getRootNode();
         Component* findNode(Component* fromNode, string id);
