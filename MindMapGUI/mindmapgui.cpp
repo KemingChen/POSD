@@ -334,4 +334,7 @@ void MindMapGUI::rebuildGraphics()
 
 MindMapGUI::~MindMapGUI()
 {
+    delete _presentModel;
+    _scene->clear();
+    delete _scene;
 }

@@ -55,4 +55,8 @@ string Composite::getMap()
 
 Composite::~Composite()
 {
+    for (NodeList::iterator iNode = _nodeList.begin(); iNode != _nodeList.end(); iNode++)
+    {
+        delete (*iNode);
+    }
 }

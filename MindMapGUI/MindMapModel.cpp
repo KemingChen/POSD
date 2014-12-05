@@ -220,4 +220,6 @@ void MindMapModel::pasteNode(Component* selectedNode, Component* cloneNode)
 
 MindMapModel::~MindMapModel()
 {
+    if (_root != NULL)
+        delete _root;
 }

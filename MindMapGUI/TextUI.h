@@ -13,6 +13,7 @@ class TextUI
         map<string, void (TextUI::*)(Component*)> _editMenuMap;
         PresentModel* _presentModel;
         bool _isRun = true;
+        QApplication* _app;
         MindMapGUI* _guiWindow;
 
         // Control
@@ -51,7 +52,7 @@ class TextUI
 
     public:
         // Public Method
-        TextUI(PresentModel* presentModel);
+        TextUI(PresentModel* presentModel, QApplication* app);
         void run();
         ~TextUI();
 };

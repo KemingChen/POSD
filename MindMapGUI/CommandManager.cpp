@@ -48,6 +48,7 @@ void CommandManager::clearStack(CommandStack* stack)
 {
     while (!stack->empty())
     {
+        delete stack->top();
         stack->pop();
     }
 }
