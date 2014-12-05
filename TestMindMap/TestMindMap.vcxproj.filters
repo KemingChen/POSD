@@ -16,6 +16,42 @@
     <Filter Include="UnitTest">
       <UniqueIdentifier>{ffa6bfbb-309e-4653-aeb3-b677ce8a433b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="原始程式檔\Model">
+      <UniqueIdentifier>{d2f62dfe-66e1-49e4-baa3-83c0adca8006}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="原始程式檔\Model\Command">
+      <UniqueIdentifier>{f4e613a0-db38-43e3-9f15-b8bfa336f3ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="原始程式檔\Model\Composite">
+      <UniqueIdentifier>{2912114d-f140-42af-a275-64b835f2fd12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="原始程式檔\Model\PresentModel">
+      <UniqueIdentifier>{af767762-296f-439d-9133-44f621544025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="原始程式檔\Model\Services">
+      <UniqueIdentifier>{b324c383-a694-49a3-b425-d821e809950d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest\Model">
+      <UniqueIdentifier>{2e1d53e7-fe52-43cd-a3f5-14a7d62a4ed1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest\Model\Services">
+      <UniqueIdentifier>{f07cb8c1-c706-476b-87e9-61076f119631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest\Model\PresentModel">
+      <UniqueIdentifier>{a2a15e4c-615a-4e70-aa0f-d225b94e0d73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest\Model\Composite">
+      <UniqueIdentifier>{b7816d64-67bd-4f86-8178-9366f01b165a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest\Model\Command">
+      <UniqueIdentifier>{d07e98db-c10d-4760-ad2c-ebae9ee8be37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest\Integration">
+      <UniqueIdentifier>{4bd3b45d-b517-43e3-a5f4-5c50a2478da5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UnitTest\Mock">
+      <UniqueIdentifier>{12d3fb71-6068-4200-8f79-1cfeecb55270}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -30,6 +66,9 @@
     <ClInclude Include="..\MindMapGUI\stdafx.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
+    <ClInclude Include="MockINotifyGraphic.h">
+      <Filter>標頭檔</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -38,95 +77,101 @@
     <ClCompile Include="TestMindMap.cpp">
       <Filter>原始程式檔</Filter>
     </ClCompile>
-    <ClCompile Include="..\MindMapGUI\Root.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\PresentModel.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\Node.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\MindMapModel.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\InsertSiblingNodeCommand.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\InsertParentNodeCommand.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\InsertChildNodeCommand.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\EditComponentCommand.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\DeleteComponentCommand.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\Composite.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\ComponentFactory.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\Component.cpp">
-      <Filter>原始程式檔</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\CommandManager.cpp">
-      <Filter>原始程式檔</Filter>
+    <ClCompile Include="..\MindMapGUI\ChangeParentCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
     <ClCompile Include="..\MindMapGUI\Command.cpp">
-      <Filter>原始程式檔</Filter>
+      <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
-    <ClCompile Include="..\MindMapGUI\ChangeParentCommand.cpp">
-      <Filter>原始程式檔</Filter>
+    <ClCompile Include="..\MindMapGUI\DeleteComponentCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
-    <ClCompile Include="RootTest.cpp">
-      <Filter>UnitTest</Filter>
+    <ClCompile Include="..\MindMapGUI\EditComponentCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
-    <ClCompile Include="PresentModelTest.cpp">
-      <Filter>UnitTest</Filter>
+    <ClCompile Include="..\MindMapGUI\InsertParentNodeCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
-    <ClCompile Include="NodeTest.cpp">
-      <Filter>UnitTest</Filter>
+    <ClCompile Include="..\MindMapGUI\InsertSiblingNodeCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
-    <ClCompile Include="MockCommand.cpp">
-      <Filter>UnitTest</Filter>
+    <ClCompile Include="..\MindMapGUI\Root.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
     </ClCompile>
-    <ClCompile Include="MindMapModelTest.cpp">
-      <Filter>UnitTest</Filter>
+    <ClCompile Include="..\MindMapGUI\Node.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
     </ClCompile>
-    <ClCompile Include="IntegrationTest.cpp">
-      <Filter>UnitTest</Filter>
+    <ClCompile Include="..\MindMapGUI\Composite.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
     </ClCompile>
-    <ClCompile Include="InsertSiblingNodeCommandTest.cpp">
-      <Filter>UnitTest</Filter>
+    <ClCompile Include="..\MindMapGUI\Component.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
     </ClCompile>
-    <ClCompile Include="InsertParentNodeCommandTest.cpp">
-      <Filter>UnitTest</Filter>
+    <ClCompile Include="..\MindMapGUI\InsertChildNodeCommand.cpp">
+      <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
-    <ClCompile Include="InsertChildNodeCommandTest.cpp">
-      <Filter>UnitTest</Filter>
-    </ClCompile>
-    <ClCompile Include="EditComponentCommandTest.cpp">
-      <Filter>UnitTest</Filter>
-    </ClCompile>
-    <ClCompile Include="DeleteComponentCommandTest.cpp">
-      <Filter>UnitTest</Filter>
-    </ClCompile>
-    <ClCompile Include="ComponentFactoryTest.cpp">
-      <Filter>UnitTest</Filter>
-    </ClCompile>
-    <ClCompile Include="CommnadManagerTest.cpp">
-      <Filter>UnitTest</Filter>
-    </ClCompile>
-    <ClCompile Include="ChangeParentCommandTest.cpp">
-      <Filter>UnitTest</Filter>
+    <ClCompile Include="..\MindMapGUI\PresentModel.cpp">
+      <Filter>原始程式檔\Model\PresentModel</Filter>
     </ClCompile>
     <ClCompile Include="..\MindMapGUI\GUIPresentModel.cpp">
-      <Filter>原始程式檔</Filter>
+      <Filter>原始程式檔\Model\PresentModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\CommandManager.cpp">
+      <Filter>原始程式檔\Model\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\ComponentFactory.cpp">
+      <Filter>原始程式檔\Model\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\MindMapModel.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ChangeParentCommandTest.cpp">
+      <Filter>UnitTest\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteComponentCommandTest.cpp">
+      <Filter>UnitTest\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="EditComponentCommandTest.cpp">
+      <Filter>UnitTest\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertChildNodeCommandTest.cpp">
+      <Filter>UnitTest\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertParentNodeCommandTest.cpp">
+      <Filter>UnitTest\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="InsertSiblingNodeCommandTest.cpp">
+      <Filter>UnitTest\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CommnadManagerTest.cpp">
+      <Filter>UnitTest\Model\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentFactoryTest.cpp">
+      <Filter>UnitTest\Model\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="RootTest.cpp">
+      <Filter>UnitTest\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="NodeTest.cpp">
+      <Filter>UnitTest\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="PresentModelTest.cpp">
+      <Filter>UnitTest\Model\PresentModel</Filter>
+    </ClCompile>
+    <ClCompile Include="IntegrationTest.cpp">
+      <Filter>UnitTest\Integration</Filter>
+    </ClCompile>
+    <ClCompile Include="MindMapModelTest.cpp">
+      <Filter>UnitTest\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="MockCommand.cpp">
+      <Filter>UnitTest\Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="MockINotifyGraphic.cpp">
+      <Filter>UnitTest\Mock</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIPresentModelTest.cpp">
+      <Filter>UnitTest\Model\PresentModel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

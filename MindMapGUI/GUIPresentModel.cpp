@@ -9,7 +9,7 @@ GUIPresentModel::GUIPresentModel(PresentModel* presentModel, INotifyGraphics* no
 {
     _prepareCloneNode = NULL;
     _selectedNode = NULL;
-    _lastClickTime = clock();
+    _lastClickTime = -1000;
     _presentModel = presentModel;
     _notify = notify;
 }

@@ -65,7 +65,7 @@ TEST_F(NodeTest, getMap)
     ASSERT_EQ(" 5", _node->getMap());
     _node->addChild(new Node(4, "Node4"));
     _node->addChild(new Node(3, "Node3"));
-    ASSERT_EQ(" 3 4 5", _node->getMap());
+    ASSERT_EQ(" 5 4 3", _node->getMap());
 }
 
 TEST_F(NodeTest, addChild)

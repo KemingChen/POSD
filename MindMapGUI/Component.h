@@ -1,6 +1,6 @@
 #pragma once
 using namespace std;
-
+#include <vector>
 #define ROOT 0
 #define NODE 1
 

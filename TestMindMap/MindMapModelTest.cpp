@@ -68,18 +68,17 @@ class MindMapModelTest : public ::testing::Test
         {
             // New Parent is The Child under Node
             createTestMindMap();
-            Component* osNode = _model.findNode("2");
-            Component* windowsNode = _model.findNode("1");
+            Component* networkNode = _model.findNode("7");
+            Component* wirelessNode = _model.findNode("8");
             Component* oldParentNode = _model.findNode("0");
             NodeList oldNodeList;
-            oldNodeList.push_back(_model.findNode("1"));
-            oldNodeList.push_back(_model.findNode("3"));
-            oldNodeList.push_back(_model.findNode("4"));
-            _model.changeNodeParent(osNode, windowsNode);
-            ASSERT_EQ(" 1 3 4 7", _root->getMap());
-            ASSERT_EQ(" 2 5 6", windowsNode->getMap());
-            ASSERT_EQ("", osNode->getMap());
-            _model.revertChangeNodeParent(osNode, oldParentNode, &oldNodeList);
+            oldNodeList.push_back(_model.findNode("8"));
+            oldNodeList.push_back(_model.findNode("9"));
+            _model.changeNodeParent(networkNode, wirelessNode);
+            ASSERT_EQ(" 2 8 9", _root->getMap());
+            ASSERT_EQ(" 7", wirelessNode->getMap());
+            ASSERT_EQ("", networkNode->getMap());
+            _model.revertChangeNodeParent(networkNode, oldParentNode, &oldNodeList);
             assertTestMindMap();
         }
 
@@ -116,13 +115,13 @@ TEST_F(MindMapModelTest, createMinMap)
 TEST_F(MindMapModelTest, insertParentNode)
 {
     createTestMindMap();
-    Component* osNode = _model.findNode("2");
+    Component* networkNode = _model.findNode("7");
     Component* oldParentNode = _model.findNode("0");
     Component* newParentNode = new Node(10, "New Parent Node");
-    _model.insertParentNode(osNode, newParentNode);
-    ASSERT_EQ(" 7 10", _root->getMap());
+    _model.insertParentNode(networkNode, newParentNode);
+    ASSERT_EQ(" 2 10", _root->getMap());
     ASSERT_EQ("New Parent Node", _model.findNode("10")->getDescription());
-    _model.revertInsertParentNode(osNode, newParentNode, oldParentNode);
+    _model.revertInsertParentNode(networkNode, newParentNode, oldParentNode);
     assertTestMindMap();
 }
 

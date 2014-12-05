@@ -61,6 +61,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>C:\gtest\lib\gtestd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>"$(TargetPath)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -86,6 +89,7 @@
   <ItemGroup>
     <ClInclude Include="..\MindMapGUI\stdafx.h" />
     <ClInclude Include="MockCommand.h" />
+    <ClInclude Include="MockINotifyGraphic.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -110,12 +114,14 @@
     <ClCompile Include="ComponentFactoryTest.cpp" />
     <ClCompile Include="DeleteComponentCommandTest.cpp" />
     <ClCompile Include="EditComponentCommandTest.cpp" />
+    <ClCompile Include="GUIPresentModelTest.cpp" />
     <ClCompile Include="InsertChildNodeCommandTest.cpp" />
     <ClCompile Include="InsertParentNodeCommandTest.cpp" />
     <ClCompile Include="InsertSiblingNodeCommandTest.cpp" />
     <ClCompile Include="IntegrationTest.cpp" />
     <ClCompile Include="MindMapModelTest.cpp" />
     <ClCompile Include="MockCommand.cpp" />
+    <ClCompile Include="MockINotifyGraphic.cpp" />
     <ClCompile Include="NodeTest.cpp" />
     <ClCompile Include="PresentModelTest.cpp" />
     <ClCompile Include="RootTest.cpp" />

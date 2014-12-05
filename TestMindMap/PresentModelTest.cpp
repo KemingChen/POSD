@@ -126,20 +126,3 @@ TEST_F(PresentModelTest, loadMindMap)
 {
     ASSERT_THROW(_presentModel->loadMindMap("not_exist.mm"), string);
 }
-
-TEST_F(PresentModelTest, getMindMap)
-{
-    ASSERT_EQ("The mind map is Empty!!!", _presentModel->getMindMap());
-    _presentModel->createMindMap("Computer");
-    _presentModel->insertChildNode(_presentModel->_model->getRootNode(), "OS");
-    _presentModel->insertChildNode(_presentModel->_model->getRootNode(), "Network");
-    Component* osNode = _presentModel->tryFindNode("1");
-    _presentModel->insertChildNode(osNode, "Windows");
-    string output = "";
-    output += "The mind map Computer is desplayed as follows: \n";
-    output += "¡Ï¡Ğ Computer (Root, ID: 0)\n";
-    output += "¡@¡@¡Ï¡Ğ OS (Node, ID: 1)\n";
-    output += "¡@¡@¡U¡@¡Ï¡Ğ Windows (Node, ID: 3)\n";
-    output += "¡@¡@¡Ï¡Ğ Network (Node, ID: 2)\n";
-    ASSERT_EQ(output, _presentModel->getMindMap());
-}
