@@ -128,6 +128,11 @@ void PresentModel::undo()
     _commandManager.undo();
 }
 
+void PresentModel::clearCommandManager()
+{
+    _commandManager.clear();
+}
+
 void PresentModel::cutNode(Component* selectedNode)
 {
     _model->cutNode(selectedNode);

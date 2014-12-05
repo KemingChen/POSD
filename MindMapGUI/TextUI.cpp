@@ -289,6 +289,7 @@ void TextUI::undo()
 
 void TextUI::openGUI()
 {
+    _presentModel->clearCommandManager();
     _guiWindow->show();
     _app->exec();
 }

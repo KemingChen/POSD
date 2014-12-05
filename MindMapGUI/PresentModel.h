@@ -22,6 +22,7 @@ class PresentModel
         PresentModel(MindMapModel* model);
         Component* tryFindNode(string id);
         Component* getRoot();
+        void clearCommandManager();
 
         // Comfirm Method
         void confirmMindMapExist();
