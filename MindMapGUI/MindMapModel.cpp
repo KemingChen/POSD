@@ -234,7 +234,7 @@ void MindMapModel::pasteNode(Component* selectedNode, Component* cloneNode)
 {
     if (cloneNode != NULL && selectedNode != NULL)
     {
-        selectedNode->addChild(cloneNode->clone());
+        selectedNode->addChild(cloneNode);
         notify(SUBJECT_MODEL_CHANGE, "");
     }
 }

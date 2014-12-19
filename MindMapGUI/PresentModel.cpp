@@ -29,9 +29,9 @@ void PresentModel::loadMindMap(string path)
     {
         throw string("File not found!!");
     }
+    _commandManager.clear();
     _model->loadMindMap(&file);
     file.close();
-    _commandManager.clear();
 }
 
 void PresentModel::insertParentNode(Component* choseNode, string description)
@@ -145,12 +145,14 @@ void PresentModel::clearCommandManager()
 
 void PresentModel::cutNode(Component* selectedNode)
 {
-    _model->cutNode(selectedNode);
+    Command* command = new CutNodeCommand(_model, selectedNode);
+    _commandManager.execute(command);
 }
 
 void PresentModel::pasteNode(Component* selectedNode, Component* cloneNode)
 {
-    _model->pasteNode(selectedNode, cloneNode);
+    Command* command = new PasteNodeCommand(_model, selectedNode, cloneNode);
+    _commandManager.execute(command);
 }
 
 PresentModel::~PresentModel()

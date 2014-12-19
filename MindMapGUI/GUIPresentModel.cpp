@@ -272,14 +272,14 @@ void GUIPresentModel::undo()
 {
     this->cancelSelected();
     _presentModel->undo();
-    notify(SUBJECT_PRESENT_CHANGE, "");
+    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void GUIPresentModel::redo()
 {
     this->cancelSelected();
     _presentModel->redo();
-    notify(SUBJECT_PRESENT_CHANGE, "");
+    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 bool GUIPresentModel::isUndoEnable()

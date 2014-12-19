@@ -7,6 +7,8 @@
 #include "InsertChildNodeCommand.h"
 #include "InsertParentNodeCommand.h"
 #include "InsertSiblingNodeCommand.h"
+#include "CutNodeCommand.h"
+#include "PasteNodeCommand.h"
 using namespace std;
 
 class CommandManager
