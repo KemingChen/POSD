@@ -41,6 +41,8 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         QAction* _actionCut;
         QAction* _actionCopy;
         QAction* _actionPaste;
+        QAction* _actionRedo;
+        QAction* _actionUndo;
         QWidget* _centralWidget;
         QMenuBar* _menuBar;
         QMenu* _menuFile;

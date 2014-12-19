@@ -28,27 +28,27 @@ void MindMapGUI::setupMenus()
     this->setMenuBar(_menuBar);
     this->setWindowTitle(QApplication::translate("this", "MindMapGUI", 0));
 
-    _menuFile = new QMenu(QStringLiteral("menuFile"), _menuBar);
-    _menuFile->setTitle(QApplication::translate("this", "File", 0));
+    _menuFile = new QMenu(QStringLiteral("File"), _menuBar);
     _menuFile->addAction(_actionNew);
     _menuFile->addAction(_actionSave);
     _menuFile->addAction(_actionLoad);
     _menuFile->addAction(_actionExit);
 
-    _menuEdit = new QMenu(QStringLiteral("menuEdit"), _menuBar);
-    _menuEdit->setTitle(QApplication::translate("this", "Edit", 0));
+    _menuEdit = new QMenu(QStringLiteral("Edit"), _menuBar);
+    _menuEdit->addAction(_actionUndo);
+    _menuEdit->addAction(_actionRedo);
+    _menuEdit->addSeparator();
+    _menuEdit->addAction(_actionCut);
+    _menuEdit->addAction(_actionCopy);
+    _menuEdit->addAction(_actionPaste);
+    _menuEdit->addSeparator();
     _menuEdit->addAction(_actionEdit);
     _menuEdit->addAction(_actionDelete);
     _menuEdit->addAction(_actionInsertChild);
     _menuEdit->addAction(_actionInsertSibling);
     _menuEdit->addAction(_actionInsertParent);
-    _menuEdit->addSeparator();
-    _menuEdit->addAction(_actionCut);
-    _menuEdit->addAction(_actionCopy);
-    _menuEdit->addAction(_actionPaste);
 
-    _menuHelp = new QMenu(QStringLiteral("menuHelp"), _menuBar);
-    _menuHelp->setTitle(QApplication::translate("this", "Help", 0));
+    _menuHelp = new QMenu(QStringLiteral("Help"), _menuBar);
     _menuHelp->addAction(_actionAbout);
 
     _menuBar->addAction(_menuFile->menuAction());
@@ -59,36 +59,25 @@ void MindMapGUI::setupMenus()
 void MindMapGUI::setupActions()
 {
     // File
-    _actionNew = new QAction(QIcon("resource/new_icon.png"), QStringLiteral("actionNew"), this);
-    _actionSave = new QAction(QIcon("resource/save_icon.png"), QStringLiteral("actionSave"), this);
-    _actionLoad = new QAction(QIcon("resource/open_icon.png"), QStringLiteral("actionLoad"), this);
-    _actionExit = new QAction(QIcon("resource/exit_icon.png"), QStringLiteral("actionExit"), this);
-    _actionNew->setText(QApplication::translate("this", "New", 0));
-    _actionSave->setText(QApplication::translate("this", "Save", 0));
-    _actionLoad->setText(QApplication::translate("this", "Load", 0));
-    _actionExit->setText(QApplication::translate("this", "Exit", 0));
+    _actionNew = new QAction(QIcon("resource/new_icon.png"), QStringLiteral("New"), this);
+    _actionSave = new QAction(QIcon("resource/save_icon.png"), QStringLiteral("Save"), this);
+    _actionLoad = new QAction(QIcon("resource/open_icon.png"), QStringLiteral("Load"), this);
+    _actionExit = new QAction(QIcon("resource/exit_icon.png"), QStringLiteral("Exit"), this);
 
     // Edit
-    _actionEdit = new QAction(QIcon("resource/edit_icon.png"), QStringLiteral("actionEdit"), this);
-    _actionDelete = new QAction(QIcon("resource/delete_icon.png"), QStringLiteral("actionDelete"), this);
-    _actionInsertChild = new QAction(QIcon("resource/insert_child_icon.png"), QStringLiteral("actionInsert_A_Child"), this);
-    _actionInsertSibling = new QAction(QIcon("resource/insert_sibling_icon.png"), QStringLiteral("actionInsert_a_sibling"), this);
-    _actionInsertParent = new QAction(QIcon("resource/insert_parent_icon.png"), QStringLiteral("actionInsert_a_parent"), this);
-    _actionCut = new QAction(QIcon("resource/cut.png"), QStringLiteral("actionCut"), this);
-    _actionCopy = new QAction(QIcon("resource/copy.png"), QStringLiteral("actionCopy"), this);
-    _actionPaste = new QAction(QIcon("resource/paste.png"), QStringLiteral("actionPaste"), this);
-    _actionEdit->setText(QApplication::translate("this", "Edit", 0));
-    _actionDelete->setText(QApplication::translate("this", "Delete", 0));
-    _actionInsertChild->setText(QApplication::translate("this", "Insert a child", 0));
-    _actionInsertSibling->setText(QApplication::translate("this", "Insert a sibling", 0));
-    _actionInsertParent->setText(QApplication::translate("this", "Insert a parent", 0));
-    _actionCut->setText(QApplication::translate("this", "Cut", 0));
-    _actionCopy->setText(QApplication::translate("this", "Copy", 0));
-    _actionPaste->setText(QApplication::translate("this", "Paste", 0));
+    _actionEdit = new QAction(QIcon("resource/edit_icon.png"), QStringLiteral("Edit"), this);
+    _actionDelete = new QAction(QIcon("resource/delete_icon.png"), QStringLiteral("Delete"), this);
+    _actionInsertChild = new QAction(QIcon("resource/insert_child_icon.png"), QStringLiteral("Insert a child"), this);
+    _actionInsertSibling = new QAction(QIcon("resource/insert_sibling_icon.png"), QStringLiteral("Insert a sibling"), this);
+    _actionInsertParent = new QAction(QIcon("resource/insert_parent_icon.png"), QStringLiteral("Insert a parent"), this);
+    _actionCut = new QAction(QIcon("resource/cut.png"), QStringLiteral("Cut"), this);
+    _actionCopy = new QAction(QIcon("resource/copy.png"), QStringLiteral("Copy"), this);
+    _actionPaste = new QAction(QIcon("resource/paste.png"), QStringLiteral("Paste"), this);
+    _actionRedo = new QAction(QIcon("resource/redo.png"), QStringLiteral("Redo"), this);
+    _actionUndo = new QAction(QIcon("resource/undo.png"), QStringLiteral("Undo"), this);
 
     // Help
-    _actionAbout = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("actionAbort"), this);
-    _actionAbout->setText(QApplication::translate("this", "Abort", 0));
+    _actionAbout = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("Abort"), this);
 }
 
 void MindMapGUI::setupToolBar()
@@ -100,6 +89,9 @@ void MindMapGUI::setupToolBar()
     _mainToolBar->addAction(_actionNew);
     _mainToolBar->addAction(_actionLoad);
     _mainToolBar->addAction(_actionSave);
+    _mainToolBar->addSeparator();
+    _mainToolBar->addAction(_actionUndo);
+    _mainToolBar->addAction(_actionRedo);
     _mainToolBar->addSeparator();
     _mainToolBar->addAction(_actionCut);
     _mainToolBar->addAction(_actionCopy);
