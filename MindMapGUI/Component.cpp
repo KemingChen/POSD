@@ -29,12 +29,14 @@ string Component::getDescription()
 void Component::setDescription(string description)
 {
     _description = description;
-    cout << description << ", size: " << description.size() << endl;
+    //cout << description << ", size: " << description.size() << endl;
     _width = description.size() * CHAR_WIDTH;
     _height = CHAR_HEIGHT;
     if (_width > MAX_WIDTH_SIZE)
     {
         _height = ceil(float(_width) / float(MAX_WIDTH_SIZE)) * CHAR_HEIGHT;
+        if (_height > MAX_HEIGHT_SIZE)
+            _height = MAX_HEIGHT_SIZE;
         _width = MAX_WIDTH_SIZE;
     }
 }

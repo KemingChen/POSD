@@ -14,7 +14,7 @@ GraphicNode::GraphicNode(Component* node, GraphicNode* parent)
 
 QRectF GraphicNode::boundingRect() const
 {
-    return  QRectF(_x, _y, _node->getWidth(), _node->getHeight());
+    return  QRectF(_x, _y, _node->getWidth() + 2 * INNER_PADDING, _node->getHeight() + 2 * INNER_PADDING);
 }
 
 QLineF GraphicNode::getConnectLine() const
