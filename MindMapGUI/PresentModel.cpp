@@ -118,6 +118,16 @@ void PresentModel::confirmInsertNodeLegal(Component* node, InsertMethod insertMe
     (_model->*insertMethod)(node, NULL);
 }
 
+bool PresentModel::canUndo()
+{
+    return _commandManager.canUndo();
+}
+
+bool PresentModel::canRedo()
+{
+    return _commandManager.canRedo();
+}
+
 void PresentModel::redo()
 {
     _commandManager.redo();

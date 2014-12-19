@@ -28,13 +28,21 @@ bool GUIPresentModel::isValidClick()
     }
 }
 
+void GUIPresentModel::cancelSelected()
+{
+    if (_selectedNode != NULL)
+    {
+        _selectedNode->setIsSelected(false);
+        _selectedNode = NULL;
+    }
+}
+
 void GUIPresentModel::clickGraphicNode(string id)
 {
     if (!isValidClick())
         return;
     Component* node = id.empty() ? NULL : _presentModel->tryFindNode(id);
-    if (_selectedNode != NULL)
-        _selectedNode->setIsSelected(false);
+    this->cancelSelected();
     if (node != NULL)
         node->setIsSelected(true);
     _selectedNode = node;
@@ -202,7 +210,7 @@ bool GUIPresentModel::isInsertSiblingNodeEnable()
 void GUIPresentModel::deleteNode()
 {
     _presentModel->deleteNode(_selectedNode);
-    _selectedNode = NULL;
+    this->cancelSelected();
     notify(SUBJECT_PRESENT_CHANGE, "");
 }
 
@@ -210,7 +218,7 @@ void GUIPresentModel::cutNode()
 {
     _presentModel->cutNode(_selectedNode);
     _prepareCloneNode = _selectedNode;
-    _selectedNode = NULL;
+    this->cancelSelected();
     notify(SUBJECT_PRESENT_CHANGE, "");
 }
 
@@ -258,6 +266,30 @@ Component* GUIPresentModel::getSelectedNode()
 Component* GUIPresentModel::getRoot()
 {
     return _presentModel->getRoot();
+}
+
+void GUIPresentModel::undo()
+{
+    this->cancelSelected();
+    _presentModel->undo();
+    notify(SUBJECT_PRESENT_CHANGE, "");
+}
+
+void GUIPresentModel::redo()
+{
+    this->cancelSelected();
+    _presentModel->redo();
+    notify(SUBJECT_PRESENT_CHANGE, "");
+}
+
+bool GUIPresentModel::isUndoEnable()
+{
+    return _presentModel->canUndo();
+}
+
+bool GUIPresentModel::isRedoEnable()
+{
+    return _presentModel->canRedo();
 }
 
 GUIPresentModel::~GUIPresentModel()

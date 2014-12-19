@@ -159,6 +159,7 @@ void MindMapModel::loadMindMap(ifstream* file)
 void MindMapModel::editNodeDescription(Component* choseNode, string description)
 {
     choseNode->setDescription(description);
+    notify(SUBJECT_PRESENT_CHANGE, "");
 }
 
 void MindMapModel::changeNodeParent(Component* choseNode, Component* newParentNode)

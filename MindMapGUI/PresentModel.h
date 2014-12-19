@@ -25,6 +25,8 @@ class PresentModel
         void clearCommandManager();
 
         // Comfirm Method
+        bool canUndo();
+        bool canRedo();
         void confirmMindMapExist();
         void confirmChangeNodeLegal(Component* node);
         void confirmInsertNodeLegal(Component* node, InsertMethod insertMethod);

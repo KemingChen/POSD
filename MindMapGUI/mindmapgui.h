@@ -95,6 +95,8 @@ class MindMapGUI : public Observer, public QMainWindow
         void cut();
         void copy();
         void paste();
+        void undo();
+        void redo();
         void exit();
 };
 

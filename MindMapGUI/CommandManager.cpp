@@ -53,6 +53,16 @@ void CommandManager::clearStack(CommandStack* stack)
     }
 }
 
+bool CommandManager::canUndo()
+{
+    return _undoCommands.size() > 0;
+}
+
+bool CommandManager::canRedo()
+{
+    return _redoCommands.size() > 0;
+}
+
 CommandManager::~CommandManager()
 {
 }

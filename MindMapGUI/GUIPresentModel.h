@@ -20,6 +20,7 @@ class GUIPresentModel : public Subject
 
         // Method
         bool isValidClick();
+        void cancelSelected();
 
     public:
         GUIPresentModel(PresentModel* presentModel);
@@ -38,6 +39,8 @@ class GUIPresentModel : public Subject
         void cutNode();
         void copyNode();
         void pasteNode();
+        void undo();
+        void redo();
 
         // File Status
         bool isSaveEnable();
@@ -52,6 +55,8 @@ class GUIPresentModel : public Subject
         bool isCutNodeEnable();
         bool isCopyNodeEnable();
         bool isPasteNodeEnable();
+        bool isUndoEnable();
+        bool isRedoEnable();
 
         // Method
         Component* getSelectedNode();

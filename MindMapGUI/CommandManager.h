@@ -33,5 +33,7 @@ class CommandManager
         void clear();
         void redo();
         void undo();
+        bool canUndo();
+        bool canRedo();
         ~CommandManager();
 };

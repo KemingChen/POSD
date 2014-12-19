@@ -127,6 +127,8 @@ void MindMapGUI::bindingActions()
     connect(_actionCut, &QAction::triggered, this, &MindMapGUI::cut);
     connect(_actionCopy, &QAction::triggered, this, &MindMapGUI::copy);
     connect(_actionPaste, &QAction::triggered, this, &MindMapGUI::paste);
+    connect(_actionUndo, &QAction::triggered, this, &MindMapGUI::undo);
+    connect(_actionRedo, &QAction::triggered, this, &MindMapGUI::redo);
 
     // Help
     connect(_actionAbout, &QAction::triggered, this, &MindMapGUI::showAbout);
@@ -158,6 +160,7 @@ void MindMapGUI::update(int subject, string info)
             break;
         case SUBJECT_PRESENT_CHANGE:
             this->updateActions();
+            _scene->update();
             break;
     }
 }
@@ -198,6 +201,8 @@ void MindMapGUI::updateActions()
     _actionCut->setEnabled(_presentModel->isCutNodeEnable());
     _actionCopy->setEnabled(_presentModel->isCopyNodeEnable());
     _actionPaste->setEnabled(_presentModel->isPasteNodeEnable());
+    _actionUndo->setEnabled(_presentModel->isUndoEnable());
+    _actionRedo->setEnabled(_presentModel->isRedoEnable());
 }
 
 void MindMapGUI::updateGraphics()
@@ -362,6 +367,16 @@ void MindMapGUI::rebuildGraphics()
         int nowY = 0;
         rebuildChildGraphics(NULL, root, 0, nowY);
     }
+}
+
+void MindMapGUI::undo()
+{
+    _presentModel->undo();
+}
+
+void MindMapGUI::redo()
+{
+    _presentModel->redo();
 }
 
 MindMapGUI::~MindMapGUI()
