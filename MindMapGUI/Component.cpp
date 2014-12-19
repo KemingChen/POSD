@@ -18,11 +18,6 @@ void Component::setId(int id)
     _id = to_string(id);
 }
 
-string Component::getTypeName()
-{
-    return _typeName;
-}
-
 string Component::getDescription()
 {
     return _description;
@@ -36,21 +31,9 @@ void Component::setDescription(string description)
 string Component::toString()
 {
     string output;
-    output += "¡Ï¡Ð " + _description;
-    output += " (" + _typeName + ", ID: " + _id + ")";
+    output += "¡Ï¡Ð " + this->getDescription();
+    output += " (" + this->getTypeName() + ", ID: " + this->getId() + ")";
     return output;
-}
-
-Component* Component::clone()
-{
-    ComponentFactory* componentFactory = ComponentFactory::getInstance();
-    Component* node = componentFactory->createComponent(_type, _description);
-    NodeList* nodeList = this->getNodeList();
-    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
-    {
-        node->addChild((*iNode)->clone());
-    }
-    return node;
 }
 
 Component::~Component()

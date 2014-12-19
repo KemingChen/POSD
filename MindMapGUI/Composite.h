@@ -17,6 +17,8 @@ class Composite : public Component
         void addChild(Component* node, Component* backFromNode = NULL);
         void removeChild(Component* node);
         void removeAllChild();
+        string getTypeName() = 0;
+        Component* clone() = 0;
         Component* getParent() = 0;
         void setParent(Component* node) = 0;
         void addParent(Component* node) = 0;

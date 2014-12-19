@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "Root.h"
+#include "ComponentFactory.h"
 
 Root::Root(int id, string description) : Composite(id, description)
 {
-    _type = ROOT;
-    _typeName = "Root";
 }
 
 Component* Root::getParent()
@@ -30,6 +29,23 @@ void Root::addSibling(Component* node)
 bool Root::isSelfAreParentLastNode()
 {
     return true;
+}
+
+Component* Root::clone()
+{
+    ComponentFactory* componentFactory = ComponentFactory::getInstance();
+    Component* node = componentFactory->createComponent(ROOT, this->getDescription());
+    NodeList* nodeList = this->getNodeList();
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        node->addChild((*iNode)->clone());
+    }
+    return node;
+}
+
+string Root::getTypeName()
+{
+    return "Root";
 }
 
 Root::~Root()

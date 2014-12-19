@@ -10,11 +10,6 @@ class Component
         string _id;
         string _description;
 
-    protected:
-        // Protected Variable
-        int _type;
-        string _typeName;
-
     public:
         typedef vector<Component*> NodeList;
 
@@ -22,11 +17,11 @@ class Component
         Component(int id, string description);
         string getId();
         void setId(int id);
-        string getTypeName();
         string getDescription();
         void setDescription(string description);
         string toString();
-        Component* clone();
+        virtual string getTypeName() = 0;
+        virtual Component* clone() = 0;
         virtual string getMap() = 0;
         virtual void addChild(Component* node, Component* backFromNode = NULL) = 0;
         virtual void removeChild(Component* node) = 0;
