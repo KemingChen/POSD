@@ -9,6 +9,7 @@ class InsertParentNodeCommand : public Command
         Component* _oldParentNode;
         Component* _node;
         Component* _newNode;
+        Component* _backFromNode;
 
     public:
         InsertParentNodeCommand(MindMapModel* model, Component* node, Component* newNode);

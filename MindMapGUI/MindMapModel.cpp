@@ -29,11 +29,11 @@ void MindMapModel::insertParentNode(Component* choseNode, Component* newNode)
         notify(SUBJECT_MODEL_CHANGE, "");
 }
 
-void MindMapModel::revertInsertParentNode(Component* choseNode, Component* newNode, Component* oldParentNode)
+void MindMapModel::revertInsertParentNode(Component* choseNode, Component* newNode, Component* oldParentNode, Component* backFromNode)
 {
     newNode->removeChild(choseNode);
     oldParentNode->removeChild(newNode);
-    oldParentNode->addChild(choseNode);
+    oldParentNode->addChild(choseNode, backFromNode);
     notify(SUBJECT_MODEL_CHANGE, "");
 }
 

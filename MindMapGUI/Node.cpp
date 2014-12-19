@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Node.h"
 #include "ComponentFactory.h"
+#include <algorithm>
 
 Node::Node(int id, string description) : Composite(id, description)
 {
@@ -59,6 +60,17 @@ Component* Node::clone()
 string Node::getTypeName()
 {
     return "Node";
+}
+
+Component* Node::getBackFromNode()
+{
+    NodeList* nodeList = _parentNode->getNodeList();
+    NodeList::iterator it = find(nodeList->begin(), nodeList->end(), this);
+    if (it == nodeList->end())
+        return NULL;
+    if (it == nodeList->begin())
+        return this;
+    return *(it - 1);
 }
 
 Node::~Node()

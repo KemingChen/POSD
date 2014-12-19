@@ -151,6 +151,7 @@ void MindMapGUI::update(int subject, string info)
             this->editNodeDescription();
             break;
         case SUBJECT_MODEL_CHANGE:
+            this->updateActions();
             this->updateGraphics();
             break;
         case SUBJECT_NEW:

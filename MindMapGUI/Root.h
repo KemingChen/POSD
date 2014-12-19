@@ -6,6 +6,7 @@ class Root : public Composite
     public:
         // Public Method
         Root(int id, string description);
+        Component* getBackFromNode();
         Component* getParent();
         Component* clone();
         string getTypeName();

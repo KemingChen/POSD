@@ -6,6 +6,7 @@ InsertParentNodeCommand::InsertParentNodeCommand(MindMapModel* model, Component*
     _node = node;
     _newNode = newNode;
     _oldParentNode = node->getParent();
+    _backFromNode = _oldParentNode->getBackFromNode();
 }
 
 void InsertParentNodeCommand::execute()
@@ -15,7 +16,7 @@ void InsertParentNodeCommand::execute()
 
 void InsertParentNodeCommand::unexecute()
 {
-    _model->revertInsertParentNode(_node, _newNode, _oldParentNode);
+    _model->revertInsertParentNode(_node, _newNode, _oldParentNode, _backFromNode);
 }
 
 InsertParentNodeCommand::~InsertParentNodeCommand()

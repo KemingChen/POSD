@@ -48,6 +48,11 @@ string Root::getTypeName()
     return "Root";
 }
 
+Component* Root::getBackFromNode()
+{
+    return this;
+}
+
 Root::~Root()
 {
 }

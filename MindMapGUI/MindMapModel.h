@@ -30,7 +30,7 @@ class MindMapModel : public Subject
         void deleteNode(Component* choseNode);
         void revertDeleteNode(Component* choseNode);
         void insertParentNode(Component* choseNode, Component* newNode);
-        void revertInsertParentNode(Component* choseNode, Component* newNode, Component* oldParentNode);
+        void revertInsertParentNode(Component* choseNode, Component* newNode, Component* oldParentNode, Component* backFromNode);
         void insertChildNode(Component* choseNode, Component* newNode);
         void insertSiblingNode(Component* choseNode, Component* newNode);
         void cutNode(Component* selectedNode);

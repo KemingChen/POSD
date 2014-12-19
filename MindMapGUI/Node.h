@@ -9,6 +9,7 @@ class Node : public Composite
     public:
         // Public Method
         Node(int id, string description);
+        Component* getBackFromNode();
         Component* getParent();
         Component* clone();
         string getTypeName();

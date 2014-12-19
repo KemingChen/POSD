@@ -23,6 +23,7 @@ class Component
         string toString();
         bool getIsSelected();
         void setIsSelected(bool value);
+        virtual Component* getBackFromNode() = 0;
         virtual string getTypeName() = 0;
         virtual Component* clone() = 0;
         virtual string getMap() = 0;
