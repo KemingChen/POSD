@@ -332,9 +332,6 @@ void MindMapGUI::exit()
 
 int MindMapGUI::rebuildChildGraphics(GraphicNode* parent, Component* node, int nowX, int& nowY)
 {
-    int const BOUNDING_WIDTH = 120;
-    int const BOUNDING_HEIGHT = 80;
-
     GraphicNode* graphicNode = new GraphicNode(node, parent);
     graphicNode->attach(this);
     NodeList* nodeList = node->getNodeList();
@@ -350,7 +347,7 @@ int MindMapGUI::rebuildChildGraphics(GraphicNode* parent, Component* node, int n
     if (nodeList->size() == 0)
     {
         newY = nowY;
-        nowY += BOUNDING_HEIGHT;
+        nowY += node->getHeight() + 2 * INNER_PADDING + OUTER_PADDING;
     }
     graphicNode->setPosition(nowX, newY);
     _graphicList->push_back(graphicNode);

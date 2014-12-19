@@ -8,12 +8,6 @@
 class GraphicNode : public Subject, public QGraphicsItem
 {
     private:
-        // Basic
-        int const PADDING = 5;
-        int const RECT_WIDTH = 70;
-        int const RECT_HEIGHT = 50;
-
-        // Variable
         int _x;
         int _y;
         Component* _node;

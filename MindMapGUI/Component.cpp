@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Component.h"
 #include "ComponentFactory.h"
+#include <math.h>
+#include <iostream>
 
 Component::Component(int id, string description)
 {
@@ -27,6 +29,24 @@ string Component::getDescription()
 void Component::setDescription(string description)
 {
     _description = description;
+    cout << description << ", size: " << description.size() << endl;
+    _width = description.size() * CHAR_WIDTH;
+    _height = CHAR_HEIGHT;
+    if (_width > MAX_WIDTH_SIZE)
+    {
+        _height = ceil(float(_width) / float(MAX_WIDTH_SIZE)) * CHAR_HEIGHT;
+        _width = MAX_WIDTH_SIZE;
+    }
+}
+
+int Component::getWidth()
+{
+    return _width;
+}
+
+int Component::getHeight()
+{
+    return _height;
 }
 
 string Component::toString()

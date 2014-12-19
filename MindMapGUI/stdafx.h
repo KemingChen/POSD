@@ -19,6 +19,13 @@
 #include "Node.h"
 #include "Root.h"
 
+#define CHAR_WIDTH 8
+#define CHAR_HEIGHT 20
+#define MAX_WIDTH_SIZE 100
+#define BOUNDING_WIDTH 150
+#define INNER_PADDING 5
+#define OUTER_PADDING 20
+
 typedef std::vector<Component*> NodeList;
 
 struct CompareComponent

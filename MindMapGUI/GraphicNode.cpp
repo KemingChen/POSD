@@ -14,18 +14,18 @@ GraphicNode::GraphicNode(Component* node, GraphicNode* parent)
 
 QRectF GraphicNode::boundingRect() const
 {
-    return  QRectF(_x, _y, RECT_WIDTH, RECT_HEIGHT);
+    return  QRectF(_x, _y, _node->getWidth(), _node->getHeight());
 }
 
 QLineF GraphicNode::getConnectLine() const
 {
-    QPoint start(_x, _y + RECT_HEIGHT / 2);
+    QPoint start(_x, _y + _node->getHeight() / 2 + INNER_PADDING);
     return QLineF(start, _parent ? * (_parent->getConnectPoint()) : start);
 }
 
 QPoint* GraphicNode::getConnectPoint()
 {
-    return new QPoint(_x + RECT_WIDTH, _y + RECT_HEIGHT / 2);
+    return new QPoint(_x + _node->getWidth() + 2 * INNER_PADDING, _y + _node->getHeight() / 2 + INNER_PADDING);
 }
 
 void GraphicNode::setPosition(int x, int y)
@@ -36,8 +36,8 @@ void GraphicNode::setPosition(int x, int y)
 
 void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
-    const QRectF nodeRect(_x, _y, RECT_WIDTH, RECT_HEIGHT);
-    const QRectF textRect(_x + PADDING, _y + PADDING, RECT_WIDTH - 2 * PADDING, RECT_HEIGHT - 2 * PADDING);
+    const QRectF nodeRect(_x, _y, _node->getWidth() + 2 * INNER_PADDING, _node->getHeight() + 2 * INNER_PADDING);
+    const QRectF textRect(_x + INNER_PADDING, _y + INNER_PADDING, _node->getWidth(), _node->getHeight());
     painter->drawRect(nodeRect);
     painter->drawText(textRect, Qt::AlignCenter | Qt::TextWordWrap, QString::fromStdString(_node->getDescription()));
     if (_node->getIsSelected())
