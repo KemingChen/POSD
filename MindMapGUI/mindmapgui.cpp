@@ -136,7 +136,7 @@ void MindMapGUI::bindingActions()
 
 void MindMapGUI::update(int subject, string info)
 {
-    cout << "MindMapGUI update " << subject << endl;
+    //cout << "MindMapGUI update " << subject << endl;
     switch (subject)
     {
         case SUBJECT_ERROR:
@@ -210,13 +210,11 @@ void MindMapGUI::updateGraphics()
 {
     _scene->clear();
     rebuildGraphics();
-    cout << "rebuild size: " << _graphicList->size() << endl;
     for (list<GraphicNode*>::iterator iGraphic = _graphicList->begin(); iGraphic != _graphicList->end(); iGraphic++)
     {
         _scene->addItem(*iGraphic);
         _scene->addLine((*iGraphic)->getConnectLine());
     }
-    cout << "rebuild end" << endl;
 }
 
 void MindMapGUI::notifyError(string description)
