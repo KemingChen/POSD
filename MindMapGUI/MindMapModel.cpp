@@ -13,6 +13,7 @@ MindMapModel::MindMapModel()
 void MindMapModel::createMinMap(string description)
 {
     _root = ComponentFactory::getInstance()->createComponent(ROOT, description);
+    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 Component* MindMapModel::getRootNode()
@@ -47,6 +48,10 @@ Component* MindMapModel::findNode(string id)
     if (_root == NULL)
     {
         throw string("The Root is Empty!!!");
+    }
+    if (id.empty())
+    {
+        return NULL;
     }
     return findNode(_root, id);
 }
@@ -140,6 +145,7 @@ void MindMapModel::loadMindMap(ifstream* file)
         iNodeIds++;
     }
     _root = componentList[0];
+    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void MindMapModel::editNodeDescription(Component* choseNode, string description)

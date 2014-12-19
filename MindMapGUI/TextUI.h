@@ -52,7 +52,7 @@ class TextUI
 
     public:
         // Public Method
-        TextUI(PresentModel* presentModel, QApplication* app);
+        TextUI(PresentModel* presentModel, MindMapGUI* guiWindow, QApplication* app);
         void run();
         ~TextUI();
 };

@@ -4,9 +4,8 @@
 
 #define MIN_DOUBLE_CLICK_TIME 20
 
-GraphicNode::GraphicNode(Component* node, INotifyGraphics* notify, GraphicNode* parent)
+GraphicNode::GraphicNode(Component* node, GraphicNode* parent)
 {
-    _notify = notify;
     _parent = parent;
     _node = node;
     _isSelected = false;
@@ -57,13 +56,13 @@ void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* optio
 void GraphicNode::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsItem::mouseDoubleClickEvent(event);
-    _notify->doubleClickGraphicNode(_node);
+    notify(SUBJECT_DB_CLICK, _node->getId());
 }
 
 void GraphicNode::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsItem::mousePressEvent(event);
-    _notify->clickGraphicNode(_node);
+    notify(SUBJECT_CLICK, _node->getId());
 }
 
 Component* GraphicNode::getComponent()

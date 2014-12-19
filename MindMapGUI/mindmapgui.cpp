@@ -16,7 +16,8 @@ MindMapGUI::MindMapGUI(PresentModel* presentModel) : QMainWindow()
     bindingActions();
     setupScene();
 
-    _presentModel = new GUIPresentModel(presentModel, this);
+    _presentModel = new GUIPresentModel(presentModel);
+    _presentModel->attach(this);
     _graphicList = new list<GraphicNode*>();
 }
 
@@ -127,19 +128,44 @@ void MindMapGUI::bindingActions()
     connect(_actionAbout, &QAction::triggered, this, &MindMapGUI::showAbout);
 }
 
+void MindMapGUI::update(int subject, string info)
+{
+    cout << "MindMapGUI update " << subject << endl;
+    switch (subject)
+    {
+        case SUBJECT_CLICK:
+            clickGraphicNode(info);
+            break;
+        case SUBJECT_DB_CLICK:
+            doubleClickGraphicNode(info);
+            break;
+        case SUBJECT_RESET_SCENE:
+            setupScene();
+            break;
+        case SUBJECT_PMODEL_CHANGE:
+        case SUBJECT_MODEL_CHANGE:
+            updateActions();
+            updateGraphics();
+            break;
+        case SUBJECT_ERROR:
+            notifyError(info);
+    }
+}
+
 void MindMapGUI::setupScene()
 {
-    _scene = new MindMapScene(this);
+    _scene = new MindMapScene();
+    _scene->attach(this);
     _view = new QGraphicsView(_scene);
     this->setCentralWidget(_view);
 }
 
-void MindMapGUI::clickGraphicNode(Component* node)
+void MindMapGUI::clickGraphicNode(string id)
 {
-    _presentModel->clickGraphicNode(node);
+    _presentModel->clickGraphicNode(id);
 }
 
-void MindMapGUI::doubleClickGraphicNode(Component* node)
+void MindMapGUI::doubleClickGraphicNode(string id)
 {
     editNodeDescription();
 }
@@ -291,7 +317,8 @@ int MindMapGUI::rebuildChildGraphics(GraphicNode* parent, Component* node, int n
     int const BOUNDING_WIDTH = 120;
     int const BOUNDING_HEIGHT = 80;
 
-    GraphicNode* graphicNode = new GraphicNode(node, this, parent);
+    GraphicNode* graphicNode = new GraphicNode(node, parent);
+    graphicNode->attach(this);
     NodeList* nodeList = node->getNodeList();
     int newY = 0;
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)

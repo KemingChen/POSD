@@ -5,13 +5,12 @@
 #define MIN_DELTA_CLICK_TIME 20
 #define ERROR_DESCRIPTION_EMPTY "Description is Empty!!!"
 
-GUIPresentModel::GUIPresentModel(PresentModel* presentModel, INotifyGraphics* notify)
+GUIPresentModel::GUIPresentModel(PresentModel* presentModel)
 {
     _prepareCloneNode = NULL;
     _selectedNode = NULL;
     _lastClickTime = -1000;
     _presentModel = presentModel;
-    _notify = notify;
 }
 
 bool GUIPresentModel::isValidClick()
@@ -28,30 +27,29 @@ bool GUIPresentModel::isValidClick()
     }
 }
 
-void GUIPresentModel::clickGraphicNode(Component* node)
+void GUIPresentModel::clickGraphicNode(string id)
 {
     if (!isValidClick())
         return;
+    Component* node = id.empty() ? NULL : _presentModel->tryFindNode(id);
     if (_selectedNode != node)
     {
         _selectedNode = node;
-        _notify->updateActions();
-        _notify->updateGraphics();
+        notify(SUBJECT_PMODEL_CHANGE, "");
     }
 }
 
 void GUIPresentModel::editDescription(string text, bool isValid)
 {
-    if (isValid)
+    if (isValid && _selectedNode != NULL)
     {
         if (!text.empty())
         {
-            _selectedNode->setDescription(text);
-            _notify->updateGraphics();
+            _presentModel->editNodeDescription(_selectedNode, text);
         }
         else
         {
-            _notify->notifyError(ERROR_DESCRIPTION_EMPTY);
+            notify(SUBJECT_ERROR, ERROR_DESCRIPTION_EMPTY);
         }
     }
 }
@@ -61,8 +59,6 @@ void GUIPresentModel::loadMindMap(string path)
     if (!path.empty())
     {
         _presentModel->loadMindMap(path);
-        _notify->updateGraphics();
-        _notify->updateActions();
     }
 }
 
@@ -81,13 +77,10 @@ void GUIPresentModel::createMindMap(string text, bool isValid)
         if (!text.empty())
         {
             _presentModel->createMindMap(text);
-            _notify->setupScene();
-            _notify->updateActions();
-            _notify->updateGraphics();
         }
         else
         {
-            _notify->notifyError(ERROR_DESCRIPTION_EMPTY);
+            notify(SUBJECT_ERROR, ERROR_DESCRIPTION_EMPTY);
         }
     }
 }
@@ -99,11 +92,10 @@ void GUIPresentModel::insertParentNode(string text, bool isValid)
         if (!text.empty())
         {
             _presentModel->insertParentNode(_selectedNode, text);
-            _notify->updateGraphics();
         }
         else
         {
-            _notify->notifyError(ERROR_DESCRIPTION_EMPTY);
+            notify(SUBJECT_ERROR, ERROR_DESCRIPTION_EMPTY);
         }
     }
 }
@@ -115,11 +107,10 @@ void GUIPresentModel::insertChildNode(string text, bool isValid)
         if (!text.empty())
         {
             _presentModel->insertChildNode(_selectedNode, text);
-            _notify->updateGraphics();
         }
         else
         {
-            _notify->notifyError(ERROR_DESCRIPTION_EMPTY);
+            notify(SUBJECT_ERROR, ERROR_DESCRIPTION_EMPTY);
         }
     }
 }
@@ -131,11 +122,10 @@ void GUIPresentModel::insertSiblingNode(string text, bool isValid)
         if (!text.empty())
         {
             _presentModel->insertSiblingNode(_selectedNode, text);
-            _notify->updateGraphics();
         }
         else
         {
-            _notify->notifyError(ERROR_DESCRIPTION_EMPTY);
+            notify(SUBJECT_ERROR, ERROR_DESCRIPTION_EMPTY);
         }
     }
 }
@@ -212,8 +202,6 @@ void GUIPresentModel::deleteNode()
 {
     _presentModel->deleteNode(_selectedNode);
     _selectedNode = NULL;
-    _notify->updateActions();
-    _notify->updateGraphics();
 }
 
 void GUIPresentModel::cutNode()
@@ -221,20 +209,16 @@ void GUIPresentModel::cutNode()
     _presentModel->cutNode(_selectedNode);
     _prepareCloneNode = _selectedNode;
     _selectedNode = NULL;
-    _notify->updateGraphics();
-    _notify->updateActions();
 }
 
 void GUIPresentModel::copyNode()
 {
     _prepareCloneNode = _selectedNode->clone();
-    _notify->updateActions();
 }
 
 void GUIPresentModel::pasteNode()
 {
     _presentModel->pasteNode(_selectedNode, _prepareCloneNode);
-    _notify->updateGraphics();
 }
 
 bool GUIPresentModel::isSelectedNode(Component* node)

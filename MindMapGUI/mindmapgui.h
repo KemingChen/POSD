@@ -18,14 +18,13 @@
 #include <QInputDialog>
 #include <QFileDialog>
 #include <QMessageBox>
-#include "INotifyGraphics.h"
 #include "GraphicNode.h"
 #include "MindMapScene.h"
 #include "GUIPresentModel.h"
 
 using namespace std;
 
-class MindMapGUI : public INotifyGraphics, public QMainWindow
+class MindMapGUI : public Observer, public QMainWindow
 {
     private:
         QAction* _actionAbout;
@@ -68,17 +67,20 @@ class MindMapGUI : public INotifyGraphics, public QMainWindow
         void rebuildGraphics();
         int rebuildChildGraphics(GraphicNode* parent, Component* node, int nowX, int& nowY);
 
+        // Event
+        void clickGraphicNode(string id);
+        void doubleClickGraphicNode(string id);
+        void updateActions();
+        void updateGraphics();
+        void notifyError(string description);
+
+    protected:
+        void update(int subject, string info);
+
     public:
         MindMapGUI(PresentModel* presentModel);
         void show();
         ~MindMapGUI();
-
-        // Event
-        void clickGraphicNode(Component* node);
-        void doubleClickGraphicNode(Component* node);
-        void updateActions();
-        void updateGraphics();
-        void notifyError(string description);
 
         // Action
         void createMindMap();

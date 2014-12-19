@@ -1,10 +1,11 @@
 #pragma once
 #include "stdafx.h"
+#include "Subject.h"
 #include <map>
 #include <fstream>
 using namespace std;
 
-class MindMapModel
+class MindMapModel : public Subject
 {
         friend class MindMapModelTest;
         friend class IntegrationTest;

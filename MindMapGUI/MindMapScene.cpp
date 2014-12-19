@@ -2,15 +2,14 @@
 #include "INotifyGraphics.h"
 #include <iostream>
 
-MindMapScene::MindMapScene(INotifyGraphics* notify) : QGraphicsScene()
+MindMapScene::MindMapScene() : QGraphicsScene()
 {
-    _notify = notify;
 }
 
 void MindMapScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsScene::mousePressEvent(event);
-    _notify->clickGraphicNode(NULL);
+    this->notify(SUBJECT_CLICK, "");
 }
 
 MindMapScene::~MindMapScene()

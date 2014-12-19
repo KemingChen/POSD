@@ -3,11 +3,11 @@
 #define ENTER_NODE_NAME "Enter the node name:"
 #define ERROR_COMMAND "The command is not found!!"
 
-TextUI::TextUI(PresentModel* presentModel, QApplication* app)
+TextUI::TextUI(PresentModel* presentModel, MindMapGUI* guiWindow, QApplication* app)
 {
     _app = app;
     _presentModel = presentModel;
-    _guiWindow = new MindMapGUI(presentModel);
+    _guiWindow = guiWindow;
     _mainMenuMap["1"] = &TextUI::createNewMindMap;
     _mainMenuMap["2"] = &TextUI::insertNewNode;
     _mainMenuMap["3"] = &TextUI::editNode;
@@ -28,6 +28,8 @@ TextUI::TextUI(PresentModel* presentModel, QApplication* app)
 
 void TextUI::run()
 {
+    openGUI();
+    return;
     while (_isRun)
     {
         printActionMenu();
@@ -289,7 +291,6 @@ void TextUI::undo()
 
 void TextUI::openGUI()
 {
-    _presentModel->clearCommandManager();
     _guiWindow->show();
     _app->exec();
 }
@@ -301,5 +302,4 @@ void TextUI::exit()
 
 TextUI::~TextUI()
 {
-    delete _guiWindow;
 }

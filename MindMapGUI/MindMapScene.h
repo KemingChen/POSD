@@ -1,15 +1,11 @@
 #pragma once
 #include <QGraphicsScene>
-#include "GraphicNode.h"
+#include "Subject.h"
 
-class INotifyGraphics;
-class MindMapScene : public QGraphicsScene
+class MindMapScene : public Subject, public QGraphicsScene
 {
-    private:
-        INotifyGraphics* _notify;
-
     public:
-        MindMapScene(INotifyGraphics* notify);
+        MindMapScene();
         void mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent);
         ~MindMapScene();
 };

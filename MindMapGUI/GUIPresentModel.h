@@ -2,14 +2,15 @@
 #include "PresentModel.h"
 #include "INotifyGraphics.h"
 #include <time.h>
+#include "Subject.h"
 
 using namespace std;
 
-class GUIPresentModel
+class GUIPresentModel : public Subject
 {
     private:
         PresentModel* _presentModel;
-        INotifyGraphics* _notify;
+        //INotifyGraphics* _notify;
 
         // Variable
         clock_t _lastClickTime;
@@ -22,11 +23,11 @@ class GUIPresentModel
         bool isValidClick();
 
     public:
-        GUIPresentModel(PresentModel* presentModel, INotifyGraphics* notify);
+        GUIPresentModel(PresentModel* presentModel);
         ~GUIPresentModel();
 
         // Action
-        void clickGraphicNode(Component* node);
+        void clickGraphicNode(string id);
         void editDescription(string text, bool isValid);
         void loadMindMap(string path);
         void saveMindMap(string path);

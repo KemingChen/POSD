@@ -155,8 +155,10 @@
     <ClCompile Include="MindMapModel.cpp" />
     <ClCompile Include="MindMapScene.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="Observer.cpp" />
     <ClCompile Include="PresentModel.cpp" />
     <ClCompile Include="Root.cpp" />
+    <ClCompile Include="Subject.cpp" />
     <ClCompile Include="TextUI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -205,9 +207,11 @@
     <ClInclude Include="MindMapModel.h" />
     <ClInclude Include="MindMapScene.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Observer.h" />
     <ClInclude Include="PresentModel.h" />
     <ClInclude Include="Root.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Subject.h" />
     <ClInclude Include="TextUI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

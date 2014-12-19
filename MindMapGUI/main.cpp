@@ -9,7 +9,9 @@ int main(int argc, char* argv[])
     QApplication app(argc, argv);
     MindMapModel model;
     PresentModel presentModel(&model);
-    TextUI textUI(&presentModel, &app);
+    MindMapGUI guiWindow(&presentModel);
+    model.attach(&guiWindow);
+    TextUI textUI(&presentModel, &guiWindow, & app);
     textUI.run();
     return 0;
 }

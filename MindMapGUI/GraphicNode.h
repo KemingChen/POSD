@@ -3,9 +3,9 @@
 #include <QGraphicsItem>
 #include <QPainter>
 #include <time.h>
+#include "Subject.h"
 
-class INotifyGraphics;
-class GraphicNode : public QGraphicsItem
+class GraphicNode : public Subject, public QGraphicsItem
 {
     private:
         // Basic
@@ -19,11 +19,10 @@ class GraphicNode : public QGraphicsItem
         bool _isSelected;
         Component* _node;
         GraphicNode* _parent;
-        INotifyGraphics* _notify;
         clock_t _lastClickTime;
 
     public:
-        GraphicNode(Component* node, INotifyGraphics* notify, GraphicNode* parent = NULL);
+        GraphicNode(Component* node, GraphicNode* parent = NULL);
         QRectF boundingRect() const;
         QLineF getConnectLine() const;
         QPoint* getConnectPoint();
