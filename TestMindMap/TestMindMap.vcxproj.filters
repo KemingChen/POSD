@@ -66,9 +66,6 @@
     <ClInclude Include="..\MindMapGUI\stdafx.h">
       <Filter>標頭檔</Filter>
     </ClInclude>
-    <ClInclude Include="MockINotifyGraphic.h">
-      <Filter>標頭檔</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -167,11 +164,20 @@
     <ClCompile Include="MockCommand.cpp">
       <Filter>UnitTest\Mock</Filter>
     </ClCompile>
-    <ClCompile Include="MockINotifyGraphic.cpp">
-      <Filter>UnitTest\Mock</Filter>
-    </ClCompile>
     <ClCompile Include="GUIPresentModelTest.cpp">
       <Filter>UnitTest\Model\PresentModel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\CutNodeCommand.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\Observer.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\Subject.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\PasteNodeCommand.cpp">
+      <Filter>原始程式檔</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

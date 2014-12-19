@@ -121,7 +121,7 @@ TEST_F(MindMapModelTest, insertParentNode)
     _model.insertParentNode(networkNode, newParentNode);
     ASSERT_EQ(" 2 10", _root->getMap());
     ASSERT_EQ("New Parent Node", _model.findNode("10")->getDescription());
-    _model.revertInsertParentNode(networkNode, newParentNode, oldParentNode);
+    _model.revertInsertParentNode(networkNode, newParentNode, oldParentNode, NULL);
     assertTestMindMap();
 }
 
@@ -158,9 +158,9 @@ TEST_F(MindMapModelTest, deleteNode)
     ASSERT_EQ(NULL, _model.findNode("6"));
     ASSERT_EQ(" 5", _model.findNode("1")->getMap());
     // Revert Delete Node
-    _model.revertDeleteNode(networkNode);
+    _model.revertDeleteNode(networkNode, NULL);
     ASSERT_TRUE(_model.findNode("7") != NULL);
-    _model.revertDeleteNode(officeNode);
+    _model.revertDeleteNode(officeNode, NULL);
     ASSERT_TRUE(_model.findNode("6") != NULL);
     assertTestMindMap();
 }

@@ -89,7 +89,6 @@
   <ItemGroup>
     <ClInclude Include="..\MindMapGUI\stdafx.h" />
     <ClInclude Include="MockCommand.h" />
-    <ClInclude Include="MockINotifyGraphic.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
@@ -99,6 +98,7 @@
     <ClCompile Include="..\MindMapGUI\Component.cpp" />
     <ClCompile Include="..\MindMapGUI\ComponentFactory.cpp" />
     <ClCompile Include="..\MindMapGUI\Composite.cpp" />
+    <ClCompile Include="..\MindMapGUI\CutNodeCommand.cpp" />
     <ClCompile Include="..\MindMapGUI\DeleteComponentCommand.cpp" />
     <ClCompile Include="..\MindMapGUI\EditComponentCommand.cpp" />
     <ClCompile Include="..\MindMapGUI\GUIPresentModel.cpp" />
@@ -107,8 +107,11 @@
     <ClCompile Include="..\MindMapGUI\InsertSiblingNodeCommand.cpp" />
     <ClCompile Include="..\MindMapGUI\MindMapModel.cpp" />
     <ClCompile Include="..\MindMapGUI\Node.cpp" />
+    <ClCompile Include="..\MindMapGUI\Observer.cpp" />
+    <ClCompile Include="..\MindMapGUI\PasteNodeCommand.cpp" />
     <ClCompile Include="..\MindMapGUI\PresentModel.cpp" />
     <ClCompile Include="..\MindMapGUI\Root.cpp" />
+    <ClCompile Include="..\MindMapGUI\Subject.cpp" />
     <ClCompile Include="ChangeParentCommandTest.cpp" />
     <ClCompile Include="CommnadManagerTest.cpp" />
     <ClCompile Include="ComponentFactoryTest.cpp" />
@@ -121,7 +124,6 @@
     <ClCompile Include="IntegrationTest.cpp" />
     <ClCompile Include="MindMapModelTest.cpp" />
     <ClCompile Include="MockCommand.cpp" />
-    <ClCompile Include="MockINotifyGraphic.cpp" />
     <ClCompile Include="NodeTest.cpp" />
     <ClCompile Include="PresentModelTest.cpp" />
     <ClCompile Include="RootTest.cpp" />
