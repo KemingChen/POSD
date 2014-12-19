@@ -9,6 +9,7 @@ class Component
     private:
         string _id;
         string _description;
+        bool _isSelected;
 
     public:
         typedef vector<Component*> NodeList;
@@ -20,6 +21,8 @@ class Component
         string getDescription();
         void setDescription(string description);
         string toString();
+        bool getIsSelected();
+        void setIsSelected(bool value);
         virtual string getTypeName() = 0;
         virtual Component* clone() = 0;
         virtual string getMap() = 0;

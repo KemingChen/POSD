@@ -187,9 +187,6 @@
     <ClInclude Include="GraphicNode.h">
       <Filter>Header Files\View\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="INotifyGraphics.h">
-      <Filter>Header Files\View\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="MindMapScene.h">
       <Filter>Header Files\View\GUI</Filter>
     </ClInclude>

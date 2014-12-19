@@ -1,6 +1,5 @@
 #pragma once
 #include "PresentModel.h"
-#include "INotifyGraphics.h"
 #include <time.h>
 #include "Subject.h"
 

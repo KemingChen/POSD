@@ -6,6 +6,14 @@
 
 MindMapGUI::MindMapGUI(PresentModel* presentModel) : QMainWindow()
 {
+    this->_name = "MindMapGUI";
+    _scene = NULL;
+    _view = NULL;
+    _graphicList = new list<GraphicNode*>();
+
+    _presentModel = new GUIPresentModel(presentModel);
+    _presentModel->attach(this);
+
     if (this->objectName().isEmpty())
         this->setObjectName(QStringLiteral("MindMapGUIClass"));
     this->resize(800, 600);
@@ -15,10 +23,6 @@ MindMapGUI::MindMapGUI(PresentModel* presentModel) : QMainWindow()
     setupToolBar();
     bindingActions();
     setupScene();
-
-    _presentModel = new GUIPresentModel(presentModel);
-    _presentModel->attach(this);
-    _graphicList = new list<GraphicNode*>();
 }
 
 void MindMapGUI::setupMenus()
@@ -133,27 +137,31 @@ void MindMapGUI::update(int subject, string info)
     cout << "MindMapGUI update " << subject << endl;
     switch (subject)
     {
+        case SUBJECT_ERROR:
+            notifyError(info);
+            break;
         case SUBJECT_CLICK:
-            clickGraphicNode(info);
+            this->clickGraphicNode(info);
+            this->updateActions();
+            _scene->update();
             break;
         case SUBJECT_DB_CLICK:
-            doubleClickGraphicNode(info);
+            this->editNodeDescription();
             break;
-        case SUBJECT_RESET_SCENE:
+        case SUBJECT_NEW:
             setupScene();
-            break;
-        case SUBJECT_PMODEL_CHANGE:
-        case SUBJECT_MODEL_CHANGE:
             updateActions();
             updateGraphics();
             break;
-        case SUBJECT_ERROR:
-            notifyError(info);
     }
 }
 
 void MindMapGUI::setupScene()
 {
+    if (_scene != NULL)
+        delete _scene;
+    if (_view != NULL)
+        delete _view;
     _scene = new MindMapScene();
     _scene->attach(this);
     _view = new QGraphicsView(_scene);
@@ -190,12 +198,13 @@ void MindMapGUI::updateGraphics()
 {
     _scene->clear();
     rebuildGraphics();
-    list<GraphicNode*>* graphicList = _graphicList;
-    for (list<GraphicNode*>::iterator iGraphic = graphicList->begin(); iGraphic != graphicList->end(); iGraphic++)
+    cout << "rebuild size: " << _graphicList->size() << endl;
+    for (list<GraphicNode*>::iterator iGraphic = _graphicList->begin(); iGraphic != _graphicList->end(); iGraphic++)
     {
         _scene->addItem(*iGraphic);
         _scene->addLine((*iGraphic)->getConnectLine());
     }
+    cout << "rebuild end" << endl;
 }
 
 void MindMapGUI::notifyError(string description)
@@ -250,7 +259,6 @@ void MindMapGUI::editNodeDescription()
     QString description = QString::fromStdString(node->getDescription());
     QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, description, &ok);
     _presentModel->editDescription(text.toStdString(), ok);
-    this->updateGraphics();
 }
 
 void MindMapGUI::loadMindMap()
@@ -335,7 +343,6 @@ int MindMapGUI::rebuildChildGraphics(GraphicNode* parent, Component* node, int n
         nowY += BOUNDING_HEIGHT;
     }
     graphicNode->setPosition(nowX, newY);
-    graphicNode->setSelected(_presentModel->isSelectedNode(node));
     _graphicList->push_back(graphicNode);
     return newY;
 }

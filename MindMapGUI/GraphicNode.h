@@ -16,7 +16,6 @@ class GraphicNode : public Subject, public QGraphicsItem
         // Variable
         int _x;
         int _y;
-        bool _isSelected;
         Component* _node;
         GraphicNode* _parent;
         clock_t _lastClickTime;
@@ -27,12 +26,11 @@ class GraphicNode : public Subject, public QGraphicsItem
         QLineF getConnectLine() const;
         QPoint* getConnectPoint();
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
-        void setSelected(bool isSelected);
         void setPosition(int x, int y);
         Component* getComponent();
         ~GraphicNode();
 
     protected:
-        void mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event);
         void mousePressEvent(QGraphicsSceneMouseEvent* event);
+        void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 };

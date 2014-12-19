@@ -1,14 +1,13 @@
 #include "GraphicNode.h"
 #include <iostream>
-#include "INotifyGraphics.h"
 
-#define MIN_DOUBLE_CLICK_TIME 20
+#define MIN_DOUBLE_CLICK_TIME 200
 
 GraphicNode::GraphicNode(Component* node, GraphicNode* parent)
 {
+    this->_subjectName = "GraphicNode." + node->getDescription();
     _parent = parent;
     _node = node;
-    _isSelected = false;
     _lastClickTime = clock();
     setFlags(QGraphicsItem::ItemIsSelectable);
 }
@@ -29,11 +28,6 @@ QPoint* GraphicNode::getConnectPoint()
     return new QPoint(_x + RECT_WIDTH, _y + RECT_HEIGHT / 2);
 }
 
-void GraphicNode::setSelected(bool isSelected)
-{
-    _isSelected = isSelected;
-}
-
 void GraphicNode::setPosition(int x, int y)
 {
     _x = x;
@@ -46,23 +40,27 @@ void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* optio
     const QRectF textRect(_x + PADDING, _y + PADDING, RECT_WIDTH - 2 * PADDING, RECT_HEIGHT - 2 * PADDING);
     painter->drawRect(nodeRect);
     painter->drawText(textRect, Qt::AlignCenter | Qt::TextWordWrap, QString::fromStdString(_node->getDescription()));
-    if (_isSelected)
+    if (_node->getIsSelected())
     {
         painter->setPen(Qt::red);
         painter->drawRect(nodeRect);
     }
 }
 
-void GraphicNode::mouseDoubleClickEvent(QGraphicsSceneMouseEvent* event)
-{
-    QGraphicsItem::mouseDoubleClickEvent(event);
-    notify(SUBJECT_DB_CLICK, _node->getId());
-}
-
 void GraphicNode::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsItem::mousePressEvent(event);
     notify(SUBJECT_CLICK, _node->getId());
+}
+
+void GraphicNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
+    QGraphicsItem::mouseReleaseEvent(event);
+    if (clock() - _lastClickTime <= MIN_DOUBLE_CLICK_TIME)
+        notify(SUBJECT_DB_CLICK, _node->getId());
+    else
+        notify(SUBJECT_CLICK, _node->getId());
+    _lastClickTime = clock();
 }
 
 Component* GraphicNode::getComponent()

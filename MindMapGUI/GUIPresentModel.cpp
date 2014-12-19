@@ -7,6 +7,7 @@
 
 GUIPresentModel::GUIPresentModel(PresentModel* presentModel)
 {
+    this->_subjectName = "GUIPresentModel";
     _prepareCloneNode = NULL;
     _selectedNode = NULL;
     _lastClickTime = -1000;
@@ -32,11 +33,11 @@ void GUIPresentModel::clickGraphicNode(string id)
     if (!isValidClick())
         return;
     Component* node = id.empty() ? NULL : _presentModel->tryFindNode(id);
-    if (_selectedNode != node)
-    {
-        _selectedNode = node;
-        notify(SUBJECT_PMODEL_CHANGE, "");
-    }
+    if (_selectedNode != NULL)
+        _selectedNode->setIsSelected(false);
+    if (node != NULL)
+        node->setIsSelected(true);
+    _selectedNode = node;
 }
 
 void GUIPresentModel::editDescription(string text, bool isValid)

@@ -8,12 +8,13 @@
 MindMapModel::MindMapModel()
 {
     _root = NULL;
+    this->_subjectName = "MindMapModel";
 }
 
 void MindMapModel::createMinMap(string description)
 {
     _root = ComponentFactory::getInstance()->createComponent(ROOT, description);
-    notify(SUBJECT_MODEL_CHANGE, "");
+    notify(SUBJECT_NEW, "");
 }
 
 Component* MindMapModel::getRootNode()
@@ -145,7 +146,7 @@ void MindMapModel::loadMindMap(ifstream* file)
         iNodeIds++;
     }
     _root = componentList[0];
-    notify(SUBJECT_MODEL_CHANGE, "");
+    notify(SUBJECT_NEW, "");
 }
 
 void MindMapModel::editNodeDescription(Component* choseNode, string description)
