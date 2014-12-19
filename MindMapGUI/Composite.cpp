@@ -21,8 +21,6 @@ void Composite::removeChild(Component* node)
 
 int Composite::childIndexOf(Component* node)
 {
-    if (node == this)
-        return 0;
     if (node == NULL)
         return _nodeList.size();
     for (int i = 0; i < _nodeList.size(); i++)
@@ -32,7 +30,7 @@ int Composite::childIndexOf(Component* node)
             return i + 1;
         }
     }
-    return -1;
+    return 0;
 }
 
 void Composite::removeAllChild()

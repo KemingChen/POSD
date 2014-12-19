@@ -201,13 +201,14 @@ void MindMapModel::deleteNode(Component* choseNode)
     NodeList* nodeList = choseNode->getNodeList();
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {
-        parentNode->addChild(*iNode);
+        Component* backFromNode = iNode == nodeList->begin() ? choseNode : *(iNode - 1);
+        parentNode->addChild(*iNode, backFromNode);
     }
     parentNode->removeChild(choseNode);
     notify(SUBJECT_MODEL_CHANGE, "");
 }
 
-void MindMapModel::revertDeleteNode(Component* choseNode)
+void MindMapModel::revertDeleteNode(Component* choseNode, Component* backFromNode)
 {
     NodeList* nodeList = choseNode->getNodeList();
     Component* parentNode = choseNode->getParent();
@@ -215,7 +216,7 @@ void MindMapModel::revertDeleteNode(Component* choseNode)
     {
         parentNode->removeChild(*iNode);
     }
-    parentNode->addChild(choseNode);
+    parentNode->addChild(choseNode, backFromNode);
     notify(SUBJECT_MODEL_CHANGE, "");
 }
 

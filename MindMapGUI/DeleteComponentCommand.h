@@ -7,6 +7,7 @@ class DeleteComponentCommand : public Command
     private:
         MindMapModel* _model;
         Component* _node;
+        Component* _backFromNode;
 
     public:
         DeleteComponentCommand(MindMapModel* model, Component* node);

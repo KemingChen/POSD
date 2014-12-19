@@ -5,6 +5,7 @@ DeleteComponentCommand::DeleteComponentCommand(MindMapModel* model, Component* n
 {
     _model = model;
     _node = node;
+    _backFromNode = node->getBackFromNode();
 }
 
 void DeleteComponentCommand::execute()
@@ -14,7 +15,7 @@ void DeleteComponentCommand::execute()
 
 void DeleteComponentCommand::unexecute()
 {
-    _model->revertDeleteNode(_node);
+    _model->revertDeleteNode(_node, _backFromNode);
 }
 
 DeleteComponentCommand::~DeleteComponentCommand()
