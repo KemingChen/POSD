@@ -25,6 +25,8 @@ Component* MindMapModel::getRootNode()
 void MindMapModel::insertParentNode(Component* choseNode, Component* newNode)
 {
     choseNode->addParent(newNode);
+    if (newNode != NULL)
+        notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void MindMapModel::revertInsertParentNode(Component* choseNode, Component* newNode, Component* oldParentNode)
@@ -32,16 +34,21 @@ void MindMapModel::revertInsertParentNode(Component* choseNode, Component* newNo
     newNode->removeChild(choseNode);
     oldParentNode->removeChild(newNode);
     oldParentNode->addChild(choseNode);
+    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void MindMapModel::insertChildNode(Component* choseNode, Component* newNode)
 {
     choseNode->addChild(newNode);
+    if (newNode != NULL)
+        notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void MindMapModel::insertSiblingNode(Component* choseNode, Component* newNode)
 {
     choseNode->addSibling(newNode);
+    if (newNode != NULL)
+        notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 Component* MindMapModel::findNode(string id)
@@ -196,6 +203,7 @@ void MindMapModel::deleteNode(Component* choseNode)
         parentNode->addChild(*iNode);
     }
     parentNode->removeChild(choseNode);
+    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void MindMapModel::revertDeleteNode(Component* choseNode)
@@ -207,6 +215,7 @@ void MindMapModel::revertDeleteNode(Component* choseNode)
         parentNode->removeChild(*iNode);
     }
     parentNode->addChild(choseNode);
+    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void MindMapModel::cutNode(Component* selectedNode)
@@ -214,6 +223,7 @@ void MindMapModel::cutNode(Component* selectedNode)
     if (selectedNode != NULL)
     {
         selectedNode->getParent()->removeChild(selectedNode);
+        notify(SUBJECT_MODEL_CHANGE, "");
     }
 }
 
@@ -222,6 +232,7 @@ void MindMapModel::pasteNode(Component* selectedNode, Component* cloneNode)
     if (cloneNode != NULL && selectedNode != NULL)
     {
         selectedNode->addChild(cloneNode->clone());
+        notify(SUBJECT_MODEL_CHANGE, "");
     }
 }
 

@@ -203,6 +203,7 @@ void GUIPresentModel::deleteNode()
 {
     _presentModel->deleteNode(_selectedNode);
     _selectedNode = NULL;
+    notify(SUBJECT_PRESENT_CHANGE, "");
 }
 
 void GUIPresentModel::cutNode()
@@ -210,11 +211,13 @@ void GUIPresentModel::cutNode()
     _presentModel->cutNode(_selectedNode);
     _prepareCloneNode = _selectedNode;
     _selectedNode = NULL;
+    notify(SUBJECT_PRESENT_CHANGE, "");
 }
 
 void GUIPresentModel::copyNode()
 {
     _prepareCloneNode = _selectedNode->clone();
+    notify(SUBJECT_PRESENT_CHANGE, "");
 }
 
 void GUIPresentModel::pasteNode()
