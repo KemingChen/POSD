@@ -43,22 +43,23 @@ void GUIPresentModel::cancelSelected()
     }
 }
 
-void GUIPresentModel::clickGraphicNode(string id)
+void GUIPresentModel::clickGraphicNode(Component* node)
 {
     if (!isValidClick())
         return;
-    Component* node = id.empty() ? NULL : _presentModel->tryFindNode(id);
     this->cancelSelected();
     if (node != NULL)
         node->setIsSelected(true);
-    _selectedNode = node;
+    this->_selectedNode = node;
+    this->notify(SELECTED_CHANGE);
 }
 
 void GUIPresentModel::editDescription(string text, bool isValid)
 {
-    if (this->isValidText(isValid, text) && _selectedNode != NULL)
+    if (this->isValidText(isValid, text) && this->_selectedNode != NULL)
     {
-        this->_presentModel->editNodeDescription(_selectedNode, text);
+        this->_presentModel->editNodeDescription(this->_selectedNode, text);
+        this->notify(MODEL_CHANGE);
     }
 }
 
@@ -67,6 +68,7 @@ void GUIPresentModel::loadMindMap(string path)
     if (this->isValidText(true, path))
     {
         this->_presentModel->loadMindMap(path);
+        this->notify(MODEL_CHANGE);
     }
 }
 
@@ -75,6 +77,7 @@ void GUIPresentModel::saveMindMap(string path)
     if (this->isValidText(true, path))
     {
         this->_presentModel->saveMindMap(path);
+        this->notify(MODEL_CHANGE);
     }
 }
 
@@ -83,6 +86,7 @@ void GUIPresentModel::createMindMap(string text, bool isValid)
     if (this->isValidText(isValid, text))
     {
         this->_presentModel->createMindMap(text);
+        this->notify(MODEL_CHANGE);
     }
 }
 
@@ -90,7 +94,8 @@ void GUIPresentModel::insertParentNode(string text, bool isValid)
 {
     if (this->isValidText(isValid, text))
     {
-        this->_presentModel->insertParentNode(_selectedNode, text);
+        this->_presentModel->insertParentNode(this->_selectedNode, text);
+        this->notify(MODEL_CHANGE);
     }
 }
 
@@ -98,7 +103,8 @@ void GUIPresentModel::insertChildNode(string text, bool isValid)
 {
     if (this->isValidText(isValid, text))
     {
-        this->_presentModel->insertChildNode(_selectedNode, text);
+        this->_presentModel->insertChildNode(this->_selectedNode, text);
+        this->notify(MODEL_CHANGE);
     }
 }
 
@@ -106,42 +112,43 @@ void GUIPresentModel::insertSiblingNode(string text, bool isValid)
 {
     if (this->isValidText(isValid, text))
     {
-        this->_presentModel->insertSiblingNode(_selectedNode, text);
+        this->_presentModel->insertSiblingNode(this->_selectedNode, text);
+        this->notify(MODEL_CHANGE);
     }
 }
 
 bool GUIPresentModel::isSaveEnable()
 {
-    return isCreatedMindMap();
+    return this->isCreatedMindMap();
 }
 
 bool GUIPresentModel::isSelected()
 {
-    return _selectedNode != NULL;
+    return this->_selectedNode != NULL;
 }
 
 bool GUIPresentModel::isDeleteNodeEnable()
 {
-    return isSelected() && _presentModel->getRoot() != _selectedNode;
+    return this->isSelected() && _presentModel->getRoot() != this->_selectedNode;
 }
 
 bool GUIPresentModel::isEditNodeEnable()
 {
-    return isSelected();
+    return this->isSelected();
 }
 
 bool GUIPresentModel::confirmInsertNodeLegal(InsertMethod insertMethod)
 {
-    if (isSelected())
+    if (this->isSelected())
     {
         try
         {
-            _presentModel->confirmInsertNodeLegal(_selectedNode, insertMethod);
+            this->_presentModel->confirmInsertNodeLegal(this->_selectedNode, insertMethod);
             return true;
         }
         catch (string error)
         {
-            notify(error);
+            // notify(error);
         }
     }
     return false;
@@ -164,87 +171,90 @@ bool GUIPresentModel::isInsertSiblingNodeEnable()
 
 void GUIPresentModel::deleteNode()
 {
-    _presentModel->deleteNode(_selectedNode);
+    this->_presentModel->deleteNode(this->_selectedNode);
     this->cancelSelected();
+    this->notify(MODEL_CHANGE);
 }
 
 void GUIPresentModel::cutNode()
 {
-    _presentModel->cutNode(_selectedNode);
-    _prepareCloneNode = _selectedNode;
+    this->_presentModel->cutNode(this->_selectedNode);
+    this->_prepareCloneNode = this->_selectedNode;
     this->cancelSelected();
+    this->notify(MODEL_CHANGE);
 }
 
 void GUIPresentModel::copyNode()
 {
-    _prepareCloneNode = _selectedNode->clone();
+    this->_prepareCloneNode = this->_selectedNode->clone();
 }
 
 void GUIPresentModel::pasteNode()
 {
-    _presentModel->pasteNode(_selectedNode, _prepareCloneNode);
+    this->_presentModel->pasteNode(this->_selectedNode, this->_prepareCloneNode);
+    this->notify(MODEL_CHANGE);
 }
 
 bool GUIPresentModel::isSelectedNode(Component* node)
 {
-    return _selectedNode == node;
+    return this->_selectedNode == node;
 }
 
 bool GUIPresentModel::isCreatedMindMap()
 {
-    return _presentModel->getRoot() != NULL;
+    return this->_presentModel->getRoot() != NULL;
 }
 
 bool GUIPresentModel::isCutNodeEnable()
 {
-    return isSelected() && _presentModel->getRoot() != _selectedNode;
+    return this->isSelected() && this->_presentModel->getRoot() != _selectedNode;
 }
 
 bool GUIPresentModel::isCopyNodeEnable()
 {
-    return isCutNodeEnable();
+    return this->isCutNodeEnable();
 }
 
 bool GUIPresentModel::isPasteNodeEnable()
 {
-    return isSelected() && _prepareCloneNode != NULL;
+    return this->isSelected() && this->_prepareCloneNode != NULL;
 }
 
 Component* GUIPresentModel::getSelectedNode()
 {
-    return _selectedNode;
+    return this->_selectedNode;
 }
 
 Component* GUIPresentModel::getRoot()
 {
-    return _presentModel->getRoot();
+    return this->_presentModel->getRoot();
 }
 
 void GUIPresentModel::undo()
 {
     this->cancelSelected();
-    _presentModel->undo();
+    this->_presentModel->undo();
 }
 
 void GUIPresentModel::redo()
 {
     this->cancelSelected();
-    _presentModel->redo();
+    this->_presentModel->redo();
 }
 
 bool GUIPresentModel::isUndoEnable()
 {
-    return _presentModel->canUndo();
+    return this->_presentModel->canUndo();
 }
 
 bool GUIPresentModel::isRedoEnable()
 {
-    return _presentModel->canRedo();
+    return this->_presentModel->canRedo();
 }
 
 void GUIPresentModel::rebuildPosition()
 {
-    return _model->rebuildPosition();
+    return this->_model->rebuildPosition();
 }
 
 GUIPresentModel::~GUIPresentModel()

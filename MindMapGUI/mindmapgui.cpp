@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MindMapGUI.h"
+#include "GraphicNode.h"
 #include <iostream>
 #include <QTextCodec>
 #define FILTER "MindMap Files (*.mm)"
@@ -138,9 +139,13 @@ void MindMapGUI::update(string subject)
     cout << "MindMapGUI update " << subject <<  endl;
     if (subject == MODEL_CHANGE)
     {
+        this->updateActions();
+        this->updateGraphics();
     }
     else if (subject == SELECTED_CHANGE)
     {
+        this->updateActions();
+        this->_scene->update();
     }
     else
     {
@@ -154,7 +159,7 @@ void MindMapGUI::setupScene()
         delete this->_scene;
     if (this->_view != NULL)
         delete this->_view;
-    this->_scene = new MindMapScene();
+    this->_scene = new MindMapScene(this->_presentModel);
     this->_view = new QGraphicsView(this->_scene);
     this->setCentralWidget(this->_view);
 }

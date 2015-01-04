@@ -31,7 +31,7 @@ class GUIPresentModel : public Subject
         ~GUIPresentModel();
 
         // Action
-        void clickGraphicNode(string id);
+        void clickGraphicNode(Component* node);
         void editDescription(string text, bool isValid);
         void loadMindMap(string path);
         void saveMindMap(string path);

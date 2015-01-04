@@ -17,12 +17,12 @@
 #include <QInputDialog>
 #include <QFileDialog>
 #include <QMessageBox>
-#include "GraphicNode.h"
 #include "MindMapScene.h"
 #include "GUIPresentModel.h"
 
 using namespace std;
 
+class GraphicNode;
 class MindMapGUI : public Observer, public QMainWindow
 {
     private:
