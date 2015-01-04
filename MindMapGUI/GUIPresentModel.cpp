@@ -86,7 +86,7 @@ void GUIPresentModel::createMindMap(string text, bool isValid)
     if (this->isValidText(isValid, text))
     {
         this->_presentModel->createMindMap(text);
-        this->notify(MODEL_CHANGE);
+        this->notify(CREATE_NEW);
     }
 }
 

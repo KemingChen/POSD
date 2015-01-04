@@ -31,7 +31,7 @@ QRectF GraphicNode::textRect() const
 void GraphicNode::calculateTextRectSize()
 {
     QFontMetrics fontMetrics = QFontMetrics(this->getFont());
-    QRect rect = fontMetrics.boundingRect(QRect(0, 0, MAX_WIDTH, 0), _flags, QString::fromStdString(this->_node->getDescription()));
+    QRect rect = fontMetrics.boundingRect(QRect(0, 0, MAX_WIDTH - 2 * INNER_PADDING, 0), _flags, QString::fromStdString(this->_node->getDescription()));
     this->_node->setRectSize(rect.width() + 2 * INNER_PADDING, rect.height() + 2 * INNER_PADDING);
 }
 

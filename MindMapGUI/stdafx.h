@@ -15,7 +15,7 @@
 #include <list>
 #include <vector>
 
-#define MAX_WIDTH 90
+#define MAX_WIDTH 100
 #define INNER_PADDING 10
 #define MIN_DOUBLE_CLICK_TIME 200
 

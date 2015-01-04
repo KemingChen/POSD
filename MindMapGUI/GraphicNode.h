@@ -10,7 +10,7 @@ class GraphicNode : public QGraphicsItem
 {
     private:
         // Basic Params
-        int _flags = Qt::AlignCenter | Qt::TextWordWrap;
+        int _flags = Qt::TextWordWrap;
         MindMapGUI* _mainWindow;
 
         // Private Variable

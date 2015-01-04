@@ -1,5 +1,6 @@
 #include "GUIDisplayVisitor.h"
 #include <iostream>
+#include <algorithm>
 #include "Root.h"
 #include "Node.h"
 using namespace std;
@@ -22,6 +23,7 @@ int GUIDisplayVisitor::calculateLevel(Component* node)
 void GUIDisplayVisitor::visit(Root* node)
 {
     this->backupLastElementAndClean(&this->_nodeCollection);
+    std::sort(this->_rootCollection.begin(), this->_rootCollection.end());
     int x = this->calculateLevel(node) * LEVEL_X_WIDTH;
     int y = this->averageCollection(&this->_rootCollection);
     node->setPosition(x, y);
@@ -33,7 +35,8 @@ void GUIDisplayVisitor::visit(Node* node)
     int* nowY = node->getSide() == RIGHT ? &this->_yRight : &this->_yLeft;
     int nowLevel = this->calculateLevel(node);
 
-    int x = nowLevel * LEVEL_X_WIDTH, y;
+    int x = node->getSide() == RIGHT ? nowLevel * LEVEL_X_WIDTH : (nowLevel) * LEVEL_X_WIDTH + (MAX_WIDTH - node->getWidth());
+    int y;
     if (this->_nowLevel == 0 || this->_nowLevel * nowLevel < 0 || abs(this->_nowLevel) <= abs(nowLevel))
     {
         y = *nowY + node->getHeight() / 2;
@@ -45,7 +48,7 @@ void GUIDisplayVisitor::visit(Node* node)
         this->_nodeCollection.clear();
     }
 
-    if (this->_nowLevel != 0 && abs(this->_nowLevel) < abs(nowLevel))
+    if (this->_nowLevel != 0 && (this->_nowLevel * nowLevel < 0 || abs(this->_nowLevel) < abs(nowLevel)))
     {
         this->backupLastElementAndClean(&this->_nodeCollection);
     }

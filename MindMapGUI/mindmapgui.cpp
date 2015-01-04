@@ -147,6 +147,12 @@ void MindMapGUI::update(string subject)
         this->updateActions();
         this->_scene->update();
     }
+    else if (subject == CREATE_NEW)
+    {
+        this->setupScene();
+        this->updateActions();
+        this->updateGraphics();
+    }
     else
     {
         this->notifyError(subject);
