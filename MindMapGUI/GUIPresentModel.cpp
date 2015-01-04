@@ -77,7 +77,6 @@ void GUIPresentModel::saveMindMap(string path)
     if (this->isValidText(true, path))
     {
         this->_presentModel->saveMindMap(path);
-        this->notify(MODEL_CHANGE);
     }
 }
 
@@ -234,12 +233,14 @@ void GUIPresentModel::undo()
 {
     this->cancelSelected();
     this->_presentModel->undo();
+    this->notify(MODEL_CHANGE);
 }
 
 void GUIPresentModel::redo()
 {
     this->cancelSelected();
     this->_presentModel->redo();
+    this->notify(MODEL_CHANGE);
 }
 
 bool GUIPresentModel::isUndoEnable()

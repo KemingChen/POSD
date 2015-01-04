@@ -35,7 +35,7 @@ void GUIDisplayVisitor::visit(Node* node)
     int* nowY = node->getSide() == RIGHT ? &this->_yRight : &this->_yLeft;
     int nowLevel = this->calculateLevel(node);
 
-    int x = node->getSide() == RIGHT ? nowLevel * LEVEL_X_WIDTH : (nowLevel) * LEVEL_X_WIDTH + (MAX_WIDTH - node->getWidth());
+    int x = nowLevel * LEVEL_X_WIDTH;
     int y;
     if (this->_nowLevel == 0 || this->_nowLevel * nowLevel < 0 || abs(this->_nowLevel) <= abs(nowLevel))
     {
@@ -45,6 +45,8 @@ void GUIDisplayVisitor::visit(Node* node)
     else
     {
         y = this->averageCollection(&this->_nodeCollection);
+        if (y - node->getHeight() / 2 < this->getLevelBottomY(nowLevel))
+            y = this->getLevelBottomY(nowLevel) + node->getHeight() / 2 + OUTTER_PADDING;
         this->_nodeCollection.clear();
     }
 
@@ -60,6 +62,19 @@ void GUIDisplayVisitor::visit(Node* node)
     int newY = y + node->getHeight() / 2 + OUTTER_PADDING;
     if (newY > *nowY)
         *nowY = newY;
+    this->saveLevelBottomY(nowLevel, y + node->getHeight() / 2);
+}
+
+void GUIDisplayVisitor::saveLevelBottomY(int level, int y)
+{
+    this->_yLevelMap[level] = y;
+}
+
+int GUIDisplayVisitor::getLevelBottomY(int level)
+{
+    if (this->_yLevelMap[level])
+        return this->_yLevelMap[level];
+    return 0;
 }
 
 int GUIDisplayVisitor::averageCollection(vector<int>* collection)
