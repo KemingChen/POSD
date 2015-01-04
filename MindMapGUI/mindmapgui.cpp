@@ -186,6 +186,7 @@ void MindMapGUI::updateGraphics()
     for (list<GraphicNode*>::iterator iGraphic = this->_graphicList->begin(); iGraphic != this->_graphicList->end(); iGraphic++)
     {
         this->_scene->addItem(*iGraphic);
+        this->_scene->addLine((*iGraphic)->getConnectLine());
     }
 }
 

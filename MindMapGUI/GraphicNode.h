@@ -23,6 +23,7 @@ class GraphicNode : public QGraphicsItem
         GraphicNode(QPaintDevice* device, GUIPresentModel* presentModel, Component* node);
         QRectF boundingRect() const;
         QRectF textRect() const;
+        QLine getConnectLine() const;
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
         ~GraphicNode();
 

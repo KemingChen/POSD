@@ -35,6 +35,21 @@ void GraphicNode::calculateTextRectSize()
     this->_node->setRectSize(rect.width(), rect.height());
 }
 
+QLine GraphicNode::getConnectLine() const
+{
+    QRectF rect = this->boundingRect();
+    int startX = rect.left();
+    int startY = rect.center().y();
+    Component* parentNode = _node->getParent();
+    if (parentNode)
+    {
+        int endX = parentNode->getX() + parentNode->getWidth() + 2 * INNER_PADDING;
+        int endY = parentNode->getY();
+        return QLine(startX, startY, endX, endY);
+    }
+    return QLine(startX, startY, startX, startY);
+}
+
 QFont GraphicNode::getFont() const
 {
     return QFont("Helvetica", 10, QFont::Bold);
