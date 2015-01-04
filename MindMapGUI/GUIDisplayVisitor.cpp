@@ -22,12 +22,9 @@ int GUIDisplayVisitor::calculateLevel(Component* node)
 
 void GUIDisplayVisitor::visit(Root* node)
 {
-    this->backupLastElementAndClean(&this->_nodeCollection);
-    std::sort(this->_rootCollection.begin(), this->_rootCollection.end());
     int x = this->calculateLevel(node) * LEVEL_X_WIDTH;
-    int y = this->averageCollection(&this->_rootCollection);
+    int y = this->averageChildY(node);
     node->setPosition(x, y);
-    this->_rootCollection.clear();
 }
 
 void GUIDisplayVisitor::visit(Node* node)
@@ -44,19 +41,12 @@ void GUIDisplayVisitor::visit(Node* node)
     }
     else
     {
-        y = this->averageCollection(&this->_nodeCollection);
+        y = this->averageChildY(node);
         if (y - node->getHeight() / 2 < this->getLevelBottomY(nowLevel))
             y = this->getLevelBottomY(nowLevel) + node->getHeight() / 2 + OUTTER_PADDING;
-        this->_nodeCollection.clear();
-    }
-
-    if (this->_nowLevel != 0 && (this->_nowLevel * nowLevel < 0 || abs(this->_nowLevel) < abs(nowLevel)))
-    {
-        this->backupLastElementAndClean(&this->_nodeCollection);
     }
 
     node->setPosition(x, y);
-    this->_nodeCollection.push_back(y);
     this->_nowLevel = nowLevel;
 
     int newY = y + node->getHeight() / 2 + OUTTER_PADDING;
@@ -74,25 +64,24 @@ int GUIDisplayVisitor::getLevelBottomY(int level)
 {
     if (this->_yLevelMap[level])
         return this->_yLevelMap[level];
-    return 0;
+    return -1000;
 }
 
-int GUIDisplayVisitor::averageCollection(vector<int>* collection)
+int GUIDisplayVisitor::averageChildY(Component* node)
 {
-    if (collection->size() == 0)
+    NodeList* nodeList = node->getNodeList();
+    if (nodeList->size() == 0)
         return 0;
+    vector<int> childsY;
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        childsY.push_back((*iNode)->getY());
+    }
+    sort(childsY.begin(), childsY.end());
     int sum = 0;
-    sum += collection->front();
-    sum += collection->back();
+    sum += childsY.front();
+    sum += childsY.back();
     return sum / 2;
-}
-
-void GUIDisplayVisitor::backupLastElementAndClean(vector<int>* collection)
-{
-    if (collection->size() == 0)
-        return;
-    this->_rootCollection.push_back(collection->back());
-    collection->clear();
 }
 
 GUIDisplayVisitor::~GUIDisplayVisitor()
