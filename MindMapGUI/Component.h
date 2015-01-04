@@ -6,9 +6,9 @@ using namespace std;
 #define ROOT 0
 #define NODE 1
 
+#define LEFT -1
 #define NONE 0
-#define LEFT 1
-#define RIGHT 2
+#define RIGHT 1
 
 class Component
 {
@@ -54,14 +54,16 @@ class Component
         int getHeight();
         void setRectSize(int width, int height);
 
+        // Side
+        int getSide();
+        void setSide(int side);
+
         // Virtual Method
         virtual Component* getBackFromNode() = 0;
         virtual string getTypeName() = 0;
         virtual Component* clone() = 0;
         virtual string getMap() = 0;
-        virtual int getSide() = 0;
-        virtual void setSide(int side) = 0;
-        virtual void addChild(Component* node, Component* backFromNode = NULL) = 0;
+        virtual void addChild(Component* node, Component* backFromNode = NULL, int side = NONE) = 0;
         virtual void removeChild(Component* node) = 0;
         virtual void removeAllChild() = 0;
         virtual Component* getParent() = 0;

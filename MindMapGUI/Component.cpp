@@ -91,6 +91,21 @@ void Component::setLevel(int level)
     this->_level = level;
 }
 
+int Component::getSide()
+{
+    return this->_side;
+}
+
+void Component::setSide(int side)
+{
+    this->_side = side;
+    NodeList* nodeList = this->getNodeList();
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        (*iNode)->setSide(side);
+    }
+}
+
 Component::~Component()
 {
 }

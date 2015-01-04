@@ -8,14 +8,11 @@ class Composite : public Component
         // Protected Variable
         NodeList _nodeList;
 
-        // Private Method
-        int childIndexOf(Component* node);
-
     public:
         // Public Method
         Composite(int id, string description);
         string getMap();
-        void addChild(Component* node, Component* backFromNode = NULL);
+        int childIndexOf(Component* node);
         void removeChild(Component* node);
         void removeAllChild();
         NodeList* getNodeList();
@@ -27,10 +24,9 @@ class Composite : public Component
         Component* clone() = 0;
         Component* getParent() = 0;
         void setParent(Component* node) = 0;
+        void addChild(Component* node, Component* backFromNode = NULL, int side = NONE) = 0;
         void addParent(Component* node) = 0;
         void addSibling(Component* node) = 0;
         bool isSelfAreParentLastNode() = 0;
         void accept(NodeVisitor* visitor) = 0;
-        int getSide() = 0;
-        void setSide(int side) = 0;
 };

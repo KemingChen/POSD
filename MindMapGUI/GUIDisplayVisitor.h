@@ -14,6 +14,7 @@ class GUIDisplayVisitor : public NodeVisitor
         vector<int> _nodeCollection;
 
         // Private Method
+        int calculateLevel(Component* node);
         int averageCollection(vector<int>* collection);
         void backupLastElementAndClean(vector<int>* collection);
 

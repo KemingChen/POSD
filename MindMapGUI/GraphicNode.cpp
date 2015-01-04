@@ -37,13 +37,14 @@ void GraphicNode::calculateTextRectSize()
 
 QLine GraphicNode::getConnectLine() const
 {
+    int side = this->_node->getSide();
     QRectF rect = this->boundingRect();
-    int startX = rect.left();
+    int startX = side == LEFT ? rect.right() : rect.left();
     int startY = rect.center().y();
     Component* parentNode = _node->getParent();
     if (parentNode)
     {
-        int endX = parentNode->getX() + parentNode->getWidth();
+        int endX = parentNode->getX() + (side == RIGHT ? parentNode->getWidth() : 0);
         int endY = parentNode->getY();
         return QLine(startX, startY, endX, endY);
     }
@@ -58,7 +59,10 @@ QFont GraphicNode::getFont() const
 void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     painter->setFont(this->getFont());
-    painter->drawRect(this->boundingRect());
+    if (this->_presentModel->getRoot() == this->_node)
+        painter->drawEllipse(this->boundingRect());
+    else
+        painter->drawRect(this->boundingRect());
     painter->drawText(this->textRect(), _flags, QString::fromStdString(this->_node->getDescription()));
     if (_node->getIsSelected())
     {

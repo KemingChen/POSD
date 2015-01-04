@@ -15,8 +15,8 @@
 #include <list>
 #include <vector>
 
-#define MAX_WIDTH 80
-#define INNER_PADDING 5
+#define MAX_WIDTH 90
+#define INNER_PADDING 10
 #define MIN_DOUBLE_CLICK_TIME 200
 
 class Component;

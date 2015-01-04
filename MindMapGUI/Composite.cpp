@@ -5,15 +5,6 @@ Composite::Composite(int id, string description) : Component(id, description)
 {
 }
 
-void Composite::addChild(Component* node, Component* backFromNode)
-{
-    if (node != NULL)
-    {
-        node->setParent(this);
-        _nodeList.insert(_nodeList.begin() + childIndexOf(backFromNode), node);
-    }
-}
-
 void Composite::removeChild(Component* node)
 {
     _nodeList.erase(_nodeList.begin() + childIndexOf(node) - 1);

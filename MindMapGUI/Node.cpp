@@ -2,10 +2,12 @@
 #include "Node.h"
 #include "ComponentFactory.h"
 #include <algorithm>
+#include <iostream>
 
 Node::Node(int id, string description) : Composite(id, description)
 {
     setParent(NULL);
+    this->setSide(NONE);
 }
 
 Component* Node::getParent()
@@ -16,6 +18,17 @@ Component* Node::getParent()
 void Node::setParent(Component* node)
 {
     _parentNode = node;
+}
+
+void Node::addChild(Component* node, Component* backFromNode, int side)
+{
+    if (node != NULL)
+    {
+        NodeList* nodeList = this->getNodeList();
+        node->setParent(this);
+        node->setSide(this->getSide());
+        nodeList->insert(nodeList->begin() + childIndexOf(backFromNode), node);
+    }
 }
 
 void Node::addParent(Component* node)
@@ -82,15 +95,6 @@ void Node::accept(NodeVisitor* visitor)
         (*iNode)->accept(visitor);
     }
     visitor->visit(this);
-}
-
-int Node::getSide()
-{
-    return NONE;
-}
-
-void Node::setSide(int side)
-{
 }
 
 Node::~Node()

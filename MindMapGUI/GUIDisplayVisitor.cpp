@@ -14,14 +14,15 @@ GUIDisplayVisitor::GUIDisplayVisitor()
     this->_nowLevel = 0;
 }
 
+int GUIDisplayVisitor::calculateLevel(Component* node)
+{
+    return node->getLevel() * node->getSide();
+}
+
 void GUIDisplayVisitor::visit(Root* node)
 {
-    cout << "now level: " << this->_nowLevel << endl;
-    cout << "  " << node->getDescription() << ", " << node->getLevel() << endl;
-    cout << "  Rect: " << node->getWidth() << ", " << node->getHeight() << endl;
-
     this->backupLastElementAndClean(&this->_nodeCollection);
-    int x = node->getLevel() * LEVEL_X_WIDTH;
+    int x = this->calculateLevel(node) * LEVEL_X_WIDTH;
     int y = this->averageCollection(&this->_rootCollection);
     node->setPosition(x, y);
     this->_rootCollection.clear();
@@ -29,37 +30,33 @@ void GUIDisplayVisitor::visit(Root* node)
 
 void GUIDisplayVisitor::visit(Node* node)
 {
-    cout << "now level: " << this->_nowLevel << ", now y: " << this->_yRight << endl;
-    cout << "  " << node->getDescription() << ", " << node->getLevel() << endl;
-    cout << "  Rect: " << node->getWidth() << ", " << node->getHeight() << endl;
-    int x = node->getLevel() * LEVEL_X_WIDTH;
-    int y;
-    if (this->_nowLevel == 0 || this->_nowLevel <= node->getLevel())
+    int* nowY = node->getSide() == RIGHT ? &this->_yRight : &this->_yLeft;
+    int nowLevel = this->calculateLevel(node);
+
+    int x = nowLevel * LEVEL_X_WIDTH, y;
+    if (this->_nowLevel == 0 || this->_nowLevel * nowLevel < 0 || abs(this->_nowLevel) <= abs(nowLevel))
     {
-        y = this->_yRight + node->getHeight() / 2;
-        this->_yRight += node->getHeight() / 2 + OUTTER_PADDING;
-        cout << "    y: " << y << endl;
+        y = *nowY + node->getHeight() / 2;
+        *nowY += node->getHeight() / 2 + OUTTER_PADDING;
     }
     else
     {
         y = this->averageCollection(&this->_nodeCollection);
-
         this->_nodeCollection.clear();
     }
-    if (this->_nowLevel != 0 && this->_nowLevel < node->getLevel())
+
+    if (this->_nowLevel != 0 && abs(this->_nowLevel) < abs(nowLevel))
     {
         this->backupLastElementAndClean(&this->_nodeCollection);
     }
 
     node->setPosition(x, y);
     this->_nodeCollection.push_back(y);
-    this->_nowLevel = node->getLevel();
+    this->_nowLevel = nowLevel;
 
     int newY = y + node->getHeight() / 2 + OUTTER_PADDING;
-    cout << "    new y: " << newY << ", _yRight: " << this->_yRight << endl;
-    if (newY > this->_yRight)
-        this->_yRight = newY;
-    cout << endl;
+    if (newY > *nowY)
+        *nowY = newY;
 }
 
 int GUIDisplayVisitor::averageCollection(vector<int>* collection)
@@ -67,9 +64,6 @@ int GUIDisplayVisitor::averageCollection(vector<int>* collection)
     if (collection->size() == 0)
         return 0;
     int sum = 0;
-    cout << "    avg" << endl;
-    cout << "    " << collection->front() << endl;
-    cout << "    " << collection->back() << endl;
     sum += collection->front();
     sum += collection->back();
     return sum / 2;

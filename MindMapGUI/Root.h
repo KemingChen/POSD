@@ -5,6 +5,9 @@ using namespace std;
 
 class Root : public Composite
 {
+    private:
+        int getNextSide(int side);
+
     public:
         // Public Method
         Root(int id, string description);
@@ -12,9 +15,8 @@ class Root : public Composite
         Component* getParent();
         Component* clone();
         string getTypeName();
-        int getSide();
-        void setSide(int side);
         void setParent(Component* node);
+        void addChild(Component* node, Component* backFromNode = NULL, int side = NONE);
         void addParent(Component* node);
         void addSibling(Component* node);
         bool isSelfAreParentLastNode();
