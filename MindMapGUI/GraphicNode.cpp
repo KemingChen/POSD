@@ -12,12 +12,20 @@ GraphicNode::GraphicNode(QPaintDevice* device, GUIPresentModel* presentModel, Co
 
 QRectF GraphicNode::boundingRect() const
 {
-    return QRectF(this->_node->getX(), this->_node->getY(), this->_node->getWidth() + 2 * INNER_PADDING, this->_node->getHeight() + 2 * INNER_PADDING);
+    int width = this->_node->getWidth() + 2 * INNER_PADDING;
+    int height = this->_node->getHeight() + 2 * INNER_PADDING;
+    int x = this->_node->getX();
+    int y = this->_node->getY() - height / 2;
+    return QRectF(x, y, width, height);
 }
 
 QRectF GraphicNode::textRect() const
 {
-    return QRectF(this->_node->getX() + INNER_PADDING, this->_node->getY() + INNER_PADDING, this->_node->getWidth(), this->_node->getHeight());
+    int width = this->_node->getWidth();
+    int height = this->_node->getHeight();
+    int x = this->_node->getX() + INNER_PADDING;
+    int y = this->_node->getY() - height / 2;
+    return QRectF(x, y, width, height);
 }
 
 void GraphicNode::calculateTextRectSize()
