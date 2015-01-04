@@ -31,4 +31,6 @@ class Composite : public Component
         void addSibling(Component* node) = 0;
         bool isSelfAreParentLastNode() = 0;
         void accept(NodeVisitor* visitor) = 0;
+        int getSide() = 0;
+        void setSide(int side) = 0;
 };

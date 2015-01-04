@@ -12,6 +12,8 @@ class Root : public Composite
         Component* getParent();
         Component* clone();
         string getTypeName();
+        int getSide();
+        void setSide(int side);
         void setParent(Component* node);
         void addParent(Component* node);
         void addSibling(Component* node);

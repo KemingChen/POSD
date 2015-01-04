@@ -6,6 +6,10 @@ using namespace std;
 #define ROOT 0
 #define NODE 1
 
+#define NONE 0
+#define LEFT 1
+#define RIGHT 2
+
 class Component
 {
     private:
@@ -17,28 +21,35 @@ class Component
         int _y;
         int _width;
         int _height;
+        int _side;
 
     public:
-        // Public Method
         Component(int id, string description);
+
+        // ID
         string getId();
         void setId(int id);
 
+        // Description
         string getDescription();
         void setDescription(string description);
 
         string toString();
 
+        // Selected
         bool getIsSelected();
         void setIsSelected(bool value);
 
+        // Level
         int getLevel();
         void setLevel(int level);
 
+        // Position
         int getX();
         int getY();
         void setPosition(int x, int y);
 
+        // Rectangle Size
         int getWidth();
         int getHeight();
         void setRectSize(int width, int height);
@@ -48,6 +59,8 @@ class Component
         virtual string getTypeName() = 0;
         virtual Component* clone() = 0;
         virtual string getMap() = 0;
+        virtual int getSide() = 0;
+        virtual void setSide(int side) = 0;
         virtual void addChild(Component* node, Component* backFromNode = NULL) = 0;
         virtual void removeChild(Component* node) = 0;
         virtual void removeAllChild() = 0;
@@ -59,4 +72,12 @@ class Component
         virtual NodeList* getNodeList() = 0;
         virtual void accept(NodeVisitor* visitor) = 0;
         virtual ~Component();
+};
+
+struct CompareComponent
+{
+    bool operator()(Component* first, Component* second)
+    {
+        return atoi(first->getId().c_str()) < atoi(second->getId().c_str());
+    }
 };

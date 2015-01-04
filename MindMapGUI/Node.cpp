@@ -84,6 +84,15 @@ void Node::accept(NodeVisitor* visitor)
     visitor->visit(this);
 }
 
+int Node::getSide()
+{
+    return NONE;
+}
+
+void Node::setSide(int side)
+{
+}
+
 Node::~Node()
 {
 }

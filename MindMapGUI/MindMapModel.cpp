@@ -98,7 +98,7 @@ void MindMapModel::saveMindMap(ofstream* file)
         return;
     }
     navigateMindMap(_root, &nodeList);
-    //std::sort(nodeList.begin(), nodeList.end(), CompareComponent());
+    std::sort(nodeList.begin(), nodeList.end(), CompareComponent());
     int newId = 0;
     Component* node;
     for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
@@ -229,7 +229,8 @@ void MindMapModel::pasteNode(Component* selectedNode, Component* cloneNode)
 void MindMapModel::rebuildPosition()
 {
     GUIDisplayVisitor guiDisplayVisitor;
-
+    if (_root != NULL)
+        _root->accept(&guiDisplayVisitor);
 }
 
 MindMapModel::~MindMapModel()

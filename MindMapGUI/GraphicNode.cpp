@@ -12,19 +12,18 @@ GraphicNode::GraphicNode(QPaintDevice* device, GUIPresentModel* presentModel, Co
 
 QRectF GraphicNode::boundingRect() const
 {
-    return QRectF(this->_node->getX(), this->_node->getX(), this->_node->getWidth() + 2 * INNER_PADDING, this->_node->getHeight() + 2 * INNER_PADDING);
+    return QRectF(this->_node->getX(), this->_node->getY(), this->_node->getWidth() + 2 * INNER_PADDING, this->_node->getHeight() + 2 * INNER_PADDING);
 }
 
 QRectF GraphicNode::textRect() const
 {
-    return QRectF(this->_node->getX() + INNER_PADDING, this->_node->getX() + INNER_PADDING, this->_node->getWidth(), this->_node->getHeight());
+    return QRectF(this->_node->getX() + INNER_PADDING, this->_node->getY() + INNER_PADDING, this->_node->getWidth(), this->_node->getHeight());
 }
 
 void GraphicNode::calculateTextRectSize()
 {
     QFontMetrics fontMetrics = QFontMetrics(this->getFont());
     QRect rect = fontMetrics.boundingRect(QRect(0, 0, MAX_WIDTH, 0), _flags, QString::fromStdString(this->_node->getDescription()));
-    this->_node->setPosition(0, 0);
     this->_node->setRectSize(rect.width(), rect.height());
 }
 
