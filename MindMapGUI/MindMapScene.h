@@ -2,7 +2,7 @@
 #include <QGraphicsScene>
 #include "Subject.h"
 
-class MindMapScene : public Subject, public QGraphicsScene
+class MindMapScene : public QGraphicsScene
 {
     public:
         MindMapScene();

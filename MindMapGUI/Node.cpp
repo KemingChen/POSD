@@ -73,6 +73,17 @@ Component* Node::getBackFromNode()
     return *(it - 1);
 }
 
+void Node::accept(NodeVisitor* visitor)
+{
+    NodeList* nodeList = this->getNodeList();
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        (*iNode)->setLevel(this->getLevel() + 1);
+        (*iNode)->accept(visitor);
+    }
+    visitor->visit(this);
+}
+
 Node::~Node()
 {
 }

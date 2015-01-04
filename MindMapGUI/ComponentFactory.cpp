@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "ComponentFactory.h"
+#include "Root.h"
+#include "Node.h"
 
 ComponentFactory::ComponentFactory()
 {

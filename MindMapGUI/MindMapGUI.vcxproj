@@ -147,6 +147,7 @@
     <ClCompile Include="DeleteComponentCommand.cpp" />
     <ClCompile Include="EditComponentCommand.cpp" />
     <ClCompile Include="GraphicNode.cpp" />
+    <ClCompile Include="GUIDisplayVisitor.cpp" />
     <ClCompile Include="GUIPresentModel.cpp" />
     <ClCompile Include="InsertChildNodeCommand.cpp" />
     <ClCompile Include="InsertParentNodeCommand.cpp" />
@@ -156,10 +157,10 @@
     <ClCompile Include="MindMapModel.cpp" />
     <ClCompile Include="MindMapScene.cpp" />
     <ClCompile Include="Node.cpp" />
-    <ClCompile Include="Observer.cpp" />
     <ClCompile Include="PasteNodeCommand.cpp" />
     <ClCompile Include="PresentModel.cpp" />
     <ClCompile Include="Root.cpp" />
+    <ClCompile Include="SaveVisitor.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="TextUI.cpp" />
   </ItemGroup>
@@ -202,6 +203,7 @@
     <ClInclude Include="DeleteComponentCommand.h" />
     <ClInclude Include="EditComponentCommand.h" />
     <ClInclude Include="GraphicNode.h" />
+    <ClInclude Include="GUIDisplayVisitor.h" />
     <ClInclude Include="GUIPresentModel.h" />
     <ClInclude Include="InsertChildNodeCommand.h" />
     <ClInclude Include="InsertParentNodeCommand.h" />
@@ -209,10 +211,12 @@
     <ClInclude Include="MindMapModel.h" />
     <ClInclude Include="MindMapScene.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="NodeVisitor.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="PasteNodeCommand.h" />
     <ClInclude Include="PresentModel.h" />
     <ClInclude Include="Root.h" />
+    <ClInclude Include="SaveVisitor.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="TextUI.h" />

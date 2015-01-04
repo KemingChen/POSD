@@ -6,49 +6,61 @@
 
 Component::Component(int id, string description)
 {
-    setId(id);
-    setDescription(description);
-    _isSelected = false;
+    this->setId(id);
+    this->setDescription(description);
+    this->_isSelected = false;
 }
 
 string Component::getId()
 {
-    return _id;
+    return this->_id;
 }
 
 void Component::setId(int id)
 {
-    _id = to_string(id);
+    this->_id = to_string(id);
 }
 
 string Component::getDescription()
 {
-    return _description;
+    return this->_description;
 }
 
 void Component::setDescription(string description)
 {
-    _description = description;
-    //cout << description << ", size: " << description.size() << endl;
-    _width = description.size() * CHAR_WIDTH;
-    _height = CHAR_HEIGHT;
-    if (_width > MAX_WIDTH_SIZE)
-    {
-        _height = ceil(float(_width) / float(MAX_WIDTH_SIZE)) * CHAR_HEIGHT;
-        if (_height > MAX_HEIGHT_SIZE)
-            _height = MAX_HEIGHT_SIZE;
-        _width = MAX_WIDTH_SIZE;
-    }
+    this->_description = description;
+}
+
+int Component::getX()
+{
+    return this->_x;
+}
+
+int Component::getY()
+{
+    return this->_y;
+}
+
+void Component::setPosition(int x, int y)
+{
+    this->_x = x;
+    this->_y = y;
 }
 
 int Component::getWidth()
 {
-    return _width;
+    return this->_width;
 }
 
 int Component::getHeight()
 {
-    return _height;
+    return this->_height;
+}
+
+void Component::setRectSize(int width, int height)
+{
+    this->_width = width;
+    this->_height = height;
 }
 
 string Component::toString()
@@ -61,12 +73,22 @@ string Component::toString()
 
 bool Component::getIsSelected()
 {
-    return _isSelected;
+    return this->_isSelected;
 }
 
 void Component::setIsSelected(bool value)
 {
-    _isSelected = value;
+    this->_isSelected = value;
+}
+
+int Component::getLevel()
+{
+    return this->_level;
+}
+
+void Component::setLevel(int level)
+{
+    this->_level = level;
 }
 
 Component::~Component()

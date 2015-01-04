@@ -72,6 +72,12 @@
     <Filter Include="Header Files\Model\PresentModel">
       <UniqueIdentifier>{8a25dc78-3205-4769-9503-bbd4530d3283}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Model\Visitor">
+      <UniqueIdentifier>{a1dd0907-c2b3-437f-b3d1-485f2929db72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model\Visitor">
+      <UniqueIdentifier>{36c27c7c-5bab-41c3-a07c-131ca90f8729}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -140,14 +146,17 @@
     <ClCompile Include="Subject.cpp">
       <Filter>Source Files\Model\Services</Filter>
     </ClCompile>
-    <ClCompile Include="Observer.cpp">
-      <Filter>Source Files\Model\Services</Filter>
-    </ClCompile>
     <ClCompile Include="CutNodeCommand.cpp">
       <Filter>Source Files\Model\Command</Filter>
     </ClCompile>
     <ClCompile Include="PasteNodeCommand.cpp">
       <Filter>Source Files\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="GUIDisplayVisitor.cpp">
+      <Filter>Source Files\Model\Visitor</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveVisitor.cpp">
+      <Filter>Source Files\Model\Visitor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +231,15 @@
     </ClInclude>
     <ClInclude Include="PasteNodeCommand.h">
       <Filter>Header Files\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="GUIDisplayVisitor.h">
+      <Filter>Header Files\Model\Visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="NodeVisitor.h">
+      <Filter>Header Files\Model\Visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveVisitor.h">
+      <Filter>Header Files\Model\Visitor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

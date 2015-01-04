@@ -14,26 +14,10 @@
 #include <string>
 #include <list>
 #include <vector>
-#include "Component.h"
-#include "Composite.h"
-#include "Node.h"
-#include "Root.h"
 
-#define CHAR_WIDTH 8
-#define CHAR_HEIGHT 20
-#define MAX_WIDTH_SIZE 100
-#define MAX_HEIGHT_SIZE 80
-#define BOUNDING_WIDTH 160
-#define BOUNDING_HEIGHT 90
+#define MAX_WIDTH 80
 #define INNER_PADDING 5
-#define OUTER_PADDING 20
+#define MIN_DOUBLE_CLICK_TIME 200
 
+class Component;
 typedef std::vector<Component*> NodeList;
-
-struct CompareComponent
-{
-    bool operator()(Component* first, Component* second)
-    {
-        return atoi(first->getId().c_str()) < atoi(second->getId().c_str());
-    }
-};

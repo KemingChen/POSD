@@ -1,4 +1,5 @@
 #pragma once
+#include "Component.h"
 using namespace std;
 
 class Composite : public Component
@@ -17,6 +18,10 @@ class Composite : public Component
         void addChild(Component* node, Component* backFromNode = NULL);
         void removeChild(Component* node);
         void removeAllChild();
+        NodeList* getNodeList();
+        ~Composite();
+
+        // Virtual Method
         Component* getBackFromNode() = 0;
         string getTypeName() = 0;
         Component* clone() = 0;
@@ -25,6 +30,5 @@ class Composite : public Component
         void addParent(Component* node) = 0;
         void addSibling(Component* node) = 0;
         bool isSelfAreParentLastNode() = 0;
-        NodeList* getNodeList();
-        ~Composite();
+        void accept(NodeVisitor* visitor) = 0;
 };

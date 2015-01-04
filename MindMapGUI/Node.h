@@ -1,4 +1,6 @@
 #pragma once
+#include "Component.h"
+#include "Composite.h"
 using namespace std;
 
 class Node : public Composite
@@ -17,5 +19,6 @@ class Node : public Composite
         void addParent(Component* node);
         void addSibling(Component* node);
         bool isSelfAreParentLastNode();
+        void accept(NodeVisitor* visitor);
         ~Node();
 };

@@ -1,71 +1,53 @@
 #include "GraphicNode.h"
 #include <iostream>
 
-#define MIN_DOUBLE_CLICK_TIME 200
-
-GraphicNode::GraphicNode(Component* node, GraphicNode* parent)
+GraphicNode::GraphicNode(QPaintDevice* device, GUIPresentModel* presentModel, Component* node)
 {
-    this->_subjectName = "GraphicNode." + node->getDescription();
-    _parent = parent;
-    _node = node;
-    _lastClickTime = clock();
-    setFlags(QGraphicsItem::ItemIsSelectable);
+    this->_presentModel = presentModel;
+    this->_node = node;
+    this->_device = device;
+    this->setFlags(QGraphicsItem::ItemIsSelectable);
+    this->calculateTextRectSize();
 }
 
 QRectF GraphicNode::boundingRect() const
 {
-    return  QRectF(_x, _y, _node->getWidth() + 2 * INNER_PADDING, _node->getHeight() + 2 * INNER_PADDING);
+    return QRectF(this->_node->getX(), this->_node->getX(), this->_node->getWidth() + 2 * INNER_PADDING, this->_node->getHeight() + 2 * INNER_PADDING);
 }
 
-QLineF GraphicNode::getConnectLine() const
+QRectF GraphicNode::textRect() const
 {
-    QPoint start(_x, _y + _node->getHeight() / 2 + INNER_PADDING);
-    return QLineF(start, _parent ? * (_parent->getConnectPoint()) : start);
+    return QRectF(this->_node->getX() + INNER_PADDING, this->_node->getX() + INNER_PADDING, this->_node->getWidth(), this->_node->getHeight());
 }
 
-QPoint* GraphicNode::getConnectPoint()
+void GraphicNode::calculateTextRectSize()
 {
-    return new QPoint(_x + _node->getWidth() + 2 * INNER_PADDING, _y + _node->getHeight() / 2 + INNER_PADDING);
+    QFontMetrics fontMetrics = QFontMetrics(this->getFont());
+    QRect rect = fontMetrics.boundingRect(QRect(0, 0, MAX_WIDTH, 0), _flags, QString::fromStdString(this->_node->getDescription()));
+    this->_node->setPosition(0, 0);
+    this->_node->setRectSize(rect.width(), rect.height());
 }
 
-void GraphicNode::setPosition(int x, int y)
+QFont GraphicNode::getFont() const
 {
-    _x = x;
-    _y = y;
+    return QFont("Helvetica", 10, QFont::Bold);
 }
 
 void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
-    const QRectF nodeRect(_x, _y, _node->getWidth() + 2 * INNER_PADDING, _node->getHeight() + 2 * INNER_PADDING);
-    const QRectF textRect(_x + INNER_PADDING, _y + INNER_PADDING, _node->getWidth(), _node->getHeight());
-    painter->drawRect(nodeRect);
-    painter->drawText(textRect, Qt::AlignCenter | Qt::TextWordWrap, QString::fromStdString(_node->getDescription()));
+    painter->setFont(this->getFont());
+    painter->drawRect(this->boundingRect());
+    painter->drawText(this->textRect(), _flags, QString::fromStdString(this->_node->getDescription()));
     if (_node->getIsSelected())
     {
         painter->setPen(Qt::red);
-        painter->drawRect(nodeRect);
+        painter->drawRect(this->boundingRect());
     }
-}
-
-void GraphicNode::mousePressEvent(QGraphicsSceneMouseEvent* event)
-{
-    QGraphicsItem::mousePressEvent(event);
-    notify(SUBJECT_CLICK, _node->getId());
 }
 
 void GraphicNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsItem::mouseReleaseEvent(event);
-    if (clock() - _lastClickTime <= MIN_DOUBLE_CLICK_TIME)
-        notify(SUBJECT_DB_CLICK, _node->getId());
-    else
-        notify(SUBJECT_CLICK, _node->getId());
-    _lastClickTime = clock();
-}
-
-Component* GraphicNode::getComponent()
-{
-    return _node;
 }
 
 GraphicNode::~GraphicNode()

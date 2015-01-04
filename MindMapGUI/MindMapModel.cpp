@@ -1,5 +1,7 @@
 #include "MindMapModel.h"
 #include "ComponentFactory.h"
+#include "GUIDisplayVisitor.h"
+//#include "ComponentCompare.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -8,13 +10,11 @@
 MindMapModel::MindMapModel()
 {
     _root = NULL;
-    this->_subjectName = "MindMapModel";
 }
 
 void MindMapModel::createMinMap(string description)
 {
     _root = ComponentFactory::getInstance()->createComponent(ROOT, description);
-    notify(SUBJECT_NEW, "");
 }
 
 Component* MindMapModel::getRootNode()
@@ -25,8 +25,6 @@ Component* MindMapModel::getRootNode()
 void MindMapModel::insertParentNode(Component* choseNode, Component* newNode)
 {
     choseNode->addParent(newNode);
-    if (newNode != NULL)
-        notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void MindMapModel::revertInsertParentNode(Component* choseNode, Component* newNode, Component* oldParentNode, Component* backFromNode)
@@ -34,21 +32,16 @@ void MindMapModel::revertInsertParentNode(Component* choseNode, Component* newNo
     newNode->removeChild(choseNode);
     oldParentNode->removeChild(newNode);
     oldParentNode->addChild(choseNode, backFromNode);
-    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void MindMapModel::insertChildNode(Component* choseNode, Component* newNode)
 {
     choseNode->addChild(newNode);
-    if (newNode != NULL)
-        notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void MindMapModel::insertSiblingNode(Component* choseNode, Component* newNode)
 {
     choseNode->addSibling(newNode);
-    if (newNode != NULL)
-        notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 Component* MindMapModel::findNode(string id)
@@ -105,7 +98,7 @@ void MindMapModel::saveMindMap(ofstream* file)
         return;
     }
     navigateMindMap(_root, &nodeList);
-    std::sort(nodeList.begin(), nodeList.end(), CompareComponent());
+    //std::sort(nodeList.begin(), nodeList.end(), CompareComponent());
     int newId = 0;
     Component* node;
     for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
@@ -153,13 +146,11 @@ void MindMapModel::loadMindMap(ifstream* file)
         iNodeIds++;
     }
     _root = componentList[0];
-    notify(SUBJECT_NEW, "");
 }
 
 void MindMapModel::editNodeDescription(Component* choseNode, string description)
 {
     choseNode->setDescription(description);
-    notify(SUBJECT_PRESENT_CHANGE, "");
 }
 
 void MindMapModel::changeNodeParent(Component* choseNode, Component* newParentNode)
@@ -205,7 +196,6 @@ void MindMapModel::deleteNode(Component* choseNode)
         parentNode->addChild(*iNode, backFromNode);
     }
     parentNode->removeChild(choseNode);
-    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void MindMapModel::revertDeleteNode(Component* choseNode, Component* backFromNode)
@@ -218,7 +208,6 @@ void MindMapModel::revertDeleteNode(Component* choseNode, Component* backFromNod
         (*iNode)->setParent(choseNode);
     }
     parentNode->addChild(choseNode, backFromNode);
-    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void MindMapModel::cutNode(Component* selectedNode)
@@ -226,7 +215,6 @@ void MindMapModel::cutNode(Component* selectedNode)
     if (selectedNode != NULL)
     {
         selectedNode->getParent()->removeChild(selectedNode);
-        notify(SUBJECT_MODEL_CHANGE, "");
     }
 }
 
@@ -235,8 +223,13 @@ void MindMapModel::pasteNode(Component* selectedNode, Component* cloneNode)
     if (cloneNode != NULL && selectedNode != NULL)
     {
         selectedNode->addChild(cloneNode);
-        notify(SUBJECT_MODEL_CHANGE, "");
     }
+}
+
+void MindMapModel::rebuildPosition()
+{
+    GUIDisplayVisitor guiDisplayVisitor;
+
 }
 
 MindMapModel::~MindMapModel()

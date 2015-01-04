@@ -8,8 +8,10 @@ using namespace std;
 class GUIPresentModel : public Subject
 {
     private:
+        typedef void(MindMapModel::*InsertMethod)(Component*, Component*);
+
         PresentModel* _presentModel;
-        //INotifyGraphics* _notify;
+        MindMapModel* _model;
 
         // Variable
         clock_t _lastClickTime;
@@ -20,10 +22,12 @@ class GUIPresentModel : public Subject
 
         // Method
         bool isValidClick();
+        bool isValidText(bool isSubmit, string text);
+        bool confirmInsertNodeLegal(InsertMethod insertMethod);
         void cancelSelected();
 
     public:
-        GUIPresentModel(PresentModel* presentModel);
+        GUIPresentModel(PresentModel* presentModel, MindMapModel* model);
         ~GUIPresentModel();
 
         // Action
@@ -59,6 +63,7 @@ class GUIPresentModel : public Subject
         bool isRedoEnable();
 
         // Method
+        void rebuildPosition();
         Component* getSelectedNode();
         Component* getRoot();
         bool isCreatedMindMap();

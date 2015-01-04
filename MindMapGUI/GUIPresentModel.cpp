@@ -3,15 +3,14 @@
 #include <iostream>
 
 #define MIN_DELTA_CLICK_TIME 20
-#define ERROR_DESCRIPTION_EMPTY "Description is Empty!!!"
 
-GUIPresentModel::GUIPresentModel(PresentModel* presentModel)
+GUIPresentModel::GUIPresentModel(PresentModel* presentModel, MindMapModel* model)
 {
-    this->_subjectName = "GUIPresentModel";
-    _prepareCloneNode = NULL;
-    _selectedNode = NULL;
-    _lastClickTime = -1000;
-    _presentModel = presentModel;
+    this->_prepareCloneNode = NULL;
+    this->_selectedNode = NULL;
+    this->_lastClickTime = -1000;
+    this->_presentModel = presentModel;
+    this->_model = model;
 }
 
 bool GUIPresentModel::isValidClick()
@@ -26,6 +25,13 @@ bool GUIPresentModel::isValidClick()
         _lastClickTime = clock();
         return true;
     }
+}
+
+bool GUIPresentModel::isValidText(bool isSubmit, string text)
+{
+    if (isSubmit && text.empty())
+        this->notify("Text cannot be empty!!!");
+    return isSubmit &&  !text.empty();
 }
 
 void GUIPresentModel::cancelSelected()
@@ -50,92 +56,57 @@ void GUIPresentModel::clickGraphicNode(string id)
 
 void GUIPresentModel::editDescription(string text, bool isValid)
 {
-    if (isValid && _selectedNode != NULL)
+    if (this->isValidText(isValid, text) && _selectedNode != NULL)
     {
-        if (!text.empty())
-        {
-            _presentModel->editNodeDescription(_selectedNode, text);
-        }
-        else
-        {
-            notify(SUBJECT_ERROR, ERROR_DESCRIPTION_EMPTY);
-        }
+        this->_presentModel->editNodeDescription(_selectedNode, text);
     }
 }
 
 void GUIPresentModel::loadMindMap(string path)
 {
-    if (!path.empty())
+    if (this->isValidText(true, path))
     {
-        _presentModel->loadMindMap(path);
+        this->_presentModel->loadMindMap(path);
     }
 }
 
 void GUIPresentModel::saveMindMap(string path)
 {
-    if (!path.empty())
+    if (this->isValidText(true, path))
     {
-        _presentModel->saveMindMap(path);
+        this->_presentModel->saveMindMap(path);
     }
 }
 
 void GUIPresentModel::createMindMap(string text, bool isValid)
 {
-    if (isValid)
+    if (this->isValidText(isValid, text))
     {
-        if (!text.empty())
-        {
-            _presentModel->createMindMap(text);
-        }
-        else
-        {
-            notify(SUBJECT_ERROR, ERROR_DESCRIPTION_EMPTY);
-        }
+        this->_presentModel->createMindMap(text);
     }
 }
 
 void GUIPresentModel::insertParentNode(string text, bool isValid)
 {
-    if (isValid)
+    if (this->isValidText(isValid, text))
     {
-        if (!text.empty())
-        {
-            _presentModel->insertParentNode(_selectedNode, text);
-        }
-        else
-        {
-            notify(SUBJECT_ERROR, ERROR_DESCRIPTION_EMPTY);
-        }
+        this->_presentModel->insertParentNode(_selectedNode, text);
     }
 }
 
 void GUIPresentModel::insertChildNode(string text, bool isValid)
 {
-    if (isValid)
+    if (this->isValidText(isValid, text))
     {
-        if (!text.empty())
-        {
-            _presentModel->insertChildNode(_selectedNode, text);
-        }
-        else
-        {
-            notify(SUBJECT_ERROR, ERROR_DESCRIPTION_EMPTY);
-        }
+        this->_presentModel->insertChildNode(_selectedNode, text);
     }
 }
 
 void GUIPresentModel::insertSiblingNode(string text, bool isValid)
 {
-    if (isValid)
+    if (this->isValidText(isValid, text))
     {
-        if (!text.empty())
-        {
-            _presentModel->insertSiblingNode(_selectedNode, text);
-        }
-        else
-        {
-            notify(SUBJECT_ERROR, ERROR_DESCRIPTION_EMPTY);
-        }
+        this->_presentModel->insertSiblingNode(_selectedNode, text);
     }
 }
 
@@ -159,59 +130,42 @@ bool GUIPresentModel::isEditNodeEnable()
     return isSelected();
 }
 
-bool GUIPresentModel::isInsertParentNodeEnable()
+bool GUIPresentModel::confirmInsertNodeLegal(InsertMethod insertMethod)
 {
     if (isSelected())
     {
         try
         {
-            _presentModel->confirmInsertNodeLegal(_selectedNode, &MindMapModel::insertParentNode);
+            _presentModel->confirmInsertNodeLegal(_selectedNode, insertMethod);
             return true;
         }
         catch (string error)
         {
+            notify(error);
         }
     }
     return false;
+}
+
+bool GUIPresentModel::isInsertParentNodeEnable()
+{
+    return this->confirmInsertNodeLegal(&MindMapModel::insertParentNode);
 }
 
 bool GUIPresentModel::isInsertChildNodeEnable()
 {
-    if (isSelected())
-    {
-        try
-        {
-            _presentModel->confirmInsertNodeLegal(_selectedNode, &MindMapModel::insertChildNode);
-            return true;
-        }
-        catch (string error)
-        {
-        }
-    }
-    return false;
+    return this->confirmInsertNodeLegal(&MindMapModel::insertChildNode);
 }
 
 bool GUIPresentModel::isInsertSiblingNodeEnable()
 {
-    if (isSelected())
-    {
-        try
-        {
-            _presentModel->confirmInsertNodeLegal(_selectedNode, &MindMapModel::insertSiblingNode);
-            return true;
-        }
-        catch (string error)
-        {
-        }
-    }
-    return false;
+    return this->confirmInsertNodeLegal(&MindMapModel::insertSiblingNode);
 }
 
 void GUIPresentModel::deleteNode()
 {
     _presentModel->deleteNode(_selectedNode);
     this->cancelSelected();
-    notify(SUBJECT_PRESENT_CHANGE, "");
 }
 
 void GUIPresentModel::cutNode()
@@ -219,13 +173,11 @@ void GUIPresentModel::cutNode()
     _presentModel->cutNode(_selectedNode);
     _prepareCloneNode = _selectedNode;
     this->cancelSelected();
-    notify(SUBJECT_PRESENT_CHANGE, "");
 }
 
 void GUIPresentModel::copyNode()
 {
     _prepareCloneNode = _selectedNode->clone();
-    notify(SUBJECT_PRESENT_CHANGE, "");
 }
 
 void GUIPresentModel::pasteNode()
@@ -272,14 +224,12 @@ void GUIPresentModel::undo()
 {
     this->cancelSelected();
     _presentModel->undo();
-    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 void GUIPresentModel::redo()
 {
     this->cancelSelected();
     _presentModel->redo();
-    notify(SUBJECT_MODEL_CHANGE, "");
 }
 
 bool GUIPresentModel::isUndoEnable()
@@ -290,6 +240,11 @@ bool GUIPresentModel::isUndoEnable()
 bool GUIPresentModel::isRedoEnable()
 {
     return _presentModel->canRedo();
+}
+
+void GUIPresentModel::rebuildPosition()
+{
+    return _model->rebuildPosition();
 }
 
 GUIPresentModel::~GUIPresentModel()

@@ -53,6 +53,18 @@ Component* Root::getBackFromNode()
     return this;
 }
 
+void Root::accept(NodeVisitor* visitor)
+{
+    NodeList* nodeList = this->getNodeList();
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        (*iNode)->setLevel(2);
+        (*iNode)->accept(visitor);
+    }
+    this->setLevel(1);
+    visitor->visit(this);
+}
+
 Root::~Root()
 {
 }

@@ -4,216 +4,188 @@
 #include <QTextCodec>
 #define FILTER "MindMap Files (*.mm)"
 
-MindMapGUI::MindMapGUI(PresentModel* presentModel) : QMainWindow()
+MindMapGUI::MindMapGUI(GUIPresentModel* presentModel) : QMainWindow()
 {
-    this->_name = "MindMapGUI";
-    _scene = NULL;
-    _view = NULL;
-    _graphicList = new list<GraphicNode*>();
+    this->_scene = NULL;
+    this->_view = NULL;
+    this->_graphicList = new list<GraphicNode*>();
 
-    _presentModel = new GUIPresentModel(presentModel);
-    _presentModel->attach(this);
+    this->_presentModel = presentModel;
+    this->_presentModel->attach(this);
 
     if (this->objectName().isEmpty())
         this->setObjectName(QStringLiteral("MindMapGUIClass"));
-    this->resize(800, 600);
+    this->resize(1024, 768);
 
-    setupActions();
-    setupMenus();
-    setupToolBar();
-    bindingActions();
-    setupScene();
+    this->setupActions();
+    this->setupMenus();
+    this->setupToolBar();
+    this->bindingActions();
+    this->setupScene();
 }
 
 void MindMapGUI::setupMenus()
 {
-    _menuBar = new QMenuBar(this);
-    _menuBar->setObjectName(QStringLiteral("menuBar"));
-    _menuBar->setGeometry(QRect(0, 0, 600, 22));
-    this->setMenuBar(_menuBar);
+    this->_menuBar = new QMenuBar(this);
+    this->_menuBar->setObjectName(QStringLiteral("menuBar"));
+    this->_menuBar->setGeometry(QRect(0, 0, 600, 22));
+    this->setMenuBar(this->_menuBar);
     this->setWindowTitle(QApplication::translate("this", "MindMapGUI", 0));
 
-    _menuFile = new QMenu(QStringLiteral("File"), _menuBar);
-    _menuFile->addAction(_actionNew);
-    _menuFile->addAction(_actionSave);
-    _menuFile->addAction(_actionLoad);
-    _menuFile->addAction(_actionExit);
+    this->_menuFile = new QMenu(QStringLiteral("File"), this->_menuBar);
+    this->_menuFile->addAction(this->_actionNew);
+    this->_menuFile->addAction(this->_actionSave);
+    this->_menuFile->addAction(this->_actionLoad);
+    this->_menuFile->addAction(this->_actionExit);
 
-    _menuEdit = new QMenu(QStringLiteral("Edit"), _menuBar);
-    _menuEdit->addAction(_actionUndo);
-    _menuEdit->addAction(_actionRedo);
-    _menuEdit->addSeparator();
-    _menuEdit->addAction(_actionCut);
-    _menuEdit->addAction(_actionCopy);
-    _menuEdit->addAction(_actionPaste);
-    _menuEdit->addSeparator();
-    _menuEdit->addAction(_actionEdit);
-    _menuEdit->addAction(_actionDelete);
-    _menuEdit->addAction(_actionInsertChild);
-    _menuEdit->addAction(_actionInsertSibling);
-    _menuEdit->addAction(_actionInsertParent);
+    this->_menuEdit = new QMenu(QStringLiteral("Edit"), this->_menuBar);
+    this->_menuEdit->addAction(this->_actionUndo);
+    this->_menuEdit->addAction(this->_actionRedo);
+    this->_menuEdit->addSeparator();
+    this->_menuEdit->addAction(this->_actionCut);
+    this->_menuEdit->addAction(this->_actionCopy);
+    this->_menuEdit->addAction(this->_actionPaste);
+    this->_menuEdit->addSeparator();
+    this->_menuEdit->addAction(this->_actionEdit);
+    this->_menuEdit->addAction(this->_actionDelete);
+    this->_menuEdit->addAction(this->_actionInsertChild);
+    this->_menuEdit->addAction(this->_actionInsertSibling);
+    this->_menuEdit->addAction(this->_actionInsertParent);
 
-    _menuHelp = new QMenu(QStringLiteral("Help"), _menuBar);
-    _menuHelp->addAction(_actionAbout);
+    this->_menuHelp = new QMenu(QStringLiteral("Help"), this->_menuBar);
+    this->_menuHelp->addAction(this->_actionAbout);
 
-    _menuBar->addAction(_menuFile->menuAction());
-    _menuBar->addAction(_menuEdit->menuAction());
-    _menuBar->addAction(_menuHelp->menuAction());
+    this->_menuBar->addAction(this->_menuFile->menuAction());
+    this->_menuBar->addAction(this->_menuEdit->menuAction());
+    this->_menuBar->addAction(this->_menuHelp->menuAction());
 }
 
 void MindMapGUI::setupActions()
 {
     // File
-    _actionNew = new QAction(QIcon("resource/new_icon.png"), QStringLiteral("New"), this);
-    _actionSave = new QAction(QIcon("resource/save_icon.png"), QStringLiteral("Save"), this);
-    _actionLoad = new QAction(QIcon("resource/open_icon.png"), QStringLiteral("Load"), this);
-    _actionExit = new QAction(QIcon("resource/exit_icon.png"), QStringLiteral("Exit"), this);
+    this->_actionNew = new QAction(QIcon("resource/new_icon.png"), QStringLiteral("New"), this);
+    this->_actionSave = new QAction(QIcon("resource/save_icon.png"), QStringLiteral("Save"), this);
+    this->_actionLoad = new QAction(QIcon("resource/open_icon.png"), QStringLiteral("Load"), this);
+    this->_actionExit = new QAction(QIcon("resource/exit_icon.png"), QStringLiteral("Exit"), this);
 
     // Edit
-    _actionEdit = new QAction(QIcon("resource/edit_icon.png"), QStringLiteral("Edit"), this);
-    _actionDelete = new QAction(QIcon("resource/delete_icon.png"), QStringLiteral("Delete"), this);
-    _actionInsertChild = new QAction(QIcon("resource/insert_child_icon.png"), QStringLiteral("Insert a child"), this);
-    _actionInsertSibling = new QAction(QIcon("resource/insert_sibling_icon.png"), QStringLiteral("Insert a sibling"), this);
-    _actionInsertParent = new QAction(QIcon("resource/insert_parent_icon.png"), QStringLiteral("Insert a parent"), this);
-    _actionCut = new QAction(QIcon("resource/cut.png"), QStringLiteral("Cut"), this);
-    _actionCopy = new QAction(QIcon("resource/copy.png"), QStringLiteral("Copy"), this);
-    _actionPaste = new QAction(QIcon("resource/paste.png"), QStringLiteral("Paste"), this);
-    _actionRedo = new QAction(QIcon("resource/redo.png"), QStringLiteral("Redo"), this);
-    _actionUndo = new QAction(QIcon("resource/undo.png"), QStringLiteral("Undo"), this);
+    this->_actionEdit = new QAction(QIcon("resource/edit_icon.png"), QStringLiteral("Edit"), this);
+    this->_actionDelete = new QAction(QIcon("resource/delete_icon.png"), QStringLiteral("Delete"), this);
+    this->_actionInsertChild = new QAction(QIcon("resource/insert_child_icon.png"), QStringLiteral("Insert a child"), this);
+    this->_actionInsertSibling = new QAction(QIcon("resource/insert_sibling_icon.png"), QStringLiteral("Insert a sibling"), this);
+    this->_actionInsertParent = new QAction(QIcon("resource/insert_parent_icon.png"), QStringLiteral("Insert a parent"), this);
+    this->_actionCut = new QAction(QIcon("resource/cut.png"), QStringLiteral("Cut"), this);
+    this->_actionCopy = new QAction(QIcon("resource/copy.png"), QStringLiteral("Copy"), this);
+    this->_actionPaste = new QAction(QIcon("resource/paste.png"), QStringLiteral("Paste"), this);
+    this->_actionRedo = new QAction(QIcon("resource/redo.png"), QStringLiteral("Redo"), this);
+    this->_actionUndo = new QAction(QIcon("resource/undo.png"), QStringLiteral("Undo"), this);
 
     // Help
-    _actionAbout = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("Abort"), this);
+    this->_actionAbout = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("Abort"), this);
 }
 
 void MindMapGUI::setupToolBar()
 {
-    _mainToolBar = new QToolBar(this);
-    _mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
-    this->addToolBar(Qt::TopToolBarArea, _mainToolBar);
+    this->_mainToolBar = new QToolBar(this);
+    this->_mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
+    this->addToolBar(Qt::TopToolBarArea, this->_mainToolBar);
 
-    _mainToolBar->addAction(_actionNew);
-    _mainToolBar->addAction(_actionLoad);
-    _mainToolBar->addAction(_actionSave);
-    _mainToolBar->addSeparator();
-    _mainToolBar->addAction(_actionUndo);
-    _mainToolBar->addAction(_actionRedo);
-    _mainToolBar->addSeparator();
-    _mainToolBar->addAction(_actionCut);
-    _mainToolBar->addAction(_actionCopy);
-    _mainToolBar->addAction(_actionPaste);
-    _mainToolBar->addSeparator();
-    _mainToolBar->addAction(_actionEdit);
-    _mainToolBar->addAction(_actionDelete);
-    _mainToolBar->addAction(_actionInsertChild);
-    _mainToolBar->addAction(_actionInsertSibling);
-    _mainToolBar->addAction(_actionInsertParent);
-    _mainToolBar->addSeparator();
+    this->_mainToolBar->addAction(this->_actionNew);
+    this->_mainToolBar->addAction(this->_actionLoad);
+    this->_mainToolBar->addAction(this->_actionSave);
+    this->_mainToolBar->addSeparator();
+    this->_mainToolBar->addAction(this->_actionUndo);
+    this->_mainToolBar->addAction(this->_actionRedo);
+    this->_mainToolBar->addSeparator();
+    this->_mainToolBar->addAction(this->_actionCut);
+    this->_mainToolBar->addAction(this->_actionCopy);
+    this->_mainToolBar->addAction(this->_actionPaste);
+    this->_mainToolBar->addSeparator();
+    this->_mainToolBar->addAction(this->_actionEdit);
+    this->_mainToolBar->addAction(this->_actionDelete);
+    this->_mainToolBar->addAction(this->_actionInsertChild);
+    this->_mainToolBar->addAction(this->_actionInsertSibling);
+    this->_mainToolBar->addAction(this->_actionInsertParent);
+    this->_mainToolBar->addSeparator();
 }
 
 void MindMapGUI::bindingActions()
 {
     // File
-    connect(_actionNew, &QAction::triggered, this, &MindMapGUI::createMindMap);
-    connect(_actionLoad, &QAction::triggered, this, &MindMapGUI::loadMindMap);
-    connect(_actionSave, &QAction::triggered, this, &MindMapGUI::saveMindMap);
-    connect(_actionExit, &QAction::triggered, this, &MindMapGUI::exit);
+    connect(this->_actionNew, &QAction::triggered, this, &MindMapGUI::createMindMap);
+    connect(this->_actionLoad, &QAction::triggered, this, &MindMapGUI::loadMindMap);
+    connect(this->_actionSave, &QAction::triggered, this, &MindMapGUI::saveMindMap);
+    connect(this->_actionExit, &QAction::triggered, this, &MindMapGUI::exit);
 
     // Edit
-    connect(_actionEdit, &QAction::triggered, this, &MindMapGUI::editNodeDescription);
-    connect(_actionDelete, &QAction::triggered, this, &MindMapGUI::deleteNode);
-    connect(_actionInsertChild, &QAction::triggered, this, &MindMapGUI::insertChildNode);
-    connect(_actionInsertParent, &QAction::triggered, this, &MindMapGUI::insertParentNode);
-    connect(_actionInsertSibling, &QAction::triggered, this, &MindMapGUI::insertSiblingNode);
-    connect(_actionCut, &QAction::triggered, this, &MindMapGUI::cut);
-    connect(_actionCopy, &QAction::triggered, this, &MindMapGUI::copy);
-    connect(_actionPaste, &QAction::triggered, this, &MindMapGUI::paste);
-    connect(_actionUndo, &QAction::triggered, this, &MindMapGUI::undo);
-    connect(_actionRedo, &QAction::triggered, this, &MindMapGUI::redo);
+    connect(this->_actionEdit, &QAction::triggered, this, &MindMapGUI::editNodeDescription);
+    connect(this->_actionDelete, &QAction::triggered, this, &MindMapGUI::deleteNode);
+    connect(this->_actionInsertChild, &QAction::triggered, this, &MindMapGUI::insertChildNode);
+    connect(this->_actionInsertParent, &QAction::triggered, this, &MindMapGUI::insertParentNode);
+    connect(this->_actionInsertSibling, &QAction::triggered, this, &MindMapGUI::insertSiblingNode);
+    connect(this->_actionCut, &QAction::triggered, this, &MindMapGUI::cut);
+    connect(this->_actionCopy, &QAction::triggered, this, &MindMapGUI::copy);
+    connect(this->_actionPaste, &QAction::triggered, this, &MindMapGUI::paste);
+    connect(this->_actionUndo, &QAction::triggered, this, &MindMapGUI::undo);
+    connect(this->_actionRedo, &QAction::triggered, this, &MindMapGUI::redo);
 
     // Help
-    connect(_actionAbout, &QAction::triggered, this, &MindMapGUI::showAbout);
+    connect(this->_actionAbout, &QAction::triggered, this, &MindMapGUI::showAbout);
 }
 
-void MindMapGUI::update(int subject, string info)
+void MindMapGUI::update(string subject)
 {
-    //cout << "MindMapGUI update " << subject << endl;
-    switch (subject)
+    cout << "MindMapGUI update " << subject <<  endl;
+    if (subject == MODEL_CHANGE)
     {
-        case SUBJECT_ERROR:
-            notifyError(info);
-            break;
-        case SUBJECT_CLICK:
-            this->clickGraphicNode(info);
-            this->updateActions();
-            _scene->update();
-            break;
-        case SUBJECT_DB_CLICK:
-            this->editNodeDescription();
-            break;
-        case SUBJECT_MODEL_CHANGE:
-            this->updateActions();
-            this->updateGraphics();
-            break;
-        case SUBJECT_NEW:
-            setupScene();
-            updateActions();
-            updateGraphics();
-            break;
-        case SUBJECT_PRESENT_CHANGE:
-            this->updateActions();
-            _scene->update();
-            break;
+    }
+    else if (subject == SELECTED_CHANGE)
+    {
+    }
+    else
+    {
+        this->notifyError(subject);
     }
 }
 
 void MindMapGUI::setupScene()
 {
-    if (_scene != NULL)
-        delete _scene;
-    if (_view != NULL)
-        delete _view;
-    _scene = new MindMapScene();
-    _scene->attach(this);
-    _view = new QGraphicsView(_scene);
-    this->setCentralWidget(_view);
-}
-
-void MindMapGUI::clickGraphicNode(string id)
-{
-    _presentModel->clickGraphicNode(id);
-}
-
-void MindMapGUI::doubleClickGraphicNode(string id)
-{
-    editNodeDescription();
+    if (this->_scene != NULL)
+        delete this->_scene;
+    if (this->_view != NULL)
+        delete this->_view;
+    this->_scene = new MindMapScene();
+    this->_view = new QGraphicsView(this->_scene);
+    this->setCentralWidget(this->_view);
 }
 
 void MindMapGUI::updateActions()
 {
     // File
-    _actionSave->setEnabled(_presentModel->isSaveEnable());
+    this->_actionSave->setEnabled(this->_presentModel->isSaveEnable());
 
     // Edit
-    _actionEdit->setEnabled(_presentModel->isEditNodeEnable());
-    _actionDelete->setEnabled(_presentModel->isDeleteNodeEnable());
-    _actionInsertChild->setEnabled(_presentModel->isInsertChildNodeEnable());
-    _actionInsertSibling->setEnabled(_presentModel->isInsertSiblingNodeEnable());
-    _actionInsertParent->setEnabled(_presentModel->isInsertParentNodeEnable());
-    _actionCut->setEnabled(_presentModel->isCutNodeEnable());
-    _actionCopy->setEnabled(_presentModel->isCopyNodeEnable());
-    _actionPaste->setEnabled(_presentModel->isPasteNodeEnable());
-    _actionUndo->setEnabled(_presentModel->isUndoEnable());
-    _actionRedo->setEnabled(_presentModel->isRedoEnable());
+    this->_actionEdit->setEnabled(this->_presentModel->isEditNodeEnable());
+    this->_actionDelete->setEnabled(this->_presentModel->isDeleteNodeEnable());
+    this->_actionInsertChild->setEnabled(this->_presentModel->isInsertChildNodeEnable());
+    this->_actionInsertSibling->setEnabled(this->_presentModel->isInsertSiblingNodeEnable());
+    this->_actionInsertParent->setEnabled(this->_presentModel->isInsertParentNodeEnable());
+    this->_actionCut->setEnabled(this->_presentModel->isCutNodeEnable());
+    this->_actionCopy->setEnabled(this->_presentModel->isCopyNodeEnable());
+    this->_actionPaste->setEnabled(this->_presentModel->isPasteNodeEnable());
+    this->_actionUndo->setEnabled(this->_presentModel->isUndoEnable());
+    this->_actionRedo->setEnabled(this->_presentModel->isRedoEnable());
 }
 
 void MindMapGUI::updateGraphics()
 {
-    _scene->clear();
-    rebuildGraphics();
-    for (list<GraphicNode*>::iterator iGraphic = _graphicList->begin(); iGraphic != _graphicList->end(); iGraphic++)
+    this->_scene->clear();
+    this->_graphicList->clear();
+    this->rebuildGraphics(this->_presentModel->getRoot());
+    this->_presentModel->rebuildPosition();
+    for (list<GraphicNode*>::iterator iGraphic = this->_graphicList->begin(); iGraphic != this->_graphicList->end(); iGraphic++)
     {
-        _scene->addItem(*iGraphic);
-        _scene->addLine((*iGraphic)->getConnectLine());
+        this->_scene->addItem(*iGraphic);
     }
 }
 
@@ -230,7 +202,7 @@ void MindMapGUI::createMindMap()
     QString title = tr("Create Dialog");
     QString label = tr("Please input your description");
     QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, "", &ok);
-    _presentModel->createMindMap(text.toStdString(), ok);
+    this->_presentModel->createMindMap(text.toStdString(), ok);
 }
 
 void MindMapGUI::insertParentNode()
@@ -239,7 +211,7 @@ void MindMapGUI::insertParentNode()
     QString title = tr("Insert Parent Dialog");
     QString label = tr("Please input your description");
     QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, "", &ok);
-    _presentModel->insertParentNode(text.toStdString(), ok);
+    this->_presentModel->insertParentNode(text.toStdString(), ok);
 }
 
 void MindMapGUI::insertSiblingNode()
@@ -248,7 +220,7 @@ void MindMapGUI::insertSiblingNode()
     QString title = tr("Insert Sibling Dialog");
     QString label = tr("Please input your description");
     QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, "", &ok);
-    _presentModel->insertSiblingNode(text.toStdString(), ok);
+    this->_presentModel->insertSiblingNode(text.toStdString(), ok);
 }
 
 void MindMapGUI::insertChildNode()
@@ -257,7 +229,7 @@ void MindMapGUI::insertChildNode()
     QString title = tr("Insert Child Dialog");
     QString label = tr("Please input your description");
     QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, "", &ok);
-    _presentModel->insertChildNode(text.toStdString(), ok);
+    this->_presentModel->insertChildNode(text.toStdString(), ok);
 }
 
 void MindMapGUI::editNodeDescription()
@@ -268,7 +240,7 @@ void MindMapGUI::editNodeDescription()
     QString label = tr("Please input your description");
     QString description = QString::fromStdString(node->getDescription());
     QString text = QInputDialog::getText(this, title, label, QLineEdit::Normal, description, &ok);
-    _presentModel->editDescription(text.toStdString(), ok);
+    this->_presentModel->editDescription(text.toStdString(), ok);
 }
 
 void MindMapGUI::loadMindMap()
@@ -276,7 +248,7 @@ void MindMapGUI::loadMindMap()
     QString title = tr("Load MindMap");
     QString filter = tr(FILTER);
     QString fileName = QFileDialog::getOpenFileName(this, title, "", filter);
-    _presentModel->loadMindMap(fileName.toStdString());
+    this->_presentModel->loadMindMap(fileName.toStdString());
 }
 
 void MindMapGUI::saveMindMap()
@@ -284,12 +256,12 @@ void MindMapGUI::saveMindMap()
     QString title = tr("Save MindMap");
     QString filter = tr(FILTER);
     QString fileName = QFileDialog::getSaveFileName(this, title, "", filter);
-    _presentModel->saveMindMap(fileName.toStdString());
+    this->_presentModel->saveMindMap(fileName.toStdString());
 }
 
 void MindMapGUI::deleteNode()
 {
-    _presentModel->deleteNode();
+    this->_presentModel->deleteNode();
 }
 
 void MindMapGUI::showAbout()
@@ -312,17 +284,17 @@ void MindMapGUI::show()
 
 void MindMapGUI::cut()
 {
-    _presentModel->cutNode();
+    this->_presentModel->cutNode();
 }
 
 void MindMapGUI::copy()
 {
-    _presentModel->copyNode();
+    this->_presentModel->copyNode();
 }
 
 void MindMapGUI::paste()
 {
-    _presentModel->pasteNode();
+    this->_presentModel->pasteNode();
 }
 
 void MindMapGUI::exit()
@@ -330,54 +302,31 @@ void MindMapGUI::exit()
     this->close();
 }
 
-int MindMapGUI::rebuildChildGraphics(GraphicNode* parent, Component* node, int nowX, int& nowY)
+void MindMapGUI::rebuildGraphics(Component* node)
 {
-    GraphicNode* graphicNode = new GraphicNode(node, parent);
-    graphicNode->attach(this);
-    NodeList* nodeList = node->getNodeList();
-    int newY = 0;
-    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    if (node != NULL)
     {
-        int temp = rebuildChildGraphics(graphicNode, *iNode, nowX + BOUNDING_WIDTH, nowY);
-        if (iNode == nodeList->begin() || iNode == nodeList->end() - 1)
+        this->_graphicList->push_back(new GraphicNode(this, this->_presentModel, node));
+        NodeList* nodeList = node->getNodeList();
+        for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
         {
-            newY += temp / (nodeList->size() == 1 ? 1 : 2);
+            rebuildGraphics(*iNode);
         }
-    }
-    if (nodeList->size() == 0)
-    {
-        newY = nowY;
-        nowY += BOUNDING_HEIGHT;
-    }
-    graphicNode->setPosition(nowX, newY);
-    _graphicList->push_back(graphicNode);
-    return newY;
-}
-
-void MindMapGUI::rebuildGraphics()
-{
-    _graphicList->clear();
-    Component* root = _presentModel->getRoot();
-    if (root != NULL)
-    {
-        int nowY = 0;
-        rebuildChildGraphics(NULL, root, 0, nowY);
     }
 }
 
 void MindMapGUI::undo()
 {
-    _presentModel->undo();
+    this->_presentModel->undo();
 }
 
 void MindMapGUI::redo()
 {
-    _presentModel->redo();
+    this->_presentModel->redo();
 }
 
 MindMapGUI::~MindMapGUI()
 {
-    delete _presentModel;
-    _scene->clear();
-    delete _scene;
+    this->_scene->clear();
+    delete this->_scene;
 }

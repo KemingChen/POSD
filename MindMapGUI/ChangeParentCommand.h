@@ -1,14 +1,13 @@
 #pragma once
 #include "Command.h"
+#include "Component.h"
 #include "MindMapModel.h"
 
 class ChangeParentCommand : public Command
 {
-        friend class ChangeParentCommandTest;
-        FRIEND_TEST(ChangeParentCommandTest, newParentIsUnderNode);
-        FRIEND_TEST(ChangeParentCommandTest, newParentNotUnderNode);
-
     private:
+        typedef std::vector<Component*> NodeList;
+
         Component* _node;
         Component* _newParentNode;
         Component* _oldParentNode;

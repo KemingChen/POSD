@@ -1,15 +1,13 @@
 #pragma once
 #include "stdafx.h"
 #include "Subject.h"
+#include "Component.h"
 #include <map>
 #include <fstream>
 using namespace std;
 
 class MindMapModel : public Subject
 {
-        friend class MindMapModelTest;
-        friend class IntegrationTest;
-
     private:
         // Private Variable
         Component* _root;
@@ -35,6 +33,7 @@ class MindMapModel : public Subject
         void insertSiblingNode(Component* choseNode, Component* newNode);
         void cutNode(Component* selectedNode);
         void pasteNode(Component* selectedNode, Component* cloneNode);
+        void MindMapModel::rebuildPosition();
         Component* getRootNode();
         Component* findNode(Component* fromNode, string id);
         Component* findNode(string id);

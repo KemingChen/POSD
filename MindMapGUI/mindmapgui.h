@@ -1,7 +1,6 @@
 #ifndef MINDMAPGUI_H
 #define MINDMAPGUI_H
 #include <list>
-#include "PresentModel.h"
 #include <QtWidgets/QMainWindow>
 #include <QtCore/QVariant>
 #include <QtWidgets/QAction>
@@ -64,21 +63,18 @@ class MindMapGUI : public Observer, public QMainWindow
         void setupScene();
 
         // Method
-        void rebuildGraphics();
-        int rebuildChildGraphics(GraphicNode* parent, Component* node, int nowX, int& nowY);
+        void rebuildGraphics(Component* node);
 
         // Event
-        void clickGraphicNode(string id);
-        void doubleClickGraphicNode(string id);
         void updateActions();
         void updateGraphics();
         void notifyError(string description);
 
     protected:
-        void update(int subject, string info);
+        void update(string subject);
 
     public:
-        MindMapGUI(PresentModel* presentModel);
+        MindMapGUI(GUIPresentModel* presentModel);
         void show();
         ~MindMapGUI();
 

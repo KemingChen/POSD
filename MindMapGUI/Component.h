@@ -1,6 +1,8 @@
 #pragma once
 using namespace std;
 #include <vector>
+#include "stdafx.h"
+#include "NodeVisitor.h"
 #define ROOT 0
 #define NODE 1
 
@@ -10,23 +12,38 @@ class Component
         string _id;
         string _description;
         bool _isSelected;
+        int _level;
+        int _x;
+        int _y;
         int _width;
         int _height;
 
     public:
-        typedef vector<Component*> NodeList;
-
         // Public Method
         Component(int id, string description);
         string getId();
         void setId(int id);
+
         string getDescription();
         void setDescription(string description);
+
         string toString();
+
         bool getIsSelected();
         void setIsSelected(bool value);
+
+        int getLevel();
+        void setLevel(int level);
+
+        int getX();
+        int getY();
+        void setPosition(int x, int y);
+
         int getWidth();
         int getHeight();
+        void setRectSize(int width, int height);
+
+        // Virtual Method
         virtual Component* getBackFromNode() = 0;
         virtual string getTypeName() = 0;
         virtual Component* clone() = 0;
@@ -40,5 +57,6 @@ class Component
         virtual void addSibling(Component* node) = 0;
         virtual bool isSelfAreParentLastNode() = 0;
         virtual NodeList* getNodeList() = 0;
+        virtual void accept(NodeVisitor* visitor) = 0;
         virtual ~Component();
 };

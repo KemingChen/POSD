@@ -2,29 +2,30 @@
 #include "stdafx.h"
 #include <QGraphicsItem>
 #include <QPainter>
-#include <time.h>
-#include "Subject.h"
+#include "GUIPresentModel.h"
 
-class GraphicNode : public Subject, public QGraphicsItem
+class GraphicNode : public QGraphicsItem
 {
     private:
-        int _x;
-        int _y;
+        // Basic Params
+        int _flags = Qt::AlignCenter | Qt::TextWordWrap;
+        QPaintDevice* _device;
+
+        // Private Variable
+        GUIPresentModel* _presentModel;
         Component* _node;
-        GraphicNode* _parent;
-        clock_t _lastClickTime;
+
+        // Private Method
+        void calculateTextRectSize();
+        QFont getFont() const;
 
     public:
-        GraphicNode(Component* node, GraphicNode* parent = NULL);
+        GraphicNode(QPaintDevice* device, GUIPresentModel* presentModel, Component* node);
         QRectF boundingRect() const;
-        QLineF getConnectLine() const;
-        QPoint* getConnectPoint();
+        QRectF textRect() const;
         void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
-        void setPosition(int x, int y);
-        Component* getComponent();
         ~GraphicNode();
 
     protected:
-        void mousePressEvent(QGraphicsSceneMouseEvent* event);
         void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 };
