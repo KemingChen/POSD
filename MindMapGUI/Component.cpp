@@ -59,7 +59,7 @@ int Component::getHeight()
 
 void Component::setRectSize(int width, int height)
 {
-    this->_width = width;
+    this->_width = width < MAX_WIDTH ? width : MAX_WIDTH;
     this->_height = height;
 }
 

@@ -12,8 +12,8 @@ GraphicNode::GraphicNode(QPaintDevice* device, GUIPresentModel* presentModel, Co
 
 QRectF GraphicNode::boundingRect() const
 {
-    int width = this->_node->getWidth() + 2 * INNER_PADDING;
-    int height = this->_node->getHeight() + 2 * INNER_PADDING;
+    int width = this->_node->getWidth();
+    int height = this->_node->getHeight();
     int x = this->_node->getX();
     int y = this->_node->getY() - height / 2;
     return QRectF(x, y, width, height);
@@ -21,8 +21,8 @@ QRectF GraphicNode::boundingRect() const
 
 QRectF GraphicNode::textRect() const
 {
-    int width = this->_node->getWidth();
-    int height = this->_node->getHeight();
+    int width = this->_node->getWidth() - 2 * INNER_PADDING;
+    int height = this->_node->getHeight() - 2 * INNER_PADDING;
     int x = this->_node->getX() + INNER_PADDING;
     int y = this->_node->getY() - height / 2;
     return QRectF(x, y, width, height);
@@ -32,7 +32,7 @@ void GraphicNode::calculateTextRectSize()
 {
     QFontMetrics fontMetrics = QFontMetrics(this->getFont());
     QRect rect = fontMetrics.boundingRect(QRect(0, 0, MAX_WIDTH, 0), _flags, QString::fromStdString(this->_node->getDescription()));
-    this->_node->setRectSize(rect.width(), rect.height());
+    this->_node->setRectSize(rect.width() + 2 * INNER_PADDING, rect.height() + 2 * INNER_PADDING);
 }
 
 QLine GraphicNode::getConnectLine() const
@@ -43,7 +43,7 @@ QLine GraphicNode::getConnectLine() const
     Component* parentNode = _node->getParent();
     if (parentNode)
     {
-        int endX = parentNode->getX() + parentNode->getWidth() + 2 * INNER_PADDING;
+        int endX = parentNode->getX() + parentNode->getWidth();
         int endY = parentNode->getY();
         return QLine(startX, startY, endX, endY);
     }

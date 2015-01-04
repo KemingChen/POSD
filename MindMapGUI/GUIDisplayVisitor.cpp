@@ -5,7 +5,7 @@
 using namespace std;
 
 #define LEVEL_X_WIDTH 120
-#define OUTTER_PADDING 30
+#define OUTTER_PADDING 5
 
 GUIDisplayVisitor::GUIDisplayVisitor()
 {
@@ -18,6 +18,7 @@ void GUIDisplayVisitor::visit(Root* node)
 {
     cout << "now level: " << this->_nowLevel << endl;
     cout << "  " << node->getDescription() << ", " << node->getLevel() << endl;
+    cout << "  Rect: " << node->getWidth() << ", " << node->getHeight() << endl;
 
     this->backupLastElementAndClean(&this->_nodeCollection);
     int x = node->getLevel() * LEVEL_X_WIDTH;
@@ -28,23 +29,21 @@ void GUIDisplayVisitor::visit(Root* node)
 
 void GUIDisplayVisitor::visit(Node* node)
 {
-    cout << "now level: " << this->_nowLevel << endl;
+    cout << "now level: " << this->_nowLevel << ", now y: " << this->_yRight << endl;
     cout << "  " << node->getDescription() << ", " << node->getLevel() << endl;
+    cout << "  Rect: " << node->getWidth() << ", " << node->getHeight() << endl;
     int x = node->getLevel() * LEVEL_X_WIDTH;
     int y;
     if (this->_nowLevel == 0 || this->_nowLevel <= node->getLevel())
     {
-        y = this->_yRight;
-        this->_yRight += node->getHeight() + OUTTER_PADDING;
+        y = this->_yRight + node->getHeight() / 2;
+        this->_yRight += node->getHeight() / 2 + OUTTER_PADDING;
         cout << "    y: " << y << endl;
     }
     else
     {
         y = this->averageCollection(&this->_nodeCollection);
-        int newY = y + node->getHeight() + OUTTER_PADDING;
-        cout << "    new y: " << newY << ", _yRight: " << this->_yRight << endl;
-        if (newY > this->_yRight)
-            this->_yRight = newY;
+
         this->_nodeCollection.clear();
     }
     if (this->_nowLevel != 0 && this->_nowLevel < node->getLevel())
@@ -55,6 +54,11 @@ void GUIDisplayVisitor::visit(Node* node)
     node->setPosition(x, y);
     this->_nodeCollection.push_back(y);
     this->_nowLevel = node->getLevel();
+
+    int newY = y + node->getHeight() / 2 + OUTTER_PADDING;
+    cout << "    new y: " << newY << ", _yRight: " << this->_yRight << endl;
+    if (newY > this->_yRight)
+        this->_yRight = newY;
     cout << endl;
 }
 
