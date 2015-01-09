@@ -33,34 +33,32 @@ void Component::setDescription(string description)
 
 int Component::getX()
 {
-    return this->_x;
+    return this->_rect.getX();
 }
 
 int Component::getY()
 {
-    return this->_y;
+    return this->_rect.getY();
 }
 
 void Component::setPosition(int x, int y)
 {
-    this->_x = x;
-    this->_y = y;
+    this->_rect.setPosition(x, y);
 }
 
 int Component::getWidth()
 {
-    return this->_width;
+    return this->_rect.getWidth();
 }
 
 int Component::getHeight()
 {
-    return this->_height;
+    return this->_rect.getHeight();
 }
 
 void Component::setRectSize(int width, int height)
 {
-    this->_width = width < MAX_WIDTH ? width : MAX_WIDTH;
-    this->_height = height;
+    this->_rect.setSize(width < MAX_WIDTH ? width : MAX_WIDTH, height);
 }
 
 string Component::toString()

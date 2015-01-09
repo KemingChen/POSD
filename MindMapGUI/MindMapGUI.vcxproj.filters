@@ -78,6 +78,9 @@
     <Filter Include="Source Files\Model\Visitor">
       <UniqueIdentifier>{36c27c7c-5bab-41c3-a07c-131ca90f8729}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Model\Basic">
+      <UniqueIdentifier>{9d1e59c7-f4c9-4400-81a4-236af6b15397}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -160,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="MindMapPainter.cpp">
       <Filter>Source Files\View\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +255,9 @@
     </ClInclude>
     <ClInclude Include="MindMapPainter.h">
       <Filter>Header Files\View\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@ using namespace std;
 #include "stdafx.h"
 #include "NodeVisitor.h"
 #include "IGraphic.h"
+#include "Rect.h"
 #define ROOT 0
 #define NODE 1
 
@@ -18,10 +19,7 @@ class Component
         string _description;
         bool _isSelected;
         int _level;
-        int _x;
-        int _y;
-        int _width;
-        int _height;
+        Rect _rect;
         int _side;
 
     public:
