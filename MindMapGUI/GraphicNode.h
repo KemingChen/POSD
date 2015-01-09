@@ -10,9 +10,8 @@ class GraphicNode : public QGraphicsItem
 {
     private:
         // Basic Params
-        int _flags;
-        QFont _font;
         MindMapGUI* _mainWindow;
+        QFont _font;
 
         // Private Variable
         GUIPresentModel* _presentModel;
@@ -24,8 +23,8 @@ class GraphicNode : public QGraphicsItem
         QRectF textRect() const;
 
     public:
-        GraphicNode(MindMapGUI* mainWindow, GUIPresentModel* presentModel, Component* node, QFont font, int flags);
         QLine getConnectLine() const;
+        GraphicNode(MindMapGUI* mainWindow, GUIPresentModel* presentModel, Component* node, QFont font);
         ~GraphicNode();
 
     protected:

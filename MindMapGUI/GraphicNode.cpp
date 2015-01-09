@@ -1,23 +1,19 @@
 #include "GraphicNode.h"
 #include <iostream>
 
-GraphicNode::GraphicNode(MindMapGUI* mainWindow, GUIPresentModel* presentModel, Component* node, QFont font, int flags)
+GraphicNode::GraphicNode(MindMapGUI* mainWindow, GUIPresentModel* presentModel, Component* node, QFont font)
 {
     this->_presentModel = presentModel;
     this->_node = node;
     this->_mainWindow = mainWindow;
     this->_font = font;
-    this->_flags = flags;
     this->setFlags(QGraphicsItem::ItemIsSelectable);
 }
 
 QRectF GraphicNode::boundingRect() const
 {
-    int width = this->_node->getWidth();
-    int height = this->_node->getHeight();
-    int x = this->_node->getX();
-    int y = this->_node->getY() - height / 2;
-    return QRectF(x, y, width, height);
+    Rect rect = this->_node->getBoundingRect();
+    return QRectF(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 }
 
 QRectF GraphicNode::textRect() const
@@ -48,13 +44,7 @@ QLine GraphicNode::getConnectLine() const
 void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
     painter->setFont(this->_font);
-    if (_node->getIsSelected())
-        painter->setPen(Qt::red);
-    if (this->_presentModel->getRoot() == this->_node)
-        painter->drawEllipse(this->boundingRect());
-    else
-        painter->drawRect(this->boundingRect());
-    painter->drawText(this->textRect(), _flags, QString::fromStdString(this->_node->getDescription()));
+    painter->drawText(this->textRect(), Qt::TextWordWrap, QString::fromStdString(this->_node->getDescription()));
 }
 
 void GraphicNode::mousePressEvent(QGraphicsSceneMouseEvent* event)

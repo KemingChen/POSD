@@ -95,7 +95,8 @@ void Root::accept(NodeVisitor* visitor)
 
 void Root::draw(IGraphic* painter)
 {
-    painter->drawGraphicNode(this);
+    painter->drawNode(this);
+    painter->drawEllipse(this->getBoundingRect());
 }
 
 Root::~Root()

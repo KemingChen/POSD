@@ -19,8 +19,8 @@ class Component
         string _description;
         bool _isSelected;
         int _level;
-        Rect _rect;
         int _side;
+        Rect _rect;
 
     public:
         Component(int id, string description);
@@ -56,6 +56,8 @@ class Component
         // Side
         int getSide();
         void setSide(int side);
+
+        Rect getBoundingRect();
 
         // Virtual Method
         virtual Component* getBackFromNode() = 0;

@@ -99,7 +99,8 @@ void Node::accept(NodeVisitor* visitor)
 
 void Node::draw(IGraphic* painter)
 {
-    painter->drawGraphicNode(this);
+    painter->drawNode(this);
+    painter->drawRectangle(this->getBoundingRect());
 }
 
 Node::~Node()
