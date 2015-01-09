@@ -43,6 +43,8 @@ QLine GraphicNode::getConnectLine() const
 
 void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
+    if (this->_node->getIsSelected())
+        painter->setPen(Qt::red);
     painter->setFont(this->_font);
     painter->drawText(this->textRect(), Qt::TextWordWrap, QString::fromStdString(this->_node->getDescription()));
 }
