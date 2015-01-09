@@ -226,9 +226,9 @@ void MindMapModel::pasteNode(Component* selectedNode, Component* cloneNode)
     }
 }
 
-void MindMapModel::rebuildPosition()
+void MindMapModel::rebuildPosition(IGraphic* painter)
 {
-    GUIDisplayVisitor guiDisplayVisitor;
+    GUIDisplayVisitor guiDisplayVisitor(painter);
     if (_root != NULL)
         _root->accept(&guiDisplayVisitor);
 }

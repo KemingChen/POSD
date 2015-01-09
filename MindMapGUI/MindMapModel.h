@@ -4,6 +4,7 @@
 #include "Component.h"
 #include <map>
 #include <fstream>
+#include "IGraphic.h"
 using namespace std;
 
 class MindMapModel : public Subject
@@ -33,7 +34,7 @@ class MindMapModel : public Subject
         void insertSiblingNode(Component* choseNode, Component* newNode);
         void cutNode(Component* selectedNode);
         void pasteNode(Component* selectedNode, Component* cloneNode);
-        void MindMapModel::rebuildPosition();
+        void MindMapModel::rebuildPosition(IGraphic* painter);
         Component* getRootNode();
         Component* findNode(Component* fromNode, string id);
         Component* findNode(string id);

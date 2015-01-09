@@ -1,13 +1,14 @@
 #include "GraphicNode.h"
 #include <iostream>
 
-GraphicNode::GraphicNode(MindMapGUI* mainWindow, GUIPresentModel* presentModel, Component* node)
+GraphicNode::GraphicNode(MindMapGUI* mainWindow, GUIPresentModel* presentModel, Component* node, QFont font, int flags)
 {
     this->_presentModel = presentModel;
     this->_node = node;
     this->_mainWindow = mainWindow;
+    this->_font = font;
+    this->_flags = flags;
     this->setFlags(QGraphicsItem::ItemIsSelectable);
-    this->calculateTextRectSize();
 }
 
 QRectF GraphicNode::boundingRect() const
@@ -28,13 +29,6 @@ QRectF GraphicNode::textRect() const
     return QRectF(x, y, width, height);
 }
 
-void GraphicNode::calculateTextRectSize()
-{
-    QFontMetrics fontMetrics = QFontMetrics(this->getFont());
-    QRect rect = fontMetrics.boundingRect(QRect(0, 0, MAX_WIDTH - 2 * INNER_PADDING, 0), _flags, QString::fromStdString(this->_node->getDescription()));
-    this->_node->setRectSize(rect.width() + 2 * INNER_PADDING, rect.height() + 2 * INNER_PADDING);
-}
-
 QLine GraphicNode::getConnectLine() const
 {
     int side = this->_node->getSide();
@@ -51,14 +45,9 @@ QLine GraphicNode::getConnectLine() const
     return QLine(startX, startY, startX, startY);
 }
 
-QFont GraphicNode::getFont() const
-{
-    return QFont("Helvetica", 10, QFont::Bold);
-}
-
 void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
 {
-    painter->setFont(this->getFont());
+    painter->setFont(this->_font);
     if (_node->getIsSelected())
         painter->setPen(Qt::red);
     if (this->_presentModel->getRoot() == this->_node)

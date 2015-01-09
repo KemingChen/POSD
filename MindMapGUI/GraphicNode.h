@@ -10,7 +10,8 @@ class GraphicNode : public QGraphicsItem
 {
     private:
         // Basic Params
-        int _flags = Qt::TextWordWrap;
+        int _flags;
+        QFont _font;
         MindMapGUI* _mainWindow;
 
         // Private Variable
@@ -19,18 +20,16 @@ class GraphicNode : public QGraphicsItem
         clock_t _lastClickTime;
 
         // Private Method
-        void calculateTextRectSize();
-        QFont getFont() const;
-
-    public:
-        GraphicNode(MindMapGUI* mainWindow, GUIPresentModel* presentModel, Component* node);
         QRectF boundingRect() const;
         QRectF textRect() const;
+
+    public:
+        GraphicNode(MindMapGUI* mainWindow, GUIPresentModel* presentModel, Component* node, QFont font, int flags);
         QLine getConnectLine() const;
-        void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
         ~GraphicNode();
 
     protected:
+        void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
         void mousePressEvent(QGraphicsSceneMouseEvent* event);
         void mouseReleaseEvent(QGraphicsSceneMouseEvent* event);
 };

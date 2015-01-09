@@ -253,9 +253,9 @@ bool GUIPresentModel::isRedoEnable()
     return this->_presentModel->canRedo();
 }
 
-void GUIPresentModel::rebuildPosition()
+void GUIPresentModel::rebuildPosition(IGraphic* painter)
 {
-    return this->_model->rebuildPosition();
+    return this->_model->rebuildPosition(painter);
 }
 
 GUIPresentModel::~GUIPresentModel()

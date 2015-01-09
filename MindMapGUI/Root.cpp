@@ -93,6 +93,11 @@ void Root::accept(NodeVisitor* visitor)
     visitor->visit(this);
 }
 
+void Root::draw(IGraphic* painter)
+{
+    painter->drawGraphicNode(this);
+}
+
 Root::~Root()
 {
 }

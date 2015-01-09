@@ -19,6 +19,7 @@
 #include <QMessageBox>
 #include "MindMapScene.h"
 #include "GUIPresentModel.h"
+#include "MindMapPainter.h"
 
 using namespace std;
 
@@ -61,9 +62,6 @@ class MindMapGUI : public Observer, public QMainWindow
         void setupToolBar();
         void bindingActions();
         void setupScene();
-
-        // Method
-        void rebuildGraphics(Component* node);
 
         // Event
         void updateActions();

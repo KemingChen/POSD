@@ -97,6 +97,11 @@ void Node::accept(NodeVisitor* visitor)
     visitor->visit(this);
 }
 
+void Node::draw(IGraphic* painter)
+{
+    painter->drawGraphicNode(this);
+}
+
 Node::~Node()
 {
 }

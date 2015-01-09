@@ -29,4 +29,5 @@ class Composite : public Component
         void addSibling(Component* node) = 0;
         bool isSelfAreParentLastNode() = 0;
         void accept(NodeVisitor* visitor) = 0;
+        void draw(IGraphic* painter) = 0;
 };

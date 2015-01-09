@@ -190,15 +190,10 @@ void MindMapGUI::updateActions()
 
 void MindMapGUI::updateGraphics()
 {
+    MindMapPainter* painter = new MindMapPainter(this->_scene, this, this->_presentModel);
     this->_scene->clear();
     this->_graphicList->clear();
-    this->rebuildGraphics(this->_presentModel->getRoot());
-    this->_presentModel->rebuildPosition();
-    for (list<GraphicNode*>::iterator iGraphic = this->_graphicList->begin(); iGraphic != this->_graphicList->end(); iGraphic++)
-    {
-        this->_scene->addItem(*iGraphic);
-        this->_scene->addLine((*iGraphic)->getConnectLine());
-    }
+    this->_presentModel->rebuildPosition(painter);
 }
 
 void MindMapGUI::notifyError(string description)
@@ -312,19 +307,6 @@ void MindMapGUI::paste()
 void MindMapGUI::exit()
 {
     this->close();
-}
-
-void MindMapGUI::rebuildGraphics(Component* node)
-{
-    if (node != NULL)
-    {
-        this->_graphicList->push_back(new GraphicNode(this, this->_presentModel, node));
-        NodeList* nodeList = node->getNodeList();
-        for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
-        {
-            rebuildGraphics(*iNode);
-        }
-    }
 }
 
 void MindMapGUI::undo()

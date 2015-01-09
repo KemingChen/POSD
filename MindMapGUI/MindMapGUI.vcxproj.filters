@@ -158,6 +158,9 @@
     <ClCompile Include="SaveVisitor.cpp">
       <Filter>Source Files\Model\Visitor</Filter>
     </ClCompile>
+    <ClCompile Include="MindMapPainter.cpp">
+      <Filter>Source Files\View\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -240,6 +243,12 @@
     </ClInclude>
     <ClInclude Include="SaveVisitor.h">
       <Filter>Header Files\Model\Visitor</Filter>
+    </ClInclude>
+    <ClInclude Include="IGraphic.h">
+      <Filter>Header Files\Model\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="MindMapPainter.h">
+      <Filter>Header Files\View\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

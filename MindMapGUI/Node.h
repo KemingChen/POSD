@@ -21,5 +21,6 @@ class Node : public Composite
         void addSibling(Component* node);
         bool isSelfAreParentLastNode();
         void accept(NodeVisitor* visitor);
+        void draw(IGraphic* painter);
         ~Node();
 };

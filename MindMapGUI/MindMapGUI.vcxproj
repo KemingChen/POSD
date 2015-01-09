@@ -155,6 +155,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MindMapGUI.cpp" />
     <ClCompile Include="MindMapModel.cpp" />
+    <ClCompile Include="MindMapPainter.cpp" />
     <ClCompile Include="MindMapScene.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="PasteNodeCommand.cpp" />
@@ -205,10 +206,12 @@
     <ClInclude Include="GraphicNode.h" />
     <ClInclude Include="GUIDisplayVisitor.h" />
     <ClInclude Include="GUIPresentModel.h" />
+    <ClInclude Include="IGraphic.h" />
     <ClInclude Include="InsertChildNodeCommand.h" />
     <ClInclude Include="InsertParentNodeCommand.h" />
     <ClInclude Include="InsertSiblingNodeCommand.h" />
     <ClInclude Include="MindMapModel.h" />
+    <ClInclude Include="MindMapPainter.h" />
     <ClInclude Include="MindMapScene.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="NodeVisitor.h" />

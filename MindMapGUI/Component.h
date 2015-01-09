@@ -3,6 +3,7 @@ using namespace std;
 #include <vector>
 #include "stdafx.h"
 #include "NodeVisitor.h"
+#include "IGraphic.h"
 #define ROOT 0
 #define NODE 1
 
@@ -73,6 +74,7 @@ class Component
         virtual bool isSelfAreParentLastNode() = 0;
         virtual NodeList* getNodeList() = 0;
         virtual void accept(NodeVisitor* visitor) = 0;
+        virtual void draw(IGraphic* painter) = 0;
         virtual ~Component();
 };
 

@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "NodeVisitor.h"
 #include <map>
+#include "IGraphic.h"
 using namespace std;
 
 class GUIDisplayVisitor : public NodeVisitor
@@ -12,15 +13,18 @@ class GUIDisplayVisitor : public NodeVisitor
 
         int _nowLevel;
         map<int, int> _yLevelMap;
+        IGraphic* _painter;
+        vector<Component*> _components;
 
         // Private Method
         int calculateLevel(Component* node);
         int averageChildY(Component* node);
         void saveLevelBottomY(int level, int y);
         int getLevelBottomY(int level);
+        void finish();
 
     public:
-        GUIDisplayVisitor();
+        GUIDisplayVisitor(IGraphic* painter);
         void visit(Root* node);
         void visit(Node* node);
         ~GUIDisplayVisitor();

@@ -2,6 +2,7 @@
 #include "PresentModel.h"
 #include <time.h>
 #include "Subject.h"
+#include "IGraphic.h"
 
 using namespace std;
 
@@ -63,7 +64,7 @@ class GUIPresentModel : public Subject
         bool isRedoEnable();
 
         // Method
-        void rebuildPosition();
+        void rebuildPosition(IGraphic* painter);
         Component* getSelectedNode();
         Component* getRoot();
         bool isCreatedMindMap();

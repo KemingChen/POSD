@@ -8,11 +8,12 @@ using namespace std;
 #define LEVEL_X_WIDTH 120
 #define OUTTER_PADDING 5
 
-GUIDisplayVisitor::GUIDisplayVisitor()
+GUIDisplayVisitor::GUIDisplayVisitor(IGraphic* painter)
 {
     this->_yLeft = 0;
     this->_yRight = 0;
     this->_nowLevel = 0;
+    this->_painter = painter;
 }
 
 int GUIDisplayVisitor::calculateLevel(Component* node)
@@ -22,13 +23,17 @@ int GUIDisplayVisitor::calculateLevel(Component* node)
 
 void GUIDisplayVisitor::visit(Root* node)
 {
+    this->_painter->calculateTextRectSize(node);
     int x = this->calculateLevel(node) * LEVEL_X_WIDTH;
     int y = this->averageChildY(node);
     node->setPosition(x, y);
+    _components.push_back(node);
+    this->finish();
 }
 
 void GUIDisplayVisitor::visit(Node* node)
 {
+    this->_painter->calculateTextRectSize(node);
     int* nowY = node->getSide() == RIGHT ? &this->_yRight : &this->_yLeft;
     int nowLevel = this->calculateLevel(node);
 
@@ -47,6 +52,7 @@ void GUIDisplayVisitor::visit(Node* node)
     }
 
     node->setPosition(x, y);
+    _components.push_back(node);
     this->_nowLevel = nowLevel;
 
     int newY = y + node->getHeight() / 2 + OUTTER_PADDING;
@@ -82,6 +88,14 @@ int GUIDisplayVisitor::averageChildY(Component* node)
     sum += childsY.front();
     sum += childsY.back();
     return sum / 2;
+}
+
+void GUIDisplayVisitor::finish()
+{
+    for (vector<Component*>::iterator iNode = this->_components.begin(); iNode != this->_components.end(); iNode++)
+    {
+        (*iNode)->draw(this->_painter);
+    }
 }
 
 GUIDisplayVisitor::~GUIDisplayVisitor()
