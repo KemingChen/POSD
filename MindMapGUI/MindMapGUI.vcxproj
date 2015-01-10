@@ -144,8 +144,10 @@
     <ClCompile Include="ComponentFactory.cpp" />
     <ClCompile Include="Composite.cpp" />
     <ClCompile Include="CutNodeCommand.cpp" />
+    <ClCompile Include="Decorate.cpp" />
     <ClCompile Include="DeleteComponentCommand.cpp" />
     <ClCompile Include="EditComponentCommand.cpp" />
+    <ClCompile Include="Ellipse.cpp" />
     <ClCompile Include="GraphicNode.cpp" />
     <ClCompile Include="GUIDisplayVisitor.cpp" />
     <ClCompile Include="GUIPresentModel.cpp" />
@@ -161,10 +163,12 @@
     <ClCompile Include="PasteNodeCommand.cpp" />
     <ClCompile Include="PresentModel.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Root.cpp" />
     <ClCompile Include="SaveVisitor.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="TextUI.cpp" />
+    <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MindMapGUI.h">
@@ -200,10 +204,13 @@
     <ClInclude Include="CommandManager.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentFactory.h" />
+    <ClInclude Include="ComponentType.h" />
     <ClInclude Include="Composite.h" />
     <ClInclude Include="CutNodeCommand.h" />
+    <ClInclude Include="Decorate.h" />
     <ClInclude Include="DeleteComponentCommand.h" />
     <ClInclude Include="EditComponentCommand.h" />
+    <ClInclude Include="Ellipse.h" />
     <ClInclude Include="GraphicNode.h" />
     <ClInclude Include="GUIDisplayVisitor.h" />
     <ClInclude Include="GUIPresentModel.h" />
@@ -220,11 +227,13 @@
     <ClInclude Include="PasteNodeCommand.h" />
     <ClInclude Include="PresentModel.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Root.h" />
     <ClInclude Include="SaveVisitor.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="TextUI.h" />
+    <ClInclude Include="Triangle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

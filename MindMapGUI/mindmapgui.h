@@ -27,6 +27,7 @@ class GraphicNode;
 class MindMapGUI : public Observer, public QMainWindow
 {
     private:
+        // QAction
         QAction* _actionAbout;
         QAction* _actionNew;
         QAction* _actionSave;
@@ -42,6 +43,11 @@ class MindMapGUI : public Observer, public QMainWindow
         QAction* _actionPaste;
         QAction* _actionRedo;
         QAction* _actionUndo;
+        QAction* _actionAddTriangle;
+        QAction* _actionAddRectangle;
+        QAction* _actionAddEllipse;
+        QAction* _actionRemoveAll;
+
         QWidget* _centralWidget;
         QMenuBar* _menuBar;
         QMenu* _menuFile;

@@ -52,6 +52,11 @@ void MindMapGUI::setupMenus()
     this->_menuEdit->addAction(this->_actionInsertChild);
     this->_menuEdit->addAction(this->_actionInsertSibling);
     this->_menuEdit->addAction(this->_actionInsertParent);
+    this->_menuEdit->addSeparator();
+    this->_menuEdit->addAction(this->_actionAddTriangle);
+    this->_menuEdit->addAction(this->_actionAddRectangle);
+    this->_menuEdit->addAction(this->_actionAddEllipse);
+    this->_menuEdit->addAction(this->_actionRemoveAll);
 
     this->_menuHelp = new QMenu(QStringLiteral("Help"), this->_menuBar);
     this->_menuHelp->addAction(this->_actionAbout);
@@ -80,6 +85,10 @@ void MindMapGUI::setupActions()
     this->_actionPaste = new QAction(QIcon("resource/paste.png"), QStringLiteral("Paste"), this);
     this->_actionRedo = new QAction(QIcon("resource/redo.png"), QStringLiteral("Redo"), this);
     this->_actionUndo = new QAction(QIcon("resource/undo.png"), QStringLiteral("Undo"), this);
+    this->_actionAddTriangle = new QAction(QIcon("resource/triangle.png"), QStringLiteral("Add triangle decorate"), this);
+    this->_actionAddRectangle = new QAction(QIcon("resource/rectangle.png"), QStringLiteral("Add rectangle decorate"), this);
+    this->_actionAddEllipse = new QAction(QIcon("resource/ellipse.png"), QStringLiteral("Add ellipse decorate"), this);
+    this->_actionRemoveAll = new QAction(QIcon("resource/remove_all.png"), QStringLiteral("Remove all decorate"), this);
 
     // Help
     this->_actionAbout = new QAction(QIcon("resource/about_icon.png"), QStringLiteral("Abort"), this);
@@ -107,6 +116,11 @@ void MindMapGUI::setupToolBar()
     this->_mainToolBar->addAction(this->_actionInsertChild);
     this->_mainToolBar->addAction(this->_actionInsertSibling);
     this->_mainToolBar->addAction(this->_actionInsertParent);
+    this->_mainToolBar->addSeparator();
+    this->_mainToolBar->addAction(this->_actionAddTriangle);
+    this->_mainToolBar->addAction(this->_actionAddRectangle);
+    this->_mainToolBar->addAction(this->_actionAddEllipse);
+    this->_mainToolBar->addAction(this->_actionRemoveAll);
     this->_mainToolBar->addSeparator();
 }
 
@@ -186,6 +200,10 @@ void MindMapGUI::updateActions()
     this->_actionPaste->setEnabled(this->_presentModel->isPasteNodeEnable());
     this->_actionUndo->setEnabled(this->_presentModel->isUndoEnable());
     this->_actionRedo->setEnabled(this->_presentModel->isRedoEnable());
+    this->_actionAddTriangle->setEnabled(this->_presentModel->isSelected());
+    this->_actionAddRectangle->setEnabled(this->_presentModel->isSelected());
+    this->_actionAddEllipse->setEnabled(this->_presentModel->isSelected());
+    this->_actionRemoveAll->setEnabled(this->_presentModel->isSelected());
 }
 
 void MindMapGUI::updateGraphics()

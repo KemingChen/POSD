@@ -9,6 +9,6 @@ class ComponentFactory
 
     public:
         static ComponentFactory* getInstance();
-        Component* createComponent(int type, string description);
+        Component* createComponent(ComponentType type, string description);
         ~ComponentFactory();
 };

@@ -5,8 +5,7 @@ using namespace std;
 #include "NodeVisitor.h"
 #include "IGraphic.h"
 #include "Rect.h"
-#define ROOT 0
-#define NODE 1
+#include "ComponentType.h"
 
 #define LEFT -1
 #define NONE 0

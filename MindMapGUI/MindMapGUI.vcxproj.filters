@@ -81,6 +81,15 @@
     <Filter Include="Header Files\Model\Basic">
       <UniqueIdentifier>{9d1e59c7-f4c9-4400-81a4-236af6b15397}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Model\Basic">
+      <UniqueIdentifier>{9af4529a-0f4f-4034-b548-19454d7db336}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Model\Composite\Decorate">
+      <UniqueIdentifier>{302df737-1909-4c82-8ec9-ed7d16eca5b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model\Composite\Decorate">
+      <UniqueIdentifier>{3f6b34e1-0aa3-4a1f-90e6-8074441e6d2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -165,7 +174,19 @@
       <Filter>Source Files\View\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Rect.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Model\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="Decorate.cpp">
+      <Filter>Source Files\Model\Composite\Decorate</Filter>
+    </ClCompile>
+    <ClCompile Include="Ellipse.cpp">
+      <Filter>Source Files\Model\Composite\Decorate</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Source Files\Model\Composite\Decorate</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>Source Files\Model\Composite\Decorate</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,7 +278,22 @@
       <Filter>Header Files\View\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Rect.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Model\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="Decorate.h">
+      <Filter>Header Files\Model\Composite\Decorate</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellipse.h">
+      <Filter>Header Files\Model\Composite\Decorate</Filter>
+    </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Header Files\Model\Composite\Decorate</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.h">
+      <Filter>Header Files\Model\Composite\Decorate</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentType.h">
+      <Filter>Header Files\Model\Basic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -36,21 +36,21 @@ void PresentModel::loadMindMap(string path)
 
 void PresentModel::insertParentNode(Component* choseNode, string description)
 {
-    Component* newNode = ComponentFactory::getInstance()->createComponent(NODE, description);
+    Component* newNode = ComponentFactory::getInstance()->createComponent(ComponentType::NODE, description);
     Command* command = new InsertParentNodeCommand(_model, choseNode, newNode);
     _commandManager.execute(command);
 }
 
 void PresentModel::insertChildNode(Component* choseNode, string description)
 {
-    Component* newNode = ComponentFactory::getInstance()->createComponent(NODE, description);
+    Component* newNode = ComponentFactory::getInstance()->createComponent(ComponentType::NODE, description);
     Command* command = new InsertChildNodeCommand(_model, choseNode, newNode);
     _commandManager.execute(command);
 }
 
 void PresentModel::insertSiblingNode(Component* choseNode, string description)
 {
-    Component* newNode = ComponentFactory::getInstance()->createComponent(NODE, description);
+    Component* newNode = ComponentFactory::getInstance()->createComponent(ComponentType::NODE, description);
     Command* command = new InsertSiblingNodeCommand(_model, choseNode, newNode);
     _commandManager.execute(command);
 }

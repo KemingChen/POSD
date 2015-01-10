@@ -61,7 +61,7 @@ bool Node::isSelfAreParentLastNode()
 Component* Node::clone()
 {
     ComponentFactory* componentFactory = ComponentFactory::getInstance();
-    Component* node = componentFactory->createComponent(NODE, this->getDescription());
+    Component* node = componentFactory->createComponent(ComponentType::NODE, this->getDescription());
     NodeList* nodeList = this->getNodeList();
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {

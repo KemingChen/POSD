@@ -13,16 +13,16 @@ ComponentFactory* ComponentFactory::getInstance()
     return &factoryInstance;
 }
 
-Component* ComponentFactory::createComponent(int type, string description)
+Component* ComponentFactory::createComponent(ComponentType type, string description)
 {
     Component* component = NULL;
     switch (type)
     {
-        case ROOT:
+        case ComponentType::ROOT:
             _createId = 0;
             component = new Root(_createId, description);
             break;
-        case NODE:
+        case ComponentType::NODE:
             component = new Node(_createId, description);
             break;
     }
