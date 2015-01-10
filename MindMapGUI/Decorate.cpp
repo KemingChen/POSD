@@ -7,7 +7,7 @@ Decorate::Decorate(int id, Component* node) : Component(id, node->getDescription
 
 Component* Decorate::getBackFromNode()
 {
-    return this->_node->getBackFromNode();
+    return this->getOriginalComponent()->getBackFromNode();
 }
 
 string Decorate::getMap()
@@ -15,55 +15,78 @@ string Decorate::getMap()
     return this->getId();
 }
 
+void Decorate::setPosition(int x, int y)
+{
+    this->_rect.setX(x);
+    this->_rect.setY(y);
+    this->_node->setPosition(x + 5, y);
+}
+
+void Decorate::setRectSize(int width, int height)
+{
+    this->_rect.setWidth(width + 10);
+    this->_rect.setHeight(height + 10);
+}
+
 void Decorate::addChild(Component* node, Component* backFromNode, int side)
 {
-    this->_node->addChild(node, backFromNode, side);
+    this->getOriginalComponent()->addChild(node, backFromNode, side);
 }
 
 void Decorate::removeChild(Component* node)
 {
-    this->_node->removeChild(node);
+    this->getOriginalComponent()->removeChild(node);
 }
 
 void Decorate::removeAllChild()
 {
-    this->_node->removeAllChild();
+    this->getOriginalComponent()->removeAllChild();
 }
 
 Component* Decorate::getParent()
 {
-    return this->_node->getParent();
+    return this->getOriginalComponent()->getParent();
 }
 
 void Decorate::setParent(Component* node)
 {
-    this->_node->setParent(node);
+    this->getOriginalComponent()->setParent(node);
 }
 
 void Decorate::addParent(Component* node)
 {
-    this->_node->addParent(node);
+    this->getOriginalComponent()->addParent(node);
 }
 
 void Decorate::addSibling(Component* node)
 {
-    this->_node->addSibling(node);
+    this->getOriginalComponent()->addSibling(node);
 }
 
 bool Decorate::isSelfAreParentLastNode()
 {
-    return this->_node->isSelfAreParentLastNode();
+    return this->getOriginalComponent()->isSelfAreParentLastNode();
 }
 
 NodeList* Decorate::getNodeList()
 {
-    return this->_node->getNodeList();
+    return this->getOriginalComponent()->getNodeList();
 }
 
 void Decorate::accept(NodeVisitor* visitor)
 {
-    this->_node->accept(visitor);
+    this->getOriginalComponent()->accept(visitor);
     visitor->visit(this);
+}
+
+Component* Decorate::getRealComponent()
+{
+    return this->getOriginalComponent()->getRealComponent();
+}
+
+Component* Decorate::getOriginalComponent()
+{
+    return this->_node;
 }
 
 Decorate::~Decorate()

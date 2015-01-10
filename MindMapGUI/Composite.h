@@ -16,6 +16,7 @@ class Composite : public Component
         void removeChild(Component* node);
         void removeAllChild();
         NodeList* getNodeList();
+        Component* getRealComponent();
         ~Composite();
 
         // Virtual Method

@@ -3,6 +3,7 @@
 #include <algorithm>
 #include "Root.h"
 #include "Node.h"
+#include "Decorate.h"
 using namespace std;
 
 #define LEVEL_X_WIDTH 120
@@ -28,7 +29,6 @@ void GUIDisplayVisitor::visit(Root* node)
     int y = this->averageChildY(node);
     node->setPosition(x, y);
     _components.push_back(node);
-    this->finish();
 }
 
 void GUIDisplayVisitor::visit(Node* node)
@@ -63,6 +63,10 @@ void GUIDisplayVisitor::visit(Node* node)
 
 void GUIDisplayVisitor::visit(Decorate* node)
 {
+    Component* originalNode = node->getOriginalComponent();
+    node->setPosition(originalNode->getX(), originalNode->getY());
+    node->setRectSize(originalNode->getWidth(), originalNode->getHeight());
+    this->_components.push_back(node);
 }
 
 void GUIDisplayVisitor::saveLevelBottomY(int level, int y)
@@ -98,6 +102,8 @@ void GUIDisplayVisitor::finish()
 {
     for (vector<Component*>::iterator iNode = this->_components.begin(); iNode != this->_components.end(); iNode++)
     {
+        //Component* node = (*iNode);
+        //cout << node->getTypeName() << ": " << node->getBoundingRect().toString() << endl;
         (*iNode)->draw(this->_painter);
     }
 }

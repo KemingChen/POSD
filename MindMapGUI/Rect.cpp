@@ -60,6 +60,13 @@ int Rect::getHeight()
     return this->_height;
 }
 
+string Rect::toString()
+{
+    string position = to_string(this->getX()) + ", " + to_string(this->getY());
+    string rect = to_string(this->getWidth()) + ", " + to_string(this->getHeight());
+    return position + " [ " + rect + " ]";
+}
+
 Rect::~Rect()
 {
 }

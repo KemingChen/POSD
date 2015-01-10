@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+using namespace std;
 
 class Rect
 {
@@ -24,5 +26,7 @@ class Rect
 
         void setHeight(int height);
         int getHeight();
+
+        string toString();
         ~Rect();
 };

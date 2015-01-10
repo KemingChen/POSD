@@ -17,6 +17,7 @@ string Rectangle::getTypeName()
 
 void Rectangle::draw(IGraphic* painter)
 {
+    painter->drawRectangle(this->getBoundingRect());
 }
 
 Rectangle::~Rectangle()

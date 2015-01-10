@@ -249,7 +249,10 @@ void MindMapModel::rebuildPosition(IGraphic* painter)
 {
     GUIDisplayVisitor guiDisplayVisitor(painter);
     if (_root != NULL)
+    {
         _root->accept(&guiDisplayVisitor);
+        guiDisplayVisitor.finish();
+    }
 }
 
 MindMapModel::~MindMapModel()

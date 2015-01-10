@@ -44,6 +44,11 @@ string Composite::getMap()
     return idsMap;
 }
 
+Component* Composite::getRealComponent()
+{
+    return this;
+}
+
 Composite::~Composite()
 {
     for (NodeList::iterator iNode = _nodeList.begin(); iNode != _nodeList.end(); iNode++)

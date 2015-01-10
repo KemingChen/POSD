@@ -21,12 +21,12 @@ class GUIDisplayVisitor : public NodeVisitor
         int averageChildY(Component* node);
         void saveLevelBottomY(int level, int y);
         int getLevelBottomY(int level);
-        void finish();
 
     public:
         GUIDisplayVisitor(IGraphic* painter);
         void visit(Root* node);
         void visit(Node* node);
         void visit(Decorate* node);
+        void finish();
         ~GUIDisplayVisitor();
 };

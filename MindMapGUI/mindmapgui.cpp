@@ -343,7 +343,7 @@ void MindMapGUI::redo()
 
 void MindMapGUI::addTriangle()
 {
-    this->_presentModel->addDecorate(ComponentType::RECTANGLE);
+    this->_presentModel->addDecorate(ComponentType::TRIANGLE);
 }
 
 void MindMapGUI::addRectangle()
@@ -353,7 +353,7 @@ void MindMapGUI::addRectangle()
 
 void MindMapGUI::addEllipse()
 {
-    this->_presentModel->addDecorate(ComponentType::RECTANGLE);
+    this->_presentModel->addDecorate(ComponentType::ELLIPSE);
 }
 
 void MindMapGUI::cleanAllDecorate()

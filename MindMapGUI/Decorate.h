@@ -10,6 +10,8 @@ class Decorate : public Component
         Decorate(int id, Component* node);
         Component* getBackFromNode();
         string getMap();
+        void setPosition(int x, int y);
+        void setRectSize(int width, int height);
         void addChild(Component* node, Component* backFromNode = NULL, int side = NONE);
         void removeChild(Component* node);
         void removeAllChild();
@@ -20,6 +22,8 @@ class Decorate : public Component
         bool isSelfAreParentLastNode();
         NodeList* getNodeList();
         void accept(NodeVisitor* visitor);
+        Component* getRealComponent();
+        Component* getOriginalComponent();
         ~Decorate();
 
         // Virtual

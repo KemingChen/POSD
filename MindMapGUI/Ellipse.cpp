@@ -17,6 +17,7 @@ string Ellipse::getTypeName()
 
 void Ellipse::draw(IGraphic* painter)
 {
+    painter->drawEllipse(this->getBoundingRect());
 }
 
 Ellipse::~Ellipse()

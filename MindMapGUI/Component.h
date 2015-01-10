@@ -19,6 +19,8 @@ class Component
         bool _isSelected;
         int _level;
         int _side;
+
+    protected:
         Rect _rect;
 
     public:
@@ -45,12 +47,12 @@ class Component
         // Position
         int getX();
         int getY();
-        void setPosition(int x, int y);
+        virtual void setPosition(int x, int y);
 
         // Rectangle Size
         int getWidth();
         int getHeight();
-        void setRectSize(int width, int height);
+        virtual void setRectSize(int width, int height);
 
         // Side
         int getSide();
@@ -74,6 +76,7 @@ class Component
         virtual NodeList* getNodeList() = 0;
         virtual void accept(NodeVisitor* visitor) = 0;
         virtual void draw(IGraphic* painter) = 0;
+        virtual Component* getRealComponent() = 0;
         virtual ~Component();
 };
 

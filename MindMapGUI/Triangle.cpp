@@ -17,6 +17,7 @@ string Triangle::getTypeName()
 
 void Triangle::draw(IGraphic* painter)
 {
+    painter->drawTriangle(this->getBoundingRect());
 }
 
 Triangle::~Triangle()
