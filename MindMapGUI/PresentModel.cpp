@@ -70,6 +70,11 @@ Component* PresentModel::getRoot()
     return _model->getRootNode();
 }
 
+CommandManager* PresentModel::getCommandManager()
+{
+    return &this->_commandManager;
+}
+
 void PresentModel::editNodeDescription(Component* node, string description)
 {
     Command* command = new EditComponentCommand(_model, node, description);

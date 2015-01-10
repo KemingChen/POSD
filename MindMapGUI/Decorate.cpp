@@ -60,6 +60,12 @@ NodeList* Decorate::getNodeList()
     return this->_node->getNodeList();
 }
 
+void Decorate::accept(NodeVisitor* visitor)
+{
+    this->_node->accept(visitor);
+    visitor->visit(this);
+}
+
 Decorate::~Decorate()
 {
 }

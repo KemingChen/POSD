@@ -1,7 +1,6 @@
 #include "MindMapModel.h"
 #include "ComponentFactory.h"
 #include "GUIDisplayVisitor.h"
-//#include "ComponentCompare.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -42,6 +41,26 @@ void MindMapModel::insertChildNode(Component* choseNode, Component* newNode)
 void MindMapModel::insertSiblingNode(Component* choseNode, Component* newNode)
 {
     choseNode->addSibling(newNode);
+}
+
+Component* MindMapModel::addDecorate(ComponentType type, Component* choseNode)
+{
+    Component* parent = choseNode->getParent();
+    Component* newNode = ComponentFactory::getInstance()->createDecorate(type, choseNode);
+    if (parent)
+    {
+        parent->removeChild(choseNode);
+        parent->addChild(newNode);
+    }
+    else
+    {
+        this->_root = newNode;
+    }
+    return newNode;
+}
+
+void MindMapModel::cleanAllDecorate(Component* choseNode)
+{
 }
 
 Component* MindMapModel::findNode(string id)

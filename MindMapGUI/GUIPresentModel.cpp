@@ -243,6 +243,19 @@ void GUIPresentModel::redo()
     this->notify(MODEL_CHANGE);
 }
 
+void GUIPresentModel::addDecorate(ComponentType type)
+{
+    if (this->_selectedNode)
+    {
+        this->_selectedNode = this->_model->addDecorate(type, this->_selectedNode);
+        this->notify(MODEL_CHANGE);
+    }
+}
+
+void GUIPresentModel::cleanAllDecorate()
+{
+}
+
 bool GUIPresentModel::isUndoEnable()
 {
     return this->_presentModel->canUndo();

@@ -3,7 +3,7 @@
 
 class Decorate : public Component
 {
-    private:
+    protected:
         Component* _node;
 
     public:
@@ -19,11 +19,11 @@ class Decorate : public Component
         void addSibling(Component* node);
         bool isSelfAreParentLastNode();
         NodeList* getNodeList();
+        void accept(NodeVisitor* visitor);
         ~Decorate();
 
         // Virtual
         Component* clone() = 0;
         string getTypeName() = 0;
-        void accept(NodeVisitor* visitor) = 0;
         void draw(IGraphic* painter) = 0;
 };

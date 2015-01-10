@@ -46,6 +46,8 @@ class GUIPresentModel : public Subject
         void pasteNode();
         void undo();
         void redo();
+        void addDecorate(ComponentType type);
+        void cleanAllDecorate();
 
         // File Status
         bool isSaveEnable();

@@ -7,7 +7,6 @@ class Ellipse : public Decorate
         Ellipse(int id, Component* node);
         Component* clone();
         string getTypeName();
-        void accept(NodeVisitor* visitor);
         void draw(IGraphic* painter);
         ~Ellipse();
 };

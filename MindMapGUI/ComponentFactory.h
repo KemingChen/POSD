@@ -10,5 +10,6 @@ class ComponentFactory
     public:
         static ComponentFactory* getInstance();
         Component* createComponent(ComponentType type, string description);
+        Component* createDecorate(ComponentType type, Component* node);
         ~ComponentFactory();
 };

@@ -2,6 +2,9 @@
 #include "ComponentFactory.h"
 #include "Root.h"
 #include "Node.h"
+#include "Triangle.h"
+#include "Rectangle.h"
+#include "Ellipse.h"
 
 ComponentFactory::ComponentFactory()
 {
@@ -19,14 +22,33 @@ Component* ComponentFactory::createComponent(ComponentType type, string descript
     switch (type)
     {
         case ComponentType::ROOT:
-            _createId = 0;
-            component = new Root(_createId, description);
+            this->_createId = 0;
+            component = new Root(this->_createId, description);
             break;
         case ComponentType::NODE:
-            component = new Node(_createId, description);
+            component = new Node(this->_createId, description);
             break;
     }
-    _createId++;
+    this->_createId++;
+    return component;
+}
+
+Component* ComponentFactory::createDecorate(ComponentType type, Component* node)
+{
+    Component* component = NULL;
+    switch (type)
+    {
+        case ComponentType::ELLIPSE:
+            component = new Ellipse(this->_createId, node);
+            break;
+        case ComponentType::TRIANGLE:
+            component = new Triangle(this->_createId, node);
+            break;
+        case ComponentType::RECTANGLE:
+            component = new Rectangle(this->_createId, node);
+            break;
+    }
+    this->_createId++;
     return component;
 }
 

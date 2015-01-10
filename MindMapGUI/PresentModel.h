@@ -17,6 +17,7 @@ class PresentModel
         PresentModel(MindMapModel* model);
         Component* tryFindNode(string id);
         Component* getRoot();
+        CommandManager* getCommandManager();
         void clearCommandManager();
 
         // Comfirm Method

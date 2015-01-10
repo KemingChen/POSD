@@ -1,4 +1,5 @@
 #include "Triangle.h"
+#include "ComponentFactory.h"
 
 Triangle::Triangle(int id, Component* node) : Decorate(id, node)
 {
@@ -6,16 +7,12 @@ Triangle::Triangle(int id, Component* node) : Decorate(id, node)
 
 Component* Triangle::clone()
 {
-    return NULL;
+    return ComponentFactory::getInstance()->createDecorate(ComponentType::ELLIPSE, this->_node->clone());
 }
 
 string Triangle::getTypeName()
 {
     return "Triangle";
-}
-
-void Triangle::accept(NodeVisitor* visitor)
-{
 }
 
 void Triangle::draw(IGraphic* painter)

@@ -1,4 +1,5 @@
 #include "Ellipse.h"
+#include "ComponentFactory.h"
 
 Ellipse::Ellipse(int id, Component* node) : Decorate(id, node)
 {
@@ -6,16 +7,12 @@ Ellipse::Ellipse(int id, Component* node) : Decorate(id, node)
 
 Component* Ellipse::clone()
 {
-    return NULL;
+    return ComponentFactory::getInstance()->createDecorate(ComponentType::ELLIPSE, this->_node->clone());
 }
 
 string Ellipse::getTypeName()
 {
     return "Ellipse";
-}
-
-void Ellipse::accept(NodeVisitor* visitor)
-{
 }
 
 void Ellipse::draw(IGraphic* painter)

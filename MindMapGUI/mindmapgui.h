@@ -90,6 +90,10 @@ class MindMapGUI : public Observer, public QMainWindow
         void insertParentNode();
         void insertSiblingNode();
         void insertChildNode();
+        void addTriangle();
+        void addRectangle();
+        void addEllipse();
+        void cleanAllDecorate();
         void deleteNode();
         void showAbout();
         void cut();

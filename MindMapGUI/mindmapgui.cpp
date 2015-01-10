@@ -138,6 +138,10 @@ void MindMapGUI::bindingActions()
     connect(this->_actionInsertChild, &QAction::triggered, this, &MindMapGUI::insertChildNode);
     connect(this->_actionInsertParent, &QAction::triggered, this, &MindMapGUI::insertParentNode);
     connect(this->_actionInsertSibling, &QAction::triggered, this, &MindMapGUI::insertSiblingNode);
+    connect(this->_actionAddTriangle, &QAction::triggered, this, &MindMapGUI::addTriangle);
+    connect(this->_actionAddRectangle, &QAction::triggered, this, &MindMapGUI::addRectangle);
+    connect(this->_actionAddEllipse, &QAction::triggered, this, &MindMapGUI::addEllipse);
+    connect(this->_actionRemoveAll, &QAction::triggered, this, &MindMapGUI::cleanAllDecorate);
     connect(this->_actionCut, &QAction::triggered, this, &MindMapGUI::cut);
     connect(this->_actionCopy, &QAction::triggered, this, &MindMapGUI::copy);
     connect(this->_actionPaste, &QAction::triggered, this, &MindMapGUI::paste);
@@ -335,6 +339,26 @@ void MindMapGUI::undo()
 void MindMapGUI::redo()
 {
     this->_presentModel->redo();
+}
+
+void MindMapGUI::addTriangle()
+{
+    this->_presentModel->addDecorate(ComponentType::RECTANGLE);
+}
+
+void MindMapGUI::addRectangle()
+{
+    this->_presentModel->addDecorate(ComponentType::RECTANGLE);
+}
+
+void MindMapGUI::addEllipse()
+{
+    this->_presentModel->addDecorate(ComponentType::RECTANGLE);
+}
+
+void MindMapGUI::cleanAllDecorate()
+{
+    this->_presentModel->cleanAllDecorate();
 }
 
 MindMapGUI::~MindMapGUI()

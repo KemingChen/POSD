@@ -61,6 +61,10 @@ void GUIDisplayVisitor::visit(Node* node)
     this->saveLevelBottomY(nowLevel, y + node->getHeight() / 2);
 }
 
+void GUIDisplayVisitor::visit(Decorate* node)
+{
+}
+
 void GUIDisplayVisitor::saveLevelBottomY(int level, int y)
 {
     this->_yLevelMap[level] = y;

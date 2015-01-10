@@ -32,6 +32,8 @@ class MindMapModel : public Subject
         void revertInsertParentNode(Component* choseNode, Component* newNode, Component* oldParentNode, Component* backFromNode);
         void insertChildNode(Component* choseNode, Component* newNode);
         void insertSiblingNode(Component* choseNode, Component* newNode);
+        Component* addDecorate(ComponentType type, Component* choseNode);
+        void cleanAllDecorate(Component* choseNode);
         void cutNode(Component* selectedNode);
         void pasteNode(Component* selectedNode, Component* cloneNode);
         void MindMapModel::rebuildPosition(IGraphic* painter);

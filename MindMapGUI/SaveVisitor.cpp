@@ -12,6 +12,10 @@ void SaveVisitor::visit(Node* node)
 {
 }
 
+void SaveVisitor::visit(Decorate* node)
+{
+}
+
 SaveVisitor::~SaveVisitor()
 {
 }
