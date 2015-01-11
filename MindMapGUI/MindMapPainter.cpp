@@ -16,6 +16,11 @@ QFont MindMapPainter::getFont() const
     return QFont("Helvetica", 10, QFont::Bold);
 }
 
+QPen MindMapPainter::getPen() const
+{
+    return QPen(Qt::gray);
+}
+
 void MindMapPainter::calculateTextRectSize(Component* node)
 {
     QFontMetrics fontMetrics = QFontMetrics(this->getFont());
@@ -27,12 +32,12 @@ void MindMapPainter::drawNode(Component* node)
 {
     GraphicNode* graphicNode = new GraphicNode(this->_guiWindow, this->_presentModel, node, this->getFont());
     this->_scene->addItem(graphicNode);
-    this->_scene->addLine(graphicNode->getConnectLine());
+    this->_scene->addLine(graphicNode->getConnectLine(), this->getPen());
 }
 
 void MindMapPainter::drawRectangle(Rect rect)
 {
-    this->_scene->addRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+    this->_scene->addRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight(), this->getPen());
 }
 
 void MindMapPainter::drawTriangle(Rect rect)
@@ -40,14 +45,14 @@ void MindMapPainter::drawTriangle(Rect rect)
     QPoint point1(rect.getX() + rect.getWidth() / 2, rect.getY());
     QPoint point2(rect.getX(), rect.getY() + rect.getHeight());
     QPoint point3(rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight());
-    this->_scene->addLine(QLine(point1, point2));
-    this->_scene->addLine(QLine(point2, point3));
-    this->_scene->addLine(QLine(point3, point1));
+    this->_scene->addLine(QLine(point1, point2), this->getPen());
+    this->_scene->addLine(QLine(point2, point3), this->getPen());
+    this->_scene->addLine(QLine(point3, point1), this->getPen());
 }
 
 void MindMapPainter::drawEllipse(Rect rect)
 {
-    this->_scene->addEllipse(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+    this->_scene->addEllipse(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight(), this->getPen());
 }
 
 MindMapPainter::~MindMapPainter()

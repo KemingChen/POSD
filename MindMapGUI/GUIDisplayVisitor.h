@@ -13,6 +13,7 @@ class GUIDisplayVisitor : public NodeVisitor
 
         int _nowLevel;
         map<int, int> _yLevelMap;
+        map<int, int> _maxWidthLevelMap;
         IGraphic* _painter;
         vector<Component*> _components;
 
@@ -21,6 +22,8 @@ class GUIDisplayVisitor : public NodeVisitor
         int averageChildY(Component* node);
         void saveLevelBottomY(int level, int y);
         int getLevelBottomY(int level);
+        void saveLevelMaxWidth(int level, int width);
+        int getLevelX(int level);
 
     public:
         GUIDisplayVisitor(IGraphic* painter);

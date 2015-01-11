@@ -18,11 +18,12 @@ QRectF GraphicNode::boundingRect() const
 
 QRectF GraphicNode::textRect() const
 {
-    int width = this->_node->getWidth() - 2 * INNER_PADDING;
-    int height = this->_node->getHeight() - 2 * INNER_PADDING;
-    int x = this->_node->getX() + INNER_PADDING;
-    int y = this->_node->getY() - height / 2;
-    return QRectF(x, y, width, height);
+    Rect rect = this->_node->getBoundingRect();
+    rect.setWidth(rect.getWidth() - 2 * INNER_PADDING);
+    rect.setHeight(rect.getHeight() - 2 * INNER_PADDING);
+    rect.setX(rect.getX() + INNER_PADDING);
+    rect.setY(rect.getY() + INNER_PADDING);
+    return QRectF(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 }
 
 QLine GraphicNode::getConnectLine() const
@@ -34,8 +35,9 @@ QLine GraphicNode::getConnectLine() const
     Component* parentNode = _node->getParent();
     if (parentNode)
     {
-        int endX = parentNode->getX() + (side == RIGHT ? parentNode->getWidth() : 0);
-        int endY = parentNode->getY();
+        Rect rect = parentNode->getBoundingRect();
+        int endX = rect.getX() + (side == RIGHT ? rect.getWidth() : 0);
+        int endY = rect.getY() + rect.getHeight() / 2;
         return QLine(startX, startY, endX, endY);
     }
     return QLine(startX, startY, startX, startY);

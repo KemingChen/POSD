@@ -12,12 +12,13 @@ class MindMapPainter : public IGraphic
         MindMapGUI* _guiWindow;
         GUIPresentModel* _presentModel;
 
+        QFont getFont() const;
+        QPen getPen() const;
+
     public:
         MindMapPainter(QGraphicsScene* scene, MindMapGUI* guiWindow, GUIPresentModel* presentModel);
-        QFont getFont() const;
         void calculateTextRectSize(Component* node);
         void drawNode(Component* node);
-        void drawText(Component* node);
         void drawRectangle(Rect rect);
         void drawTriangle(Rect rect);
         void drawEllipse(Rect rect);

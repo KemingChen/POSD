@@ -16,7 +16,7 @@ MindMapGUI::MindMapGUI(GUIPresentModel* presentModel) : QMainWindow()
 
     if (this->objectName().isEmpty())
         this->setObjectName(QStringLiteral("MindMapGUIClass"));
-    this->resize(900, 480);
+    this->resize(WINDOW_WIDTH, WINDOW_HEIGHT);
 
     this->setupActions();
     this->setupMenus();

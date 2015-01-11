@@ -28,7 +28,7 @@ TextUI::TextUI(PresentModel* presentModel, MindMapGUI* guiWindow, QApplication* 
 
 void TextUI::run()
 {
-    _presentModel->createMindMap("123");
+    _presentModel->loadMindMap("test.mm");
     this->openGUI();
     return;
     while (_isRun)

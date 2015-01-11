@@ -64,6 +64,7 @@ void Component::setRectSize(int width, int height)
 Rect Component::getBoundingRect()
 {
     Rect rect = this->_rect;
+    rect.setX(rect.getX() - rect.getWidth() / 2);
     rect.setY(rect.getY() - rect.getHeight() / 2);
     return rect;
 }

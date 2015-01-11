@@ -17,15 +17,13 @@ string Decorate::getMap()
 
 void Decorate::setPosition(int x, int y)
 {
-    this->_rect.setX(x);
-    this->_rect.setY(y);
-    this->_node->setPosition(x + 5, y);
+    Component::setPosition(x, y);
+    this->_rect.setPosition(x, y);
 }
 
 void Decorate::setRectSize(int width, int height)
 {
-    this->_rect.setWidth(width + 10);
-    this->_rect.setHeight(height + 10);
+    this->_rect.setSize(width + 2 * DECORATE_PADDING, height + 2 * DECORATE_PADDING);
 }
 
 void Decorate::addChild(Component* node, Component* backFromNode, int side)
@@ -76,6 +74,7 @@ NodeList* Decorate::getNodeList()
 void Decorate::accept(NodeVisitor* visitor)
 {
     this->getOriginalComponent()->accept(visitor);
+    this->setLevel(this->getOriginalComponent()->getLevel());
     visitor->visit(this);
 }
 
