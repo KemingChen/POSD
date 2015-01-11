@@ -257,6 +257,11 @@ void GUIPresentModel::addDecorate(ComponentType type)
 
 void GUIPresentModel::cleanAllDecorate()
 {
+    if (this->isSelected())
+    {
+        this->_model->cleanAllDecorate(this->getSelectedNode());
+        this->notify(MODEL_CHANGE);
+    }
 }
 
 bool GUIPresentModel::isUndoEnable()
