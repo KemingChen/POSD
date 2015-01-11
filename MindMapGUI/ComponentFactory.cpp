@@ -48,7 +48,6 @@ Component* ComponentFactory::createDecorate(ComponentType type, Component* node)
             component = new Rectangle(node->getId(), node);
             break;
     }
-    this->_createId++;
     return component;
 }
 

@@ -9,7 +9,7 @@ MindMapScene::MindMapScene(GUIPresentModel* presentModel) : QGraphicsScene()
 void MindMapScene::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsScene::mousePressEvent(event);
-    this->_presentModel->clickGraphicNode(NULL);
+    this->_presentModel->clickGraphicNode(NO_SELECTED);
 }
 
 MindMapScene::~MindMapScene()

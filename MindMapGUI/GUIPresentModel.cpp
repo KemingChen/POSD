@@ -7,7 +7,7 @@
 GUIPresentModel::GUIPresentModel(PresentModel* presentModel, MindMapModel* model)
 {
     this->_prepareCloneNode = NULL;
-    this->_selectedNode = NULL;
+    this->_selectedNodeId = NO_SELECTED;
     this->_lastClickTime = -1000;
     this->_presentModel = presentModel;
     this->_model = model;
@@ -36,31 +36,27 @@ bool GUIPresentModel::isValidText(bool isSubmit, string text)
 
 void GUIPresentModel::cancelSelected()
 {
-    if (_selectedNode)
+    Component* selectedNode = this->getSelectedNode();
+    if (selectedNode)
     {
-        _selectedNode->setIsSelected(false);
-        _selectedNode = NULL;
+        this->_selectedNodeId = NO_SELECTED;
     }
 }
 
-void GUIPresentModel::clickGraphicNode(Component* node)
+void GUIPresentModel::clickGraphicNode(int id)
 {
     if (!isValidClick())
         return;
-    if (node)
-        cout << "Click: " << node->getDescription() << " Type ( " + node->getTypeName() << endl;
     this->cancelSelected();
-    if (node)
-        node->setIsSelected(true);
-    this->_selectedNode = node;
+    this->_selectedNodeId = id;
     this->notify(SELECTED_CHANGE);
 }
 
 void GUIPresentModel::editDescription(string text, bool isValid)
 {
-    if (this->isValidText(isValid, text) && this->_selectedNode)
+    if (this->isValidText(isValid, text) && this->isSelected())
     {
-        this->_presentModel->editNodeDescription(this->_selectedNode, text);
+        this->_presentModel->editNodeDescription(this->getSelectedNode(), text);
         this->notify(MODEL_CHANGE);
     }
 }
@@ -70,7 +66,7 @@ void GUIPresentModel::loadMindMap(string path)
     if (this->isValidText(true, path))
     {
         this->_presentModel->loadMindMap(path);
-        this->notify(MODEL_CHANGE);
+        this->notify(CREATE_NEW);
     }
 }
 
@@ -95,7 +91,7 @@ void GUIPresentModel::insertParentNode(string text, bool isValid)
 {
     if (this->isValidText(isValid, text))
     {
-        this->_presentModel->insertParentNode(this->_selectedNode, text);
+        this->_presentModel->insertParentNode(this->getSelectedNode(), text);
         this->notify(MODEL_CHANGE);
     }
 }
@@ -104,7 +100,7 @@ void GUIPresentModel::insertChildNode(string text, bool isValid)
 {
     if (this->isValidText(isValid, text))
     {
-        this->_presentModel->insertChildNode(this->_selectedNode, text);
+        this->_presentModel->insertChildNode(this->getSelectedNode(), text);
         this->notify(MODEL_CHANGE);
     }
 }
@@ -113,7 +109,7 @@ void GUIPresentModel::insertSiblingNode(string text, bool isValid)
 {
     if (this->isValidText(isValid, text))
     {
-        this->_presentModel->insertSiblingNode(this->_selectedNode, text);
+        this->_presentModel->insertSiblingNode(this->getSelectedNode(), text);
         this->notify(MODEL_CHANGE);
     }
 }
@@ -125,12 +121,12 @@ bool GUIPresentModel::isSaveEnable()
 
 bool GUIPresentModel::isSelected()
 {
-    return this->_selectedNode != NULL;
+    return this->_selectedNodeId != NO_SELECTED;
 }
 
 bool GUIPresentModel::isDeleteNodeEnable()
 {
-    return this->isSelected() && _presentModel->getRoot() != this->_selectedNode;
+    return this->isSelected() && _presentModel->getRoot() != this->getSelectedNode();
 }
 
 bool GUIPresentModel::isEditNodeEnable()
@@ -144,7 +140,7 @@ bool GUIPresentModel::confirmInsertNodeLegal(InsertMethod insertMethod)
     {
         try
         {
-            this->_presentModel->confirmInsertNodeLegal(this->_selectedNode, insertMethod);
+            this->_presentModel->confirmInsertNodeLegal(this->getSelectedNode(), insertMethod);
             return true;
         }
         catch (string error)
@@ -172,33 +168,33 @@ bool GUIPresentModel::isInsertSiblingNodeEnable()
 
 void GUIPresentModel::deleteNode()
 {
-    this->_presentModel->deleteNode(this->_selectedNode);
+    this->_presentModel->deleteNode(this->getSelectedNode());
     this->cancelSelected();
     this->notify(MODEL_CHANGE);
 }
 
 void GUIPresentModel::cutNode()
 {
-    this->_presentModel->cutNode(this->_selectedNode);
-    this->_prepareCloneNode = this->_selectedNode;
+    this->_presentModel->cutNode(this->getSelectedNode());
+    this->_prepareCloneNode = this->getSelectedNode();
     this->cancelSelected();
     this->notify(MODEL_CHANGE);
 }
 
 void GUIPresentModel::copyNode()
 {
-    this->_prepareCloneNode = this->_selectedNode->clone();
+    this->_prepareCloneNode = this->getSelectedNode()->clone();
 }
 
 void GUIPresentModel::pasteNode()
 {
-    this->_presentModel->pasteNode(this->_selectedNode, this->_prepareCloneNode);
+    this->_presentModel->pasteNode(this->getSelectedNode(), this->_prepareCloneNode);
     this->notify(MODEL_CHANGE);
 }
 
-bool GUIPresentModel::isSelectedNode(Component* node)
+bool GUIPresentModel::isSelectedNode(int id)
 {
-    return this->_selectedNode == node;
+    return this->_selectedNodeId == id;
 }
 
 bool GUIPresentModel::isCreatedMindMap()
@@ -208,7 +204,7 @@ bool GUIPresentModel::isCreatedMindMap()
 
 bool GUIPresentModel::isCutNodeEnable()
 {
-    return this->isSelected() && this->_presentModel->getRoot() != _selectedNode;
+    return this->isSelected() && this->_presentModel->getRoot() != this->getSelectedNode();
 }
 
 bool GUIPresentModel::isCopyNodeEnable()
@@ -223,12 +219,17 @@ bool GUIPresentModel::isPasteNodeEnable()
 
 Component* GUIPresentModel::getSelectedNode()
 {
-    return this->_selectedNode;
+    return this->_model->findNode(this->_selectedNodeId);
 }
 
 Component* GUIPresentModel::getRoot()
 {
     return this->_presentModel->getRoot();
+}
+
+Component* GUIPresentModel::tryFindNode(int id)
+{
+    return this->_model->findNode(id);
 }
 
 void GUIPresentModel::undo()
@@ -247,11 +248,9 @@ void GUIPresentModel::redo()
 
 void GUIPresentModel::addDecorate(ComponentType type)
 {
-    if (this->_selectedNode)
+    if (this->isSelected())
     {
-        this->_selectedNode->setIsSelected(false);
-        this->_selectedNode = this->_model->addDecorate(type, this->_selectedNode);
-        this->_selectedNode->setIsSelected(true);
+        this->_model->addDecorate(type, this->getSelectedNode());
         this->notify(MODEL_CHANGE);
     }
 }

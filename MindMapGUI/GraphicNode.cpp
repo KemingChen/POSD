@@ -12,7 +12,7 @@ GraphicNode::GraphicNode(MindMapGUI* mainWindow, GUIPresentModel* presentModel, 
 
 QRectF GraphicNode::boundingRect() const
 {
-    Rect rect = this->_node->getBoundingRect();
+    Rect rect = this->_presentModel->tryFindNode(this->_node->getId())->getBoundingRect();
     return QRectF(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 }
 
@@ -29,9 +29,9 @@ QRectF GraphicNode::textRect() const
 QLine GraphicNode::getConnectLine() const
 {
     int side = this->_node->getSide();
-    QRectF rect = this->boundingRect();
-    int startX = side == LEFT ? rect.right() : rect.left();
-    int startY = rect.center().y();
+    Rect rect = this->_node->getBoundingRect();
+    int startX = side == LEFT ? rect.getX() + rect.getWidth() : rect.getX();
+    int startY = rect.getY() + rect.getHeight() / 2;
     Component* parentNode = _node->getParent();
     if (parentNode)
     {
@@ -47,7 +47,7 @@ void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* optio
 {
     if (this->_node == this->_node->getRealComponent())
     {
-        if (this->_node->getIsSelected())
+        if (this->_presentModel->isSelectedNode(this->_node->getId()))
             painter->setPen(Qt::red);
         painter->setFont(this->_font);
         painter->drawText(this->textRect(), Qt::TextWordWrap, QString::fromStdString(this->_node->getDescription()));
@@ -57,7 +57,7 @@ void GraphicNode::paint(QPainter* painter, const QStyleOptionGraphicsItem* optio
 void GraphicNode::mousePressEvent(QGraphicsSceneMouseEvent* event)
 {
     QGraphicsItem::mouseReleaseEvent(event);
-    this->_presentModel->clickGraphicNode(this->_node);
+    this->_presentModel->clickGraphicNode(this->_node->getId());
 }
 
 void GraphicNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
@@ -68,7 +68,7 @@ void GraphicNode::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
     else
     {
         this->_lastClickTime = clock();
-        this->_presentModel->clickGraphicNode(this->_node);
+        this->_presentModel->clickGraphicNode(this->_node->getId());
     }
 }
 

@@ -43,7 +43,7 @@ void MindMapModel::insertSiblingNode(Component* choseNode, Component* newNode)
     choseNode->addSibling(newNode);
 }
 
-Component* MindMapModel::addDecorate(ComponentType type, Component* choseNode)
+void MindMapModel::addDecorate(ComponentType type, Component* choseNode)
 {
     Component* parent = choseNode->getParent();
     Component* newNode = ComponentFactory::getInstance()->createDecorate(type, choseNode);
@@ -56,7 +56,6 @@ Component* MindMapModel::addDecorate(ComponentType type, Component* choseNode)
     {
         this->_root = newNode;
     }
-    return newNode;
 }
 
 void MindMapModel::cleanAllDecorate(Component* choseNode)

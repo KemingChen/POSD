@@ -18,7 +18,7 @@ class GUIPresentModel : public Subject
         clock_t _lastClickTime;
 
         // Property
-        Component* _selectedNode;
+        int _selectedNodeId;
         Component* _prepareCloneNode;
 
         // Method
@@ -32,7 +32,7 @@ class GUIPresentModel : public Subject
         ~GUIPresentModel();
 
         // Action
-        void clickGraphicNode(Component* node);
+        void clickGraphicNode(int id);
         void editDescription(string text, bool isValid);
         void loadMindMap(string path);
         void saveMindMap(string path);
@@ -69,6 +69,7 @@ class GUIPresentModel : public Subject
         void rebuildPosition(IGraphic* painter);
         Component* getSelectedNode();
         Component* getRoot();
+        Component* tryFindNode(int id);
         bool isCreatedMindMap();
-        bool isSelectedNode(Component* node);
+        bool isSelectedNode(int id);
 };

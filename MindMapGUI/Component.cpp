@@ -8,7 +8,6 @@ Component::Component(int id, string description)
 {
     this->setId(id);
     this->setDescription(description);
-    this->_isSelected = false;
 }
 
 int Component::getId()
@@ -75,16 +74,6 @@ string Component::toString()
     output += "¡Ï¡Ð " + this->getDescription();
     output += " (" + this->getTypeName() + ", ID: " + to_string(this->getId()) + ")";
     return output;
-}
-
-bool Component::getIsSelected()
-{
-    return this->_isSelected;
-}
-
-void Component::setIsSelected(bool value)
-{
-    this->_isSelected = value;
 }
 
 int Component::getLevel()

@@ -16,7 +16,6 @@ class Component
     private:
         int _id;
         string _description;
-        bool _isSelected;
         int _level;
         int _side;
 
@@ -35,10 +34,6 @@ class Component
         void setDescription(string description);
 
         string toString();
-
-        // Selected
-        bool getIsSelected();
-        void setIsSelected(bool value);
 
         // Level
         int getLevel();
