@@ -18,12 +18,12 @@ class GUIDisplayVisitor : public NodeVisitor
         vector<Component*> _components;
 
         // Private Method
-        int calculateLevel(Component* node);
         int averageChildY(Component* node);
-        void saveLevelBottomY(int level, int y);
+        void saveBottomY(Component* node);
         int getLevelBottomY(int level);
         void saveLevelMaxWidth(int level, int width);
         int getLevelX(int level);
+        int* getNowY(Component* node);
 
     public:
         GUIDisplayVisitor(IGraphic* painter);

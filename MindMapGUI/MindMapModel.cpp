@@ -49,8 +49,8 @@ Component* MindMapModel::addDecorate(ComponentType type, Component* choseNode)
     Component* newNode = ComponentFactory::getInstance()->createDecorate(type, choseNode);
     if (parent)
     {
+        parent->addChild(newNode, choseNode->getBackFromNode(), choseNode->getSide());
         parent->removeChild(choseNode);
-        parent->addChild(newNode);
     }
     else
     {

@@ -5,11 +5,6 @@ Decorate::Decorate(int id, Component* node) : Component(id, node->getDescription
     this->_node = node;
 }
 
-Component* Decorate::getBackFromNode()
-{
-    return this->getOriginalComponent()->getBackFromNode();
-}
-
 string Decorate::getMap()
 {
     return this->getId();
@@ -17,8 +12,8 @@ string Decorate::getMap()
 
 void Decorate::setPosition(int x, int y)
 {
-    Component::setPosition(x, y);
     this->_rect.setPosition(x, y);
+    this->getOriginalComponent()->setPosition(x + DECORATE_PADDING, y);
 }
 
 void Decorate::setRectSize(int width, int height)

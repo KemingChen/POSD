@@ -112,6 +112,17 @@ void Component::setSide(int side)
     }
 }
 
+Component* Component::getBackFromNode()
+{
+    NodeList* nodeList = this->getParent()->getNodeList();
+    NodeList::iterator it = find(nodeList->begin(), nodeList->end(), this);
+    if (it == nodeList->end())
+        return NULL;
+    if (it == nodeList->begin())
+        return this;
+    return *(it - 1);
+}
+
 Component::~Component()
 {
 }

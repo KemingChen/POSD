@@ -61,7 +61,7 @@ class Component
         Rect getBoundingRect();
 
         // Virtual Method
-        virtual Component* getBackFromNode() = 0;
+        virtual Component* getBackFromNode();
         virtual string getTypeName() = 0;
         virtual Component* clone() = 0;
         virtual string getMap() = 0;

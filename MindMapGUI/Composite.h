@@ -20,7 +20,6 @@ class Composite : public Component
         ~Composite();
 
         // Virtual Method
-        Component* getBackFromNode() = 0;
         string getTypeName() = 0;
         Component* clone() = 0;
         Component* getParent() = 0;

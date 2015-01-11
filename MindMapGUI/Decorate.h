@@ -8,7 +8,6 @@ class Decorate : public Component
 
     public:
         Decorate(int id, Component* node);
-        Component* getBackFromNode();
         string getMap();
         void setPosition(int x, int y);
         void setRectSize(int width, int height);

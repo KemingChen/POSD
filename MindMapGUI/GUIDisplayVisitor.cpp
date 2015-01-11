@@ -17,42 +17,42 @@ GUIDisplayVisitor::GUIDisplayVisitor(IGraphic* painter)
 int GUIDisplayVisitor::averageChildY(Component* node)
 {
     NodeList* nodeList = node->getNodeList();
-    if (nodeList->size() == 0)
-        return 0;
-    vector<int> childsY;
-    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
-    {
-        childsY.push_back((*iNode)->getY());
-    }
-    sort(childsY.begin(), childsY.end());
     int sum = 0;
-    sum += childsY.front();
-    sum += childsY.back();
+    if (nodeList->size() > 0)
+    {
+        vector<int> childsY;
+        for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+            childsY.push_back((*iNode)->getY());
+        sort(childsY.begin(), childsY.end());
+
+        sum += childsY.front();
+        sum += childsY.back();
+    }
     return sum / 2;
 }
 
-int GUIDisplayVisitor::calculateLevel(Component* node)
+int* GUIDisplayVisitor::getNowY(Component* node)
 {
-    return node->getLevel() * node->getSide();
+    return node->getSide() == RIGHT ? &this->_yRight : &this->_yLeft;
 }
 
 void GUIDisplayVisitor::visit(Root* node)
 {
     this->_painter->calculateTextRectSize(node);
-    int y = this->averageChildY(node);
-    node->setPosition(0, y);
     this->saveLevelMaxWidth(node->getLevel(), node->getWidth());
+
+    node->setPosition(0, this->averageChildY(node));
     _components.push_back(node);
 }
 
 void GUIDisplayVisitor::visit(Node* node)
 {
     this->_painter->calculateTextRectSize(node);
-    int* nowY = node->getSide() == RIGHT ? &this->_yRight : &this->_yLeft;
-    int nowLevel = this->calculateLevel(node);
+    this->saveLevelMaxWidth(node->getLevel(), node->getWidth());
+    int* nowY = this->getNowY(node);
 
     int y;
-    if (this->_nowLevel == 0 || this->_nowLevel * nowLevel < 0 || abs(this->_nowLevel) <= abs(nowLevel))
+    if (this->_nowLevel == 0 || this->_nowLevel * node->getLevel() < 0 || abs(this->_nowLevel) <= abs(node->getLevel()))
     {
         y = *nowY + node->getHeight() / 2;
         *nowY += node->getHeight() / 2 + OUTTER_Y_PADDING;
@@ -60,43 +60,46 @@ void GUIDisplayVisitor::visit(Node* node)
     else
     {
         y = this->averageChildY(node);
-        if (y - node->getHeight() / 2 < this->getLevelBottomY(nowLevel))
-            y = this->getLevelBottomY(nowLevel) + node->getHeight() / 2 + OUTTER_Y_PADDING;
+        if (y - node->getHeight() / 2 < this->getLevelBottomY(node->getLevel()))
+            y = this->getLevelBottomY(node->getLevel()) + node->getHeight() / 2 + OUTTER_Y_PADDING;
     }
 
     node->setPosition(0, y);
-    this->saveLevelMaxWidth(nowLevel, node->getWidth());
-    _components.push_back(node);
-    this->_nowLevel = nowLevel;
-
-    int newY = y + node->getHeight() / 2 + OUTTER_Y_PADDING;
-    if (newY > *nowY)
-        *nowY = newY;
-    this->saveLevelBottomY(nowLevel, y + node->getHeight() / 2);
+    this->_components.push_back(node);
+    this->saveBottomY(node);
+    this->_nowLevel = node->getLevel();
 }
 
 void GUIDisplayVisitor::visit(Decorate* node)
 {
     Component* originalNode = node->getOriginalComponent();
     node->setRectSize(originalNode->getWidth(), originalNode->getHeight());
-    this->saveLevelMaxWidth(this->calculateLevel(node), node->getWidth());
-    node->setPosition(originalNode->getX(), originalNode->getY());
+    this->saveLevelMaxWidth(node->getLevel(), node->getWidth());
+
+    node->setPosition(originalNode->getX(), originalNode->getY() + DECORATE_PADDING);
     this->_components.push_back(node);
+    this->saveBottomY(node);
 }
 
 void GUIDisplayVisitor::finish()
 {
+    //for (map<int, int>::iterator it = this->_maxWidthLevelMap.begin(); it != this->_maxWidthLevelMap.end(); it++)
+    //    cout << it->first << ": " << it->second << endl;
     for (vector<Component*>::reverse_iterator iNode = this->_components.rbegin(); iNode != this->_components.rend(); iNode++)
     {
         Component* node = (*iNode);
-        node->setPosition(this->getLevelX(this->calculateLevel(node)), node->getY());
+        node->setPosition(this->getLevelX(node->getLevel()), node->getY());
         node->draw(this->_painter);
     }
 }
 
-void GUIDisplayVisitor::saveLevelBottomY(int level, int y)
+void GUIDisplayVisitor::saveBottomY(Component* node)
 {
-    this->_yLevelMap[level] = y;
+    int newY = node->getY() + node->getHeight() / 2 + OUTTER_Y_PADDING;
+    int* nowY = this->getNowY(node);
+    if (newY > *nowY)
+        *nowY = newY;
+    this->_yLevelMap[node->getLevel()] = *nowY;
 }
 
 int GUIDisplayVisitor::getLevelBottomY(int level)
@@ -108,8 +111,7 @@ int GUIDisplayVisitor::getLevelBottomY(int level)
 
 void GUIDisplayVisitor::saveLevelMaxWidth(int level, int width)
 {
-    int levelWidth = this->_maxWidthLevelMap[level];
-    if (!levelWidth || levelWidth < width)
+    if (this->_maxWidthLevelMap[level] < width)
         this->_maxWidthLevelMap[level] = width;
 }
 

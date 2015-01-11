@@ -86,8 +86,9 @@ void Root::accept(NodeVisitor* visitor)
     NodeList* nodeList = this->getNodeList();
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {
-        (*iNode)->setLevel(1);
-        (*iNode)->accept(visitor);
+        Component* node = (*iNode);
+        node->setLevel(node->getSide());
+        node->accept(visitor);
     }
     this->setLevel(0);
     visitor->visit(this);
