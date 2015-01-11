@@ -7,7 +7,7 @@ Decorate::Decorate(int id, Component* node) : Component(id, node->getDescription
 
 string Decorate::getMap()
 {
-    return this->getId();
+    return to_string(this->getId());
 }
 
 void Decorate::setPosition(int x, int y)

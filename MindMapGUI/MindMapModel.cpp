@@ -63,20 +63,20 @@ void MindMapModel::cleanAllDecorate(Component* choseNode)
 {
 }
 
-Component* MindMapModel::findNode(string id)
+Component* MindMapModel::findNode(int id)
 {
     if (_root == NULL)
     {
         throw string("The Root is Empty!!!");
     }
-    if (id.empty())
+    if (id < 0)
     {
         return NULL;
     }
     return findNode(_root, id);
 }
 
-Component* MindMapModel::findNode(Component* fromNode, string id)
+Component* MindMapModel::findNode(Component* fromNode, int id)
 {
     Component* foundNode = NULL;
     NodeList* nodeList = fromNode->getNodeList();

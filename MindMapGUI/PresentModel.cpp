@@ -57,7 +57,7 @@ void PresentModel::insertSiblingNode(Component* choseNode, string description)
 
 Component* PresentModel::tryFindNode(string id)
 {
-    Component* node = _model->findNode(id);
+    Component* node = _model->findNode(atoi(id.c_str()));
     if (node == NULL)
     {
         throw string("The node is not exist!!");

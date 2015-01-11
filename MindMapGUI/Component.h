@@ -14,7 +14,7 @@ using namespace std;
 class Component
 {
     private:
-        string _id;
+        int _id;
         string _description;
         bool _isSelected;
         int _level;
@@ -27,7 +27,7 @@ class Component
         Component(int id, string description);
 
         // ID
-        string getId();
+        int getId();
         void setId(int id);
 
         // Description
@@ -84,6 +84,6 @@ struct CompareComponent
 {
     bool operator()(Component* first, Component* second)
     {
-        return atoi(first->getId().c_str()) < atoi(second->getId().c_str());
+        return first->getId() < second->getId();
     }
 };

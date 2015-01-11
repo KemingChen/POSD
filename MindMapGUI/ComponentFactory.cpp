@@ -39,13 +39,13 @@ Component* ComponentFactory::createDecorate(ComponentType type, Component* node)
     switch (type)
     {
         case ComponentType::ELLIPSE:
-            component = new Ellipse(this->_createId, node);
+            component = new Ellipse(node->getId(), node);
             break;
         case ComponentType::TRIANGLE:
-            component = new Triangle(this->_createId, node);
+            component = new Triangle(node->getId(), node);
             break;
         case ComponentType::RECTANGLE:
-            component = new Rectangle(this->_createId, node);
+            component = new Rectangle(node->getId(), node);
             break;
     }
     this->_createId++;

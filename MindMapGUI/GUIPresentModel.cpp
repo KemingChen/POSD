@@ -36,7 +36,7 @@ bool GUIPresentModel::isValidText(bool isSubmit, string text)
 
 void GUIPresentModel::cancelSelected()
 {
-    if (_selectedNode != NULL)
+    if (_selectedNode)
     {
         _selectedNode->setIsSelected(false);
         _selectedNode = NULL;
@@ -47,8 +47,10 @@ void GUIPresentModel::clickGraphicNode(Component* node)
 {
     if (!isValidClick())
         return;
+    if (node)
+        cout << "Click: " << node->getDescription() << " Type ( " + node->getTypeName() << endl;
     this->cancelSelected();
-    if (node != NULL)
+    if (node)
         node->setIsSelected(true);
     this->_selectedNode = node;
     this->notify(SELECTED_CHANGE);
@@ -56,7 +58,7 @@ void GUIPresentModel::clickGraphicNode(Component* node)
 
 void GUIPresentModel::editDescription(string text, bool isValid)
 {
-    if (this->isValidText(isValid, text) && this->_selectedNode != NULL)
+    if (this->isValidText(isValid, text) && this->_selectedNode)
     {
         this->_presentModel->editNodeDescription(this->_selectedNode, text);
         this->notify(MODEL_CHANGE);
@@ -247,7 +249,9 @@ void GUIPresentModel::addDecorate(ComponentType type)
 {
     if (this->_selectedNode)
     {
+        this->_selectedNode->setIsSelected(false);
         this->_selectedNode = this->_model->addDecorate(type, this->_selectedNode);
+        this->_selectedNode->setIsSelected(true);
         this->notify(MODEL_CHANGE);
     }
 }

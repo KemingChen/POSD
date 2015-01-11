@@ -104,9 +104,7 @@ void GUIDisplayVisitor::saveBottomY(Component* node)
 
 int GUIDisplayVisitor::getLevelBottomY(int level)
 {
-    if (this->_yLevelMap[level])
-        return this->_yLevelMap[level];
-    return -1000;
+    return this->_yLevelMap[level];
 }
 
 void GUIDisplayVisitor::saveLevelMaxWidth(int level, int width)

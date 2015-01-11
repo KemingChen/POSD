@@ -11,14 +11,14 @@ Component::Component(int id, string description)
     this->_isSelected = false;
 }
 
-string Component::getId()
+int Component::getId()
 {
     return this->_id;
 }
 
 void Component::setId(int id)
 {
-    this->_id = to_string(id);
+    this->_id = id;
 }
 
 string Component::getDescription()
@@ -73,7 +73,7 @@ string Component::toString()
 {
     string output;
     output += "¡Ï¡Ğ " + this->getDescription();
-    output += " (" + this->getTypeName() + ", ID: " + this->getId() + ")";
+    output += " (" + this->getTypeName() + ", ID: " + to_string(this->getId()) + ")";
     return output;
 }
 

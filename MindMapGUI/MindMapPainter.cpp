@@ -32,7 +32,8 @@ void MindMapPainter::drawNode(Component* node)
 {
     GraphicNode* graphicNode = new GraphicNode(this->_guiWindow, this->_presentModel, node, this->getFont());
     this->_scene->addItem(graphicNode);
-    this->_scene->addLine(graphicNode->getConnectLine(), this->getPen());
+    if (node == node->getRealComponent())
+        this->_scene->addLine(graphicNode->getConnectLine(), this->getPen());
 }
 
 void MindMapPainter::drawRectangle(Rect rect)
