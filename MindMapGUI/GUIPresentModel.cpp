@@ -62,6 +62,7 @@ void GUIPresentModel::loadMindMap(string path)
 {
     if (this->isValidText(true, path))
     {
+        this->_selectedNodeId = NO_SELECTED;
         this->_presentModel->loadMindMap(path);
         this->notify(CREATE_NEW);
     }
@@ -79,6 +80,7 @@ void GUIPresentModel::createMindMap(string text, bool isValid)
 {
     if (this->isValidText(isValid, text))
     {
+        this->_selectedNodeId = NO_SELECTED;
         this->_presentModel->createMindMap(text);
         this->notify(CREATE_NEW);
     }
