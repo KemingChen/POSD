@@ -2,6 +2,7 @@
 #include <gtest\gtest.h>
 #include "PresentModel.h"
 #include "MockCommand.h"
+#include "Node.h"
 
 class PresentModelTest : public ::testing::Test
 {

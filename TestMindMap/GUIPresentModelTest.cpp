@@ -3,6 +3,7 @@
 #include "PresentModel.h"
 #include "GUIPresentModel.h"
 #include "MockCommand.h"
+#include "Node.h"
 #include <thread>
 #include <chrono>
 
@@ -13,7 +14,7 @@ class GUIPresentModelTest : public ::testing::Test
         {
             _model = new MindMapModel();
             _presentModel = new PresentModel(_model);
-            _guiPresentModel = new GUIPresentModel(_presentModel);
+            _guiPresentModel = new GUIPresentModel(_presentModel, _model);
         }
 
         void createMindMap()
@@ -40,8 +41,8 @@ class GUIPresentModelTest : public ::testing::Test
 TEST_F(GUIPresentModelTest, editDescription)
 {
     createMindMap();
-    Component* node = _model->findNode("0");
-    _guiPresentModel->clickGraphicNode("0");
+    Component* node = _model->findNode(0);
+    _guiPresentModel->clickGraphicNode(0);
 
     _guiPresentModel->editDescription("", false);
     ASSERT_EQ(node->getDescription(), "Root");
@@ -87,7 +88,7 @@ TEST_F(GUIPresentModelTest, createMindMap)
 TEST_F(GUIPresentModelTest, insertParentNode)
 {
     createMindMap();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
 
     _guiPresentModel->insertParentNode("", false);
 
@@ -99,7 +100,7 @@ TEST_F(GUIPresentModelTest, insertParentNode)
 TEST_F(GUIPresentModelTest, insertChildNode)
 {
     createMindMap();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
 
     _guiPresentModel->insertChildNode("", false);
     _guiPresentModel->insertChildNode("Hello", false);
@@ -112,7 +113,7 @@ TEST_F(GUIPresentModelTest, insertChildNode)
 TEST_F(GUIPresentModelTest, insertSiblingNode)
 {
     createMindMap();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
 
     _guiPresentModel->insertSiblingNode("", false);
     _guiPresentModel->insertSiblingNode("Hello", false);
@@ -125,7 +126,7 @@ TEST_F(GUIPresentModelTest, insertSiblingNode)
 TEST_F(GUIPresentModelTest, deleteNode)
 {
     createMindMap();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
 
     _guiPresentModel->deleteNode();
     ASSERT_FALSE(_guiPresentModel->isSelected());
@@ -144,15 +145,15 @@ TEST_F(GUIPresentModelTest, isSelected)
     createMindMap();
     ASSERT_FALSE(_guiPresentModel->isSelected());
 
-    _guiPresentModel->clickGraphicNode("0");
+    _guiPresentModel->clickGraphicNode(0);
     ASSERT_TRUE(_guiPresentModel->isSelected());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
     ASSERT_TRUE(_guiPresentModel->isSelected());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("");
+    _guiPresentModel->clickGraphicNode(NO_SELECTED);
     ASSERT_FALSE(_guiPresentModel->isSelected());
 }
 
@@ -162,15 +163,15 @@ TEST_F(GUIPresentModelTest, isEditNodeEnable)
     createMindMap();
     ASSERT_FALSE(_guiPresentModel->isEditNodeEnable());
 
-    _guiPresentModel->clickGraphicNode("0");
+    _guiPresentModel->clickGraphicNode(0);
     ASSERT_TRUE(_guiPresentModel->isEditNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
     ASSERT_TRUE(_guiPresentModel->isEditNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("");
+    _guiPresentModel->clickGraphicNode(NO_SELECTED);
     ASSERT_FALSE(_guiPresentModel->isEditNodeEnable());
 }
 
@@ -180,15 +181,15 @@ TEST_F(GUIPresentModelTest, isDeleteNodeEnable)
     createMindMap();
     ASSERT_FALSE(_guiPresentModel->isDeleteNodeEnable());
 
-    _guiPresentModel->clickGraphicNode("0");
+    _guiPresentModel->clickGraphicNode(0);
     ASSERT_FALSE(_guiPresentModel->isDeleteNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
     ASSERT_TRUE(_guiPresentModel->isDeleteNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("");
+    _guiPresentModel->clickGraphicNode(NO_SELECTED);
     ASSERT_FALSE(_guiPresentModel->isDeleteNodeEnable());
 }
 
@@ -198,15 +199,15 @@ TEST_F(GUIPresentModelTest, isInsertParentNodeEnable)
     createMindMap();
     ASSERT_FALSE(_guiPresentModel->isInsertParentNodeEnable());
 
-    _guiPresentModel->clickGraphicNode("0");
+    _guiPresentModel->clickGraphicNode(0);
     ASSERT_FALSE(_guiPresentModel->isInsertParentNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
     ASSERT_TRUE(_guiPresentModel->isInsertParentNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("");
+    _guiPresentModel->clickGraphicNode(NO_SELECTED);
     ASSERT_FALSE(_guiPresentModel->isInsertParentNodeEnable());
 }
 
@@ -216,15 +217,15 @@ TEST_F(GUIPresentModelTest, isInsertChildNodeEnable)
     createMindMap();
     ASSERT_FALSE(_guiPresentModel->isInsertChildNodeEnable());
 
-    _guiPresentModel->clickGraphicNode("0");
+    _guiPresentModel->clickGraphicNode(0);
     ASSERT_TRUE(_guiPresentModel->isInsertChildNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
     ASSERT_TRUE(_guiPresentModel->isInsertChildNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("");
+    _guiPresentModel->clickGraphicNode(NO_SELECTED);
     ASSERT_FALSE(_guiPresentModel->isInsertChildNodeEnable());
 }
 
@@ -234,15 +235,15 @@ TEST_F(GUIPresentModelTest, isInsertSiblingNodeEnable)
     createMindMap();
     ASSERT_FALSE(_guiPresentModel->isInsertSiblingNodeEnable());
 
-    _guiPresentModel->clickGraphicNode("0");
+    _guiPresentModel->clickGraphicNode(0);
     ASSERT_FALSE(_guiPresentModel->isInsertSiblingNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
     ASSERT_TRUE(_guiPresentModel->isInsertSiblingNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("");
+    _guiPresentModel->clickGraphicNode(NO_SELECTED);
     ASSERT_FALSE(_guiPresentModel->isInsertSiblingNodeEnable());
 }
 
@@ -252,15 +253,15 @@ TEST_F(GUIPresentModelTest, isCutNodeEnable)
     createMindMap();
     ASSERT_FALSE(_guiPresentModel->isCutNodeEnable());
 
-    _guiPresentModel->clickGraphicNode("0");
+    _guiPresentModel->clickGraphicNode(0);
     ASSERT_FALSE(_guiPresentModel->isCutNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
     ASSERT_TRUE(_guiPresentModel->isCutNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("");
+    _guiPresentModel->clickGraphicNode(NO_SELECTED);
     ASSERT_FALSE(_guiPresentModel->isCutNodeEnable());
 }
 
@@ -270,15 +271,15 @@ TEST_F(GUIPresentModelTest, isCopyNodeEnable)
     createMindMap();
     ASSERT_FALSE(_guiPresentModel->isCopyNodeEnable());
 
-    _guiPresentModel->clickGraphicNode("0");
+    _guiPresentModel->clickGraphicNode(0);
     ASSERT_FALSE(_guiPresentModel->isCopyNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
     ASSERT_TRUE(_guiPresentModel->isCopyNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("");
+    _guiPresentModel->clickGraphicNode(NO_SELECTED);
     ASSERT_FALSE(_guiPresentModel->isCopyNodeEnable());
 }
 
@@ -288,11 +289,11 @@ TEST_F(GUIPresentModelTest, isPasteNodeEnable)
     createMindMap();
     ASSERT_FALSE(_guiPresentModel->isPasteNodeEnable());
 
-    _guiPresentModel->clickGraphicNode("0");
+    _guiPresentModel->clickGraphicNode(0);
     ASSERT_FALSE(_guiPresentModel->isPasteNodeEnable());
 
     sleep();
-    _guiPresentModel->clickGraphicNode("1");
+    _guiPresentModel->clickGraphicNode(1);
     ASSERT_FALSE(_guiPresentModel->isPasteNodeEnable());
 
     _guiPresentModel->copyNode();
@@ -301,6 +302,6 @@ TEST_F(GUIPresentModelTest, isPasteNodeEnable)
     _guiPresentModel->cutNode();
     ASSERT_FALSE(_guiPresentModel->isPasteNodeEnable());
     sleep();
-    _guiPresentModel->clickGraphicNode("0");
+    _guiPresentModel->clickGraphicNode(0);
     ASSERT_TRUE(_guiPresentModel->isPasteNodeEnable());
 }

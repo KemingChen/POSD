@@ -8,6 +8,7 @@ using namespace std;
 
 class MindMapModel : public Subject
 {
+        friend class MindMapModelTest;
     private:
         // Private Variable
         Component* _root;

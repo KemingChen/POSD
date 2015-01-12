@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include <gtest\gtest.h>
+#include "Root.h"
+#include "Node.h"
 using namespace std;
 
 class RootTest : public ::testing::Test
@@ -19,10 +21,10 @@ class RootTest : public ::testing::Test
 
 TEST_F(RootTest, setId)
 {
-    ASSERT_EQ("0", _root->getId());
+    ASSERT_EQ(0, _root->getId());
     _root->setId(1);
-    ASSERT_NE("0", _root->getId());
-    ASSERT_EQ("1", _root->getId());
+    ASSERT_NE(0, _root->getId());
+    ASSERT_EQ(1, _root->getId());
 }
 
 TEST_F(RootTest, setDescription)
@@ -55,10 +57,10 @@ TEST_F(RootTest, toString)
 TEST_F(RootTest, getMap)
 {
     _root->addChild(new Node(5, "Node5"));
-    ASSERT_EQ(" 5", _root->getMap());
+    ASSERT_EQ("#5", _root->getMap());
     _root->addChild(new Node(4, "Node4"));
     _root->addChild(new Node(3, "Node3"));
-    ASSERT_EQ(" 5 4 3", _root->getMap());
+    ASSERT_EQ("#5#4#3", _root->getMap());
 }
 
 TEST_F(RootTest, addChild)
@@ -79,10 +81,10 @@ TEST_F(RootTest, removeChild)
     _root->addChild(new Node(2, "Child2"));
     _root->addChild(prepareRemoveNode = new Node(3, "Child3"));
     _root->addChild(new Node(4, "Child4"));
-    ASSERT_EQ(" 2 3 4", _root->getMap());
+    ASSERT_EQ("#2#3#4", _root->getMap());
     _root->removeChild(prepareRemoveNode);
-    ASSERT_NE(" 2 3 4", _root->getMap());
-    ASSERT_EQ(" 2 4", _root->getMap());
+    ASSERT_NE("#2#3#4", _root->getMap());
+    ASSERT_EQ("#2#4", _root->getMap());
 }
 
 TEST_F(RootTest, removeAllChild)

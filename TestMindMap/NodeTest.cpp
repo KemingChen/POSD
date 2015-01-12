@@ -1,4 +1,6 @@
 #include "stdafx.h"
+#include "Root.h"
+#include "Node.h"
 #include <gtest\gtest.h>
 
 class NodeTest : public ::testing::Test
@@ -19,10 +21,10 @@ class NodeTest : public ::testing::Test
 
 TEST_F(NodeTest, setId)
 {
-    ASSERT_EQ("1", _node->getId());
+    ASSERT_EQ(1, _node->getId());
     _node->setId(2);
-    ASSERT_NE("1", _node->getId());
-    ASSERT_EQ("2", _node->getId());
+    ASSERT_NE(1, _node->getId());
+    ASSERT_EQ(2, _node->getId());
 }
 
 TEST_F(NodeTest, setDescription)
@@ -43,12 +45,12 @@ TEST_F(NodeTest, setParent)
 {
     _node->setParent(new Node(0, "OS"));
     ASSERT_EQ("OS", _node->getParent()->getDescription());
-    ASSERT_EQ("0", _node->getParent()->getId());
+    ASSERT_EQ(0, _node->getParent()->getId());
     _node->setParent(new Node(2, "OS Level"));
     ASSERT_EQ("OS Level", _node->getParent()->getDescription());
-    ASSERT_EQ("2", _node->getParent()->getId());
+    ASSERT_EQ(2, _node->getParent()->getId());
     ASSERT_NE("OS", _node->getParent()->getDescription());
-    ASSERT_NE("0", _node->getParent()->getId());
+    ASSERT_NE(0, _node->getParent()->getId());
 }
 
 TEST_F(NodeTest, toString)
@@ -62,10 +64,10 @@ TEST_F(NodeTest, toString)
 TEST_F(NodeTest, getMap)
 {
     _node->addChild(new Node(5, "Node5"));
-    ASSERT_EQ(" 5", _node->getMap());
+    ASSERT_EQ("#5", _node->getMap());
     _node->addChild(new Node(4, "Node4"));
     _node->addChild(new Node(3, "Node3"));
-    ASSERT_EQ(" 5 4 3", _node->getMap());
+    ASSERT_EQ("#5#4#3", _node->getMap());
 }
 
 TEST_F(NodeTest, addChild)
@@ -86,10 +88,10 @@ TEST_F(NodeTest, removeChild)
     _node->addChild(new Node(2, "Child2"));
     _node->addChild(prepareRemoveNode = new Node(3, "Child3"));
     _node->addChild(new Node(4, "Child4"));
-    ASSERT_EQ(" 2 3 4", _node->getMap());
+    ASSERT_EQ("#2#3#4", _node->getMap());
     _node->removeChild(prepareRemoveNode);
-    ASSERT_NE(" 2 3 4", _node->getMap());
-    ASSERT_EQ(" 2 4", _node->getMap());
+    ASSERT_NE("#2#3#4", _node->getMap());
+    ASSERT_EQ("#2#4", _node->getMap());
 }
 
 TEST_F(NodeTest, removeAllChild)
@@ -116,11 +118,11 @@ TEST_F(NodeTest, addParent)
 TEST_F(NodeTest, addSibling)
 {
     ASSERT_EQ("MindMap Root", _node->getParent()->getDescription());
-    ASSERT_EQ(" 1", _node->getParent()->getMap());
+    ASSERT_EQ("#1", _node->getParent()->getMap());
     _node->addSibling(new Node(3, "Sibling2"));
-    ASSERT_EQ(" 1 3", _node->getParent()->getMap());
+    ASSERT_EQ("#1#3", _node->getParent()->getMap());
     _node->addSibling(new Node(2, "Sibling3"));
-    ASSERT_EQ(" 1 2 3", _node->getParent()->getMap());
+    ASSERT_EQ("#1#2#3", _node->getParent()->getMap());
 }
 
 TEST_F(NodeTest, isSelfAreParentLastNode)

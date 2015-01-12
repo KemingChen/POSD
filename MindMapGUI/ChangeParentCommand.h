@@ -5,6 +5,9 @@
 
 class ChangeParentCommand : public Command
 {
+        FRIEND_TEST(ChangeParentCommandTest, newParentIsUnderNode);
+        FRIEND_TEST(ChangeParentCommandTest, newParentNotUnderNode);
+
     private:
         typedef std::vector<Component*> NodeList;
 

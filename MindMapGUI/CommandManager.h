@@ -15,6 +15,12 @@ using namespace std;
 
 class CommandManager
 {
+        friend class PresentModelTest;
+        FRIEND_TEST(CommandManagerTest, execute);
+        FRIEND_TEST(CommandManagerTest, clear);
+        FRIEND_TEST(CommandManagerTest, redo);
+        FRIEND_TEST(CommandManagerTest, undo);
+
     private:
         typedef stack<Command*> CommandStack;
         CommandStack _redoCommands;

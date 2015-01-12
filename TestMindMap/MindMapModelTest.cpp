@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include <gtest\gtest.h>
 #include "MindMapModel.h"
+#include <fstream>
+#include "Root.h"
+#include "Node.h"
 #define TEST_DATA_DIR "testdata"
 #define TEST_TEMP_FILE "testdata/temp_file.mm"
 
@@ -51,16 +54,13 @@ class MindMapModelTest : public ::testing::Test
 
         void assertTestMindMap()
         {
-            ASSERT_EQ(" 2 7", _model.findNode("0")->getMap());
-            ASSERT_EQ(" 5 6", _model.findNode("1")->getMap());
-            ASSERT_EQ(" 1 3 4", _model.findNode("2")->getMap());
-            ASSERT_EQ("", _model.findNode("3")->getMap());
-            ASSERT_EQ("", _model.findNode("4")->getMap());
-            ASSERT_EQ("", _model.findNode("5")->getMap());
-            ASSERT_EQ("", _model.findNode("6")->getMap());
-            ASSERT_EQ(" 8 9", _model.findNode("7")->getMap());
-            ASSERT_EQ("", _model.findNode("8")->getMap());
-            ASSERT_EQ("", _model.findNode("9")->getMap());
+            ASSERT_EQ("", _model.findNode(3)->getMap());
+            ASSERT_EQ("", _model.findNode(4)->getMap());
+            ASSERT_EQ("", _model.findNode(5)->getMap());
+            ASSERT_EQ("", _model.findNode(6)->getMap());
+            ASSERT_EQ("#8#9", _model.findNode(7)->getMap());
+            ASSERT_EQ("", _model.findNode(8)->getMap());
+            ASSERT_EQ("", _model.findNode(9)->getMap());
         }
 
         // Change Parent Node is The Child under Node
@@ -68,15 +68,15 @@ class MindMapModelTest : public ::testing::Test
         {
             // New Parent is The Child under Node
             createTestMindMap();
-            Component* networkNode = _model.findNode("7");
-            Component* wirelessNode = _model.findNode("8");
-            Component* oldParentNode = _model.findNode("0");
+            Component* networkNode = _model.findNode(7);
+            Component* wirelessNode = _model.findNode(8);
+            Component* oldParentNode = _model.findNode(0);
             NodeList oldNodeList;
-            oldNodeList.push_back(_model.findNode("8"));
-            oldNodeList.push_back(_model.findNode("9"));
+            oldNodeList.push_back(_model.findNode(8));
+            oldNodeList.push_back(_model.findNode(9));
             _model.changeNodeParent(networkNode, wirelessNode);
-            ASSERT_EQ(" 2 8 9", _root->getMap());
-            ASSERT_EQ(" 7", wirelessNode->getMap());
+            ASSERT_EQ("#2#8#9", _root->getMap());
+            ASSERT_EQ("#7", wirelessNode->getMap());
             ASSERT_EQ("", networkNode->getMap());
             _model.revertChangeNodeParent(networkNode, oldParentNode, &oldNodeList);
             assertTestMindMap();
@@ -86,14 +86,14 @@ class MindMapModelTest : public ::testing::Test
         void testChangeParentNotUnderNode()
         {
             createTestMindMap();
-            Component* networkNode = _model.findNode("7");
-            Component* windowsNode = _model.findNode("1");
-            Component* oldParentNode = _model.findNode("0");
+            Component* networkNode = _model.findNode(7);
+            Component* windowsNode = _model.findNode(1);
+            Component* oldParentNode = _model.findNode(0);
             NodeList oldNodeList;
             _model.changeNodeParent(networkNode, windowsNode);
-            ASSERT_EQ(" 2", _root->getMap());
-            ASSERT_EQ(" 5 6 7", windowsNode->getMap());
-            ASSERT_EQ(" 8 9", networkNode->getMap());
+            ASSERT_EQ("#2", _root->getMap());
+            ASSERT_EQ("#5#6#7", windowsNode->getMap());
+            ASSERT_EQ("#8#9", networkNode->getMap());
             _model.revertChangeNodeParent(networkNode, oldParentNode, &oldNodeList);
             assertTestMindMap();
         }
@@ -115,12 +115,12 @@ TEST_F(MindMapModelTest, createMinMap)
 TEST_F(MindMapModelTest, insertParentNode)
 {
     createTestMindMap();
-    Component* networkNode = _model.findNode("7");
-    Component* oldParentNode = _model.findNode("0");
+    Component* networkNode = _model.findNode(7);
+    Component* oldParentNode = _model.findNode(0);
     Component* newParentNode = new Node(10, "New Parent Node");
     _model.insertParentNode(networkNode, newParentNode);
-    ASSERT_EQ(" 2 10", _root->getMap());
-    ASSERT_EQ("New Parent Node", _model.findNode("10")->getDescription());
+    ASSERT_EQ("#2#10", _root->getMap());
+    ASSERT_EQ("New Parent Node", _model.findNode(10)->getDescription());
     _model.revertInsertParentNode(networkNode, newParentNode, oldParentNode, NULL);
     assertTestMindMap();
 }
@@ -149,26 +149,26 @@ TEST_F(MindMapModelTest, changeNodeParent)
 TEST_F(MindMapModelTest, deleteNode)
 {
     createTestMindMap();
-    Component* networkNode = _model.findNode("7");
-    Component* officeNode = _model.findNode("6");
+    Component* networkNode = _model.findNode(7);
+    Component* officeNode = _model.findNode(6);
     _model.deleteNode(networkNode);
-    ASSERT_EQ(NULL, _model.findNode("7"));
-    ASSERT_EQ(" 2 8 9", _root->getMap());
+    ASSERT_EQ(NULL, _model.findNode(7));
+    ASSERT_EQ("#2#8#9", _root->getMap());
     _model.deleteNode(officeNode);
-    ASSERT_EQ(NULL, _model.findNode("6"));
-    ASSERT_EQ(" 5", _model.findNode("1")->getMap());
+    ASSERT_EQ(NULL, _model.findNode(6));
+    ASSERT_EQ("#5", _model.findNode(1)->getMap());
     // Revert Delete Node
     _model.revertDeleteNode(networkNode, NULL);
-    ASSERT_TRUE(_model.findNode("7") != NULL);
+    ASSERT_TRUE(_model.findNode(7) != NULL);
     _model.revertDeleteNode(officeNode, NULL);
-    ASSERT_TRUE(_model.findNode("6") != NULL);
+    ASSERT_TRUE(_model.findNode(6) != NULL);
     assertTestMindMap();
 }
 
 TEST_F(MindMapModelTest, revertDeleteNode)
 {
     createTestMindMap();
-    Component* networkNode = _model.findNode("7");
+    Component* networkNode = _model.findNode(7);
     _model.deleteNode(networkNode);
 }
 
@@ -189,9 +189,9 @@ TEST_F(MindMapModelTest, saveAndLoadMindMap)
 
 TEST_F(MindMapModelTest, findNode)
 {
-    ASSERT_THROW(_model.findNode("0"), string);
-    ASSERT_THROW(_model.findNode("1"), string);
+    ASSERT_THROW(_model.findNode(0), string);
+    ASSERT_THROW(_model.findNode(1), string);
     createTestMindMap();
-    ASSERT_EQ("Computer", _model.findNode("0")->getDescription());
-    ASSERT_EQ("windows", _model.findNode("1")->getDescription());
+    ASSERT_EQ("Computer", _model.findNode(0)->getDescription());
+    ASSERT_EQ("windows", _model.findNode(1)->getDescription());
 }

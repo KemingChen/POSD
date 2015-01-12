@@ -2,6 +2,7 @@
 #include <gtest\gtest.h>
 #include "ChangeParentCommand.h"
 #include "MindMapModel.h"
+#include "Node.h"
 
 class ChangeParentCommandTest : public ::testing::Test
 {

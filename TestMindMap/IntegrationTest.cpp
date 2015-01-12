@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <gtest\gtest.h>
 #include "PresentModel.h"
+#include <fstream>
 #define TEST_DATA_DIR "testdata"
 #define TEST_FILE "testdata/test_file1.mm"
 
@@ -24,31 +25,31 @@ class IntegrationTest : public ::testing::Test
         void createTestFile()
         {
             ofstream writeStream(TEST_FILE);
-            writeStream << "0 \"Computer\" 2 7" << endl;
-            writeStream << "1 \"windows\" 5 6" << endl;
-            writeStream << "2 \"OS\" 1 3 4" << endl;
-            writeStream << "3 \"IOS\"" << endl;
-            writeStream << "4 \"Linux\"" << endl;
-            writeStream << "5 \"DirectX\"" << endl;
-            writeStream << "6 \"Microsoft Office\"" << endl;
-            writeStream << "7 \"Network\" 8 9" << endl;
-            writeStream << "8 \"Wireless\"" << endl;
-            writeStream << "9 \"Cable\"" << endl;
+            writeStream << "0 0 Computer ##2#7# ##" << endl;
+            writeStream << "1 1 windows ##5#6# ##" << endl;
+            writeStream << "2 1 OS ##1#3#4# ##" << endl;
+            writeStream << "3 1 IOS ## ##" << endl;
+            writeStream << "4 1 Linux ## ##" << endl;
+            writeStream << "5 1 DirectX ## ##" << endl;
+            writeStream << "6 1 Microsoft&nbsp;Office ## ##" << endl;
+            writeStream << "7 -1 Network ##8#9# ##" << endl;
+            writeStream << "8 -1 Wireless ## ##" << endl;
+            writeStream << "9 -1 Cable ## ##" << endl;
             writeStream.close();
         }
 
         void assertTestMindMap()
         {
-            ASSERT_EQ(" 2 7", _model->findNode("0")->getMap());
-            ASSERT_EQ(" 5 6", _model->findNode("1")->getMap());
-            ASSERT_EQ(" 1 3 4", _model->findNode("2")->getMap());
-            ASSERT_EQ("", _model->findNode("3")->getMap());
-            ASSERT_EQ("", _model->findNode("4")->getMap());
-            ASSERT_EQ("", _model->findNode("5")->getMap());
-            ASSERT_EQ("", _model->findNode("6")->getMap());
-            ASSERT_EQ(" 8 9", _model->findNode("7")->getMap());
-            ASSERT_EQ("", _model->findNode("8")->getMap());
-            ASSERT_EQ("", _model->findNode("9")->getMap());
+            ASSERT_EQ("#2#7", _model->findNode(0)->getMap());
+            ASSERT_EQ("#5#6", _model->findNode(1)->getMap());
+            ASSERT_EQ("#1#3#4", _model->findNode(2)->getMap());
+            ASSERT_EQ("", _model->findNode(3)->getMap());
+            ASSERT_EQ("", _model->findNode(4)->getMap());
+            ASSERT_EQ("", _model->findNode(5)->getMap());
+            ASSERT_EQ("", _model->findNode(6)->getMap());
+            ASSERT_EQ("#8#9", _model->findNode(7)->getMap());
+            ASSERT_EQ("", _model->findNode(8)->getMap());
+            ASSERT_EQ("", _model->findNode(9)->getMap());
         }
 
         MindMapModel* _model;

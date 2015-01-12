@@ -168,16 +168,40 @@
       <Filter>UnitTest\Model\PresentModel</Filter>
     </ClCompile>
     <ClCompile Include="..\MindMapGUI\CutNodeCommand.cpp">
-      <Filter>原始程式檔\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MindMapGUI\Observer.cpp">
-      <Filter>原始程式檔\Model</Filter>
+      <Filter>原始程式檔\Model\Command</Filter>
     </ClCompile>
     <ClCompile Include="..\MindMapGUI\Subject.cpp">
-      <Filter>原始程式檔\Model</Filter>
+      <Filter>原始程式檔\Model\Services</Filter>
     </ClCompile>
     <ClCompile Include="..\MindMapGUI\PasteNodeCommand.cpp">
-      <Filter>原始程式檔</Filter>
+      <Filter>原始程式檔\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\Rect.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\Triangle.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\Rectangle.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\Ellipse.cpp">
+      <Filter>原始程式檔\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\Decorate.cpp">
+      <Filter>原始程式檔\Model\Composite</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\SaveVisitor.cpp">
+      <Filter>原始程式檔\Model\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\GUIDisplayVisitor.cpp">
+      <Filter>原始程式檔\Model\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\CleanAllDecorateCommand.cpp">
+      <Filter>原始程式檔\Model\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="..\MindMapGUI\AddDecorateCommnad.cpp">
+      <Filter>原始程式檔\Model\Services</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

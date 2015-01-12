@@ -92,26 +92,34 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\MindMapGUI\AddDecorateCommnad.cpp" />
     <ClCompile Include="..\MindMapGUI\ChangeParentCommand.cpp" />
+    <ClCompile Include="..\MindMapGUI\CleanAllDecorateCommand.cpp" />
     <ClCompile Include="..\MindMapGUI\Command.cpp" />
     <ClCompile Include="..\MindMapGUI\CommandManager.cpp" />
     <ClCompile Include="..\MindMapGUI\Component.cpp" />
     <ClCompile Include="..\MindMapGUI\ComponentFactory.cpp" />
     <ClCompile Include="..\MindMapGUI\Composite.cpp" />
     <ClCompile Include="..\MindMapGUI\CutNodeCommand.cpp" />
+    <ClCompile Include="..\MindMapGUI\Decorate.cpp" />
     <ClCompile Include="..\MindMapGUI\DeleteComponentCommand.cpp" />
     <ClCompile Include="..\MindMapGUI\EditComponentCommand.cpp" />
+    <ClCompile Include="..\MindMapGUI\Ellipse.cpp" />
+    <ClCompile Include="..\MindMapGUI\GUIDisplayVisitor.cpp" />
     <ClCompile Include="..\MindMapGUI\GUIPresentModel.cpp" />
     <ClCompile Include="..\MindMapGUI\InsertChildNodeCommand.cpp" />
     <ClCompile Include="..\MindMapGUI\InsertParentNodeCommand.cpp" />
     <ClCompile Include="..\MindMapGUI\InsertSiblingNodeCommand.cpp" />
     <ClCompile Include="..\MindMapGUI\MindMapModel.cpp" />
     <ClCompile Include="..\MindMapGUI\Node.cpp" />
-    <ClCompile Include="..\MindMapGUI\Observer.cpp" />
     <ClCompile Include="..\MindMapGUI\PasteNodeCommand.cpp" />
     <ClCompile Include="..\MindMapGUI\PresentModel.cpp" />
+    <ClCompile Include="..\MindMapGUI\Rect.cpp" />
+    <ClCompile Include="..\MindMapGUI\Rectangle.cpp" />
     <ClCompile Include="..\MindMapGUI\Root.cpp" />
+    <ClCompile Include="..\MindMapGUI\SaveVisitor.cpp" />
     <ClCompile Include="..\MindMapGUI\Subject.cpp" />
+    <ClCompile Include="..\MindMapGUI\Triangle.cpp" />
     <ClCompile Include="ChangeParentCommandTest.cpp" />
     <ClCompile Include="CommnadManagerTest.cpp" />
     <ClCompile Include="ComponentFactoryTest.cpp" />

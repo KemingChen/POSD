@@ -5,6 +5,9 @@
 
 class PresentModel
 {
+        friend class PresentModelTest;
+        FRIEND_TEST(PresentModelTest, deleteNode);
+        FRIEND_TEST(PresentModelTest, confirmInsertNodeLegal);
     private:
         typedef void(MindMapModel::*InsertMethod)(Component*, Component*);
 
