@@ -52,38 +52,44 @@ void GUIDisplayVisitor::visit(Root* node)
 
 void GUIDisplayVisitor::visit(Node* node)
 {
-    this->_painter->calculateTextRectSize(node);
-    this->saveLevelMaxWidth(node->getLevel(), node->getWidth());
-    int* nowY = this->getNowY(node);
-
-    int y;
-    if (this->_nowLevel == 0 || this->_nowLevel * node->getLevel() < 0 || abs(this->_nowLevel) <= abs(node->getLevel()))
+    if (!node->getIsCollapse())
     {
-        y = *nowY + node->getHeight() / 2;
-        *nowY += node->getHeight() / 2 + OUTTER_Y_PADDING;
-    }
-    else
-    {
-        y = this->averageChildY(node);
-        if (y - node->getHeight() / 2 < this->getLevelBottomY(node->getLevel()))
-            y = this->getLevelBottomY(node->getLevel()) + node->getHeight() / 2 + OUTTER_Y_PADDING;
-    }
+        this->_painter->calculateTextRectSize(node);
+        this->saveLevelMaxWidth(node->getLevel(), node->getWidth());
+        int* nowY = this->getNowY(node);
 
-    node->setPosition(0, y);
-    this->_components.push_back(node);
-    this->saveBottomY(node);
-    this->_nowLevel = node->getLevel();
+        int y;
+        if (this->_nowLevel == 0 || this->_nowLevel * node->getLevel() < 0 || abs(this->_nowLevel) <= abs(node->getLevel()))
+        {
+            y = *nowY + node->getHeight() / 2;
+            *nowY += node->getHeight() / 2 + OUTTER_Y_PADDING;
+        }
+        else
+        {
+            y = this->averageChildY(node);
+            if (y - node->getHeight() / 2 < this->getLevelBottomY(node->getLevel()))
+                y = this->getLevelBottomY(node->getLevel()) + node->getHeight() / 2 + OUTTER_Y_PADDING;
+        }
+
+        node->setPosition(0, y);
+        this->_components.push_back(node);
+        this->saveBottomY(node);
+        this->_nowLevel = node->getLevel();
+    }
 }
 
 void GUIDisplayVisitor::visit(Decorate* node)
 {
-    Component* originalNode = node->getOriginalComponent();
-    node->setRectSize(originalNode->getWidth(), originalNode->getHeight());
-    this->saveLevelMaxWidth(node->getLevel(), node->getWidth());
+    if (!node->getIsCollapse())
+    {
+        Component* originalNode = node->getOriginalComponent();
+        node->setRectSize(originalNode->getWidth(), originalNode->getHeight());
+        this->saveLevelMaxWidth(node->getLevel(), node->getWidth());
 
-    node->setPosition(originalNode->getX(), originalNode->getY() + DECORATE_PADDING);
-    this->_components.push_back(node);
-    this->saveBottomY(node);
+        node->setPosition(originalNode->getX(), originalNode->getY() + DECORATE_PADDING);
+        this->_components.push_back(node);
+        this->saveBottomY(node);
+    }
 }
 
 void GUIDisplayVisitor::finish()

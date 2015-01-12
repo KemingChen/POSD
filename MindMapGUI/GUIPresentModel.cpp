@@ -281,6 +281,24 @@ void GUIPresentModel::rebuildPosition(IGraphic* painter)
     return this->_model->rebuildPosition(painter);
 }
 
+void GUIPresentModel::collapseAll()
+{
+    this->_model->collapseAll(this->getSelectedNode());
+    this->notify(MODEL_CHANGE);
+}
+
+void GUIPresentModel::expandAll()
+{
+    this->_model->expandAll(this->getSelectedNode());
+    this->notify(MODEL_CHANGE);
+}
+
+void GUIPresentModel::expandOneLevel()
+{
+    this->_model->expandOneLevel(this->getSelectedNode());
+    this->notify(MODEL_CHANGE);
+}
+
 GUIPresentModel::~GUIPresentModel()
 {
 }

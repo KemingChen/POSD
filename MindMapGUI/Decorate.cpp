@@ -91,6 +91,12 @@ void Decorate::setSide(int side)
     Component::setSide(side);
 }
 
+void Decorate::setCollapse(bool value, bool allChild)
+{
+    Component::setCollapse(value, false);
+    this->_node->setCollapse(value, allChild);
+}
+
 Component* Decorate::getRealComponent()
 {
     return this->getOriginalComponent()->getRealComponent();

@@ -8,6 +8,7 @@ Component::Component(int id, string description)
 {
     this->setId(id);
     this->setDescription(description);
+    this->_collapsed = false;
 }
 
 int Component::getId()
@@ -58,6 +59,24 @@ int Component::getHeight()
 void Component::setRectSize(int width, int height)
 {
     this->_rect.setSize(width < MAX_WIDTH ? width : MAX_WIDTH, height);
+}
+
+bool Component::getIsCollapse()
+{
+    return this->_collapsed;
+}
+
+void Component::setCollapse(bool value, bool allChild)
+{
+    this->_collapsed = value;
+    if (allChild)
+    {
+        NodeList* nodeList = this->getNodeList();
+        for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+        {
+            (*iNode)->setCollapse(value, allChild);
+        }
+    }
 }
 
 Rect Component::getBoundingRect()

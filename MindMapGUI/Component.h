@@ -18,6 +18,7 @@ class Component
         string _description;
         int _level;
         int _side;
+        bool _collapsed;
 
     protected:
         Rect _rect;
@@ -52,6 +53,10 @@ class Component
         // Side
         int getSide();
         virtual void setSide(int side);
+
+        // Collapse
+        bool getIsCollapse();
+        virtual void setCollapse(bool value, bool allChild);
 
         Rect getBoundingRect();
 

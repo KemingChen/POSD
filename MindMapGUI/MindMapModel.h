@@ -35,6 +35,9 @@ class MindMapModel : public Subject
         void cutNode(Component* selectedNode);
         void pasteNode(Component* selectedNode, Component* cloneNode);
         void MindMapModel::rebuildPosition(IGraphic* painter);
+        void collapseAll(Component* choseNode);
+        void expandAll(Component* choseNode);
+        void expandOneLevel(Component* choseNode);
         Component* getRootNode();
         Component* findNode(Component* fromNode, int id);
         Component* findNode(int id);

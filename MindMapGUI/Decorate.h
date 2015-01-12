@@ -26,6 +26,7 @@ class Decorate : public Component
         void setDescription(string description);
         void setLevel(int level);
         void setSide(int side);
+        void setCollapse(bool value, bool allChild);
         ~Decorate();
 
         // Virtual

@@ -49,6 +49,9 @@ class GUIPresentModel : public Subject
         void redo();
         void addDecorate(ComponentType type);
         void cleanAllDecorate();
+        void collapseAll();
+        void expandAll();
+        void expandOneLevel();
 
         // File Status
         bool isSaveEnable();

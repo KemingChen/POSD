@@ -254,6 +254,26 @@ void MindMapModel::rebuildPosition(IGraphic* painter)
     GUIDisplayVisitor guiDisplayVisitor(painter, _root);
 }
 
+void MindMapModel::collapseAll(Component* choseNode)
+{
+    choseNode->setCollapse(true, true);
+    choseNode->setCollapse(false, false);
+}
+
+void MindMapModel::expandAll(Component* choseNode)
+{
+    choseNode->setCollapse(false, true);
+}
+
+void MindMapModel::expandOneLevel(Component* choseNode)
+{
+    NodeList* nodeList = choseNode->getNodeList();
+    for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+    {
+        (*iNode)->setCollapse(false, false);
+    }
+}
+
 MindMapModel::~MindMapModel()
 {
     if (_root)

@@ -171,6 +171,9 @@ void MindMapGUI::bindingActions()
     connect(this->_actionPaste, &QAction::triggered, this, &MindMapGUI::paste);
     connect(this->_actionUndo, &QAction::triggered, this, &MindMapGUI::undo);
     connect(this->_actionRedo, &QAction::triggered, this, &MindMapGUI::redo);
+    connect(this->_actionExpandAll, &QAction::triggered, this, &MindMapGUI::expandAll);
+    connect(this->_actionExpandOneLevel, &QAction::triggered, this, &MindMapGUI::expandOneLevel);
+    connect(this->_actionCollapseAll, &QAction::triggered, this, &MindMapGUI::collapseAll);
 
     // Help
     connect(this->_actionAbout, &QAction::triggered, this, &MindMapGUI::showAbout);
@@ -382,6 +385,21 @@ void MindMapGUI::addEllipse()
 void MindMapGUI::cleanAllDecorate()
 {
     this->_presentModel->cleanAllDecorate();
+}
+
+void MindMapGUI::collapseAll()
+{
+    this->_presentModel->collapseAll();
+}
+
+void MindMapGUI::expandAll()
+{
+    this->_presentModel->expandAll();
+}
+
+void MindMapGUI::expandOneLevel()
+{
+    this->_presentModel->expandOneLevel();
 }
 
 MindMapGUI::~MindMapGUI()
