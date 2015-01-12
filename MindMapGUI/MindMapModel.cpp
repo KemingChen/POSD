@@ -59,18 +59,31 @@ void MindMapModel::addDecorate(ComponentType type, Component* choseNode)
     }
 }
 
-void MindMapModel::cleanAllDecorate(Component* choseNode)
+void MindMapModel::addDecorate(Component* decorateNode, Component* originalNode)
 {
-    Component* parent = choseNode->getParent();
-    Component* realComponent = choseNode->getRealComponent();
+    Component* parent = originalNode->getParent();
     if (parent)
     {
-        parent->addChild(realComponent, choseNode->getBackFromNode(), choseNode->getSide());
-        parent->removeChild(choseNode);
+        parent->addChild(decorateNode, originalNode->getBackFromNode(), originalNode->getSide());
+        parent->removeChild(originalNode);
     }
     else
     {
-        this->_root = realComponent;
+        this->_root = decorateNode;
+    }
+}
+
+void MindMapModel::removeDecorate(Component* originalNode)
+{
+    Component* parent = originalNode->getParent();
+    if (parent)
+    {
+        parent->addChild(originalNode, originalNode->getBackFromNode(), originalNode->getSide());
+        parent->removeChild(originalNode);
+    }
+    else
+    {
+        this->_root = originalNode;
     }
 }
 

@@ -9,6 +9,8 @@
 #include "InsertSiblingNodeCommand.h"
 #include "CutNodeCommand.h"
 #include "PasteNodeCommand.h"
+#include "AddDecorateCommnad.h"
+#include "CleanAllDecorateCommand.h"
 using namespace std;
 
 class CommandManager

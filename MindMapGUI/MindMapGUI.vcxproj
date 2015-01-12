@@ -137,7 +137,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AddDecorateCommnad.cpp" />
     <ClCompile Include="ChangeParentCommand.cpp" />
+    <ClCompile Include="CleanAllDecorateCommand.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="CommandManager.cpp" />
     <ClCompile Include="Component.cpp" />
@@ -199,7 +201,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AddDecorateCommnad.h" />
     <ClInclude Include="ChangeParentCommand.h" />
+    <ClInclude Include="CleanAllDecorateCommand.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="CommandManager.h" />
     <ClInclude Include="Component.h" />

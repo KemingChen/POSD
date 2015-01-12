@@ -188,6 +188,12 @@
     <ClCompile Include="Triangle.cpp">
       <Filter>Source Files\Model\Composite\Decorate</Filter>
     </ClCompile>
+    <ClCompile Include="AddDecorateCommnad.cpp">
+      <Filter>Source Files\Model\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="CleanAllDecorateCommand.cpp">
+      <Filter>Source Files\Model\Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -294,6 +300,12 @@
     </ClInclude>
     <ClInclude Include="ComponentType.h">
       <Filter>Header Files\Model\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="AddDecorateCommnad.h">
+      <Filter>Header Files\Model\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="CleanAllDecorateCommand.h">
+      <Filter>Header Files\Model\Command</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -11,6 +11,7 @@ GUIPresentModel::GUIPresentModel(PresentModel* presentModel, MindMapModel* model
     this->_lastClickTime = -1000;
     this->_presentModel = presentModel;
     this->_model = model;
+    this->_commandManager = this->_presentModel->getCommandManager();
 }
 
 bool GUIPresentModel::isValidClick()
@@ -251,7 +252,8 @@ void GUIPresentModel::addDecorate(ComponentType type)
 {
     if (this->isSelected())
     {
-        this->_model->addDecorate(type, this->getSelectedNode());
+        Command* command = new AddDecorateCommnad(_model, this->getSelectedNode(), type);
+        this->_commandManager->execute(command);
         this->notify(MODEL_CHANGE);
     }
 }
@@ -260,7 +262,8 @@ void GUIPresentModel::cleanAllDecorate()
 {
     if (this->isSelected())
     {
-        this->_model->cleanAllDecorate(this->getSelectedNode());
+        Command* command = new CleanAllDecorateCommand(_model, this->getSelectedNode());
+        this->_commandManager->execute(command);
         this->notify(MODEL_CHANGE);
     }
 }

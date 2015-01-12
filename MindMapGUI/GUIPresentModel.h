@@ -13,6 +13,7 @@ class GUIPresentModel : public Subject
 
         PresentModel* _presentModel;
         MindMapModel* _model;
+        CommandManager* _commandManager;
 
         // Variable
         clock_t _lastClickTime;
