@@ -52,6 +52,8 @@ class GUIPresentModel : public Subject
         void collapseAll();
         void expandAll();
         void expandOneLevel();
+        void moveUp();
+        void moveDown();
 
         // File Status
         bool isSaveEnable();

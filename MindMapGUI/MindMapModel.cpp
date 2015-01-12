@@ -10,7 +10,8 @@
 
 MindMapModel::MindMapModel()
 {
-    _root = NULL;
+    this->_root = NULL;
+    this->_empty = ComponentFactory::getInstance()->createComponent(ComponentType::NODE, "");
 }
 
 void MindMapModel::createMinMap(string description)
@@ -271,6 +272,55 @@ void MindMapModel::expandOneLevel(Component* choseNode)
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {
         (*iNode)->setCollapse(false, false);
+    }
+}
+
+Component* MindMapModel::findSideUpNode(Component* choseNode)
+{
+    if (choseNode)
+    {
+        Component* parentNode = choseNode->getParent();
+        if (parentNode)
+        {
+            bool find = false;
+            NodeList* nodeList = parentNode->getNodeList();
+            for (NodeList::reverse_iterator iNode = nodeList->rbegin(); iNode != nodeList->rend(); iNode++)
+            {
+                if (find && (*iNode)->getSide() == choseNode->getSide())
+                    return *iNode;
+                if (*iNode == choseNode)
+                    find = true;
+            }
+        }
+    }
+    return this->_empty;
+}
+
+Component* MindMapModel::findSideDownNode(Component* choseNode)
+{
+    Component* parentNode = choseNode->getParent();
+    if (parentNode)
+    {
+        bool find = false;
+        NodeList* nodeList = parentNode->getNodeList();
+        for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+        {
+            if (find && (*iNode)->getSide() == choseNode->getSide())
+                return *iNode;
+            if (*iNode == choseNode)
+                find = true;
+        }
+    }
+    return NULL;
+}
+
+void MindMapModel::moveToBack(Component* choseNode, Component* targetNode)
+{
+    Component* parentNode = choseNode->getParent();
+    if (parentNode)
+    {
+        parentNode->removeChild(choseNode);
+        parentNode->addChild(choseNode, targetNode, choseNode->getSide());
     }
 }
 

@@ -299,6 +299,23 @@ void GUIPresentModel::expandOneLevel()
     this->notify(MODEL_CHANGE);
 }
 
+void GUIPresentModel::moveUp()
+{
+    Component* choseNode = this->getSelectedNode();
+    Component* targetNode = this->_model->findSideUpNode(choseNode);
+    targetNode = this->_model->findSideUpNode(targetNode);
+    this->_model->moveToBack(choseNode, targetNode);
+    this->notify(MODEL_CHANGE);
+}
+
+void GUIPresentModel::moveDown()
+{
+    Component* choseNode = this->getSelectedNode();
+    Component* targetNode = this->_model->findSideDownNode(choseNode);
+    this->_model->moveToBack(choseNode, targetNode);
+    this->notify(MODEL_CHANGE);
+}
+
 GUIPresentModel::~GUIPresentModel()
 {
 }

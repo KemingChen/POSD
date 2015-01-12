@@ -174,6 +174,8 @@ void MindMapGUI::bindingActions()
     connect(this->_actionExpandAll, &QAction::triggered, this, &MindMapGUI::expandAll);
     connect(this->_actionExpandOneLevel, &QAction::triggered, this, &MindMapGUI::expandOneLevel);
     connect(this->_actionCollapseAll, &QAction::triggered, this, &MindMapGUI::collapseAll);
+    connect(this->_actionMoveUp, &QAction::triggered, this, &MindMapGUI::moveUp);
+    connect(this->_actionMoveDown, &QAction::triggered, this, &MindMapGUI::moveDown);
 
     // Help
     connect(this->_actionAbout, &QAction::triggered, this, &MindMapGUI::showAbout);
@@ -400,6 +402,16 @@ void MindMapGUI::expandAll()
 void MindMapGUI::expandOneLevel()
 {
     this->_presentModel->expandOneLevel();
+}
+
+void MindMapGUI::moveUp()
+{
+    this->_presentModel->moveUp();
+}
+
+void MindMapGUI::moveDown()
+{
+    this->_presentModel->moveDown();
 }
 
 MindMapGUI::~MindMapGUI()
