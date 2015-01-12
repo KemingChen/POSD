@@ -6,6 +6,7 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <regex>
 
 MindMapModel::MindMapModel()
 {
@@ -117,29 +118,56 @@ void MindMapModel::saveMindMap(ofstream* file)
 void MindMapModel::loadMindMap(ifstream* file)
 {
     ComponentFactory* componentFactory = ComponentFactory::getInstance();
-    string line;
     vector<Component*> componentList;
     vector<string> nodeIdsList;
+    vector<int> nodeSideList;
+
+    string line;
+    int id;
+    int side;
+    string description;
+    string decorate;
+    string nodeList;
+    string decorateList;
     while (getline(*file, line))
     {
-        int firstQuot = line.find_first_of("\"");
-        int secondQuot = line.find_last_of("\"");
-        string description = line.substr(firstQuot + 1, secondQuot - firstQuot - 1);
-        string nodeIds = line.substr(secondQuot + 1, line.size());
-        Component* node = componentFactory->createComponent(componentList.size() == 0 ? ComponentType::ROOT : ComponentType::NODE, description);
+        description = nodeList = decorateList = "";
+        stringstream ssin(line);
+
+        ssin >> id;
+        ssin >> side;
+        ssin >> description;
+        ssin >> nodeList;
+        ssin >> decorateList;
+
+        // adjust
+        description = regex_replace(description, regex(ENCODED_SPACE), SPACE);
+        nodeList = regex_replace(nodeList, regex(SPLITE), SPACE);
+        decorateList = regex_replace(decorateList, regex(SPLITE), SPACE);
+
+        ComponentType type = componentList.size() == 0 ? ComponentType::ROOT : ComponentType::NODE;
+        Component* node = componentFactory->createComponent(type, description);
+        stringstream ssDecorateIn(decorateList);
+        while (ssDecorateIn >> decorate)
+        {
+            node = componentFactory->createDecorate(decorate, node);
+        }
+
         componentList.push_back(node);
-        nodeIdsList.push_back(nodeIds);
+        nodeSideList.push_back(side);
+        nodeIdsList.push_back(nodeList);
     }
+
     vector<string>::iterator iNodeIds = nodeIdsList.begin();
-    for (vector<Component*>::iterator iNode = componentList.begin(); iNode != componentList.end(); iNode++)
+    vector<int>::iterator iNodeSide = nodeSideList.begin();
+    for (vector<Component*>::iterator iNode = componentList.begin(); iNode != componentList.end(); iNode++, iNodeIds++, iNodeSide++)
     {
-        stringstream ssin(*iNodeIds);
         int id;
+        stringstream ssin(*iNodeIds);
         while (ssin >> id)
         {
-            (*iNode)->addChild(componentList[id]);
+            (*iNode)->addChild(componentList[id], NULL, *iNodeSide);
         }
-        iNodeIds++;
     }
     _root = componentList[0];
 }

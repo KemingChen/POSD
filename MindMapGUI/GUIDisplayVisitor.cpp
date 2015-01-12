@@ -14,7 +14,6 @@ GUIDisplayVisitor::GUIDisplayVisitor(IGraphic* painter, Component* root)
     this->_painter = painter;
     if (root != NULL)
     {
-        cout << endl;
         root->accept(this);
         this->finish();
     }

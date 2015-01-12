@@ -39,7 +39,7 @@ string Composite::getMap()
     string idsMap = "";
     for (NodeList::iterator it = _nodeList.begin(); it != _nodeList.end(); it++)
     {
-        idsMap += " " + (*it)->getId();
+        idsMap += SPLITE + to_string((*it)->getId());
     }
     return idsMap;
 }

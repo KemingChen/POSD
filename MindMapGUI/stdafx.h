@@ -23,7 +23,11 @@
 #define WINDOW_HEIGHT 768
 #define OUTTER_X_PADDING 20
 #define OUTTER_Y_PADDING 5
+
 #define NO_SELECTED -1
+#define SPLITE "#"
+#define SPACE " "
+#define ENCODED_SPACE "&nbsp;"
 
 class Component;
 typedef std::vector<Component*> NodeList;

@@ -51,6 +51,18 @@ Component* ComponentFactory::createDecorate(ComponentType type, Component* node)
     return component;
 }
 
+Component* ComponentFactory::createDecorate(string type, Component* node)
+{
+    if (type == "Triangle")
+        return this->createDecorate(ComponentType::TRIANGLE, node);
+    if (type == "Rectangle")
+        return this->createDecorate(ComponentType::RECTANGLE, node);
+    if (type == "Ellipse")
+        return this->createDecorate(ComponentType::ELLIPSE, node);
+    else
+        return NULL;
+}
+
 ComponentFactory::~ComponentFactory()
 {
 }
