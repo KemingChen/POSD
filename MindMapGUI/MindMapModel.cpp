@@ -44,12 +44,6 @@ void MindMapModel::insertSiblingNode(Component* choseNode, Component* newNode)
     choseNode->addSibling(newNode);
 }
 
-void MindMapModel::addDecorate(ComponentType type, Component* choseNode)
-{
-    Component* decorateNode = ComponentFactory::getInstance()->createDecorate(type, choseNode);
-    this->addDecorate(decorateNode, choseNode);
-}
-
 void MindMapModel::addDecorate(Component* decorateNode, Component* originalNode)
 {
     Component* parent = originalNode->getParent();
@@ -67,10 +61,11 @@ void MindMapModel::addDecorate(Component* decorateNode, Component* originalNode)
 void MindMapModel::removeDecorate(Component* originalNode)
 {
     Component* parent = originalNode->getParent();
+    Component* decorateNode = this->findNode(originalNode->getId());
     if (parent)
     {
-        parent->addChild(originalNode, originalNode->getBackFromNode(), originalNode->getSide());
-        parent->removeChild(originalNode);
+        parent->addChild(originalNode, decorateNode->getBackFromNode(), decorateNode->getSide());
+        parent->removeChild(decorateNode);
     }
     else
     {
@@ -84,7 +79,7 @@ Component* MindMapModel::findNode(int id)
     {
         throw string("The Root is Empty!!!");
     }
-    if (id < 0)
+    if (id == NO_SELECTED)
     {
         return NULL;
     }
@@ -114,42 +109,8 @@ Component* MindMapModel::findNode(Component* fromNode, int id)
     return foundNode;
 }
 
-//void MindMapModel::navigateMindMap(Component* node, NodeList* list)
-//{
-//    list->push_back(node);
-//    NodeList* nodeList = node->getNodeList();
-//    for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
-//    {
-//        navigateMindMap(*it, list);
-//    }
-//}
-
 void MindMapModel::saveMindMap(ofstream* file)
 {
-    //NodeList nodeList;
-    //if (_root == NULL)
-    //{
-    //    return;
-    //}
-    //navigateMindMap(_root, &nodeList);
-    //std::sort(nodeList.begin(), nodeList.end(), CompareComponent());
-    //int newId = 0;
-    //Component* node;
-    //for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
-    //{
-    //    (*iNode)->setId(newId);
-    //    newId++;
-
-    //}
-    //for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
-    //{
-    //    node = *iNode;
-    //    string output = "";
-    //    (*file) << node->getId() << " ";
-    //    (*file) << "\"" << node->getDescription() << "\"";
-    //    (*file) << node->getMap() << endl;
-    //    newId++;
-    //}
     SaveVisitor saveVisitor(file, this->_root);
 }
 

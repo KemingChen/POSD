@@ -37,11 +37,7 @@ bool GUIPresentModel::isValidText(bool isSubmit, string text)
 
 void GUIPresentModel::cancelSelected()
 {
-    Component* selectedNode = this->getSelectedNode();
-    if (selectedNode)
-    {
-        this->_selectedNodeId = NO_SELECTED;
-    }
+    this->_selectedNodeId = NO_SELECTED;
 }
 
 void GUIPresentModel::clickGraphicNode(int id)
@@ -176,8 +172,8 @@ void GUIPresentModel::deleteNode()
 
 void GUIPresentModel::cutNode()
 {
-    this->_presentModel->cutNode(this->getSelectedNode());
     this->_prepareCloneNode = this->getSelectedNode();
+    this->_presentModel->cutNode(this->_prepareCloneNode);
     this->cancelSelected();
     this->notify(MODEL_CHANGE);
 }

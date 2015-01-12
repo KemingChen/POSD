@@ -5,12 +5,12 @@ AddDecorateCommnad::AddDecorateCommnad(MindMapModel* model, Component* node, Com
 {
     this->_model = model;
     this->_node = node;
-    this->_type = type;
+    this->_decorateNode = ComponentFactory::getInstance()->createDecorate(type, node);
 }
 
 void AddDecorateCommnad::execute()
 {
-    this->_model->addDecorate(this->_type, this->_node);
+    this->_model->addDecorate(this->_decorateNode, this->_node);
 }
 
 void AddDecorateCommnad::unexecute()

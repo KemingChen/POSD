@@ -6,8 +6,8 @@ class AddDecorateCommnad : public Command
 {
     private:
         MindMapModel* _model;
+        Component* _decorateNode;
         Component* _node;
-        ComponentType _type;
 
     public:
         AddDecorateCommnad(MindMapModel* model, Component* node, ComponentType type);

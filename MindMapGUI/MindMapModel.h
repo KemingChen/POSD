@@ -13,7 +13,6 @@ class MindMapModel : public Subject
         Component* _root;
 
         // Private Method
-        //void navigateMindMap(Component* node, NodeList* list);
         void splitMindMapLine(string line);
 
     public:
@@ -31,7 +30,6 @@ class MindMapModel : public Subject
         void revertInsertParentNode(Component* choseNode, Component* newNode, Component* oldParentNode, Component* backFromNode);
         void insertChildNode(Component* choseNode, Component* newNode);
         void insertSiblingNode(Component* choseNode, Component* newNode);
-        void addDecorate(ComponentType type, Component* choseNode);
         void addDecorate(Component* decorateNode, Component* originalNode);
         void removeDecorate(Component* originalNode);
         void cutNode(Component* selectedNode);
