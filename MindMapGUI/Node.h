@@ -8,6 +8,8 @@ class Node : public Composite
     private:
         Component* _parentNode;
 
+        Component* findSelfFromParent();
+
     public:
         // Public Method
         Node(int id, string description);

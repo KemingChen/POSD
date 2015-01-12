@@ -36,10 +36,26 @@ void Node::addParent(Component* node)
     if (node != NULL)
     {
         Component* parent = this->_parentNode;
-        parent->addChild(node, this, this->getSide());
-        parent->removeChild(this);
-        node->addChild(this);
+        Component* selfNode = this->findSelfFromParent();
+        parent->addChild(node, selfNode, selfNode->getSide());
+        parent->removeChild(selfNode);
+        node->addChild(selfNode);
     }
+}
+
+Component* Node::findSelfFromParent()
+{
+    Component* parentNode = this->getParent();
+    if (parentNode)
+    {
+        NodeList* nodeList = parentNode->getNodeList();
+        for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
+        {
+            if ((*iNode)->getId() == this->getId())
+                return (*iNode);
+        }
+    }
+    return NULL;
 }
 
 void Node::addSibling(Component* node)
