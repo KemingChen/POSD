@@ -47,6 +47,11 @@ class MindMapGUI : public Observer, public QMainWindow
         QAction* _actionAddRectangle;
         QAction* _actionAddEllipse;
         QAction* _actionRemoveAll;
+        QAction* _actionMoveUp;
+        QAction* _actionMoveDown;
+        QAction* _actionExpandAll;
+        QAction* _actionExpandOneLevel;
+        QAction* _actionCollapseAll;
 
         QWidget* _centralWidget;
         QMenuBar* _menuBar;
@@ -54,6 +59,7 @@ class MindMapGUI : public Observer, public QMainWindow
         QMenu* _menuEdit;
         QMenu* _menuHelp;
         QToolBar* _mainToolBar;
+        QToolBar* _enhancedBar;
         QStatusBar* _statusBar;
 
         // Painter
