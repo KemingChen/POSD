@@ -23,6 +23,9 @@ class Decorate : public Component
         void accept(NodeVisitor* visitor);
         Component* getRealComponent();
         Component* getOriginalComponent();
+        void setDescription(string description);
+        void setLevel(int level);
+        void setSide(int side);
         ~Decorate();
 
         // Virtual

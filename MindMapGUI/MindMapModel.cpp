@@ -1,10 +1,11 @@
 #include "MindMapModel.h"
 #include "ComponentFactory.h"
 #include "GUIDisplayVisitor.h"
+#include "SaveVisitor.h"
 #include <iostream>
 #include <sstream>
+#include <fstream>
 #include <vector>
-#include <algorithm>
 
 MindMapModel::MindMapModel()
 {
@@ -109,42 +110,43 @@ Component* MindMapModel::findNode(Component* fromNode, int id)
     return foundNode;
 }
 
-void MindMapModel::navigateMindMap(Component* node, NodeList* list)
-{
-    list->push_back(node);
-    NodeList* nodeList = node->getNodeList();
-    for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
-    {
-        navigateMindMap(*it, list);
-    }
-}
+//void MindMapModel::navigateMindMap(Component* node, NodeList* list)
+//{
+//    list->push_back(node);
+//    NodeList* nodeList = node->getNodeList();
+//    for (NodeList::iterator it = nodeList->begin(); it != nodeList->end(); it++)
+//    {
+//        navigateMindMap(*it, list);
+//    }
+//}
 
 void MindMapModel::saveMindMap(ofstream* file)
 {
-    NodeList nodeList;
-    if (_root == NULL)
-    {
-        return;
-    }
-    navigateMindMap(_root, &nodeList);
-    std::sort(nodeList.begin(), nodeList.end(), CompareComponent());
-    int newId = 0;
-    Component* node;
-    for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
-    {
-        (*iNode)->setId(newId);
-        newId++;
+    //NodeList nodeList;
+    //if (_root == NULL)
+    //{
+    //    return;
+    //}
+    //navigateMindMap(_root, &nodeList);
+    //std::sort(nodeList.begin(), nodeList.end(), CompareComponent());
+    //int newId = 0;
+    //Component* node;
+    //for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
+    //{
+    //    (*iNode)->setId(newId);
+    //    newId++;
 
-    }
-    for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
-    {
-        node = *iNode;
-        string output = "";
-        (*file) << node->getId() << " ";
-        (*file) << "\"" << node->getDescription() << "\"";
-        (*file) << node->getMap() << endl;
-        newId++;
-    }
+    //}
+    //for (NodeList::iterator iNode = nodeList.begin(); iNode != nodeList.end(); iNode++)
+    //{
+    //    node = *iNode;
+    //    string output = "";
+    //    (*file) << node->getId() << " ";
+    //    (*file) << "\"" << node->getDescription() << "\"";
+    //    (*file) << node->getMap() << endl;
+    //    newId++;
+    //}
+    SaveVisitor saveVisitor(file, this->_root);
 }
 
 void MindMapModel::loadMindMap(ifstream* file)
@@ -257,16 +259,11 @@ void MindMapModel::pasteNode(Component* selectedNode, Component* cloneNode)
 
 void MindMapModel::rebuildPosition(IGraphic* painter)
 {
-    GUIDisplayVisitor guiDisplayVisitor(painter);
-    if (_root != NULL)
-    {
-        _root->accept(&guiDisplayVisitor);
-        guiDisplayVisitor.finish();
-    }
+    GUIDisplayVisitor guiDisplayVisitor(painter, _root);
 }
 
 MindMapModel::~MindMapModel()
 {
-    if (_root != NULL)
+    if (_root)
         delete _root;
 }

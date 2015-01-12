@@ -31,13 +31,13 @@ class Component
 
         // Description
         string getDescription();
-        void setDescription(string description);
+        virtual void setDescription(string description);
 
         string toString();
 
         // Level
         int getLevel();
-        void setLevel(int level);
+        virtual void setLevel(int level);
 
         // Position
         int getX();
@@ -51,7 +51,7 @@ class Component
 
         // Side
         int getSide();
-        void setSide(int side);
+        virtual void setSide(int side);
 
         Rect getBoundingRect();
 

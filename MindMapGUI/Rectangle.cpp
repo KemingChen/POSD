@@ -7,7 +7,7 @@ Rectangle::Rectangle(int id, Component* node) : Decorate(id, node)
 
 Component* Rectangle::clone()
 {
-    return ComponentFactory::getInstance()->createDecorate(ComponentType::ELLIPSE, this->_node->clone());
+    return ComponentFactory::getInstance()->createDecorate(ComponentType::RECTANGLE, this->_node->clone());
 }
 
 string Rectangle::getTypeName()

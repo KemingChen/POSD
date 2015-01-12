@@ -154,7 +154,7 @@ void MindMapGUI::bindingActions()
 
 void MindMapGUI::update(string subject)
 {
-    cout << "MindMapGUI update " << subject <<  endl;
+    //cout << "MindMapGUI update " << subject <<  endl;
     if (subject == MODEL_CHANGE)
     {
         this->updateActions();

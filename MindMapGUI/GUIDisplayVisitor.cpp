@@ -6,12 +6,18 @@
 #include "Decorate.h"
 using namespace std;
 
-GUIDisplayVisitor::GUIDisplayVisitor(IGraphic* painter)
+GUIDisplayVisitor::GUIDisplayVisitor(IGraphic* painter, Component* root)
 {
     this->_yLeft = 0;
     this->_yRight = 0;
     this->_nowLevel = 0;
     this->_painter = painter;
+    if (root != NULL)
+    {
+        cout << endl;
+        root->accept(this);
+        this->finish();
+    }
 }
 
 int GUIDisplayVisitor::averageChildY(Component* node)

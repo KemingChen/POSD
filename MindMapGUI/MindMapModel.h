@@ -3,7 +3,6 @@
 #include "Subject.h"
 #include "Component.h"
 #include <map>
-#include <fstream>
 #include "IGraphic.h"
 using namespace std;
 
@@ -14,7 +13,7 @@ class MindMapModel : public Subject
         Component* _root;
 
         // Private Method
-        void navigateMindMap(Component* node, NodeList* list);
+        //void navigateMindMap(Component* node, NodeList* list);
         void splitMindMapLine(string line);
 
     public:

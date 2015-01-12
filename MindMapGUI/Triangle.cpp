@@ -7,7 +7,7 @@ Triangle::Triangle(int id, Component* node) : Decorate(id, node)
 
 Component* Triangle::clone()
 {
-    return ComponentFactory::getInstance()->createDecorate(ComponentType::ELLIPSE, this->_node->clone());
+    return ComponentFactory::getInstance()->createDecorate(ComponentType::TRIANGLE, this->_node->clone());
 }
 
 string Triangle::getTypeName()

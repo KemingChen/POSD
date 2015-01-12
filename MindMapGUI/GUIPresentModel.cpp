@@ -184,6 +184,7 @@ void GUIPresentModel::cutNode()
 void GUIPresentModel::copyNode()
 {
     this->_prepareCloneNode = this->getSelectedNode()->clone();
+    this->notify(SELECTED_CHANGE);
 }
 
 void GUIPresentModel::pasteNode()

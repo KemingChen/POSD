@@ -26,7 +26,7 @@ class GUIDisplayVisitor : public NodeVisitor
         int* getNowY(Component* node);
 
     public:
-        GUIDisplayVisitor(IGraphic* painter);
+        GUIDisplayVisitor(IGraphic* painter, Component* root);
         void visit(Root* node);
         void visit(Node* node);
         void visit(Decorate* node);

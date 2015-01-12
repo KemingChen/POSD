@@ -73,6 +73,24 @@ void Decorate::accept(NodeVisitor* visitor)
     visitor->visit(this);
 }
 
+void Decorate::setDescription(string description)
+{
+    this->_node->setDescription(description);
+    Component::setDescription(description);
+}
+
+void Decorate::setLevel(int level)
+{
+    this->_node->setLevel(level);
+    Component::setLevel(level);
+}
+
+void Decorate::setSide(int side)
+{
+    this->_node->setSide(side);
+    Component::setSide(side);
+}
+
 Component* Decorate::getRealComponent()
 {
     return this->getOriginalComponent()->getRealComponent();
