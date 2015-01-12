@@ -66,7 +66,8 @@ Component* Root::clone()
     NodeList* nodeList = this->getNodeList();
     for (NodeList::iterator iNode = nodeList->begin(); iNode != nodeList->end(); iNode++)
     {
-        node->addChild((*iNode)->clone());
+        Component* newNode = (*iNode)->clone();
+        node->addChild(newNode, NULL, (*iNode)->getSide());
     }
     return node;
 }
